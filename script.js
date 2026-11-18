@@ -209,6 +209,7 @@
       toolingLabel: 'Core stack',
 
       dossierLabel: 'Operations snapshot',
+      portraitBadge: "HCMUT '26 • IE & Data",
       dossierHeader: 'OPERATIONS SNAPSHOT',
       dossierStatus: 'OPEN TO WORK · 2026',
       metric1Label: 'Color SKUs sequenced',
@@ -337,6 +338,7 @@
       toolingLabel: 'Công cụ chính',
 
       dossierLabel: 'Tóm tắt chỉ số vận hành',
+      portraitBadge: "Bách Khoa '26 • IE & Data",
       dossierHeader: 'CHỈ SỐ VẬN HÀNH',
       dossierStatus: 'SẴN SÀNG NHẬN VIỆC · 2026',
       metric1Label: 'Mã màu SKU được điều độ',
@@ -2097,6 +2099,23 @@
     Icons.start();
     updateScroll();
   }
+
+  /**
+   * Light-Blue SVG Monogram Fallback (`TP` on #EFF6FF with #2563EB border & typography).
+   * Invoked via `onerror` if assets/images/avatar.jpg is not yet present.
+   */
+  window.handleAvatarFallback = function (imgElement) {
+    if (!imgElement) return;
+    imgElement.onerror = null;
+
+    const isNav = imgElement.classList.contains('nav-avatar');
+    const svg = isNav
+      ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="32" fill="#EFF6FF"/><rect x="2" y="2" width="60" height="60" rx="30" fill="none" stroke="#2563EB" stroke-width="3"/><text x="32" y="40" text-anchor="middle" font-family="Inter,system-ui,-apple-system,sans-serif" font-size="24" font-weight="800" letter-spacing="-0.5" fill="#2563EB">TP</text></svg>'
+      : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 350"><defs><pattern id="tp-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M 24 0 L 0 0 0 24" fill="none" stroke="#DBEAFE" stroke-width="1"/></pattern></defs><rect width="280" height="350" fill="#EFF6FF"/><rect width="280" height="350" fill="url(#tp-grid)"/><rect x="14" y="14" width="252" height="322" rx="16" fill="none" stroke="#93C5FD" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="140" cy="148" r="64" fill="#FFFFFF" stroke="#2563EB" stroke-width="3"/><text x="140" y="166" text-anchor="middle" font-family="Inter,system-ui,-apple-system,sans-serif" font-size="48" font-weight="800" letter-spacing="-1.5" fill="#2563EB">TP</text><text x="140" y="250" text-anchor="middle" font-family="JetBrains Mono,ui-monospace,monospace" font-size="11.5" font-weight="700" letter-spacing="1.2" fill="#1D4ED8">TUAN PHAM // HCMUT</text><text x="140" y="270" text-anchor="middle" font-family="JetBrains Mono,ui-monospace,monospace" font-size="10" fill="#0284C7">PORTRAIT SLOT READY</text></svg>';
+
+    imgElement.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+    imgElement.classList.add('is-avatar-fallback');
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

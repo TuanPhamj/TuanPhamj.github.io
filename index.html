@@ -19,11 +19,12 @@
   <!-- Remove the no-JS guard before first paint so reveal states never hide content without JS -->
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
-  <!-- Clean Engineering Light-Blue SVG Favicon -->
+  <!-- Favicon: profile portrait with Light-Blue TP SVG fallback -->
+  <link rel="icon" type="image/jpeg" href="assets/images/avatar.jpg" />
   <link
-    rel="icon"
+    rel="alternate icon"
     type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563EB'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23FFFFFF' font-family='monospace' font-weight='700' font-size='26'%3ETP%3C/text%3E%3C/svg%3E"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23EFF6FF' stroke='%232563EB' stroke-width='4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%232563EB' font-family='Inter,sans-serif' font-weight='800' font-size='26'%3ETP%3C/text%3E%3C/svg%3E"
   />
 
   <!-- Google Fonts: Inter & JetBrains Mono (non-blocking) -->
@@ -65,7 +66,14 @@
 
     <div class="container header-inner">
       <a href="#top" class="brand" data-i18n-attr="aria-label:brandHome" aria-label="Phạm Anh Tuấn — back to top">
-        <span class="brand-mark" aria-hidden="true">TP</span>
+        <img
+          src="assets/images/avatar.jpg"
+          alt="Phạm Anh Tuấn"
+          class="nav-avatar"
+          width="32"
+          height="32"
+          onerror="window.handleAvatarFallback && window.handleAvatarFallback(this)"
+        />
         <span class="brand-text">
           <span class="brand-name">Tuan Pham</span>
           <span class="brand-sub" data-i18n="brandSub">IE · Planning · BI</span>
@@ -228,73 +236,64 @@
               <li>Power BI</li>
             </ul>
           </div>
-        </div>
 
-        <!-- Telemetry dossier -->
-        <aside class="hero-dossier reveal-item" data-i18n-attr="aria-label:dossierLabel" aria-label="Operations snapshot">
-          <div class="dossier-header">
-            <span class="dossier-code">
-              <i data-lucide="activity" class="icon-xs"></i>
-              <span data-i18n="dossierHeader">OPERATIONS SNAPSHOT</span>
-            </span>
-            <span class="dossier-status">
-              <span class="status-dot" aria-hidden="true"></span>
-              <span data-i18n="dossierStatus">OPEN TO WORK · 2026</span>
-            </span>
-          </div>
-
-          <ul class="dossier-metrics" data-reveal-group>
-            <li class="metric-tile reveal-item">
-              <div class="metric-top">
-                <span class="metric-value">217</span>
-                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="palette" class="icon-sm"></i></span>
+          <!-- 4-Item Quantitative Telemetry Strip -->
+          <ul class="hero-telemetry-strip reveal-item" data-i18n-attr="aria-label:dossierLabel" aria-label="Operations snapshot" data-reveal-group>
+            <li class="telemetry-item reveal-item">
+              <div class="telemetry-top">
+                <span class="telemetry-value">217</span>
+                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="palette" class="icon-xs"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric1Label">Color SKUs sequenced</div>
-              <div class="metric-sub" data-i18n="metric1Sub">Heijunka · SMED color families</div>
+              <div class="telemetry-label" data-i18n="metric1Label">Color SKUs sequenced</div>
+              <div class="telemetry-sub" data-i18n="metric1Sub">Heijunka · SMED color families</div>
             </li>
-            <li class="metric-tile reveal-item">
-              <div class="metric-top">
-                <span class="metric-value">4<span class="metric-unit" data-i18n="metric2Unit">stages</span></span>
-                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="layers" class="icon-sm"></i></span>
+            <li class="telemetry-item reveal-item">
+              <div class="telemetry-top">
+                <span class="telemetry-value">4 <span class="metric-unit" data-i18n="metric2Unit">stages</span></span>
+                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="layers" class="icon-xs"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric2Label">Sequential line modeled</div>
-              <div class="metric-sub" data-i18n="metric2Sub">FlexSim 3D + JS DES</div>
+              <div class="telemetry-label" data-i18n="metric2Label">Sequential line modeled</div>
+              <div class="telemetry-sub" data-i18n="metric2Sub">FlexSim 3D + JS DES</div>
             </li>
-            <li class="metric-tile reveal-item">
-              <div class="metric-top">
-                <span class="metric-value">100%</span>
-                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-sm"></i></span>
+            <li class="telemetry-item reveal-item">
+              <div class="telemetry-top">
+                <span class="telemetry-value">100%</span>
+                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-xs"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric3Label">BOM sync automated</div>
-              <div class="metric-sub" data-i18n="metric3Sub">Excel VBA · Apps Script · SQL</div>
+              <div class="telemetry-label" data-i18n="metric3Label">BOM sync automated</div>
+              <div class="telemetry-sub" data-i18n="metric3Sub">Excel VBA · Apps Script · SQL</div>
             </li>
-            <li class="metric-tile reveal-item">
-              <div class="metric-top">
-                <span class="metric-value">A×P×Q</span>
-                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="gauge" class="icon-sm"></i></span>
+            <li class="telemetry-item reveal-item">
+              <div class="telemetry-top">
+                <span class="telemetry-value">A×P×Q</span>
+                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="gauge" class="icon-xs"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric4Label">OEE loss decomposition</div>
-              <div class="metric-sub" data-i18n="metric4Sub">Time-study · Pareto · 5 Whys · 5S</div>
+              <div class="telemetry-label" data-i18n="metric4Label">OEE loss decomposition</div>
+              <div class="telemetry-sub" data-i18n="metric4Sub">Time-study · Pareto · 5 Whys · 5S</div>
             </li>
           </ul>
+        </div>
 
-          <dl class="dossier-footer">
-            <div class="dossier-meta-row">
-              <dt class="meta-key">
-                <i data-lucide="map-pin" class="icon-xs"></i>
-                <span data-i18n="metaLocationKey">Region</span>
-              </dt>
-              <dd class="meta-val" data-i18n="regionShort">HCMC · Dong Nai · Binh Duong</dd>
+        <!-- Right Column: Framed Portrait Visual Card & Floating Engineering Badge -->
+        <div class="hero-profile-col">
+          <div class="profile-visual-card reveal-item">
+            <div class="portrait-frame">
+              <img
+                id="hero-portrait-img"
+                class="hero-portrait-img"
+                src="assets/images/avatar.jpg"
+                alt="Phạm Anh Tuấn (Tuan Pham)"
+                width="280"
+                height="350"
+                onerror="window.handleAvatarFallback && window.handleAvatarFallback(this)"
+              />
             </div>
-            <div class="dossier-meta-row">
-              <dt class="meta-key">
-                <i data-lucide="mail" class="icon-xs"></i>
-                <span data-i18n="metaEmailKey">Email</span>
-              </dt>
-              <dd class="meta-val mono"><a href="mailto:phamanhtuan802@gmail.com">phamanhtuan802@gmail.com</a></dd>
+            <div class="portrait-floating-badge">
+              <i data-lucide="circle-check" class="icon-xs"></i>
+              <span data-i18n="portraitBadge">HCMUT '26 • IE &amp; Data</span>
             </div>
-          </dl>
-        </aside>
+          </div>
+        </div>
       </div>
     </section>
 
