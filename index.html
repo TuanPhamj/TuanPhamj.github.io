@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean &amp; Data Analytics Portfolio</title>
   <meta
     name="description"
-    content="Portfolio of Phạm Anh Tuấn (Tuan Pham) — Final-year student at HCMUT specializing in Production Planning, Discrete-Event Simulation, Lean Manufacturing, OEE Optimization, and Data Automation."
+    content="Phạm Anh Tuấn (Tuan Pham) — final-year HCMUT student. 4-stage line balancing across 217 color SKUs in FlexSim 3D &amp; JS DES, automated BOM/WIP sync in Excel VBA &amp; Apps Script, and OEE / 5 Whys / 5S shop-floor improvement."
   />
-  <meta property="og:title" content="Phạm Anh Tuấn (Tuan Pham) — Operations &amp; Analytics Portfolio" />
+  <meta name="theme-color" content="#2563EB" />
+  <meta property="og:title" content="Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean &amp; Data Analytics" />
   <meta
     property="og:description"
-    content="Quantitative Industrial Engineering, 3D Discrete-Event Simulation, Heijunka Scheduling, and Automated WIP/BOM Case Studies."
+    content="Case studies: Heijunka scheduling of 217 color SKUs on a 4-stage line (FlexSim 3D + JS DES), automated BOM &amp; WIP tracking, and OEE / 5 Whys RCA / 5S."
   />
   <meta property="og:type" content="website" />
+
+  <!-- Remove the no-JS guard before first paint so reveal states never hide content without JS -->
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
   <!-- Clean Engineering Light-Blue SVG Favicon -->
   <link
@@ -22,7 +26,7 @@
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563EB'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23FFFFFF' font-family='monospace' font-weight='700' font-size='26'%3ETP%3C/text%3E%3C/svg%3E"
   />
 
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <!-- Google Fonts: Inter & JetBrains Mono (non-blocking) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -40,25 +44,27 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Vector Icon System: Lucide Icons -->
+  <!-- Lucide icons (CDN). script.js falls back to an inline icon set if this never loads. -->
   <script
     src="https://unpkg.com/lucide@latest"
     async
-    onload="window.refreshLucideIcons && window.refreshLucideIcons()"
+    onload="window.__lucideState='ready'; window.__onLucideReady && window.__onLucideReady();"
+    onerror="window.__lucideState='error'; window.__onLucideError && window.__onLucideError();"
   ></script>
 </head>
 <body id="top">
-  <!-- Skip Link for Accessibility -->
   <a class="skip-link" href="#main-content" data-i18n="skipToContent">Skip to main content</a>
 
-  <!-- Sticky Top Navigation Bar with 3px Top Scroll Progress Bar -->
+  <!-- ================================================================
+       Sticky glass navbar + 3px reading progress bar
+       ================================================================ -->
   <header class="site-header" id="site-header">
     <div class="scroll-progress-track" aria-hidden="true">
       <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
     </div>
 
     <div class="container header-inner">
-      <a href="#top" class="brand" aria-label="Phạm Anh Tuấn Home">
+      <a href="#top" class="brand" data-i18n-attr="aria-label:brandHome" aria-label="Phạm Anh Tuấn — back to top">
         <span class="brand-mark" aria-hidden="true">TP</span>
         <span class="brand-text">
           <span class="brand-name">Tuan Pham</span>
@@ -66,63 +72,42 @@
         </span>
       </a>
 
-      <nav class="main-nav" aria-label="Primary navigation">
-        <a href="#about" class="nav-link is-active" data-section="about">
-          <i data-lucide="user" class="icon-nav" aria-hidden="true"></i>
+      <nav class="main-nav" id="main-nav" data-i18n-attr="aria-label:navLabel" aria-label="Primary">
+        <a href="#about" class="nav-link" data-section="about">
+          <i data-lucide="user" class="icon-nav"></i>
           <span data-i18n="navAbout">Overview</span>
         </a>
         <a href="#projects" class="nav-link" data-section="projects">
-          <i data-lucide="folder-kanban" class="icon-nav" aria-hidden="true"></i>
+          <i data-lucide="folder-kanban" class="icon-nav"></i>
           <span data-i18n="navProjects">Case Studies</span>
         </a>
         <a href="#skills" class="nav-link" data-section="skills">
-          <i data-lucide="cpu" class="icon-nav" aria-hidden="true"></i>
-          <span data-i18n="navSkills">Skills Matrix</span>
+          <i data-lucide="cpu" class="icon-nav"></i>
+          <span data-i18n="navSkills">Skills</span>
         </a>
         <a href="#timeline" class="nav-link" data-section="timeline">
-          <i data-lucide="briefcase" class="icon-nav" aria-hidden="true"></i>
+          <i data-lucide="briefcase" class="icon-nav"></i>
           <span data-i18n="navTimeline">Experience</span>
         </a>
         <a href="#contact" class="nav-link" data-section="contact">
-          <i data-lucide="mail" class="icon-nav" aria-hidden="true"></i>
+          <i data-lucide="mail" class="icon-nav"></i>
           <span data-i18n="navContact">Contact</span>
         </a>
+        <span class="nav-indicator" id="nav-indicator" aria-hidden="true"></span>
       </nav>
 
       <div class="header-actions">
-        <!-- Bilingual Toggle (EN | VI) with Globe Icon -->
-        <div class="lang-toggle" role="group" aria-label="Language toggle">
-          <span class="lang-globe" aria-hidden="true">
+        <div class="lang-toggle" role="group" data-i18n-attr="aria-label:langGroup" aria-label="Language">
+          <span class="lang-globe" id="lang-globe" aria-hidden="true">
             <i data-lucide="globe" class="icon-xs"></i>
           </span>
-          <button
-            type="button"
-            class="lang-btn is-active"
-            id="lang-btn-en"
-            data-lang="en"
-            aria-pressed="true"
-          >
-            EN
-          </button>
-          <button
-            type="button"
-            class="lang-btn"
-            id="lang-btn-vi"
-            data-lang="vi"
-            aria-pressed="false"
-          >
-            VI
-          </button>
+          <button type="button" class="lang-btn is-active" id="lang-btn-en" data-lang="en" aria-pressed="true" aria-label="English">EN</button>
+          <button type="button" class="lang-btn" id="lang-btn-vi" data-lang="vi" aria-pressed="false" aria-label="Tiếng Việt" lang="vi">VI</button>
         </div>
 
-        <a
-          href="assets/cv/Pham-Anh-Tuan-CV.pdf"
-          download="Pham-Anh-Tuan-CV.pdf"
-          class="btn btn-primary btn-sm header-cta"
-          id="nav-download-cv"
-        >
-          <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
-          <span data-i18n="navCv">Download CV</span>
+        <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-primary btn-sm header-cta" data-cv-link>
+          <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
+          <span data-i18n="btnDownloadCv">Download CV</span>
         </a>
 
         <button
@@ -131,7 +116,8 @@
           id="mobile-menu-btn"
           aria-expanded="false"
           aria-controls="mobile-drawer"
-          aria-label="Toggle navigation menu"
+          data-i18n-attr="aria-label:menuToggle"
+          aria-label="Open navigation menu"
         >
           <span class="menu-bar"></span>
           <span class="menu-bar"></span>
@@ -140,565 +126,496 @@
       </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
     <div class="mobile-drawer" id="mobile-drawer" hidden>
-      <div class="container mobile-drawer-inner">
-        <a href="#about" class="mobile-nav-link is-active" data-section="about">
-          <i data-lucide="user" class="icon-sm" aria-hidden="true"></i>
+      <nav class="container mobile-drawer-inner" data-i18n-attr="aria-label:navLabel" aria-label="Primary">
+        <a href="#about" class="mobile-nav-link" data-section="about">
+          <i data-lucide="user" class="icon-sm"></i>
           <span data-i18n="navAbout">Overview</span>
         </a>
         <a href="#projects" class="mobile-nav-link" data-section="projects">
-          <i data-lucide="folder-kanban" class="icon-sm" aria-hidden="true"></i>
+          <i data-lucide="folder-kanban" class="icon-sm"></i>
           <span data-i18n="navProjects">Case Studies</span>
         </a>
         <a href="#skills" class="mobile-nav-link" data-section="skills">
-          <i data-lucide="cpu" class="icon-sm" aria-hidden="true"></i>
-          <span data-i18n="navSkills">Skills Matrix</span>
+          <i data-lucide="cpu" class="icon-sm"></i>
+          <span data-i18n="navSkills">Skills</span>
         </a>
         <a href="#timeline" class="mobile-nav-link" data-section="timeline">
-          <i data-lucide="briefcase" class="icon-sm" aria-hidden="true"></i>
+          <i data-lucide="briefcase" class="icon-sm"></i>
           <span data-i18n="navTimeline">Experience</span>
         </a>
         <a href="#contact" class="mobile-nav-link" data-section="contact">
-          <i data-lucide="mail" class="icon-sm" aria-hidden="true"></i>
+          <i data-lucide="mail" class="icon-sm"></i>
           <span data-i18n="navContact">Contact</span>
         </a>
-        <a
-          href="assets/cv/Pham-Anh-Tuan-CV.pdf"
-          download="Pham-Anh-Tuan-CV.pdf"
-          class="btn btn-primary btn-block"
-        >
-          <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
-          <span data-i18n="navCv">Download CV</span>
+        <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-primary btn-block mobile-cv" data-cv-link>
+          <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
+          <span data-i18n="btnDownloadCv">Download CV</span>
         </a>
-      </div>
+      </nav>
     </div>
   </header>
 
   <main id="main-content">
-    <!-- Hero Section (#F8FAFC) -->
+    <!-- ================================================================
+         Hero (#F8FAFC) with engineering dot/grid texture + radial fade
+         ================================================================ -->
     <section class="section section-hero" id="hero">
+      <div class="hero-texture" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-content">
-          <p class="hero-eyebrow" data-i18n="heroEyebrow">
-            PRODUCTION PLANNING · LEAN SYSTEMS · DATA ANALYTICS
-          </p>
+          <p class="hero-eyebrow reveal-item" data-i18n="heroEyebrow">PRODUCTION PLANNING · LEAN · DATA AUTOMATION</p>
 
-          <h1 class="hero-title">
-            <span class="hero-name">Phạm Anh Tuấn</span>
+          <h1 class="hero-title reveal-item">
+            <span class="hero-name" lang="vi">Phạm Anh Tuấn</span>
             <span class="hero-alias">(Tuan Pham)</span>
           </h1>
 
-          <p class="hero-role" data-i18n="heroRole">
-            Final-year student (Production Planning, Lean &amp; Data Analytics)
+          <p class="hero-role reveal-item" data-i18n="heroRole">Final-year student · Production Planning &amp; Operations Analytics</p>
+
+          <p class="hero-education reveal-item">
+            <i data-lucide="graduation-cap" class="icon-sm"></i>
+            <span data-i18n="heroEducation">Ho Chi Minh City University of Technology – VNU-HCM · 2022–2026</span>
           </p>
 
-          <p class="hero-education">
-            <i data-lucide="graduation-cap" class="icon-sm" aria-hidden="true"></i>
-            <span data-i18n="heroEducation">
-              Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)
-            </span>
+          <p class="hero-summary reveal-item" data-i18n-html="heroSummary">
+            I model, schedule, and automate production lines — sequencing <strong>217 color SKUs</strong> on a <strong>4-stage line</strong> in FlexSim 3D, and replacing manual BOM reconciliation with <strong>Excel VBA &amp; Apps Script</strong> pipelines.
           </p>
 
-          <!-- Punchy 2-Line Value Proposition for Recruiters -->
-          <p class="hero-summary" data-i18n="heroSummary">
-            Eliminating shop-floor bottlenecks and manual planning delays through 3D Discrete-Event Simulation, Heijunka leveling, and automated WIP/BOM data pipelines.
-          </p>
+          <ul class="hero-focus-strip reveal-item" data-i18n-attr="aria-label:focusLabel" aria-label="Focus areas">
+            <li class="focus-pill">
+              <i data-lucide="gauge" class="icon-xs"></i>
+              <span data-i18n="focusTag1">Shop-floor Lean &amp; OEE</span>
+            </li>
+            <li class="focus-pill">
+              <i data-lucide="boxes" class="icon-xs"></i>
+              <span data-i18n="focusTag2">Simulation &amp; Heijunka Scheduling</span>
+            </li>
+            <li class="focus-pill">
+              <i data-lucide="database" class="icon-xs"></i>
+              <span data-i18n="focusTag3">BOM / WIP Data Automation</span>
+            </li>
+          </ul>
 
-          <!-- Hero Quick-Scan Value Strip (3 Concise Focus Tags) -->
-          <div class="hero-focus-strip" aria-label="Core engineering focus areas">
-            <div class="focus-pill">
-              <i data-lucide="gauge" class="icon-xs" aria-hidden="true"></i>
-              <span data-i18n="focusTag1">Shop-Floor Lean &amp; OEE</span>
-            </div>
-            <div class="focus-pill">
-              <i data-lucide="cpu" class="icon-xs" aria-hidden="true"></i>
-              <span data-i18n="focusTag2">3D FlexSim &amp; Heijunka Scheduling</span>
-            </div>
-            <div class="focus-pill">
-              <i data-lucide="database" class="icon-xs" aria-hidden="true"></i>
-              <span data-i18n="focusTag3">Python / SQL / VBA Automation</span>
-            </div>
-          </div>
-
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary" id="hero-explore-projects">
+          <div class="hero-actions reveal-item">
+            <a href="#projects" class="btn btn-primary btn-lg">
               <span data-i18n="btnViewProjects">Explore Case Studies</span>
-              <i data-lucide="arrow-right" class="icon-sm" aria-hidden="true"></i>
+              <i data-lucide="arrow-right" class="icon-sm"></i>
             </a>
-
-            <a
-              href="assets/cv/Pham-Anh-Tuan-CV.pdf"
-              download="Pham-Anh-Tuan-CV.pdf"
-              class="btn btn-secondary"
-              id="hero-download-cv"
-            >
-              <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
+            <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-secondary btn-lg" data-cv-link>
+              <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
               <span data-i18n="btnDownloadCv">Download CV</span>
             </a>
-
-            <button
-              type="button"
-              class="btn btn-secondary copy-email-trigger"
-              id="hero-copy-email"
-              data-email="phamanhtuan802@gmail.com"
-            >
-              <span class="copy-icon-slot" aria-hidden="true">
-                <i data-lucide="copy" class="icon-sm"></i>
+            <button type="button" class="btn btn-secondary btn-lg copy-email-trigger" data-email="phamanhtuan802@gmail.com">
+              <span class="icon-swap" aria-hidden="true">
+                <i data-lucide="copy" class="icon-sm icon-swap-a"></i>
+                <i data-lucide="check" class="icon-sm icon-swap-b"></i>
               </span>
               <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
             </button>
           </div>
 
-          <div class="hero-tooling" aria-label="Core engineering toolchain">
-            <span class="tooling-label" data-i18n="toolingLabel">Core Stack:</span>
-            <ul class="tooling-list">
+          <div class="hero-tooling reveal-item">
+            <span class="tooling-label" id="tooling-label" data-i18n="toolingLabel">Core stack</span>
+            <ul class="tooling-list" aria-labelledby="tooling-label">
               <li>FlexSim 3D</li>
               <li>JavaScript DES</li>
-              <li>Excel VBA &amp; Power Query</li>
+              <li>Excel VBA</li>
+              <li>Power Query</li>
               <li>Google Apps Script</li>
-              <li>SQL &amp; Python</li>
+              <li>SQL</li>
+              <li>Python</li>
               <li>Power BI</li>
             </ul>
           </div>
         </div>
 
-        <!-- Quantitative Engineering Telemetry Dossier -->
-        <aside class="hero-dossier" aria-label="Quantitative performance snapshot">
+        <!-- Telemetry dossier -->
+        <aside class="hero-dossier reveal-item" data-i18n-attr="aria-label:dossierLabel" aria-label="Operations snapshot">
           <div class="dossier-header">
             <span class="dossier-code">
-              <i data-lucide="activity" class="icon-xs" aria-hidden="true"></i>
-              <span data-i18n="dossierHeader">OPERATIONS SNAPSHOT // KPI</span>
+              <i data-lucide="activity" class="icon-xs"></i>
+              <span data-i18n="dossierHeader">OPERATIONS SNAPSHOT</span>
             </span>
-            <span class="dossier-status" data-i18n="dossierStatus">OPEN TO WORK · 2026</span>
+            <span class="dossier-status">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span data-i18n="dossierStatus">OPEN TO WORK · 2026</span>
+            </span>
           </div>
 
-          <div class="dossier-metrics">
-            <div class="metric-tile reveal-item" style="--reveal-delay: 0ms;">
+          <ul class="dossier-metrics" data-reveal-group>
+            <li class="metric-tile reveal-item">
               <div class="metric-top">
-                <div class="metric-value">217</div>
-                <span class="metric-icon-badge" aria-hidden="true">
-                  <i data-lucide="palette" class="icon-sm"></i>
-                </span>
+                <span class="metric-value">217</span>
+                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="palette" class="icon-sm"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric1Label">Color SKUs Sequenced</div>
-              <div class="metric-sub" data-i18n="metric1Sub">Heijunka Art Marker Line</div>
-            </div>
-
-            <div class="metric-tile reveal-item" style="--reveal-delay: 80ms;">
+              <div class="metric-label" data-i18n="metric1Label">Color SKUs sequenced</div>
+              <div class="metric-sub" data-i18n="metric1Sub">Heijunka · SMED color families</div>
+            </li>
+            <li class="metric-tile reveal-item">
               <div class="metric-top">
-                <div class="metric-value">4-Stage</div>
-                <span class="metric-icon-badge" aria-hidden="true">
-                  <i data-lucide="layers" class="icon-sm"></i>
-                </span>
+                <span class="metric-value">4<span class="metric-unit" data-i18n="metric2Unit">stages</span></span>
+                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="layers" class="icon-sm"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric2Label">Line Balancing Scope</div>
-              <div class="metric-sub" data-i18n="metric2Sub">FlexSim 3D &amp; JS DES</div>
-            </div>
-
-            <div class="metric-tile reveal-item" style="--reveal-delay: 160ms;">
+              <div class="metric-label" data-i18n="metric2Label">Sequential line modeled</div>
+              <div class="metric-sub" data-i18n="metric2Sub">FlexSim 3D + JS DES</div>
+            </li>
+            <li class="metric-tile reveal-item">
               <div class="metric-top">
-                <div class="metric-value">100%</div>
-                <span class="metric-icon-badge" aria-hidden="true">
-                  <i data-lucide="refresh-cw" class="icon-sm"></i>
-                </span>
+                <span class="metric-value">100%</span>
+                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-sm"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric3Label">Automated BOM Sync</div>
-              <div class="metric-sub" data-i18n="metric3Sub">Real-Time WIP &amp; Alerts</div>
-            </div>
-
-            <div class="metric-tile reveal-item" style="--reveal-delay: 240ms;">
+              <div class="metric-label" data-i18n="metric3Label">BOM sync automated</div>
+              <div class="metric-sub" data-i18n="metric3Sub">Excel VBA · Apps Script · SQL</div>
+            </li>
+            <li class="metric-tile reveal-item">
               <div class="metric-top">
-                <div class="metric-value">OEE &amp; 5S</div>
-                <span class="metric-icon-badge" aria-hidden="true">
-                  <i data-lucide="activity" class="icon-sm"></i>
-                </span>
+                <span class="metric-value">A×P×Q</span>
+                <span class="metric-icon-badge" aria-hidden="true"><i data-lucide="gauge" class="icon-sm"></i></span>
               </div>
-              <div class="metric-label" data-i18n="metric4Label">Shop-Floor Auditing</div>
-              <div class="metric-sub" data-i18n="metric4Sub">Time-Study &amp; 5 Whys RCA</div>
-            </div>
-          </div>
+              <div class="metric-label" data-i18n="metric4Label">OEE loss decomposition</div>
+              <div class="metric-sub" data-i18n="metric4Sub">Time-study · Pareto · 5 Whys · 5S</div>
+            </li>
+          </ul>
 
-          <div class="dossier-footer">
+          <dl class="dossier-footer">
             <div class="dossier-meta-row">
-              <span class="meta-key">
-                <i data-lucide="map-pin" class="icon-xs" aria-hidden="true"></i>
+              <dt class="meta-key">
+                <i data-lucide="map-pin" class="icon-xs"></i>
                 <span data-i18n="metaLocationKey">Region</span>
-              </span>
-              <span class="meta-val" data-i18n="contactLocationValue">Ho Chi Minh City / Dong Nai / Binh Duong</span>
+              </dt>
+              <dd class="meta-val" data-i18n="regionShort">HCMC · Dong Nai · Binh Duong</dd>
             </div>
             <div class="dossier-meta-row">
-              <span class="meta-key">
-                <i data-lucide="mail" class="icon-xs" aria-hidden="true"></i>
-                <span data-i18n="metaEmailKey">Direct</span>
-              </span>
-              <span class="meta-val mono">phamanhtuan802@gmail.com</span>
+              <dt class="meta-key">
+                <i data-lucide="mail" class="icon-xs"></i>
+                <span data-i18n="metaEmailKey">Email</span>
+              </dt>
+              <dd class="meta-val mono"><a href="mailto:phamanhtuan802@gmail.com">phamanhtuan802@gmail.com</a></dd>
             </div>
-          </div>
+          </dl>
         </aside>
       </div>
     </section>
 
-    <!-- Engineering Mindset / Overview Section (#EFF6FF) -->
-    <section class="section section-alt" id="about">
+    <!-- ================================================================
+         01 — Engineering approach (#EFF6FF)
+         ================================================================ -->
+    <section class="section section-alt" id="about" aria-labelledby="about-title">
       <div class="container">
         <div class="section-header">
           <p class="section-eyebrow" data-i18n="aboutEyebrow">01 // ENGINEERING APPROACH</p>
-          <h2 class="section-title" data-i18n="aboutTitle">
-            Engineering Operations with a Quantitative Mindset
-          </h2>
+          <h2 class="section-title" id="about-title" data-i18n="aboutTitle">A Quantitative Approach to Operations</h2>
         </div>
 
         <div class="about-grid">
-          <div class="about-narrative card-surface reveal-item" style="--reveal-delay: 0ms;">
-            <h3 class="about-subhead" data-i18n="aboutSubhead">
-              Connecting Shop-Floor Industrial Engineering to Automated Analytics
-            </h3>
-            <p data-i18n="aboutPara1">
-              As a final-year student at Ho Chi Minh City University of Technology (HCMUT, 2022–2026) with manufacturing internships at Thien Long Group (Long Thanh Plant) and Duy Tan Recycling, I focus on transforming messy factory records and constrained production lines into predictable, measurable operations.
+          <div class="about-narrative card lift reveal-item">
+            <h3 class="about-subhead" data-i18n="aboutSubhead">From shop-floor stopwatch to automated dashboard</h3>
+            <p class="about-lead" data-i18n="aboutLead">
+              Final-year HCMUT student with two manufacturing internships. I turn constrained lines and messy factory records into schedules and data that planners can trust.
             </p>
-            <p data-i18n="aboutPara2">
-              Whether balancing a 4-stage marker assembly line across 217 color SKUs in FlexSim 3D, automating ink-to-unit BOM explosion across multi-stage WIP buffers, or isolating unplanned downtime with Pareto &amp; 5 Whys RCA, every system I build is grounded in verifiable cycle times and zero-bottleneck flow logic.
-            </p>
+            <ul class="proof-list">
+              <li>
+                <span class="proof-icon" aria-hidden="true"><i data-lucide="factory" class="icon-sm"></i></span>
+                <span data-i18n-html="aboutProof1"><strong>Thien Long Group</strong> (Long Thanh Plant) &amp; <strong>Duy Tan Recycling</strong> internships</span>
+              </li>
+              <li>
+                <span class="proof-icon" aria-hidden="true"><i data-lucide="layers" class="icon-sm"></i></span>
+                <span data-i18n-html="aboutProof2"><strong>217 color SKUs</strong> sequenced on a <strong>4-stage line</strong> in FlexSim 3D &amp; JS DES</span>
+              </li>
+              <li>
+                <span class="proof-icon" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-sm"></i></span>
+                <span data-i18n-html="aboutProof3"><strong>100% automated</strong> ink-to-unit BOM sync with Excel VBA &amp; Apps Script</span>
+              </li>
+              <li>
+                <span class="proof-icon" aria-hidden="true"><i data-lucide="search-check" class="icon-sm"></i></span>
+                <span data-i18n-html="aboutProof4">Downtime isolated with <strong>OEE</strong>, <strong>Pareto</strong> &amp; <strong>5 Whys RCA</strong>; <strong>5S</strong> standards deployed</span>
+              </li>
+            </ul>
           </div>
 
-          <div class="methodology-steps">
-            <div class="step-card card-surface reveal-item" style="--reveal-delay: 80ms;">
-              <div class="step-num" aria-hidden="true">
-                <i data-lucide="gauge" class="icon-sm"></i>
-              </div>
+          <ol class="methodology-steps" data-reveal-group>
+            <li class="step-card card lift reveal-item">
+              <span class="step-num" aria-hidden="true"><i data-lucide="gauge" class="icon-sm"></i></span>
               <div class="step-body">
-                <div class="step-kicker mono">01 // SHOP-FLOOR IE</div>
+                <p class="step-kicker" data-i18n="step1Kicker">01 // SHOP-FLOOR IE</p>
                 <h3 data-i18n="step1Title">Measure &amp; Standardize</h3>
-                <p data-i18n="step1Desc">
-                  Stopwatch time-studies, OEE loss decomposition, 5S workstation audits, and structured 5 Whys root-cause diagnostics on the shop floor.
-                </p>
+                <p data-i18n="step1Desc">Time-studies, OEE loss decomposition, 5S audits, and 5 Whys RCA at the workstation.</p>
               </div>
-            </div>
-
-            <div class="step-card card-surface reveal-item" style="--reveal-delay: 160ms;">
-              <div class="step-num" aria-hidden="true">
-                <i data-lucide="box" class="icon-sm"></i>
-              </div>
+            </li>
+            <li class="step-card card lift reveal-item">
+              <span class="step-num" aria-hidden="true"><i data-lucide="boxes" class="icon-sm"></i></span>
               <div class="step-body">
-                <div class="step-kicker mono">02 // DIGITAL TWIN &amp; DES</div>
+                <p class="step-kicker" data-i18n="step2Kicker">02 // DIGITAL TWIN &amp; DES</p>
                 <h3 data-i18n="step2Title">Model &amp; Simulate</h3>
-                <p data-i18n="step2Desc">
-                  3D Discrete-Event Simulation in FlexSim and custom JavaScript DES engines to stress-test Heijunka schedules and inter-stage buffers.
-                </p>
+                <p data-i18n="step2Desc">FlexSim 3D and a JavaScript DES engine to stress-test Heijunka schedules and inter-stage buffers.</p>
               </div>
-            </div>
-
-            <div class="step-card card-surface reveal-item" style="--reveal-delay: 240ms;">
-              <div class="step-num" aria-hidden="true">
-                <i data-lucide="bar-chart-3" class="icon-sm"></i>
-              </div>
+            </li>
+            <li class="step-card card lift reveal-item">
+              <span class="step-num" aria-hidden="true"><i data-lucide="chart-column" class="icon-sm"></i></span>
               <div class="step-body">
-                <div class="step-kicker mono">03 // DATA PIPELINES</div>
+                <p class="step-kicker" data-i18n="step3Kicker">03 // DATA PIPELINES</p>
                 <h3 data-i18n="step3Title">Automate &amp; Control</h3>
-                <p data-i18n="step3Desc">
-                  End-to-end BOM explosion, SQL/Power Query ETL, Apps Script WIP tracking, and dynamic shortage alerting for planners.
-                </p>
+                <p data-i18n="step3Desc">BOM explosion, Power Query / SQL ETL, Apps Script WIP tracking, and shortage alerts.</p>
               </div>
-            </div>
-          </div>
+            </li>
+          </ol>
         </div>
       </div>
     </section>
 
-    <!-- Core Projects Section (#F8FAFC) -->
-    <section class="section" id="projects">
+    <!-- ================================================================
+         02 — Case studies (#F8FAFC)
+         ================================================================ -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
       <div class="container">
-        <div class="section-header section-header-row">
-          <div>
-            <p class="section-eyebrow" data-i18n="projectsEyebrow">02 // VERIFIED CASE STUDIES</p>
-            <h2 class="section-title" data-i18n="projectsTitle">Industrial &amp; Analytics Case Studies</h2>
-            <p class="section-subtitle" data-i18n="projectsSubtitle">
-              Filter by engineering domain and select any card to inspect the Executive Takeaway, 4-part system architecture, and NDA-sanitized technical blueprint.
-            </p>
-          </div>
+        <div class="section-header">
+          <p class="section-eyebrow" data-i18n="projectsEyebrow">02 // CASE STUDIES</p>
+          <h2 class="section-title" id="projects-title" data-i18n="projectsTitle">Industrial &amp; Analytics Case Studies</h2>
+          <p class="section-subtitle" data-i18n="projectsSubtitle">
+            Filter by domain, then open any card for the executive takeaway, a 4-part breakdown, and an NDA-safe system blueprint.
+          </p>
         </div>
 
-        <!-- Domain Filter Bar -->
-        <div class="filter-bar" id="project-filters" role="tablist" aria-label="Filter projects by domain">
-          <button
-            type="button"
-            class="filter-btn is-active"
-            data-filter="all"
-            role="tab"
-            aria-selected="true"
-          >
-            <i data-lucide="folder-kanban" class="icon-xs" aria-hidden="true"></i>
+        <div class="filter-bar" id="project-filters" role="group" data-i18n-attr="aria-label:filterLabel" aria-label="Filter case studies by domain">
+          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">
+            <i data-lucide="layout-grid" class="icon-xs"></i>
             <span data-i18n="filterAll">All</span>
-            <span class="filter-count">3</span>
+            <span class="filter-count" data-count-for="all" aria-hidden="true"></span>
           </button>
-          <button
-            type="button"
-            class="filter-btn"
-            data-filter="simulation"
-            role="tab"
-            aria-selected="false"
-          >
-            <i data-lucide="cpu" class="icon-xs" aria-hidden="true"></i>
+          <button type="button" class="filter-btn" data-filter="simulation" aria-pressed="false" data-domain="simulation">
+            <i data-lucide="boxes" class="icon-xs"></i>
             <span data-i18n="filterSimulation">Simulation &amp; Scheduling</span>
-            <span class="filter-count">1</span>
+            <span class="filter-count" data-count-for="simulation" aria-hidden="true"></span>
           </button>
-          <button
-            type="button"
-            class="filter-btn"
-            data-filter="automation"
-            role="tab"
-            aria-selected="false"
-          >
-            <i data-lucide="database" class="icon-xs" aria-hidden="true"></i>
+          <button type="button" class="filter-btn" data-filter="automation" aria-pressed="false" data-domain="automation">
+            <i data-lucide="database" class="icon-xs"></i>
             <span data-i18n="filterAutomation">Data &amp; BI Automation</span>
-            <span class="filter-count">1</span>
+            <span class="filter-count" data-count-for="automation" aria-hidden="true"></span>
           </button>
-          <button
-            type="button"
-            class="filter-btn"
-            data-filter="lean"
-            role="tab"
-            aria-selected="false"
-          >
-            <i data-lucide="gauge" class="icon-xs" aria-hidden="true"></i>
+          <button type="button" class="filter-btn" data-filter="lean" aria-pressed="false" data-domain="lean">
+            <i data-lucide="gauge" class="icon-xs"></i>
             <span data-i18n="filterLean">Lean &amp; OEE</span>
-            <span class="filter-count">1</span>
+            <span class="filter-count" data-count-for="lean" aria-hidden="true"></span>
           </button>
         </div>
+        <p class="sr-only" id="projects-status" aria-live="polite"></p>
 
-        <!-- Filterable Project Card Grid (Rendered dynamically via script.js) -->
-        <div class="projects-grid" id="projects-grid" aria-live="polite"></div>
+        <div class="projects-grid" id="projects-grid" data-reveal-group></div>
+        <noscript>
+          <p class="noscript-note">Interactive case studies need JavaScript. Summary: 217-SKU Heijunka scheduling on a 4-stage line (FlexSim 3D + JS DES) · automated BOM &amp; WIP tracking (Excel VBA, Apps Script, SQL) · OEE, Pareto, 5 Whys RCA &amp; 5S at Duy Tan Recycling.</p>
+        </noscript>
       </div>
     </section>
 
-    <!-- 3-Column Technical Skills Matrix (#EFF6FF) -->
-    <section class="section section-alt" id="skills">
+    <!-- ================================================================
+         03 — Skills matrix (#EFF6FF)
+         ================================================================ -->
+    <section class="section section-alt" id="skills" aria-labelledby="skills-title">
       <div class="container">
         <div class="section-header">
           <p class="section-eyebrow" data-i18n="skillsEyebrow">03 // CAPABILITIES MATRIX</p>
-          <h2 class="section-title" data-i18n="skillsTitle">Technical &amp; Operational Skillset</h2>
-          <p class="section-subtitle" data-i18n="skillsSubtitle">
-            Three integrated pillars uniting Industrial Engineering, Simulation Modeling, and Production Data Automation.
-          </p>
+          <h2 class="section-title" id="skills-title" data-i18n="skillsTitle">Technical &amp; Operational Skills</h2>
+          <p class="section-subtitle" data-i18n="skillsSubtitle">Three pillars — each one backed by a case study above.</p>
         </div>
-
-        <div class="skills-grid" id="skills-grid"></div>
+        <div class="skills-grid" id="skills-grid" data-reveal-group></div>
       </div>
     </section>
 
-    <!-- Experience & Education Timeline (#F8FAFC) -->
-    <section class="section" id="timeline">
+    <!-- ================================================================
+         04 — Experience & education (#F8FAFC)
+         ================================================================ -->
+    <section class="section" id="timeline" aria-labelledby="timeline-title">
       <div class="container">
         <div class="section-header">
-          <p class="section-eyebrow" data-i18n="timelineEyebrow">04 // CAREER &amp; EDUCATION TIMELINE</p>
-          <h2 class="section-title" data-i18n="timelineTitle">Industrial Experience &amp; Academic Track</h2>
-          <p class="section-subtitle" data-i18n="timelineSubtitle">
-            Hands-on plant operations, student leadership, and quantitative management education in Vietnam's southern industrial hub.
-          </p>
+          <p class="section-eyebrow" data-i18n="timelineEyebrow">04 // EXPERIENCE &amp; EDUCATION</p>
+          <h2 class="section-title" id="timeline-title" data-i18n="timelineTitle">Plant Experience &amp; Academic Track</h2>
+          <p class="section-subtitle" data-i18n="timelineSubtitle">Shop-floor internships, student leadership, and a quantitative management degree.</p>
         </div>
-
-        <div class="timeline-list" id="timeline-list"></div>
+        <div class="timeline">
+          <div class="timeline-rail" aria-hidden="true"><span class="timeline-rail-fill" id="timeline-rail-fill"></span></div>
+          <ol class="timeline-list" id="timeline-list" data-reveal-group></ol>
+        </div>
       </div>
     </section>
 
-    <!-- Contact Section (#EFF6FF) -->
-    <section class="section section-alt" id="contact">
+    <!-- ================================================================
+         05 — Contact (#EFF6FF)
+         ================================================================ -->
+    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
       <div class="container">
-        <div class="contact-card card-surface reveal-item" style="--reveal-delay: 0ms;">
+        <div class="contact-card card reveal-item">
           <div class="contact-left">
-            <p class="section-eyebrow" data-i18n="contactEyebrow">05 // CONNECT &amp; COLLABORATE</p>
-            <h2 class="section-title" data-i18n="contactTitle">
-              Open to Production Planning, IE &amp; Operations Analytics Opportunities
-            </h2>
+            <p class="section-eyebrow" data-i18n="contactEyebrow">05 // CONTACT</p>
+            <h2 class="section-title" id="contact-title" data-i18n="contactTitle">Open to Production Planning, IE &amp; Operations Analytics Roles</h2>
             <p class="contact-desc" data-i18n="contactDesc">
-              Available across Ho Chi Minh City, Dong Nai, and Binh Duong industrial zones. Reach out directly via email or phone, or download my full curriculum vitae.
+              Based in Ho Chi Minh City and available across Dong Nai and Binh Duong industrial zones. Reach me by email or phone / Zalo.
             </p>
 
             <div class="contact-actions">
-              <button
-                type="button"
-                class="btn btn-primary copy-email-trigger"
-                id="contact-copy-email"
-                data-email="phamanhtuan802@gmail.com"
-              >
-                <span class="copy-icon-slot" aria-hidden="true">
-                  <i data-lucide="copy" class="icon-sm"></i>
+              <button type="button" class="btn btn-primary btn-lg copy-email-trigger" data-email="phamanhtuan802@gmail.com">
+                <span class="icon-swap" aria-hidden="true">
+                  <i data-lucide="copy" class="icon-sm icon-swap-a"></i>
+                  <i data-lucide="check" class="icon-sm icon-swap-b"></i>
                 </span>
                 <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
               </button>
-
-              <a
-                href="mailto:phamanhtuan802@gmail.com"
-                class="btn btn-secondary"
-                id="contact-mailto-btn"
-              >
-                <i data-lucide="mail" class="icon-sm" aria-hidden="true"></i>
+              <a href="mailto:phamanhtuan802@gmail.com" class="btn btn-secondary btn-lg">
+                <i data-lucide="send" class="icon-sm"></i>
                 <span data-i18n="btnSendEmail">Send Email</span>
               </a>
-
-              <a
-                href="assets/cv/Pham-Anh-Tuan-CV.pdf"
-                download="Pham-Anh-Tuan-CV.pdf"
-                class="btn btn-ghost"
-                id="contact-download-cv"
-              >
-                <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
+              <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-ghost btn-lg" data-cv-link>
+                <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
                 <span data-i18n="btnDownloadCv">Download CV</span>
               </a>
             </div>
           </div>
 
-          <div class="contact-details">
+          <dl class="contact-details">
             <div class="contact-item">
-              <span class="contact-item-label">
-                <i data-lucide="mail" class="icon-xs" aria-hidden="true"></i>
-                <span data-i18n="contactEmailLabel">Email Address</span>
-              </span>
-              <a href="mailto:phamanhtuan802@gmail.com" class="contact-item-value mono">
-                phamanhtuan802@gmail.com
-              </a>
+              <dt class="contact-item-label">
+                <i data-lucide="mail" class="icon-xs"></i>
+                <span data-i18n="contactEmailLabel">Email</span>
+              </dt>
+              <dd><a href="mailto:phamanhtuan802@gmail.com" class="contact-item-value mono">phamanhtuan802@gmail.com</a></dd>
             </div>
-
             <div class="contact-item">
-              <span class="contact-item-label">
-                <i data-lucide="phone" class="icon-xs" aria-hidden="true"></i>
+              <dt class="contact-item-label">
+                <i data-lucide="phone" class="icon-xs"></i>
                 <span data-i18n="contactPhoneLabel">Phone / Zalo</span>
-              </span>
-              <a href="tel:+84972693749" class="contact-item-value mono">
-                (+84) 972 693 749
-              </a>
+              </dt>
+              <dd><a href="tel:+84972693749" class="contact-item-value mono">(+84) 972 693 749</a></dd>
             </div>
-
             <div class="contact-item">
-              <span class="contact-item-label">
-                <i data-lucide="map-pin" class="icon-xs" aria-hidden="true"></i>
-                <span data-i18n="contactLocationLabel">Preferred Work Region</span>
-              </span>
-              <span class="contact-item-value" data-i18n="contactLocationValue">
-                Ho Chi Minh City / Dong Nai / Binh Duong
-              </span>
+              <dt class="contact-item-label">
+                <i data-lucide="map-pin" class="icon-xs"></i>
+                <span data-i18n="contactLocationLabel">Preferred region</span>
+              </dt>
+              <dd class="contact-item-value" data-i18n="contactLocationValue">Ho Chi Minh City · Dong Nai · Binh Duong</dd>
             </div>
-
             <div class="contact-item">
-              <span class="contact-item-label">
-                <i data-lucide="graduation-cap" class="icon-xs" aria-hidden="true"></i>
+              <dt class="contact-item-label">
+                <i data-lucide="graduation-cap" class="icon-xs"></i>
                 <span data-i18n="contactEduLabel">University</span>
-              </span>
-              <span class="contact-item-value" data-i18n="heroEducation">
-                Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)
-              </span>
+              </dt>
+              <dd class="contact-item-value" data-i18n="contactEduValue">HCMUT – VNU-HCM · 2022–2026</dd>
             </div>
-          </div>
+          </dl>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Minimalist Footer -->
-  <footer class="site-footer">
+  <footer class="site-footer" id="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
         <span class="brand-mark brand-mark-sm" aria-hidden="true">TP</span>
-        <span data-i18n="footerCopy">© 2026 Phạm Anh Tuấn (Tuan Pham). Static Portfolio ready for GitHub Pages.</span>
+        <span data-i18n="footerCopy">© 2026 Phạm Anh Tuấn (Tuan Pham) · Production Planning · Lean · Data Analytics</span>
       </div>
-      <div class="footer-links">
+      <nav class="footer-links" data-i18n-attr="aria-label:footerNavLabel" aria-label="Footer">
         <a href="#about" data-i18n="navAbout">Overview</a>
         <a href="#projects" data-i18n="navProjects">Case Studies</a>
-        <a href="#skills" data-i18n="navSkills">Skills Matrix</a>
+        <a href="#skills" data-i18n="navSkills">Skills</a>
         <a href="#timeline" data-i18n="navTimeline">Experience</a>
-        <a href="#top" data-i18n="backToTop">Back to top ↑</a>
-      </div>
+        <a href="#top" class="back-to-top">
+          <span data-i18n="backToTop">Back to top</span>
+          <i data-lucide="arrow-up" class="icon-xs"></i>
+        </a>
+      </nav>
     </div>
   </footer>
 
-  <!-- Interactive 4-Part Case Study Modal -->
-  <div
-    class="modal-backdrop"
-    id="case-study-modal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="modal-title"
-    hidden
-  >
-    <div class="modal-dialog" id="modal-dialog">
+  <!-- ================================================================
+       Case study modal (backdrop fade + dialog scale choreography)
+       ================================================================ -->
+  <div class="modal-root" id="case-study-modal" hidden>
+    <div class="modal-backdrop" data-modal-dismiss></div>
+    <div
+      class="modal-dialog"
+      id="modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-exec-text"
+      tabindex="-1"
+    >
       <div class="modal-header">
         <div class="modal-header-meta">
           <span class="modal-category-badge" id="modal-category"></span>
           <span class="modal-org" id="modal-org"></span>
         </div>
-        <button
-          type="button"
-          class="modal-close-btn"
-          id="modal-close-btn"
-          aria-label="Close case study modal"
-        >
-          <i data-lucide="x" class="icon-md" aria-hidden="true"></i>
-        </button>
+        <div class="modal-header-actions">
+          <span class="modal-counter" id="modal-counter" aria-hidden="true"></span>
+          <button type="button" class="modal-close-btn" id="modal-close-btn" data-i18n-attr="aria-label:modalClose" aria-label="Close case study">
+            <i data-lucide="x" class="icon-md"></i>
+          </button>
+        </div>
       </div>
 
       <div class="modal-body" id="modal-body">
-        <h2 class="modal-title" id="modal-title"></h2>
-        <div class="kpi-pills modal-kpi-pills" id="modal-kpi-pills"></div>
+        <div class="modal-content" id="modal-content">
+          <p class="modal-code" id="modal-code"></p>
+          <h2 class="modal-title" id="modal-title"></h2>
+          <ul class="kpi-pills modal-kpi-pills" id="modal-kpi-pills"></ul>
 
-        <!-- Visual Preview Frame with NDA Banner & Light-Blue SVG Blueprint Fallback -->
-        <div class="modal-visual-frame">
-          <div class="visual-frame-bar">
-            <span class="nda-badge">
-              <i data-lucide="shield-check" class="icon-xs" aria-hidden="true"></i>
-              <span id="modal-nda-label" data-i18n="ndaLabel">Sanitized Mock Data – NDA Compliant</span>
-            </span>
-            <span class="blueprint-ref mono" id="modal-blueprint-ref"></span>
-          </div>
+          <section class="exec-banner" id="modal-exec-banner" aria-labelledby="modal-exec-title">
+            <div class="exec-banner-header">
+              <span class="exec-banner-icon" aria-hidden="true"><i data-lucide="target" class="icon-sm"></i></span>
+              <h3 class="exec-banner-title" id="modal-exec-title" data-i18n="execBannerTitle">Executive Takeaway</h3>
+            </div>
+            <p class="exec-banner-text" id="modal-exec-text"></p>
+          </section>
 
-          <div class="visual-canvas" id="modal-visual-canvas">
-            <img
-              id="modal-preview-img"
-              src=""
-              alt=""
-              hidden
-              onerror="window.handleBlueprintFallback && window.handleBlueprintFallback(this)"
-            />
-            <div class="svg-blueprint-container" id="modal-svg-blueprint" hidden></div>
-          </div>
-        </div>
+          <div class="modal-sections-grid" id="modal-sections-grid"></div>
 
-        <!-- Highlighted Executive Takeaway Callout Banner -->
-        <div class="executive-takeaway-banner" id="modal-executive-banner">
-          <div class="executive-banner-header">
-            <i data-lucide="check-circle-2" class="icon-sm" aria-hidden="true"></i>
-            <span class="executive-banner-title" id="modal-exec-title" data-i18n="execBannerTitle">
-              Executive Summary // Key Engineering Takeaway
-            </span>
-          </div>
-          <p class="executive-banner-text" id="modal-exec-text"></p>
-        </div>
+          <figure class="modal-visual-frame">
+            <div class="visual-frame-bar">
+              <span class="nda-badge">
+                <i data-lucide="shield-check" class="icon-xs"></i>
+                <span data-i18n="ndaLabel">Sanitized mock data · NDA-safe</span>
+              </span>
+              <span class="blueprint-ref" id="modal-blueprint-ref"></span>
+            </div>
+            <div class="visual-canvas" id="modal-visual-canvas" tabindex="0" role="region" data-i18n-attr="aria-label:blueprintRegion" aria-label="System blueprint (scrollable)">
+              <img id="modal-preview-img" alt="" hidden />
+              <div class="svg-blueprint-container" id="modal-svg-blueprint"></div>
+            </div>
+            <figcaption class="visual-scroll-hint">
+              <i data-lucide="move-horizontal" class="icon-xs"></i>
+              <span data-i18n="blueprintHint">Swipe to explore the blueprint</span>
+            </figcaption>
+          </figure>
 
-        <!-- 4-Part Structured Engineering Case Study -->
-        <div class="modal-sections-grid" id="modal-sections-grid"></div>
-
-        <!-- Tech Stack & Prev/Next Case Study Navigation Footer inside Modal -->
-        <div class="modal-footer-bar">
-          <div class="modal-stack" id="modal-stack"></div>
-          <div class="modal-nav-actions">
-            <button type="button" class="btn btn-secondary btn-sm" id="modal-prev-btn">
-              <i data-lucide="arrow-left" class="icon-xs" aria-hidden="true"></i>
-              <span data-i18n="modalPrev">Prev Case Study</span>
-            </button>
-            <button type="button" class="btn btn-primary btn-sm" id="modal-next-btn">
-              <span data-i18n="modalNext">Next Case Study</span>
-              <i data-lucide="arrow-right" class="icon-xs" aria-hidden="true"></i>
-            </button>
+          <div class="modal-stack-row">
+            <span class="modal-stack-label" id="modal-stack-label" data-i18n="stackLabel">Tech stack</span>
+            <ul class="modal-stack" id="modal-stack" aria-labelledby="modal-stack-label"></ul>
           </div>
         </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="modal-nav-btn modal-nav-prev" id="modal-prev-btn">
+          <i data-lucide="arrow-left" class="icon-sm"></i>
+          <span class="modal-nav-text">
+            <span class="modal-nav-kicker" data-i18n="modalPrev">Previous Case Study</span>
+            <span class="modal-nav-title" id="modal-prev-title"></span>
+          </span>
+        </button>
+        <button type="button" class="modal-nav-btn modal-nav-next" id="modal-next-btn">
+          <span class="modal-nav-text">
+            <span class="modal-nav-kicker" data-i18n="modalNext">Next Case Study</span>
+            <span class="modal-nav-title" id="modal-next-title"></span>
+          </span>
+          <i data-lucide="arrow-right" class="icon-sm"></i>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification for Copy Email Feedback -->
-  <div class="toast" id="copy-toast" role="status" aria-live="polite" hidden>
-    <i data-lucide="check" class="icon-sm" aria-hidden="true"></i>
-    <span id="copy-toast-text">Copied phamanhtuan802@gmail.com to clipboard</span>
+  <!-- Copy feedback toast (always in the accessibility tree; text is set on copy) -->
+  <div class="toast" id="copy-toast" role="status" aria-live="polite">
+    <span class="toast-icon" aria-hidden="true"><i data-lucide="circle-check" class="icon-sm"></i></span>
+    <span id="copy-toast-text"></span>
   </div>
 
   <script src="script.js"></script>

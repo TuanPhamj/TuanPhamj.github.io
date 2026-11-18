@@ -1,553 +1,790 @@
 /**
- * Phạm Anh Tuấn (Tuan Pham) — Portfolio Interactive Logic, Bilingual Engine,
- * Lucide Vector Icon System, Scroll Progress / ScrollSpy & IntersectionObserver
- * Clean Engineering Light Blue Theme
+ * Phạm Anh Tuấn (Tuan Pham) — Portfolio
+ * Bilingual engine (EN | VI), Lucide icon layer with offline fallback,
+ * scroll reveal, reading progress + ScrollSpy, animated filtering,
+ * and an accessible case-study modal.
  */
-
 (function () {
   'use strict';
 
+  /* ========================================================================
+     0. Configuration
+     ======================================================================== */
   const STORAGE_KEY = 'tuanpham_portfolio_lang';
   const EMAIL_ADDRESS = 'phamanhtuan802@gmail.com';
 
+  /**
+   * Asset switches. Flip these only after the files exist in the repo,
+   * otherwise visitors hit a 404 (and the console logs an error).
+   *  - cvAvailable: add assets/cv/Pham-Anh-Tuan-CV.pdf, then set to true.
+   *    While false, every CV button becomes a "Request CV" email link.
+   *  - Per-project screenshots: set `image` on a project in PROJECTS below.
+   *    While null, the modal shows the generated SVG blueprint.
+   */
+  const ASSETS = {
+    cvAvailable: false,
+    cvPath: 'assets/cv/Pham-Anh-Tuan-CV.pdf',
+    cvFileName: 'Pham-Anh-Tuan-CV.pdf'
+  };
+
+  const REDUCED_MOTION =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const STAGGER_MS = 80;
+
   /* ========================================================================
-     0. Built-in Lucide Vector SVG Paths (Fallback if CDN is offline/blocked)
+     1. Icon layer — Lucide CDN first, inline fallback if it never arrives
      ======================================================================== */
-  const LUCIDE_FALLBACK_PATHS = {
-    user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
-    'folder-kanban':
-      '<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/>',
-    cpu: '<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>',
-    briefcase:
-      '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
-    mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
-    globe:
-      '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
-    'file-down':
-      '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/>',
+  const ICON_FALLBACK = {
+    'user': '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    'folder-kanban': '<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/>',
+    'cpu': '<path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/>',
+    'briefcase': '<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>',
+    'mail': '<path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/>',
+    'globe': '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+    'file-down': '<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/>',
+    'file-text': '<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
     'arrow-right': '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
     'arrow-left': '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
     'arrow-up-right': '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
-    palette:
-      '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
-    layers:
-      '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
-    'refresh-cw':
-      '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
-    activity: '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
-    database:
-      '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
-    gauge: '<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
-    'check-circle-2': '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
-    'trending-up': '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
-    settings:
-      '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
-    box: '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
-    'bar-chart-3': '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
-    'building-2':
-      '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>',
-    'graduation-cap':
-      '<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
-    phone:
-      '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
-    'map-pin':
-      '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
-    copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
-    check: '<path d="M20 6 9 17l-5-5"/>',
-    x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
-    'shield-check':
-      '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>'
+    'arrow-up': '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
+    'palette': '<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>',
+    'layers': '<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/>',
+    'refresh-cw': '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+    'activity': '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
+    'database': '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+    'gauge': '<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
+    'circle-check': '<circle cx="12" cy="12" r="10"/><path d="m16 9-5.5 5.5L8 12"/>',
+    'boxes': '<path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/>',
+    'chart-column': '<path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+    'building-2': '<path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/>',
+    'graduation-cap': '<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
+    'phone': '<path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/>',
+    'map-pin': '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+    'copy': '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+    'check': '<path d="M20 6 9 17l-5-5"/>',
+    'x': '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    'shield-check': '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+    'target': '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    'factory': '<path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/>',
+    'users': '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/>',
+    'search-check': '<path d="m8 11 2 2 4-4"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+    'workflow': '<rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/>',
+    'triangle-alert': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+    'layout-grid': '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
+    'send': '<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',
+    'move-horizontal': '<path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/>'
   };
 
-  function refreshLucideIcons() {
-    if (window.lucide && typeof window.lucide.createIcons === 'function') {
-      window.lucide.createIcons();
-      return;
+  const Icons = (function () {
+    let fallbackMode = false;
+    let fallbackTimer = null;
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+
+    function lucideReady() {
+      return !!(window.lucide && typeof window.lucide.createIcons === 'function');
     }
 
-    // Fallback SVG renderer if CDN script has not yet initialized
-    document.querySelectorAll('i[data-lucide]').forEach((el) => {
-      const iconName = el.getAttribute('data-lucide');
-      const innerPaths = LUCIDE_FALLBACK_PATHS[iconName];
-      if (!innerPaths) return;
+    /* createIcons() re-processes every [data-lucide] node, including SVGs it
+       already rendered. Renaming the attribute after each pass means repeat
+       calls only touch new placeholders — rendered icons (and any transition
+       running on them) are left alone. */
+    function markRendered() {
+      document.querySelectorAll('svg[data-lucide]').forEach((svg) => {
+        svg.setAttribute('data-icon', svg.getAttribute('data-lucide'));
+        svg.removeAttribute('data-lucide');
+      });
+    }
 
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-      svg.setAttribute('viewBox', '0 0 24 24');
-      svg.setAttribute('fill', 'none');
-      svg.setAttribute('stroke', 'currentColor');
-      svg.setAttribute('stroke-width', '2');
-      svg.setAttribute('stroke-linecap', 'round');
-      svg.setAttribute('stroke-linejoin', 'round');
-      svg.setAttribute('data-lucide', iconName);
-      svg.setAttribute('aria-hidden', 'true');
+    function renderFallback() {
+      document.querySelectorAll('i[data-lucide]').forEach((el) => {
+        const name = el.getAttribute('data-lucide');
+        const inner = ICON_FALLBACK[name];
+        if (!inner) return;
+        const svg = document.createElementNS(SVG_NS, 'svg');
+        Array.from(el.attributes).forEach((attr) => {
+          if (attr.name !== 'data-lucide' && attr.name !== 'class') {
+            svg.setAttribute(attr.name, attr.value);
+          }
+        });
+        svg.setAttribute('xmlns', SVG_NS);
+        svg.setAttribute('width', '24');
+        svg.setAttribute('height', '24');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '2');
+        svg.setAttribute('stroke-linecap', 'round');
+        svg.setAttribute('stroke-linejoin', 'round');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('data-icon', name);
+        svg.setAttribute('class', `lucide lucide-${name} ${el.getAttribute('class') || ''}`.trim());
+        svg.innerHTML = inner;
+        el.replaceWith(svg);
+      });
+    }
 
-      const existingClass = el.getAttribute('class') || '';
-      svg.setAttribute('class', `lucide lucide-${iconName} ${existingClass}`.trim());
-      svg.innerHTML = innerPaths;
-      el.replaceWith(svg);
-    });
-  }
+    /** Call after any DOM update that adds <i data-lucide> placeholders. */
+    function refresh() {
+      if (lucideReady()) {
+        try {
+          window.lucide.createIcons();
+        } catch (_) {
+          fallbackMode = true;
+        }
+      }
+      if (fallbackMode) renderFallback();
+      markRendered();
+    }
 
-  window.refreshLucideIcons = refreshLucideIcons;
+    function enableFallback() {
+      if (fallbackMode) return;
+      fallbackMode = true;
+      refresh();
+    }
+
+    function start() {
+      refresh();
+      if (lucideReady()) return;
+      if (window.__lucideState === 'error') {
+        enableFallback();
+        return;
+      }
+      fallbackTimer = window.setTimeout(() => {
+        if (!lucideReady()) enableFallback();
+      }, 2500);
+    }
+
+    function onCdnReady() {
+      window.clearTimeout(fallbackTimer);
+      refresh();
+    }
+
+    return { refresh, start, onCdnReady, enableFallback };
+  })();
+
+  let booted = false;
+  window.__onLucideReady = function () {
+    if (booted) Icons.onCdnReady();
+  };
+  window.__onLucideError = function () {
+    if (booted) Icons.enableFallback();
+  };
 
   /* ========================================================================
-     1. Bilingual Translation Dictionary (EN <-> VI)
+     2. Bilingual dictionary (EN <-> VI)
      ======================================================================== */
   const I18N = {
     en: {
       pageTitle: 'Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean & Data Analytics Portfolio',
       skipToContent: 'Skip to main content',
+      brandHome: 'Phạm Anh Tuấn — back to top',
       brandSub: 'IE · Planning · BI',
+      navLabel: 'Primary',
       navAbout: 'Overview',
       navProjects: 'Case Studies',
-      navSkills: 'Skills Matrix',
+      navSkills: 'Skills',
       navTimeline: 'Experience',
       navContact: 'Contact',
-      navCv: 'Download CV',
-
-      heroEyebrow: 'PRODUCTION PLANNING · LEAN SYSTEMS · DATA ANALYTICS',
-      heroRole: 'Final-year student (Production Planning, Lean & Data Analytics)',
-      heroEducation: 'Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)',
-      heroSummary:
-        'Eliminating shop-floor bottlenecks and manual planning delays through 3D Discrete-Event Simulation, Heijunka leveling, and automated WIP/BOM data pipelines.',
-      focusTag1: 'Shop-Floor Lean & OEE',
-      focusTag2: '3D FlexSim & Heijunka Scheduling',
-      focusTag3: 'Python / SQL / VBA Automation',
-      btnViewProjects: 'Explore Case Studies',
+      langGroup: 'Language',
+      menuToggle: 'Open navigation menu',
+      menuClose: 'Close navigation menu',
       btnDownloadCv: 'Download CV',
+      btnRequestCv: 'Request CV',
+      cvRequestSubject: 'CV request — Phạm Anh Tuấn',
+
+      heroEyebrow: 'PRODUCTION PLANNING · LEAN · DATA AUTOMATION',
+      heroRole: 'Final-year student · Production Planning & Operations Analytics',
+      heroEducation: 'Ho Chi Minh City University of Technology – VNU-HCM · 2022–2026',
+      heroSummary:
+        'I model, schedule, and automate production lines — sequencing <strong>217 color SKUs</strong> on a <strong>4-stage line</strong> in FlexSim 3D, and replacing manual BOM reconciliation with <strong>Excel VBA &amp; Apps Script</strong> pipelines.',
+      focusLabel: 'Focus areas',
+      focusTag1: 'Shop-floor Lean & OEE',
+      focusTag2: 'Simulation & Heijunka Scheduling',
+      focusTag3: 'BOM / WIP Data Automation',
+      btnViewProjects: 'Explore Case Studies',
       btnCopyEmail: 'Copy Email',
       btnCopied: 'Copied!',
-      toolingLabel: 'Core Stack:',
+      toolingLabel: 'Core stack',
 
-      dossierHeader: 'OPERATIONS SNAPSHOT // KPI',
+      dossierLabel: 'Operations snapshot',
+      dossierHeader: 'OPERATIONS SNAPSHOT',
       dossierStatus: 'OPEN TO WORK · 2026',
-      metric1Label: 'Color SKUs Sequenced',
-      metric1Sub: 'Heijunka Art Marker Line',
-      metric2Label: 'Line Balancing Scope',
-      metric2Sub: 'FlexSim 3D & JS DES',
-      metric3Label: 'Automated BOM Sync',
-      metric3Sub: 'Real-Time WIP & Alerts',
-      metric4Label: 'Shop-Floor Auditing',
-      metric4Sub: 'Time-Study & 5 Whys RCA',
+      metric1Label: 'Color SKUs sequenced',
+      metric1Sub: 'Heijunka · SMED color families',
+      metric2Unit: 'stages',
+      metric2Label: 'Sequential line modeled',
+      metric2Sub: 'FlexSim 3D + JS DES',
+      metric3Label: 'BOM sync automated',
+      metric3Sub: 'Excel VBA · Apps Script · SQL',
+      metric4Label: 'OEE loss decomposition',
+      metric4Sub: 'Time-study · Pareto · 5 Whys · 5S',
       metaLocationKey: 'Region',
-      metaEmailKey: 'Direct',
+      regionShort: 'HCMC · Dong Nai · Binh Duong',
+      metaEmailKey: 'Email',
 
       aboutEyebrow: '01 // ENGINEERING APPROACH',
-      aboutTitle: 'Engineering Operations with a Quantitative Mindset',
-      aboutSubhead: 'Connecting Shop-Floor Industrial Engineering to Automated Analytics',
-      aboutPara1:
-        'As a final-year student at Ho Chi Minh City University of Technology (HCMUT, 2022–2026) with manufacturing internships at Thien Long Group (Long Thanh Plant) and Duy Tan Recycling, I focus on transforming messy factory records and constrained production lines into predictable, measurable operations.',
-      aboutPara2:
-        'Whether balancing a 4-stage marker assembly line across 217 color SKUs in FlexSim 3D, automating ink-to-unit BOM explosion across multi-stage WIP buffers, or isolating unplanned downtime with Pareto & 5 Whys RCA, every system I build is grounded in verifiable cycle times and zero-bottleneck flow logic.',
+      aboutTitle: 'A Quantitative Approach to Operations',
+      aboutSubhead: 'From shop-floor stopwatch to automated dashboard',
+      aboutLead:
+        'Final-year HCMUT student with two manufacturing internships. I turn constrained lines and messy factory records into schedules and data that planners can trust.',
+      aboutProof1:
+        '<strong>Thien Long Group</strong> (Long Thanh Plant) &amp; <strong>Duy Tan Recycling</strong> internships',
+      aboutProof2:
+        '<strong>217 color SKUs</strong> sequenced on a <strong>4-stage line</strong> in FlexSim 3D &amp; JS DES',
+      aboutProof3: '<strong>100% automated</strong> ink-to-unit BOM sync with Excel VBA &amp; Apps Script',
+      aboutProof4:
+        'Downtime isolated with <strong>OEE</strong>, <strong>Pareto</strong> &amp; <strong>5 Whys RCA</strong>; <strong>5S</strong> standards deployed',
+      step1Kicker: '01 // SHOP-FLOOR IE',
       step1Title: 'Measure & Standardize',
-      step1Desc:
-        'Stopwatch time-studies, OEE loss decomposition, 5S workstation audits, and structured 5 Whys root-cause diagnostics on the shop floor.',
+      step1Desc: 'Time-studies, OEE loss decomposition, 5S audits, and 5 Whys RCA at the workstation.',
+      step2Kicker: '02 // DIGITAL TWIN & DES',
       step2Title: 'Model & Simulate',
-      step2Desc:
-        '3D Discrete-Event Simulation in FlexSim and custom JavaScript DES engines to stress-test Heijunka schedules and inter-stage buffers.',
+      step2Desc: 'FlexSim 3D and a JavaScript DES engine to stress-test Heijunka schedules and inter-stage buffers.',
+      step3Kicker: '03 // DATA PIPELINES',
       step3Title: 'Automate & Control',
-      step3Desc:
-        'End-to-end BOM explosion, SQL/Power Query ETL, Apps Script WIP tracking, and dynamic shortage alerting for planners.',
+      step3Desc: 'BOM explosion, Power Query / SQL ETL, Apps Script WIP tracking, and shortage alerts.',
 
-      projectsEyebrow: '02 // VERIFIED CASE STUDIES',
+      projectsEyebrow: '02 // CASE STUDIES',
       projectsTitle: 'Industrial & Analytics Case Studies',
       projectsSubtitle:
-        'Filter by engineering domain and select any card to inspect the Executive Takeaway, 4-part system architecture, and NDA-sanitized technical blueprint.',
+        'Filter by domain, then open any card for the executive takeaway, a 4-part breakdown, and an NDA-safe system blueprint.',
+      filterLabel: 'Filter case studies by domain',
       filterAll: 'All',
       filterSimulation: 'Simulation & Scheduling',
       filterAutomation: 'Data & BI Automation',
       filterLean: 'Lean & OEE',
-      inspectAction: 'Inspect Case',
+      filterStatus: (shown, total) => `Showing ${shown} of ${total} case studies`,
+      inspectAction: 'View case study',
+      kpiLabel: 'Key results',
 
       skillsEyebrow: '03 // CAPABILITIES MATRIX',
-      skillsTitle: 'Technical & Operational Skillset',
-      skillsSubtitle:
-        'Three integrated pillars uniting Industrial Engineering, Simulation Modeling, and Production Data Automation.',
+      skillsTitle: 'Technical & Operational Skills',
+      skillsSubtitle: 'Three pillars — each one backed by a case study above.',
+      proofLabel: 'Proven in',
+      openCaseAria: (code, title) => `Open case study ${code}: ${title}`,
 
-      timelineEyebrow: '04 // CAREER & EDUCATION TIMELINE',
-      timelineTitle: 'Industrial Experience & Academic Track',
-      timelineSubtitle:
-        "Hands-on plant operations, student leadership, and quantitative management education in Vietnam's southern industrial hub.",
+      timelineEyebrow: '04 // EXPERIENCE & EDUCATION',
+      timelineTitle: 'Plant Experience & Academic Track',
+      timelineSubtitle: 'Shop-floor internships, student leadership, and a quantitative management degree.',
+      relatedCases: 'Related case studies',
 
-      contactEyebrow: '05 // CONNECT & COLLABORATE',
-      contactTitle: 'Open to Production Planning, IE & Operations Analytics Opportunities',
+      contactEyebrow: '05 // CONTACT',
+      contactTitle: 'Open to Production Planning, IE & Operations Analytics Roles',
       contactDesc:
-        'Available across Ho Chi Minh City, Dong Nai, and Binh Duong industrial zones. Reach out directly via email or phone, or download my full curriculum vitae.',
+        'Based in Ho Chi Minh City and available across Dong Nai and Binh Duong industrial zones. Reach me by email or phone / Zalo.',
       btnSendEmail: 'Send Email',
-      contactEmailLabel: 'Email Address',
+      contactEmailLabel: 'Email',
       contactPhoneLabel: 'Phone / Zalo',
-      contactLocationLabel: 'Preferred Work Region',
-      contactLocationValue: 'Ho Chi Minh City / Dong Nai / Binh Duong',
+      contactLocationLabel: 'Preferred region',
+      contactLocationValue: 'Ho Chi Minh City · Dong Nai · Binh Duong',
       contactEduLabel: 'University',
+      contactEduValue: 'HCMUT – VNU-HCM · 2022–2026',
 
-      footerCopy: '© 2026 Phạm Anh Tuấn (Tuan Pham). Static Portfolio ready for GitHub Pages.',
-      backToTop: 'Back to top ↑',
+      footerCopy: '© 2026 Phạm Anh Tuấn (Tuan Pham) · Production Planning · Lean · Data Analytics',
+      footerNavLabel: 'Footer',
+      backToTop: 'Back to top',
 
-      ndaLabel: 'Sanitized Mock Data – NDA Compliant',
-      execBannerTitle: 'Executive Summary // Key Engineering Takeaway',
-      modalPrev: 'Prev Case Study',
+      modalClose: 'Close case study',
+      execBannerTitle: 'Executive Takeaway',
+      ndaLabel: 'Sanitized mock data · NDA-safe',
+      blueprintRegion: 'System blueprint (scrollable)',
+      blueprintHint: 'Swipe to explore the blueprint',
+      stackLabel: 'Tech stack',
+      modalPrev: 'Previous Case Study',
       modalNext: 'Next Case Study',
-      toastCopied: 'Copied phamanhtuan802@gmail.com to clipboard',
       modalSectionTitles: {
-        problem: '01 // Bottleneck & Problem Statement',
-        methodology: '02 // IE Methodology & Tech Stack',
-        architecture: '03 // System Architecture & Logic',
-        outcomes: '04 // Verified Outcomes'
-      }
+        problem: 'Bottleneck',
+        methodology: 'Methodology',
+        architecture: 'Architecture',
+        outcomes: 'Verified Outcomes'
+      },
+      toastCopied: 'Copied phamanhtuan802@gmail.com',
+      toastCopyFailed: "Couldn't copy — email: phamanhtuan802@gmail.com"
     },
 
     vi: {
       pageTitle: 'Phạm Anh Tuấn (Tuan Pham) — Hồ sơ Hoạch định Sản xuất, Lean & Phân tích Dữ liệu',
       skipToContent: 'Chuyển đến nội dung chính',
+      brandHome: 'Phạm Anh Tuấn — về đầu trang',
       brandSub: 'IE · Hoạch định · BI',
+      navLabel: 'Điều hướng chính',
       navAbout: 'Tổng quan',
       navProjects: 'Dự án',
       navSkills: 'Kỹ năng',
       navTimeline: 'Kinh nghiệm',
       navContact: 'Liên hệ',
-      navCv: 'Tải CV',
-
-      heroEyebrow: 'HOẠCH ĐỊNH SẢN XUẤT · HỆ THỐNG LEAN · PHÂN TÍCH DỮ LIỆU',
-      heroRole: 'Sinh viên năm cuối (Hoạch định Sản xuất, Lean & Phân tích Dữ liệu)',
-      heroEducation: 'Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT, 2022–2026)',
-      heroSummary:
-        'Giải quyết triệt để điểm nghẽn chuyền sản xuất và độ trễ lập kế hoạch thông qua Mô phỏng 3D (DES), điều độ Heijunka và tự động hóa dữ liệu WIP/BOM.',
-      focusTag1: 'Lean Hiện trường & OEE',
-      focusTag2: 'Mô phỏng 3D FlexSim & Điều độ Heijunka',
-      focusTag3: 'Tự động hóa Python / SQL / VBA',
-      btnViewProjects: 'Khám phá Dự án',
+      langGroup: 'Ngôn ngữ',
+      menuToggle: 'Mở menu điều hướng',
+      menuClose: 'Đóng menu điều hướng',
       btnDownloadCv: 'Tải CV',
+      btnRequestCv: 'Yêu cầu CV',
+      cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
+
+      heroEyebrow: 'HOẠCH ĐỊNH SẢN XUẤT · LEAN · TỰ ĐỘNG HÓA DỮ LIỆU',
+      heroRole: 'Sinh viên năm cuối · Hoạch định Sản xuất & Phân tích Vận hành',
+      heroEducation: 'Trường Đại học Bách khoa – ĐHQG TP.HCM · 2022–2026',
+      heroSummary:
+        'Tôi mô hình hóa, điều độ và tự động hóa dây chuyền sản xuất — điều độ <strong>217 mã màu SKU</strong> trên <strong>chuyền 4 công đoạn</strong> bằng FlexSim 3D, và thay thế đối chiếu BOM thủ công bằng luồng <strong>Excel VBA &amp; Apps Script</strong>.',
+      focusLabel: 'Lĩnh vực trọng tâm',
+      focusTag1: 'Lean hiện trường & OEE',
+      focusTag2: 'Mô phỏng & Điều độ Heijunka',
+      focusTag3: 'Tự động hóa dữ liệu BOM / WIP',
+      btnViewProjects: 'Xem các Dự án',
       btnCopyEmail: 'Sao chép Email',
       btnCopied: 'Đã sao chép!',
-      toolingLabel: 'Công cụ chính:',
+      toolingLabel: 'Công cụ chính',
 
-      dossierHeader: 'CHỈ SỐ VẬN HÀNH // KPI',
+      dossierLabel: 'Tóm tắt chỉ số vận hành',
+      dossierHeader: 'CHỈ SỐ VẬN HÀNH',
       dossierStatus: 'SẴN SÀNG NHẬN VIỆC · 2026',
-      metric1Label: 'Mã màu được điều độ',
-      metric1Sub: 'Dây chuyền Art Marker Heijunka',
-      metric2Label: 'Công đoạn cân bằng chuyền',
-      metric2Sub: 'FlexSim 3D & JS DES',
-      metric3Label: 'Đồng bộ định mức BOM',
-      metric3Sub: 'Theo dõi WIP & Cảnh báo',
-      metric4Label: 'Kiểm soát hiện trường',
-      metric4Sub: 'Time-Study & 5 Whys RCA',
+      metric1Label: 'Mã màu SKU được điều độ',
+      metric1Sub: 'Heijunka · Gom nhóm màu SMED',
+      metric2Unit: 'công đoạn',
+      metric2Label: 'Chuyền nối tiếp được mô hình hóa',
+      metric2Sub: 'FlexSim 3D + JS DES',
+      metric3Label: 'Tự động đồng bộ BOM',
+      metric3Sub: 'Excel VBA · Apps Script · SQL',
+      metric4Label: 'Phân rã tổn thất OEE',
+      metric4Sub: 'Bấm giờ · Pareto · 5 Whys · 5S',
       metaLocationKey: 'Khu vực',
+      regionShort: 'TP.HCM · Đồng Nai · Bình Dương',
       metaEmailKey: 'Email',
 
       aboutEyebrow: '01 // PHƯƠNG PHÁP KỸ THUẬT',
-      aboutTitle: 'Tư duy Định lượng trong Vận hành & Kỹ thuật Công nghiệp',
-      aboutSubhead: 'Kết nối Kỹ thuật Hiện trường với Tự động hóa Dữ liệu Sản xuất',
-      aboutPara1:
-        'Là sinh viên năm cuối tại Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT, 2022–2026) với kinh nghiệm thực tập thực tế tại Tập đoàn Thiên Long (Nhà máy Long Thành) và Duy Tân Recycling, tôi tập trung chuyển hóa dữ liệu rời rạc tại xưởng thành quy trình vận hành ổn định, đo lường được.',
-      aboutPara2:
-        'Từ việc cân bằng dây chuyền lắp ráp 4 công đoạn cho 217 mã màu trên FlexSim 3D, tự động hóa bóc tách định mức mực sang sản phẩm qua tồn kho đệm WIP, đến truy tìm nguyên nhân dừng máy bằng Pareto & 5 Whys RCA — mọi giải pháp đều dựa trên dữ liệu thời gian chu kỳ kiểm chứng.',
+      aboutTitle: 'Tư duy Định lượng trong Vận hành',
+      aboutSubhead: 'Từ đồng hồ bấm giờ tại xưởng đến dashboard tự động',
+      aboutLead:
+        'Sinh viên năm cuối HCMUT với hai kỳ thực tập tại nhà máy. Tôi biến chuyền sản xuất nhiều ràng buộc và dữ liệu xưởng rời rạc thành lịch điều độ và số liệu mà kế hoạch viên có thể tin cậy.',
+      aboutProof1:
+        'Thực tập tại <strong>Tập đoàn Thiên Long</strong> (Nhà máy Long Thành) &amp; <strong>Duy Tân Recycling</strong>',
+      aboutProof2:
+        'Điều độ <strong>217 mã màu SKU</strong> trên <strong>chuyền 4 công đoạn</strong> bằng FlexSim 3D &amp; JS DES',
+      aboutProof3: 'Đồng bộ BOM mực → sản phẩm <strong>tự động 100%</strong> bằng Excel VBA &amp; Apps Script',
+      aboutProof4:
+        'Khoanh vùng dừng máy bằng <strong>OEE</strong>, <strong>Pareto</strong> &amp; <strong>5 Whys RCA</strong>; triển khai chuẩn <strong>5S</strong>',
+      step1Kicker: '01 // IE HIỆN TRƯỜNG',
       step1Title: 'Đo lường & Chuẩn hóa',
-      step1Desc:
-        'Bấm giờ Time-Study, phân rã tổn thất OEE, kiểm tra 5S tại trạm và chẩn đoán nguyên nhân gốc rễ 5 Whys trên chuyền sản xuất.',
+      step1Desc: 'Bấm giờ, phân rã tổn thất OEE, đánh giá 5S và 5 Whys RCA ngay tại trạm.',
+      step2Kicker: '02 // SONG SINH SỐ & DES',
       step2Title: 'Mô hình hóa & Mô phỏng',
-      step2Desc:
-        'Xây dựng mô hình Mô phỏng Sự kiện Rời rạc 3D trên FlexSim và JS DES Engine để kiểm thử lịch Heijunka và tồn kho đệm liên trạm.',
+      step2Desc: 'FlexSim 3D và JavaScript DES engine để kiểm thử lịch Heijunka và tồn đệm liên trạm.',
+      step3Kicker: '03 // LUỒNG DỮ LIỆU',
       step3Title: 'Tự động hóa & Kiểm soát',
-      step3Desc:
-        'Tự động bóc tách BOM, xử lý dữ liệu SQL/Power Query, theo dõi WIP qua Apps Script và phát cảnh báo thiếu hụt động.',
+      step3Desc: 'Bóc tách BOM, ETL bằng Power Query / SQL, theo dõi WIP bằng Apps Script và cảnh báo thiếu hụt.',
 
       projectsEyebrow: '02 // DỰ ÁN TIÊU BIỂU',
-      projectsTitle: 'Các Dự án Cốt lõi tại Nhà máy & Phân tích Dữ liệu',
+      projectsTitle: 'Dự án Sản xuất & Phân tích Dữ liệu',
       projectsSubtitle:
-        'Lọc theo lĩnh vực chuyên môn và nhấp vào từng thẻ để xem Tóm tắt kết quả cốt lõi, kiến trúc hệ thống 4 phần cùng sơ đồ kỹ thuật chuẩn NDA.',
+        'Lọc theo lĩnh vực, rồi mở từng thẻ để xem tóm tắt cốt lõi, phân tích 4 phần và sơ đồ hệ thống đã ẩn danh theo NDA.',
+      filterLabel: 'Lọc dự án theo lĩnh vực',
       filterAll: 'Tất cả',
       filterSimulation: 'Mô phỏng & Điều độ',
       filterAutomation: 'Tự động hóa Dữ liệu & BI',
       filterLean: 'Lean & OEE',
-      inspectAction: 'Xem Chi tiết',
+      filterStatus: (shown, total) => `Đang hiển thị ${shown}/${total} dự án`,
+      inspectAction: 'Xem chi tiết',
+      kpiLabel: 'Kết quả chính',
 
       skillsEyebrow: '03 // MA TRẬN NĂNG LỰC',
-      skillsTitle: 'Năng lực Kỹ thuật & Vận hành 3 Trụ cột',
-      skillsSubtitle:
-        'Sự kết hợp đồng bộ giữa Kỹ thuật Công nghiệp (IE/Lean), Mô phỏng Điều độ và Tự động hóa Dữ liệu.',
+      skillsTitle: 'Kỹ năng Kỹ thuật & Vận hành',
+      skillsSubtitle: 'Ba trụ cột năng lực — mỗi trụ cột đều có dự án minh chứng ở trên.',
+      proofLabel: 'Minh chứng',
+      openCaseAria: (code, title) => `Mở dự án ${code}: ${title}`,
 
       timelineEyebrow: '04 // KINH NGHIỆM & HỌC VẤN',
-      timelineTitle: 'Quá trình Thực tập Doanh nghiệp & Đào tạo',
-      timelineSubtitle:
-        'Kinh nghiệm thực chiến tại nhà máy sản xuất lớn, vai trò điều phối câu lạc bộ và nền tảng quản trị định lượng tại HCMUT.',
+      timelineTitle: 'Kinh nghiệm Nhà máy & Quá trình Học tập',
+      timelineSubtitle: 'Thực tập tại xưởng sản xuất, vai trò lãnh đạo sinh viên và nền tảng quản trị định lượng.',
+      relatedCases: 'Dự án liên quan',
 
-      contactEyebrow: '05 // KẾT NỐI & HỢP TÁC',
-      contactTitle: 'Sẵn sàng cho vị trí Production Planning, IE & Operations Analytics',
+      contactEyebrow: '05 // LIÊN HỆ',
+      contactTitle: 'Sẵn sàng cho vị trí Hoạch định Sản xuất, IE & Phân tích Vận hành',
       contactDesc:
-        'Sẵn sàng làm việc tại khu vực TP.HCM, Đồng Nai và Bình Dương. Vui lòng liên hệ trực tiếp qua email, điện thoại hoặc tải CV đầy đủ.',
+        'Sinh sống tại TP.HCM, sẵn sàng làm việc tại các khu công nghiệp Đồng Nai và Bình Dương. Liên hệ qua email hoặc điện thoại / Zalo.',
       btnSendEmail: 'Gửi Email',
-      contactEmailLabel: 'Địa chỉ Email',
+      contactEmailLabel: 'Email',
       contactPhoneLabel: 'Điện thoại / Zalo',
-      contactLocationLabel: 'Khu vực làm việc',
-      contactLocationValue: 'TP. Hồ Chí Minh / Đồng Nai / Bình Dương',
+      contactLocationLabel: 'Khu vực mong muốn',
+      contactLocationValue: 'TP. Hồ Chí Minh · Đồng Nai · Bình Dương',
       contactEduLabel: 'Trường Đại học',
+      contactEduValue: 'Bách khoa (HCMUT) – ĐHQG TP.HCM · 2022–2026',
 
-      footerCopy: '© 2026 Phạm Anh Tuấn (Tuan Pham). Giao diện Portfolio tĩnh chuẩn GitHub Pages.',
-      backToTop: 'Lên đầu trang ↑',
+      footerCopy: '© 2026 Phạm Anh Tuấn (Tuan Pham) · Hoạch định Sản xuất · Lean · Phân tích Dữ liệu',
+      footerNavLabel: 'Liên kết chân trang',
+      backToTop: 'Lên đầu trang',
 
-      ndaLabel: 'Dữ liệu Giả lập Đã Ẩn danh – Tuân thủ NDA',
-      execBannerTitle: 'Tóm tắt kết quả cốt lõi // Giá trị Kỹ thuật',
+      modalClose: 'Đóng dự án',
+      execBannerTitle: 'Tóm tắt cốt lõi',
+      ndaLabel: 'Dữ liệu mô phỏng · Tuân thủ NDA',
+      blueprintRegion: 'Sơ đồ hệ thống (có thể cuộn ngang)',
+      blueprintHint: 'Vuốt ngang để xem toàn bộ sơ đồ',
+      stackLabel: 'Công nghệ',
       modalPrev: 'Dự án trước',
       modalNext: 'Dự án tiếp theo',
-      toastCopied: 'Đã sao chép phamanhtuan802@gmail.com vào bộ nhớ tạm',
       modalSectionTitles: {
-        problem: '01 // Điểm nghẽn & Bài toán Thực tế',
-        methodology: '02 // Phương pháp IE & Công nghệ Áp dụng',
-        architecture: '03 // Kiến trúc Hệ thống & Logic Vận hành',
-        outcomes: '04 // Kết quả Kiểm chứng'
-      }
+        problem: 'Điểm nghẽn',
+        methodology: 'Phương pháp',
+        architecture: 'Kiến trúc',
+        outcomes: 'Kết quả kiểm chứng'
+      },
+      toastCopied: 'Đã sao chép phamanhtuan802@gmail.com',
+      toastCopyFailed: 'Không thể sao chép — email: phamanhtuan802@gmail.com'
     }
   };
 
   /* ========================================================================
-     2. Three Core Projects Data (EN & VI) with Scannable Bullets & Executive Summary
+     3. Case studies (EN & VI)
      ======================================================================== */
+  const DOMAIN_ICONS = { simulation: 'boxes', automation: 'database', lean: 'gauge' };
+  const DOMAIN_LABEL_KEYS = {
+    simulation: 'filterSimulation',
+    automation: 'filterAutomation',
+    lean: 'filterLean'
+  };
+
   const PROJECTS = [
     {
       id: 'project-1',
-      code: 'PRJ-01 // HEIJUNKA-DES',
-      categoryKey: 'simulation',
-      domainIcon: 'cpu',
-      imageSrc: 'assets/images/project-1-heijunka-des.png',
-      blueprintRef: 'FIG. 01 // 4-STAGE ART MARKER DES & HEIJUNKA FLOW',
-      techStack: ['FlexSim 3D', 'JavaScript DES Engine', 'Heijunka', 'SMED', 'Line Balancing'],
+      code: 'PRJ-01',
+      fullCode: 'PRJ-01 // HEIJUNKA-DES',
+      domain: 'simulation',
+      image: null, // e.g. 'assets/images/project-1-heijunka-des.png'
+      blueprintRef: {
+        en: 'FIG. 01 // 4-STAGE DES & HEIJUNKA FLOW',
+        vi: 'HÌNH 01 // LUỒNG DES 4 CÔNG ĐOẠN & HEIJUNKA'
+      },
+      techStack: ['FlexSim 3D', 'JavaScript DES', 'Heijunka', 'SMED', 'Kanban'],
       en: {
-        categoryLabel: 'Simulation & Scheduling',
         org: 'Thien Long Group · Long Thanh Plant',
-        title: '3D Discrete-Event Simulation & Heijunka Web Scheduler',
-        kpis: ['217 Color SKUs Sequenced', '4-Stage Line Balancing', 'Zero-Bottleneck Scheduling'],
+        title: '3D Discrete-Event Simulation & Heijunka Scheduler',
+        kpis: [
+          { v: '217', l: 'color SKUs sequenced' },
+          { v: '4-stage', l: 'line balanced' },
+          { v: '0', l: 'simulated bottleneck queues' }
+        ],
         cardBullets: [
-          'Modeled a <strong>4-stage sequential Art Marker line</strong> (barrel heat-transfer printing, cap printing, cap assembly, final assembly) in <strong>FlexSim 3D &amp; JavaScript DES Engine</strong>.',
-          'Sequenced <strong>217 color SKUs</strong> via <strong>Heijunka leveling</strong> and SMED color-family grouping to minimize changeover loss.',
-          'Controlled inter-stage <strong>Kanban safety buffers</strong> to achieve <strong>zero-bottleneck scheduling</strong> across shifts.'
+          'Modeled a <strong>4-stage sequential Art Marker line</strong> — barrel printing → cap printing → cap assembly → final assembly — in <strong>FlexSim 3D</strong> and a custom <strong>JS DES engine</strong>.',
+          'Sequenced <strong>217 color SKUs</strong> with <strong>Heijunka</strong> leveling and <strong>SMED</strong> color-family grouping to cut changeover loss.',
+          'Capped inter-stage <strong>Kanban buffers</strong> — <strong>0 bottleneck queues</strong> across simulated shifts.'
         ],
         executiveTakeaway:
-          'Synchronized a <strong>4-stage Art Marker manufacturing line</strong> across <strong>217 color SKUs</strong> by combining a <strong>FlexSim 3D</strong> digital twin with a custom <strong>JavaScript DES Web Scheduler</strong>—eliminating inter-stage WIP bottlenecks and standardizing Heijunka color changeover sequences.',
+          'Synchronized a <strong>4-stage Art Marker line</strong> across <strong>217 color SKUs</strong> by pairing a <strong>FlexSim 3D</strong> digital twin with a browser-based <strong>JavaScript DES scheduler</strong> — no inter-stage WIP build-up in simulated shifts, and a standardized Heijunka changeover sequence planners can reuse.',
         sections: {
-          problem:
-            'The Art Marker manufacturing line links 4 sequential workcenters: (1) Barrel Heat-Transfer Printing, (2) Cap Printing, (3) Cap Assembly, and (4) Final Assembly. Managing 217 distinct color SKUs with uncoordinated batching caused repetitive SMED color-changeover downtime, cycle-time imbalance across cells, and WIP congestion before final assembly.',
-          methodology:
-            'Applied Heijunka level-scheduling, SMED changeover family clustering, and multi-stage Line Balancing. Developed a high-fidelity 3D digital twin in FlexSim 3D alongside a browser-native JavaScript Discrete-Event Simulation (DES) Engine for rapid scenario testing.',
-          architecture:
-            'Orders spanning 217 color SKUs pass through a sequencing rule that minimizes shade-transition setup penalties while smoothing shift volume mix. The DES clock steps across arrival, setup, processing, and transfer events through Stages 1–4, enforcing Kanban safety buffer caps to keep downstream stations balanced.',
-          outcomes:
-            'Established a synchronized 4-stage scheduling framework handling all 217 color SKUs with zero bottleneck buildup across simulated shifts. Standardized inter-stage safety buffer thresholds and equipped planners with an interactive web scheduler cross-validated against FlexSim 3D.'
+          problem: [
+            '4 sequential workcenters: barrel heat-transfer printing, cap printing, cap assembly, final assembly.',
+            '217 color SKUs batched without coordination → repeated SMED changeovers.',
+            'Cycle-time imbalance between cells caused WIP congestion before final assembly.'
+          ],
+          methodology: [
+            'Heijunka level-scheduling with SMED color-family clustering.',
+            'Multi-stage line balancing against takt time.',
+            'FlexSim 3D digital twin + browser-native JavaScript DES engine for fast what-if runs.'
+          ],
+          architecture: [
+            'Sequencing rule orders 217 SKUs to minimize shade-transition setups while smoothing shift volume.',
+            'DES clock steps arrival → setup → process → transfer events through Stages 1–4.',
+            'Kanban buffer caps between stages keep downstream stations fed but never flooded.'
+          ],
+          outcomes: [
+            'Synchronized 4-stage schedule covering all 217 SKUs with 0 bottleneck queues in simulated shifts.',
+            'Standardized inter-stage safety-buffer thresholds.',
+            'Interactive web scheduler for planners, cross-validated against the FlexSim 3D model.'
+          ]
         }
       },
       vi: {
-        categoryLabel: 'Mô phỏng & Điều độ',
         org: 'Tập đoàn Thiên Long · Nhà máy Long Thành',
-        title: 'Mô phỏng Sự kiện Rời rạc 3D & Hệ thống Điều độ Web Heijunka',
-        kpis: ['Điều độ 217 Mã màu SKU', 'Cân bằng Chuyền 4 Công đoạn', 'Lịch Sản xuất Không Điểm nghẽn'],
+        title: 'Mô phỏng Sự kiện Rời rạc 3D & Bộ Điều độ Heijunka',
+        kpis: [
+          { v: '217', l: 'mã màu SKU được điều độ' },
+          { v: '4', l: 'công đoạn được cân bằng' },
+          { v: '0', l: 'hàng chờ nghẽn (mô phỏng)' }
+        ],
         cardBullets: [
-          'Mô hình hóa <strong>dây chuyền Art Marker 4 công đoạn nối tiếp</strong> (in chuyển nhiệt thân, in nắp, lắp nắp, lắp ráp hoàn chỉnh) trên <strong>FlexSim 3D &amp; JS DES Engine</strong>.',
-          'Tối ưu thứ tự chuyển đổi <strong>217 mã màu SKU</strong> theo nguyên lý <strong>Heijunka</strong> và gom nhóm dải màu SMED.',
-          'Kiểm soát ngưỡng <strong>tồn kho đệm (safety buffer)</strong> liên trạm, đảm bảo <strong>lịch điều độ không phát sinh điểm nghẽn</strong>.'
+          'Mô hình hóa <strong>chuyền Art Marker 4 công đoạn nối tiếp</strong> — in thân → in nắp → lắp nắp → lắp ráp hoàn chỉnh — trên <strong>FlexSim 3D</strong> và <strong>JS DES engine</strong> tự phát triển.',
+          'Điều độ <strong>217 mã màu SKU</strong> theo <strong>Heijunka</strong> và gom nhóm màu <strong>SMED</strong> để giảm tổn thất chuyển đổi.',
+          'Giới hạn <strong>tồn đệm Kanban</strong> liên trạm — <strong>0 hàng chờ nghẽn</strong> trong các ca mô phỏng.'
         ],
         executiveTakeaway:
-          'Đồng bộ hóa <strong>dây chuyền sản xuất Art Marker 4 công đoạn</strong> cho <strong>217 mã màu SKU</strong> bằng mô hình song sinh số <strong>FlexSim 3D</strong> kết hợp <strong>JavaScript DES Web Scheduler</strong>—triệt tiêu ứ đọng bán thành phẩm (WIP) và chuẩn hóa quy tắc chuyển đổi màu Heijunka.',
+          'Đồng bộ <strong>chuyền Art Marker 4 công đoạn</strong> cho <strong>217 mã màu SKU</strong> bằng song sinh số <strong>FlexSim 3D</strong> kết hợp <strong>bộ điều độ JavaScript DES</strong> chạy trên web — không dồn ứ WIP liên trạm trong các ca mô phỏng, cùng trình tự chuyển đổi màu Heijunka chuẩn hóa để kế hoạch viên tái sử dụng.',
         sections: {
-          problem:
-            'Dây chuyền sản xuất Art Marker gồm 4 công đoạn nối tiếp: (1) In chuyển nhiệt thân, (2) In nắp, (3) Lắp nắp và (4) Lắp ráp hoàn chỉnh. Việc sắp xếp thủ công 217 mã màu khác nhau gây phát sinh nhiều lần dừng máy chuyển đổi SMED, mất cân bằng nhịp độ giữa các trạm và dồn ứ bán thành phẩm (WIP).',
-          methodology:
-            'Áp dụng nguyên lý san bằng sản xuất Heijunka, gom nhóm chuyển đổi SMED theo dải màu và kỹ thuật Cân bằng Chuyền (Line Balancing). Xây dựng mô hình song sinh số trên FlexSim 3D kết hợp với bộ máy mô phỏng JavaScript DES chạy trực tiếp trên web.',
-          architecture:
-            'Danh sách 217 mã màu đi qua thuật toán sắp xếp tối ưu hóa chi phí chuyển đổi màu và chia đều sản lượng theo ca. Bộ máy JS DES mô phỏng từng sự kiện gia công qua Công đoạn 1–4, đồng thời giới hạn ngưỡng tồn kho đệm (safety buffer) liên trạm để ngăn tắc nghẽn.',
-          outcomes:
-            'Xây dựng thành công lịch điều độ đồng bộ 4 công đoạn cho toàn bộ 217 mã màu với trạng thái không phát sinh điểm nghẽn trong kịch bản kiểm thử. Chuẩn hóa mức tồn đệm giữa các trạm và bàn giao công cụ điều độ web tương tác đã đối chiếu chuẩn với FlexSim 3D.'
+          problem: [
+            '4 công đoạn nối tiếp: in chuyển nhiệt thân, in nắp, lắp nắp, lắp ráp hoàn chỉnh.',
+            '217 mã màu được xếp lô thiếu phối hợp → chuyển đổi SMED lặp lại nhiều lần.',
+            'Mất cân bằng nhịp giữa các trạm gây dồn ứ WIP trước công đoạn lắp ráp.'
+          ],
+          methodology: [
+            'Điều độ san bằng Heijunka kết hợp gom nhóm màu SMED.',
+            'Cân bằng chuyền đa công đoạn theo nhịp takt.',
+            'Song sinh số FlexSim 3D + JavaScript DES engine chạy trên trình duyệt để thử nhanh kịch bản.'
+          ],
+          architecture: [
+            'Quy tắc sắp xếp 217 SKU giảm thiểu chuyển đổi sắc độ màu, đồng thời san đều sản lượng theo ca.',
+            'Đồng hồ DES chạy tuần tự sự kiện đến → chuyển đổi → gia công → chuyển tiếp qua Công đoạn 1–4.',
+            'Ngưỡng tồn đệm Kanban liên trạm giữ trạm sau luôn đủ hàng nhưng không bị dồn ứ.'
+          ],
+          outcomes: [
+            'Lịch điều độ đồng bộ 4 công đoạn cho toàn bộ 217 SKU, 0 hàng chờ nghẽn trong các ca mô phỏng.',
+            'Chuẩn hóa ngưỡng tồn đệm an toàn giữa các trạm.',
+            'Bàn giao công cụ điều độ web tương tác, đã đối chiếu với mô hình FlexSim 3D.'
+          ]
         }
       }
     },
 
     {
       id: 'project-2',
-      code: 'PRJ-02 // WIP-BOM-SYNC',
-      categoryKey: 'automation',
-      domainIcon: 'database',
-      imageSrc: 'assets/images/project-2-wip-bom.png',
-      blueprintRef: 'FIG. 02 // AUTOMATED BOM EXPLOSION & WIP PIPELINE',
-      techStack: ['Excel VBA', 'Power Query', 'Google Apps Script', 'Google QUERY', 'SQL Logic'],
+      code: 'PRJ-02',
+      fullCode: 'PRJ-02 // WIP-BOM-SYNC',
+      domain: 'automation',
+      image: null, // e.g. 'assets/images/project-2-wip-bom.png'
+      blueprintRef: {
+        en: 'FIG. 02 // BOM EXPLOSION & WIP PIPELINE',
+        vi: 'HÌNH 02 // LUỒNG BÓC TÁCH BOM & WIP'
+      },
+      techStack: ['Excel VBA', 'Power Query', 'Google Apps Script', 'QUERY()', 'SQL'],
       en: {
-        categoryLabel: 'Data & BI Automation',
         org: 'Thien Long Group · Long Thanh Plant',
-        title: 'Automated WIP, BOM & Multi-Stage Production Tracking System',
-        kpis: ['100% Automated BOM Sync', 'Dynamic Safety Buffer', 'Real-Time WIP Tracking'],
+        title: 'Automated BOM Explosion & Multi-Stage WIP Tracker',
+        kpis: [
+          { v: '100%', l: 'BOM sync automated' },
+          { v: 'kg → units', l: 'ink-to-marker conversion' },
+          { v: 'Real-time', l: 'WIP shortage alerts' }
+        ],
         cardBullets: [
-          'Engineered <strong>100% automated BOM explosion</strong> converting raw ink weight (kg) into exact marker unit counts across SKUs.',
-          'Built <strong>real-time multi-stage WIP tracking</strong> across production cells using <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL logic</strong>.',
-          'Deployed <strong>dynamic safety buffer alerts</strong> to flag component shortages before downstream line starvation.'
+          'Automated <strong>100% of BOM explosion</strong>, converting issued ink weight (kg) into exact marker unit counts per SKU.',
+          'Tracked <strong>multi-stage WIP</strong> across production cells with <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL</strong>.',
+          'Raised <strong>dynamic safety-buffer alerts</strong> before shortages could starve downstream stations.'
         ],
         executiveTakeaway:
-          'Replaced error-prone manual spreadsheet reconciliation with a <strong>100% automated BOM &amp; multi-stage WIP pipeline</strong> powered by <strong>Excel VBA, Power Query, Google Apps Script, and SQL logic</strong>—converting ink weight to unit counts and triggering real-time shortage alerts.',
+          'Replaced manual cross-sheet reconciliation with a <strong>100% automated BOM &amp; multi-stage WIP pipeline</strong> (<strong>Excel VBA, Power Query, Google Apps Script, SQL</strong>) — ink weight converts to unit counts automatically, and shortages are flagged before the line starves.',
         sections: {
-          problem:
-            'Material dispatch logged raw ink issuance by weight (kg), whereas cell scheduling required exact semi-finished unit counts per SKU across multiple workstations. Manual cross-sheet reconciliation introduced reporting latency, BOM conversion errors, and unflagged WIP shortages.',
-          methodology:
-            'Combined MRP / BOM Explosion and multi-echelon WIP inventory control with automated ETL pipelines: Excel VBA & Power Query for structured ingestion, Google Apps Script & QUERY() for live shop-floor synchronization, and SQL relational join logic.',
-          architecture:
-            'Shop-floor output logs feed a normalized SKU-component schema that automatically converts ink mass into equivalent marker unit quantities. Multi-stage WIP balances recalculate available net coverage in real time and compare remaining runway against dynamic safety buffer thresholds to raise instant shortage alerts.',
-          outcomes:
-            'Delivered 100% automated BOM synchronization across production stages, eliminating manual spreadsheet conversion work. Provided supervisors and planners with real-time WIP visibility and proactive dynamic shortage alerts ahead of line starvation.'
+          problem: [
+            'Dispatch logged ink issuance by weight (kg); cell scheduling needed unit counts per SKU.',
+            'Manual cross-sheet reconciliation added reporting lag and BOM conversion errors.',
+            'WIP shortages went unflagged until a station ran dry.'
+          ],
+          methodology: [
+            'MRP-style BOM explosion and multi-echelon WIP control.',
+            'Excel VBA + Power Query for structured ingestion and cleansing.',
+            'Google Apps Script + QUERY() for live shop-floor sync; SQL join logic across tables.'
+          ],
+          architecture: [
+            'Output logs feed a normalized SKU–component schema.',
+            'A conversion layer turns ink mass into equivalent marker units via per-SKU factors.',
+            'Stage-level WIP balances recalculate continuously and alert below dynamic buffer thresholds.'
+          ],
+          outcomes: [
+            '100% automated BOM synchronization across production stages.',
+            'Manual spreadsheet conversion work eliminated.',
+            'Real-time WIP visibility and proactive shortage alerts for supervisors and planners.'
+          ]
         }
       },
       vi: {
-        categoryLabel: 'Tự động hóa Dữ liệu & BI',
         org: 'Tập đoàn Thiên Long · Nhà máy Long Thành',
-        title: 'Hệ thống Tự động Theo dõi WIP, Quy đổi BOM & Sản xuất Đa công đoạn',
-        kpis: ['100% Tự động Đồng bộ BOM', 'Tồn kho Đệm Động', 'Theo dõi WIP Thời gian thực'],
+        title: 'Hệ thống Tự động Bóc tách BOM & Theo dõi WIP Đa công đoạn',
+        kpis: [
+          { v: '100%', l: 'đồng bộ BOM tự động' },
+          { v: 'kg → cái', l: 'quy đổi mực sang sản phẩm' },
+          { v: 'Tức thời', l: 'cảnh báo thiếu hụt WIP' }
+        ],
         cardBullets: [
-          'Tự động hóa <strong>100% bóc tách định mức BOM</strong>, quy đổi chính xác khối lượng mực (kg) sang số lượng đơn vị sản phẩm theo SKU.',
-          'Theo dõi <strong>tồn kho bán thành phẩm (WIP) thời gian thực</strong> giữa các tổ bằng <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL</strong>.',
-          'Thiết lập <strong>cảnh báo thiếu hụt động (Dynamic Safety Buffer)</strong> giúp ngăn ngừa đứt gãy vật tư trên chuyền.'
+          'Tự động <strong>100% quy trình bóc tách BOM</strong>, quy đổi khối lượng mực cấp phát (kg) thành số lượng bút chính xác theo SKU.',
+          'Theo dõi <strong>WIP đa công đoạn</strong> giữa các tổ bằng <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL</strong>.',
+          'Phát <strong>cảnh báo tồn đệm động</strong> trước khi thiếu hụt làm đứt chuyền ở trạm sau.'
         ],
         executiveTakeaway:
-          'Thay thế hoàn toàn việc đối chiếu bảng tính thủ công bằng <strong>hệ thống đồng bộ BOM &amp; theo dõi WIP đa công đoạn tự động 100%</strong> trên nền tảng <strong>Excel VBA, Power Query, Google Apps Script và SQL</strong>—quy đổi tức thời khối lượng mực sang đơn vị sản phẩm và cảnh báo sớm thiếu hụt.',
+          'Thay thế đối chiếu thủ công giữa nhiều bảng tính bằng <strong>luồng tự động 100% cho BOM &amp; WIP đa công đoạn</strong> (<strong>Excel VBA, Power Query, Google Apps Script, SQL</strong>) — khối lượng mực tự quy đổi sang số lượng sản phẩm, và thiếu hụt được cảnh báo trước khi chuyền bị đứt.',
         sections: {
-          problem:
-            'Dữ liệu cấp phát mực tại xưởng ghi nhận theo khối lượng (kg), trong khi điều độ lắp ráp cần số lượng bán thành phẩm (cái/chiếc) theo từng mã màu. Việc đối chiếu thủ công giữa nhiều bảng tính rời rạc gây độ trễ thông tin, sai số quy đổi BOM và thiếu cảnh báo sớm khi hụt tồn kho WIP.',
-          methodology:
-            'Kết hợp phương pháp bóc tách định mức MRP / BOM Explosion và kiểm soát WIP đa công đoạn bằng bộ công cụ tự động hóa: Excel VBA & Power Query chuẩn hóa dữ liệu nguồn, Google Apps Script & hàm QUERY() đồng bộ trực tuyến và logic SQL liên kết bảng.',
-          architecture:
-            'Nhật ký sản lượng từ các tổ đi vào mô hình bảng chuẩn hóa, tự động quy đổi trọng lượng mực tiêu hao sang số đơn vị sản phẩm tương ứng theo hệ số SKU. Số dư WIP từng công đoạn được tính toán liên tục và so sánh với ngưỡng tồn kho đệm động để phát cảnh báo thiếu hụt.',
-          outcomes:
-            'Đạt 100% tự động hóa quy trình đồng bộ từ BOM sang tồn kho WIP đa công đoạn, loại bỏ hoàn toàn thao tác tính toán thủ công. Giúp bộ phận sản xuất nắm bắt tồn kho thời gian thực và chủ động ứng phó trước khi phát sinh đứt gãy chuyền.'
+          problem: [
+            'Kho cấp phát ghi nhận mực theo khối lượng (kg); điều độ tổ cần số lượng sản phẩm theo SKU.',
+            'Đối chiếu thủ công giữa nhiều bảng tính gây chậm báo cáo và sai số quy đổi BOM.',
+            'Thiếu hụt WIP không được cảnh báo cho đến khi trạm hết hàng.'
+          ],
+          methodology: [
+            'Bóc tách BOM theo logic MRP và kiểm soát WIP đa cấp.',
+            'Excel VBA + Power Query để nạp và chuẩn hóa dữ liệu nguồn.',
+            'Google Apps Script + QUERY() đồng bộ trực tiếp với xưởng; logic SQL liên kết bảng.'
+          ],
+          architecture: [
+            'Nhật ký sản lượng đổ vào mô hình dữ liệu SKU–linh kiện đã chuẩn hóa.',
+            'Lớp quy đổi chuyển khối lượng mực sang số bút tương đương theo hệ số từng SKU.',
+            'Số dư WIP từng công đoạn được tính lại liên tục và cảnh báo khi xuống dưới ngưỡng tồn đệm động.'
+          ],
+          outcomes: [
+            'Tự động 100% đồng bộ BOM xuyên suốt các công đoạn.',
+            'Loại bỏ thao tác quy đổi thủ công trên bảng tính.',
+            'Tổ trưởng và kế hoạch viên nắm WIP theo thời gian thực, nhận cảnh báo thiếu hụt chủ động.'
+          ]
         }
       }
     },
 
     {
       id: 'project-3',
-      code: 'PRJ-03 // OEE-TIME-5S',
-      categoryKey: 'lean',
-      domainIcon: 'gauge',
-      imageSrc: 'assets/images/project-3-oee-5s.png',
-      blueprintRef: 'FIG. 03 // OEE DECOMPOSITION, PARETO & 5S RCA',
-      techStack: ['OEE Analysis', 'Time & Work Study', 'Pareto Chart', '5 Whys RCA', '5S Visual Mgmt'],
+      code: 'PRJ-03',
+      fullCode: 'PRJ-03 // OEE-TIME-5S',
+      domain: 'lean',
+      image: null, // e.g. 'assets/images/project-3-oee-5s.png'
+      blueprintRef: {
+        en: 'FIG. 03 // OEE DECOMPOSITION, PARETO & 5S',
+        vi: 'HÌNH 03 // PHÂN RÃ OEE, PARETO & 5S'
+      },
+      techStack: ['OEE', 'Time Study', 'Pareto 80/20', '5 Whys RCA', '5S'],
       en: {
-        categoryLabel: 'Lean & OEE',
         org: 'Duy Tan Recycling',
-        title: 'Machinery OEE, Time-Study & 5S Root-Cause Optimization',
-        kpis: ['OEE Bottleneck Mapping', 'Time-Study Standardization', '5 Whys RCA & 5S'],
+        title: 'OEE, Time-Study & 5S Root-Cause Improvement',
+        kpis: [
+          { v: 'A×P×Q', l: 'OEE loss map' },
+          { v: '80/20', l: 'Pareto downtime ranking' },
+          { v: '5 Whys', l: 'RCA → SOP & 5S' }
+        ],
         cardBullets: [
-          'Conducted <strong>stopwatch Time-Study measurements</strong> and full <strong>OEE loss decomposition</strong> (Availability × Performance × Quality).',
-          'Isolated top unplanned downtime drivers using <strong>Pareto 80/20 charts</strong> and structured <strong>5 Whys Root-Cause Analysis (RCA)</strong>.',
-          'Standardized operator SOPs and deployed <strong>5S visual management controls</strong> across shop-floor workstations.'
+          'Ran <strong>stopwatch time-studies</strong> and decomposed <strong>OEE</strong> into Availability × Performance × Quality losses.',
+          'Ranked unplanned downtime with <strong>Pareto 80/20</strong> and traced root causes via <strong>5 Whys RCA</strong>.',
+          'Standardized operator <strong>SOPs</strong> and rolled out <strong>5S visual controls</strong> at each workstation.'
         ],
         executiveTakeaway:
-          'Diagnosed critical recycling line losses through <strong>stopwatch Time-Study</strong> and <strong>OEE bottleneck mapping</strong>, applying <strong>Pareto 80/20 ranking &amp; 5 Whys RCA</strong> to eliminate recurring micro-stops and enforce <strong>5S visual standards</strong> on the shop floor.',
+          'Located the real equipment losses on a plastic-recycling line with <strong>stopwatch time-study</strong> and an <strong>OEE bottleneck map</strong>, then used <strong>Pareto 80/20 &amp; 5 Whys RCA</strong> to remove recurring micro-stop triggers and lock in <strong>SOP &amp; 5S visual standards</strong>.',
         sections: {
-          problem:
-            'Plastic recycling lines suffered from frequent unplanned micro-stops, fluctuating shift throughput, and undocumented cycle-time standards. Lack of structured downtime categorization and workstation 5S standards obscured the core drivers of equipment utilization loss.',
-          methodology:
-            'Executed formal Stopwatch Time & Work Study protocols, full OEE loss tree mapping (Availability × Performance × Quality), Pareto 80/20 downtime ranking, 5 Whys Root-Cause Analysis (RCA), Standard Work documentation, and 5S workplace organization.',
-          architecture:
-            'Shift-level stoppage logs and cycle-time samples were aggregated into structured loss buckets (Unplanned Breakdowns, Setup/Changeover, Micro-Stops, Quality Rejects). Pareto filtering isolated top loss contributors for 5 Whys fault-tree analysis, driving targeted engineering countermeasures and 5S visual zone layouts.',
-          outcomes:
-            'Built an actionable OEE bottleneck map highlighting critical machine constraints, established standardized cycle-time baselines for operator workflows, eliminated recurring downtime triggers via 5 Whys RCA, and instituted 5S visual controls across workstations.'
+          problem: [
+            'Frequent unplanned micro-stops and fluctuating shift throughput.',
+            'No documented cycle-time standards for operators.',
+            'Downtime was not categorized, hiding the main utilization losses.'
+          ],
+          methodology: [
+            'Stopwatch Time & Work Study for cycle-time baselines.',
+            'OEE loss tree: Availability × Performance × Quality.',
+            'Pareto 80/20 ranking, 5 Whys RCA, Standard Work, and 5S.'
+          ],
+          architecture: [
+            'Shift stoppage logs and cycle samples bucketed into breakdowns, setup, micro-stops, and quality rejects.',
+            'A Pareto filter isolates the top loss buckets for 5 Whys fault-tree analysis.',
+            'Each root cause maps to a countermeasure: SOP update, tooling layout, or 5S visual zone.'
+          ],
+          outcomes: [
+            'OEE bottleneck map of the critical machine cluster.',
+            'Standardized cycle-time baselines for operator workflows.',
+            'Recurring downtime triggers removed via 5 Whys; 5S visual controls in place at workstations.'
+          ]
         }
       },
       vi: {
-        categoryLabel: 'Lean & OEE',
         org: 'Duy Tân Recycling',
-        title: 'Tối ưu OEE Thiết bị, Đo Thời gian & Cải tiến 5S / RCA',
-        kpis: ['Bản đồ Điểm nghẽn OEE', 'Chuẩn hóa Time-Study', 'Phân tích 5 Whys & 5S'],
+        title: 'Cải tiến OEE, Bấm giờ & 5S theo Nguyên nhân Gốc',
+        kpis: [
+          { v: 'A×P×Q', l: 'bản đồ tổn thất OEE' },
+          { v: '80/20', l: 'xếp hạng dừng máy Pareto' },
+          { v: '5 Whys', l: 'RCA → SOP & 5S' }
+        ],
         cardBullets: [
-          'Thực hiện <strong>bấm giờ chu kỳ máy (Time-Study)</strong> và phân rã tổn thất <strong>OEE toàn diện</strong> (Khả dụng × Hiệu suất × Chất lượng).',
-          'Khoanh vùng nguyên nhân dừng máy ngoài kế hoạch bằng <strong>biểu đồ Pareto 80/20</strong> và truy vết <strong>5 Whys RCA</strong>.',
-          'Chuẩn hóa thao tác vận hành (SOP) và triển khai <strong>quản lý trực quan 5S</strong> tại các trạm sản xuất.'
+          'Bấm giờ <strong>Time-Study</strong> và phân rã <strong>OEE</strong> thành tổn thất Khả dụng × Hiệu suất × Chất lượng.',
+          'Xếp hạng dừng máy ngoài kế hoạch bằng <strong>Pareto 80/20</strong> và truy nguyên nhân gốc với <strong>5 Whys RCA</strong>.',
+          'Chuẩn hóa <strong>SOP</strong> thao tác và triển khai <strong>quản lý trực quan 5S</strong> tại từng trạm.'
         ],
         executiveTakeaway:
-          'Khoanh vùng chính xác tổn thất thiết bị trên chuyền tái chế thông qua <strong>bấm giờ Time-Study</strong> và <strong>bản đồ điểm nghẽn OEE</strong>, kết hợp <strong>Pareto 80/20 &amp; 5 Whys RCA</strong> để khắc phục lỗi dừng máy lặp lại và thiết lập chuẩn <strong>5S trực quan</strong> tại xưởng.',
+          'Xác định đúng tổn thất thiết bị trên chuyền tái chế nhựa bằng <strong>bấm giờ Time-Study</strong> và <strong>bản đồ điểm nghẽn OEE</strong>, sau đó dùng <strong>Pareto 80/20 &amp; 5 Whys RCA</strong> để loại bỏ nguyên nhân dừng vặt lặp lại và duy trì <strong>chuẩn SOP &amp; 5S trực quan</strong>.',
         sections: {
-          problem:
-            'Hệ thống máy tái chế nhựa gặp tình trạng dừng vặt ngoài kế hoạch, sản lượng biến động giữa các ca và chưa có định mức thời gian chu kỳ chuẩn. Thiếu hệ thống phân loại lỗi dừng máy và chuẩn hóa mặt bằng 5S khiến việc xử lý tổn thất thiết bị thiếu trọng tâm.',
-          methodology:
-            'Triển khai Nghiên cứu Thời gian & Thao tác bằng bấm giờ (Time & Work Study), đo lường 3 thành phần OEE (Khả dụng × Hiệu suất × Chất lượng), xếp hạng Pareto 80/20, phân tích nguyên nhân gốc rễ 5 Whys RCA, chuẩn hóa thao tác chuẩn (SOP) và 5S hiện trường.',
-          architecture:
-            'Dữ liệu nhật ký ca và mẫu bấm giờ được chuẩn hóa thành các nhóm tổn thất thiết bị. Biểu đồ Pareto khoanh vùng nhóm sự cố chiếm tỷ trọng cao nhất để đi sâu truy vết bằng cây lỗi 5 Whys, gắn liền với cải tiến bố trí dụng cụ và vạch kẻ trực quan 5S.',
-          outcomes:
-            'Hoàn thiện bản đồ điểm nghẽn OEE cho cụm máy trọng yếu, thiết lập bộ chuẩn thời gian chu kỳ vận hành cho công nhân, khắc phục các nguyên nhân dừng máy lặp lại nhờ 5 Whys RCA và nâng cao tính ngăn nắp, an toàn tại xưởng theo tiêu chuẩn 5S.'
+          problem: [
+            'Dừng vặt ngoài kế hoạch thường xuyên, sản lượng dao động giữa các ca.',
+            'Chưa có định mức thời gian chu kỳ chuẩn cho công nhân.',
+            'Dừng máy chưa được phân loại nên tổn thất chính bị che khuất.'
+          ],
+          methodology: [
+            'Nghiên cứu Thời gian & Thao tác (bấm giờ) để lập định mức chu kỳ.',
+            'Cây tổn thất OEE: Khả dụng × Hiệu suất × Chất lượng.',
+            'Xếp hạng Pareto 80/20, 5 Whys RCA, Thao tác chuẩn và 5S.'
+          ],
+          architecture: [
+            'Nhật ký dừng máy theo ca và mẫu bấm giờ được gom vào các nhóm: hỏng hóc, chuyển đổi, dừng vặt, phế phẩm.',
+            'Bộ lọc Pareto khoanh vùng nhóm tổn thất lớn nhất để phân tích cây lỗi 5 Whys.',
+            'Mỗi nguyên nhân gốc gắn với một biện pháp: cập nhật SOP, bố trí dụng cụ hoặc vùng trực quan 5S.'
+          ],
+          outcomes: [
+            'Bản đồ điểm nghẽn OEE cho cụm máy trọng yếu.',
+            'Bộ định mức thời gian chu kỳ chuẩn cho thao tác công nhân.',
+            'Loại bỏ nguyên nhân dừng máy lặp lại nhờ 5 Whys; áp dụng quản lý trực quan 5S tại trạm.'
+          ]
         }
       }
     }
   ];
 
   /* ========================================================================
-     3. 3-Column Technical Skills Matrix Data (EN & VI) with Header Icons
+     4. Skills matrix (EN & VI) — each pillar links to its proof
      ======================================================================== */
   const SKILLS_MATRIX = [
     {
-      code: '01 // IE & LEAN',
-      icon: 'settings',
+      domain: 'lean',
+      icon: 'gauge',
+      proof: ['project-3', 'project-1'],
       en: {
+        code: '01 // IE & LEAN',
         title: 'Industrial Engineering & Lean',
-        desc: 'Shop-floor standardization, bottleneck diagnostics, and continuous waste elimination.',
-        skills: ['Heijunka', 'SMED', 'VSM', 'OEE', 'Time & Work Study', '5S', '5 Whys RCA']
+        desc: 'Measure the floor, find the constraint, remove the waste.',
+        skills: ['Heijunka', 'SMED', 'VSM', 'OEE', 'Time & Work Study', '5S', '5 Whys RCA', 'Standard Work (SOP)']
       },
       vi: {
+        code: '01 // IE & LEAN',
         title: 'Kỹ thuật Công nghiệp & Lean',
-        desc: 'Chuẩn hóa hiện trường sản xuất, chẩn đoán điểm nghẽn và loại bỏ lãng phí liên tục.',
-        skills: ['Heijunka', 'SMED', 'VSM', 'OEE', 'Time & Work Study', '5S', '5 Whys RCA']
+        desc: 'Đo lường hiện trường, tìm điểm nghẽn, loại bỏ lãng phí.',
+        skills: ['Heijunka', 'SMED', 'VSM', 'OEE', 'Bấm giờ (Time Study)', '5S', '5 Whys RCA', 'Thao tác chuẩn (SOP)']
       }
     },
     {
-      code: '02 // SIM & PLAN',
-      icon: 'box',
+      domain: 'simulation',
+      icon: 'boxes',
+      proof: ['project-1', 'project-2'],
       en: {
+        code: '02 // SIM & PLAN',
         title: 'Simulation & Scheduling',
-        desc: 'Stochastic line modeling, capacity validation, and multi-stage material planning.',
-        skills: [
-          'FlexSim 3D',
-          'Discrete-Event Simulation',
-          'Capacity Planning',
-          'MRP / BOM Explosion',
-          'Line Balancing'
-        ]
+        desc: 'Stress-test schedules and buffers before they reach the line.',
+        skills: ['FlexSim 3D', 'Discrete-Event Simulation (JS)', 'Line Balancing', 'Capacity Planning', 'MRP / BOM Explosion']
       },
       vi: {
-        title: 'Mô phỏng & Hoạch định Điều độ',
-        desc: 'Mô hình hóa chuyền sản xuất, kiểm chứng công suất và hoạch định vật tư đa công đoạn.',
-        skills: [
-          'FlexSim 3D',
-          'Discrete-Event Simulation',
-          'Capacity Planning',
-          'MRP / BOM Explosion',
-          'Line Balancing'
-        ]
+        code: '02 // MÔ PHỎNG & HOẠCH ĐỊNH',
+        title: 'Mô phỏng & Điều độ',
+        desc: 'Kiểm thử lịch sản xuất và tồn đệm trước khi đưa xuống chuyền.',
+        skills: ['FlexSim 3D', 'Mô phỏng DES (JS)', 'Cân bằng chuyền', 'Hoạch định công suất', 'MRP / Bóc tách BOM']
       }
     },
     {
-      code: '03 // DATA & BI',
-      icon: 'bar-chart-3',
+      domain: 'automation',
+      icon: 'chart-column',
+      proof: ['project-2'],
       en: {
+        code: '03 // DATA & BI',
         title: 'Data Analytics & Automation',
-        desc: 'Automated ETL workflows, relational querying, and live operational KPI dashboards.',
-        skills: ['Python', 'SQL', 'Excel VBA & Power Query', 'Google Apps Script', 'Power BI']
+        desc: 'Replace manual reconciliation with pipelines and live KPIs.',
+        skills: ['Excel VBA', 'Power Query', 'Google Apps Script', 'SQL', 'Python', 'Power BI']
       },
       vi: {
+        code: '03 // DỮ LIỆU & BI',
         title: 'Phân tích Dữ liệu & Tự động hóa',
-        desc: 'Xây dựng luồng xử lý dữ liệu tự động, truy vấn quan hệ và bảng điều khiển KPI trực quan.',
-        skills: ['Python', 'SQL', 'Excel VBA & Power Query', 'Google Apps Script', 'Power BI']
+        desc: 'Thay đối chiếu thủ công bằng luồng dữ liệu tự động và KPI trực tiếp.',
+        skills: ['Excel VBA', 'Power Query', 'Google Apps Script', 'SQL', 'Python', 'Power BI']
       }
     }
   ];
 
   /* ========================================================================
-     4. Experience & Education Timeline Data (EN & VI) with Bold Metrics/Tools
+     5. Experience & education timeline (EN & VI)
      ======================================================================== */
   const TIMELINE_ITEMS = [
     {
       date: '05/2026 – 11/2026',
-      icon: 'building-2',
+      icon: 'factory',
+      cases: ['project-1', 'project-2'],
       en: {
         role: 'Production Planning & Scheduling Intern',
         org: 'Thien Long Group — Long Thanh Manufacturing Plant',
         type: 'Internship',
         bullets: [
-          'Modeled a <strong>4-stage Art Marker manufacturing line</strong> using <strong>FlexSim 3D &amp; a custom JavaScript DES Engine</strong> to validate shift capacity and line balancing.',
-          'Sequenced <strong>217 color SKUs</strong> via <strong>Heijunka leveling &amp; SMED grouping</strong>, maintaining balanced inter-stage safety buffers with <strong>zero bottleneck buildup</strong>.',
-          'Engineered <strong>100% automated BOM explosion</strong> (ink weight to units) and real-time WIP shortage alerts using <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL logic</strong>.'
+          'Modeled a <strong>4-stage Art Marker line</strong> in <strong>FlexSim 3D</strong> and a custom <strong>JavaScript DES engine</strong> to validate shift capacity and line balance.',
+          'Sequenced <strong>217 color SKUs</strong> with <strong>Heijunka &amp; SMED grouping</strong> — <strong>0 bottleneck queues</strong> in simulated shifts.',
+          'Automated <strong>100% of BOM explosion</strong> (ink kg → units) and real-time WIP shortage alerts with <strong>Excel VBA, Power Query, Apps Script &amp; SQL</strong>.'
         ]
       },
       vi: {
@@ -555,23 +792,24 @@
         org: 'Tập đoàn Thiên Long — Nhà máy Long Thành',
         type: 'Thực tập',
         bullets: [
-          'Xây dựng mô hình <strong>dây chuyền Art Marker 4 công đoạn</strong> trên <strong>FlexSim 3D &amp; JavaScript DES Engine</strong> để kiểm chứng công suất và cân bằng chuyền.',
-          'Điều độ <strong>217 mã màu SKU</strong> theo nguyên lý <strong>Heijunka &amp; gom nhóm SMED</strong>, duy trì tồn kho đệm liên trạm ổn định với <strong>0 điểm nghẽn</strong>.',
-          'Tự động hóa <strong>100% quy đổi BOM</strong> (khối lượng mực sang đơn vị sản phẩm) và cảnh báo thiếu hụt WIP thời gian thực bằng <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL</strong>.'
+          'Mô hình hóa <strong>chuyền Art Marker 4 công đoạn</strong> trên <strong>FlexSim 3D</strong> và <strong>JavaScript DES engine</strong> tự phát triển để kiểm chứng công suất ca và cân bằng chuyền.',
+          'Điều độ <strong>217 mã màu SKU</strong> theo <strong>Heijunka &amp; gom nhóm SMED</strong> — <strong>0 hàng chờ nghẽn</strong> trong các ca mô phỏng.',
+          'Tự động <strong>100% bóc tách BOM</strong> (kg mực → sản phẩm) và cảnh báo thiếu hụt WIP tức thời bằng <strong>Excel VBA, Power Query, Apps Script &amp; SQL</strong>.'
         ]
       }
     },
     {
       date: '06/2025 – 08/2025',
-      icon: 'building-2',
+      icon: 'factory',
+      cases: ['project-3'],
       en: {
         role: 'Production & Lean Intern',
         org: 'Duy Tan Recycling',
         type: 'Internship',
         bullets: [
-          'Conducted <strong>stopwatch Time-Study measurements</strong> across plastic recycling machinery to establish standardized cycle-time baselines.',
-          'Evaluated <strong>Overall Equipment Effectiveness (OEE)</strong> and isolated top unplanned downtime drivers via <strong>Pareto 80/20 charts &amp; 5 Whys RCA</strong>.',
-          'Standardized operator workflows (SOPs) and deployed <strong>5S visual management controls</strong> across shop-floor workstations.'
+          'Timed plastic-recycling machinery with <strong>stopwatch time-studies</strong> to set standard cycle-time baselines.',
+          'Measured <strong>OEE</strong> and ranked unplanned downtime drivers with <strong>Pareto 80/20 &amp; 5 Whys RCA</strong>.',
+          'Standardized operator <strong>SOPs</strong> and deployed <strong>5S visual controls</strong> across workstations.'
         ]
       },
       vi: {
@@ -579,474 +817,60 @@
         org: 'Duy Tân Recycling',
         type: 'Thực tập',
         bullets: [
-          'Thực hiện <strong>bấm giờ đo chu kỳ máy (Time-Study)</strong> trên dây chuyền tái chế nhựa nhằm thiết lập bộ định mức thời gian chuẩn.',
-          'Đánh giá <strong>hiệu suất thiết bị tổng thể (OEE)</strong> và khoanh vùng nguyên nhân dừng máy ngoài kế hoạch bằng <strong>biểu đồ Pareto 80/20 &amp; 5 Whys RCA</strong>.',
-          'Chuẩn hóa quy trình thao tác chuẩn (SOP) cho công nhân và triển khai <strong>quản lý trực quan 5S</strong> tại hiện trường xưởng.'
+          'Bấm giờ <strong>Time-Study</strong> cho máy tái chế nhựa để lập định mức thời gian chu kỳ chuẩn.',
+          'Đo <strong>OEE</strong> và xếp hạng nguyên nhân dừng máy ngoài kế hoạch bằng <strong>Pareto 80/20 &amp; 5 Whys RCA</strong>.',
+          'Chuẩn hóa <strong>SOP</strong> thao tác và triển khai <strong>quản lý trực quan 5S</strong> tại các trạm.'
         ]
       }
     },
     {
       date: '2025 – 2026',
-      icon: 'building-2',
+      icon: 'users',
+      cases: [],
       en: {
         role: 'President',
-        org: 'E-Marketing Action Club (EMA HCMUT)',
+        org: 'E-Marketing Action Club (EMA) · HCMUT',
         type: 'Leadership',
         bullets: [
-          'Directed <strong>club-wide operations, cross-functional project execution</strong>, and talent development at <strong>Ho Chi Minh City University of Technology (HCMUT)</strong>.',
-          'Coordinated <strong>academic alliance programs &amp; corporate partnerships</strong>, tracking milestone KPIs and deliverable quality.'
+          'Led <strong>club operations</strong>, cross-functional project teams, and member development at <strong>HCMUT</strong>.',
+          'Managed <strong>academic alliances &amp; corporate partnerships</strong>, tracking milestone KPIs and deliverable quality.'
         ]
       },
       vi: {
         role: 'Chủ nhiệm Câu lạc bộ',
-        org: 'CLB E-Marketing Action (EMA HCMUT)',
+        org: 'CLB E-Marketing Action (EMA) · HCMUT',
         type: 'Lãnh đạo',
         bullets: [
-          'Điều hành <strong>chiến lược hoạt động, quản trị dự án đa chức năng</strong> và phát triển nhân sự tại <strong>Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong>.',
-          'Điều phối <strong>các chương trình liên minh học thuật &amp; đối tác doanh nghiệp</strong>, kiểm soát KPI tiến độ và chất lượng đầu ra.'
+          'Điều hành <strong>hoạt động CLB</strong>, các nhóm dự án liên chức năng và phát triển thành viên tại <strong>HCMUT</strong>.',
+          'Quản lý <strong>liên kết học thuật &amp; đối tác doanh nghiệp</strong>, theo dõi KPI tiến độ và chất lượng đầu ra.'
         ]
       }
     },
     {
       date: '2022 – 2026',
       icon: 'graduation-cap',
+      cases: [],
       en: {
         role: 'Bachelor of Business Administration',
-        org: 'Ho Chi Minh City University of Technology (HCMUT)',
+        org: 'Ho Chi Minh City University of Technology – VNU-HCM',
         type: 'Education',
         bullets: [
-          'Undergraduate training at <strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)</strong>.',
-          'Specialized in <strong>Production Planning &amp; Scheduling, Lean Manufacturing Systems, Operations Research</strong>, and <strong>Quantitative Data Analytics</strong>.'
+          'Focus: <strong>Production Planning &amp; Scheduling</strong>, <strong>Lean Manufacturing</strong>, <strong>Operations Research</strong>, and <strong>Quantitative Data Analytics</strong>.'
         ]
       },
       vi: {
         role: 'Cử nhân Quản trị Kinh doanh',
-        org: 'Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)',
+        org: 'Trường Đại học Bách khoa – ĐHQG TP.HCM',
         type: 'Học vấn',
         bullets: [
-          'Đào tạo chính quy tại <strong>Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT, 2022–2026)</strong>.',
-          'Chuyên sâu về <strong>Hoạch định &amp; Điều độ Sản xuất, Hệ thống Sản xuất Tinh gọn (Lean), Vận trù học</strong> và <strong>Phân tích Dữ liệu Định lượng</strong>.'
+          'Trọng tâm: <strong>Hoạch định &amp; Điều độ Sản xuất</strong>, <strong>Sản xuất Tinh gọn (Lean)</strong>, <strong>Vận trù học</strong> và <strong>Phân tích Dữ liệu Định lượng</strong>.'
         ]
       }
     }
   ];
 
   /* ========================================================================
-     5. Light-Blue Technical SVG Blueprint Generator (onerror fallback)
-     ======================================================================== */
-  function buildTechnicalBlueprintSvg(projectId, lang) {
-    const isVi = lang === 'vi';
-
-    if (projectId === 'project-1') {
-      const labels = isVi
-        ? {
-            title: 'MÔ HÌNH CÂN BẰNG CHUYỀN 4 CÔNG ĐOẠN & ĐIỀU ĐỘ HEIJUNKA (217 MÃ MÀU)',
-            subtitle: 'FLEXSIM 3D SONG SINH SỐ + JAVASCRIPT DES ENGINE',
-            s1: 'CÔNG ĐOẠN 01',
-            s1Sub: 'In chuyển nhiệt thân',
-            s2: 'CÔNG ĐOẠN 02',
-            s2Sub: 'In nắp bút',
-            s3: 'CÔNG ĐOẠN 03',
-            s3Sub: 'Lắp nắp',
-            s4: 'CÔNG ĐOẠN 04',
-            s4Sub: 'Lắp ráp hoàn chỉnh',
-            matrixTitle: 'TRÌNH TỰ HEIJUNKA · 217 SKU MÀU (TỐI ƯU SMED)',
-            w1: 'NHÓM A · MÀU NHẠT',
-            w2: 'NHÓM B · TRUNG TÍNH',
-            w3: 'NHÓM C · MÀU ĐẬM',
-            status: 'ĐIỂM NGHẼN: 0 | CÂN BẰNG: ĐẠT'
-          }
-        : {
-            title: '4-STAGE SEQUENTIAL LINE BALANCING & HEIJUNKA SCHEDULER (217 SKUs)',
-            subtitle: 'FLEXSIM 3D DIGITAL TWIN + JAVASCRIPT DES ENGINE',
-            s1: 'STAGE 01',
-            s1Sub: 'Barrel Heat-Transfer',
-            s2: 'STAGE 02',
-            s2Sub: 'Cap Printing',
-            s3: 'STAGE 03',
-            s3Sub: 'Cap Assembly',
-            s4: 'STAGE 04',
-            s4Sub: 'Final Assembly',
-            matrixTitle: 'HEIJUNKA LEVELING SEQUENCE · 217 COLOR SKUs (SMED GROUPED)',
-            w1: 'WAVE A · LIGHT INK',
-            w2: 'WAVE B · MID TONE',
-            w3: 'WAVE C · DEEP INK',
-            status: 'BOTTLENECK QUEUE: 0 | BALANCED'
-          };
-
-      return `
-        <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${labels.title}">
-          <defs>
-            <pattern id="bp-grid-1" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#DBEAFE" stroke-width="0.8"/>
-            </pattern>
-            <marker id="arrow-blue-1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB"/>
-            </marker>
-          </defs>
-          <rect width="880" height="340" fill="#F8FAFC"/>
-          <rect width="880" height="340" fill="url(#bp-grid-1)"/>
-          <rect x="14" y="14" width="852" height="312" rx="10" fill="none" stroke="#93C5FD" stroke-width="1.4"/>
-
-          <!-- Blueprint Header Strip -->
-          <rect x="14" y="14" width="852" height="40" rx="10" fill="#EFF6FF"/>
-          <line x1="14" y1="54" x2="866" y2="54" stroke="#93C5FD" stroke-width="1.2"/>
-          <text x="30" y="34" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700" fill="#1D4ED8">${labels.title}</text>
-          <text x="30" y="48" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">${labels.subtitle}</text>
-          <rect x="640" y="22" width="212" height="24" rx="12" fill="#DBEAFE" stroke="#93C5FD"/>
-          <text x="746" y="38" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="700" fill="#1D4ED8">${labels.status}</text>
-
-          <!-- 4 Sequential Stages + Inter-stage Buffers -->
-          <g font-family="Inter, sans-serif">
-            <!-- Stage 1 -->
-            <rect x="28" y="78" width="152" height="78" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.8"/>
-            <rect x="28" y="78" width="152" height="22" rx="8" fill="#DBEAFE"/>
-            <text x="104" y="93" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#1D4ED8">${labels.s1}</text>
-            <text x="104" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A">${labels.s1Sub}</text>
-            <text x="104" y="140" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">DES Node #1</text>
-
-            <!-- Buffer 1 -->
-            <line x1="180" y1="117" x2="196" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-1)"/>
-            <rect x="200" y="96" width="44" height="42" rx="6" fill="#EFF6FF" stroke="#0284C7" stroke-dasharray="3 2"/>
-            <text x="222" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284C7">B1</text>
-            <text x="222" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#475569">WIP BUF</text>
-            <line x1="244" y1="117" x2="260" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-1)"/>
-
-            <!-- Stage 2 -->
-            <rect x="264" y="78" width="144" height="78" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.8"/>
-            <rect x="264" y="78" width="144" height="22" rx="8" fill="#DBEAFE"/>
-            <text x="336" y="93" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#1D4ED8">${labels.s2}</text>
-            <text x="336" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A">${labels.s2Sub}</text>
-            <text x="336" y="140" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">DES Node #2</text>
-
-            <!-- Buffer 2 -->
-            <line x1="408" y1="117" x2="424" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-1)"/>
-            <rect x="428" y="96" width="44" height="42" rx="6" fill="#EFF6FF" stroke="#0284C7" stroke-dasharray="3 2"/>
-            <text x="450" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284C7">B2</text>
-            <text x="450" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#475569">WIP BUF</text>
-            <line x1="472" y1="117" x2="488" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-1)"/>
-
-            <!-- Stage 3 -->
-            <rect x="492" y="78" width="144" height="78" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.8"/>
-            <rect x="492" y="78" width="144" height="22" rx="8" fill="#DBEAFE"/>
-            <text x="564" y="93" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#1D4ED8">${labels.s3}</text>
-            <text x="564" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A">${labels.s3Sub}</text>
-            <text x="564" y="140" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">DES Node #3</text>
-
-            <!-- Buffer 3 -->
-            <line x1="636" y1="117" x2="652" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-1)"/>
-            <rect x="656" y="96" width="44" height="42" rx="6" fill="#EFF6FF" stroke="#0284C7" stroke-dasharray="3 2"/>
-            <text x="678" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284C7">B3</text>
-            <text x="678" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#475569">WIP BUF</text>
-            <line x1="700" y1="117" x2="716" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-1)"/>
-
-            <!-- Stage 4 -->
-            <rect x="720" y="78" width="132" height="78" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.8"/>
-            <rect x="720" y="78" width="132" height="22" rx="8" fill="#2563EB"/>
-            <text x="786" y="93" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#FFFFFF">${labels.s4}</text>
-            <text x="786" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A">${labels.s4Sub}</text>
-            <text x="786" y="140" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">DES Output</text>
-          </g>
-
-          <!-- Heijunka Leveling Schedule Gantt Matrix -->
-          <rect x="30" y="176" width="822" height="134" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
-          <text x="46" y="198" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#0F172A">${labels.matrixTitle}</text>
-
-          <!-- Gantt Rows -->
-          <rect x="46" y="212" width="230" height="24" rx="5" fill="#DBEAFE" stroke="#93C5FD"/>
-          <text x="161" y="228" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">${labels.w1} (SKU 001–072)</text>
-
-          <rect x="292" y="212" width="265" height="24" rx="5" fill="#EFF6FF" stroke="#2563EB"/>
-          <text x="424" y="228" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">${labels.w2} (SKU 073–148)</text>
-
-          <rect x="573" y="212" width="262" height="24" rx="5" fill="#2563EB"/>
-          <text x="704" y="228" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#FFFFFF">${labels.w3} (SKU 149–217)</text>
-
-          <!-- Balanced Cycle Bars & Takt Line -->
-          <line x1="46" y1="264" x2="835" y2="264" stroke="#0284C7" stroke-width="1.4" stroke-dasharray="5 4"/>
-          <text x="835" y="258" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284C7">TAKT TARGET LINE</text>
-
-          <rect x="65" y="266" width="60" height="30" rx="3" fill="#93C5FD"/>
-          <rect x="145" y="268" width="60" height="28" rx="3" fill="#93C5FD"/>
-          <rect x="225" y="265" width="60" height="31" rx="3" fill="#60A5FA"/>
-          <rect x="305" y="267" width="60" height="29" rx="3" fill="#60A5FA"/>
-          <rect x="385" y="265" width="60" height="31" rx="3" fill="#3B82F6"/>
-          <rect x="465" y="266" width="60" height="30" rx="3" fill="#3B82F6"/>
-          <rect x="545" y="268" width="60" height="28" rx="3" fill="#2563EB"/>
-          <rect x="625" y="265" width="60" height="31" rx="3" fill="#2563EB"/>
-          <rect x="705" y="266" width="60" height="30" rx="3" fill="#1D4ED8"/>
-        </svg>
-      `;
-    }
-
-    if (projectId === 'project-2') {
-      const labels = isVi
-        ? {
-            title: 'KIẾN TRÚC TỰ ĐỘNG HÓA QUY ĐỔI BOM & THEO DÕI WIP ĐA CÔNG ĐOẠN',
-            subtitle: 'EXCEL VBA · POWER QUERY · GOOGLE APPS SCRIPT · QUERY & SQL LOGIC',
-            n1: 'NGUỒN MỰC (KG)',
-            n1Sub: 'Nhật ký cấp phát',
-            n2: 'ĐỘNG CƠ BOM',
-            n2Sub: 'Quy đổi kg → Đơn vị',
-            n3: 'SỔ CÁI WIP',
-            n3Sub: 'Apps Script / SQL',
-            n4: 'CẢNH BÁO ĐỘNG',
-            n4Sub: 'Ngưỡng tồn đệm',
-            chartTitle: 'GIÁM SÁT ĐỘ PHỦ WIP SO VỚI NGƯỠNG TỒN KHO ĐỆM AN TOÀN (DỮ LIỆU MẪU)',
-            threshold: 'NGƯỠNG ĐỆM AN TOÀN',
-            alertText: 'CẢNH BÁO BÙ VẬT TƯ'
-          }
-        : {
-            title: 'AUTOMATED BOM EXPLOSION & MULTI-STAGE WIP TRACKING ARCHITECTURE',
-            subtitle: 'EXCEL VBA · POWER QUERY · GOOGLE APPS SCRIPT · QUERY & SQL LOGIC',
-            n1: 'INK MASS LOG (KG)',
-            n1Sub: 'Raw Material Input',
-            n2: 'BOM ENGINE',
-            n2Sub: 'Weight → Unit Sync',
-            n3: 'WIP LEDGER',
-            n3Sub: 'Apps Script / SQL',
-            n4: 'SHORTAGE ALERT',
-            n4Sub: 'Dynamic Buffer',
-            chartTitle: 'MULTI-STAGE WIP COVERAGE VS. DYNAMIC SAFETY BUFFER (SANITIZED MOCK)',
-            threshold: 'DYNAMIC SAFETY BUFFER',
-            alertText: 'REPLENISH TRIGGER'
-          };
-
-      return `
-        <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${labels.title}">
-          <defs>
-            <pattern id="bp-grid-2" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#DBEAFE" stroke-width="0.8"/>
-            </pattern>
-            <marker id="arrow-blue-2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB"/>
-            </marker>
-          </defs>
-          <rect width="880" height="340" fill="#F8FAFC"/>
-          <rect width="880" height="340" fill="url(#bp-grid-2)"/>
-          <rect x="14" y="14" width="852" height="312" rx="10" fill="none" stroke="#93C5FD" stroke-width="1.4"/>
-
-          <!-- Header -->
-          <rect x="14" y="14" width="852" height="40" rx="10" fill="#EFF6FF"/>
-          <line x1="14" y1="54" x2="866" y2="54" stroke="#93C5FD" stroke-width="1.2"/>
-          <text x="30" y="34" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700" fill="#1D4ED8">${labels.title}</text>
-          <text x="30" y="48" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">${labels.subtitle}</text>
-          <rect x="676" y="22" width="176" height="24" rx="12" fill="#DBEAFE" stroke="#93C5FD"/>
-          <text x="764" y="38" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="700" fill="#1D4ED8">100% BOM SYNC</text>
-
-          <!-- 4 Pipeline Nodes -->
-          <g font-family="Inter, sans-serif">
-            <rect x="30" y="76" width="175" height="76" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.6"/>
-            <rect x="30" y="76" width="175" height="22" rx="8" fill="#DBEAFE"/>
-            <text x="117" y="91" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">01 · ${labels.n1}</text>
-            <text x="117" y="119" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0F172A">${labels.n1Sub}</text>
-            <text x="117" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B">Power Query ETL</text>
-
-            <line x1="205" y1="114" x2="238" y2="114" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-2)"/>
-
-            <rect x="242" y="76" width="180" height="76" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.6"/>
-            <rect x="242" y="76" width="180" height="22" rx="8" fill="#DBEAFE"/>
-            <text x="332" y="91" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">02 · ${labels.n2}</text>
-            <text x="332" y="119" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0F172A">${labels.n2Sub}</text>
-            <text x="332" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B">Excel VBA Matrix</text>
-
-            <line x1="422" y1="114" x2="455" y2="114" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-2)"/>
-
-            <rect x="459" y="76" width="180" height="76" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.6"/>
-            <rect x="459" y="76" width="180" height="22" rx="8" fill="#DBEAFE"/>
-            <text x="549" y="91" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">03 · ${labels.n3}</text>
-            <text x="549" y="119" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0F172A">${labels.n3Sub}</text>
-            <text x="549" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#64748B">Real-Time QUERY()</text>
-
-            <line x1="639" y1="114" x2="672" y2="114" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue-2)"/>
-
-            <rect x="676" y="76" width="176" height="76" rx="8" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.8"/>
-            <rect x="676" y="76" width="176" height="22" rx="8" fill="#2563EB"/>
-            <text x="764" y="91" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#FFFFFF">04 · ${labels.n4}</text>
-            <text x="764" y="119" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0F172A">${labels.n4Sub}</text>
-            <text x="764" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">Automated Trigger</text>
-          </g>
-
-          <!-- WIP Coverage Monitor Chart -->
-          <rect x="30" y="172" width="822" height="138" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
-          <text x="48" y="194" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#0F172A">${labels.chartTitle}</text>
-
-          <!-- Threshold Line -->
-          <line x1="48" y1="242" x2="834" y2="242" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="6 4"/>
-          <text x="834" y="236" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284C7">${labels.threshold}</text>
-
-          <!-- SKU Family Bars -->
-          <rect x="75" y="210" width="90" height="76" rx="4" fill="#2563EB"/>
-          <text x="120" y="300" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">CELL 01 · BARREL</text>
-
-          <rect x="235" y="218" width="90" height="68" rx="4" fill="#3B82F6"/>
-          <text x="280" y="300" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">CELL 02 · CAP</text>
-
-          <rect x="395" y="252" width="90" height="34" rx="4" fill="#93C5FD" stroke="#0284C7" stroke-width="1.5"/>
-          <rect x="395" y="228" width="90" height="18" rx="4" fill="#DBEAFE" stroke="#2563EB"/>
-          <text x="440" y="241" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" font-weight="700" fill="#1D4ED8">${labels.alertText}</text>
-          <text x="440" y="300" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">CELL 03 · INK LOT</text>
-
-          <rect x="555" y="212" width="90" height="74" rx="4" fill="#2563EB"/>
-          <text x="600" y="300" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">CELL 04 · FINAL</text>
-
-          <rect x="715" y="222" width="90" height="64" rx="4" fill="#60A5FA"/>
-          <text x="760" y="300" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">FG BUFFER</text>
-        </svg>
-      `;
-    }
-
-    // Project 3: OEE, Pareto, 5 Whys & 5S Blueprint
-    const labels = isVi
-      ? {
-          title: 'BẢN ĐỒ ĐIỂM NGHẼN OEE, PARETO DỪNG MÁY & CHUẨN HÓA 5S',
-          subtitle: 'TIME-STUDY BẤM GIỜ · PHÂN TÍCH 5 WHYS RCA · QUẢN LÝ TRỰC QUAN 5S',
-          paretoTitle: 'PARETO NGUYÊN NHÂN DỪNG MÁY NGOÀI KẾ HOẠCH (GIẢ LẬP)',
-          oeeTitle: 'PHÂN RÃ CHỈ SỐ OEE & CHUẨN HÓA HIỆN TRƯỜNG',
-          c1: 'Kẹt phôi',
-          c2: 'Chuyển đổi',
-          c3: 'Cảm biến',
-          c4: 'Dừng vặt',
-          f1: 'KHẢ DỤNG (AVAILABILITY)',
-          f2: 'HIỆU SUẤT (PERFORMANCE)',
-          f3: 'CHẤT LƯỢNG (QUALITY)',
-          rca: '5 WHYS RCA → CHUẨN HÓA SOP & 5S'
-        }
-      : {
-          title: 'MACHINERY OEE BOTTLENECK MAP, PARETO DOWNTIME & 5S STANDARD',
-          subtitle: 'STOPWATCH TIME-STUDY · 5 WHYS ROOT-CAUSE ANALYSIS · 5S SHOP FLOOR',
-          paretoTitle: 'PARETO UNPLANNED DOWNTIME DRIVERS (SANITIZED MOCK)',
-          oeeTitle: 'OEE DECOMPOSITION & 5S WORKSTATION CONTROLS',
-          c1: 'Feed Jam',
-          c2: 'Setup',
-          c3: 'Sensor',
-          c4: 'Micro-Stop',
-          f1: 'AVAILABILITY',
-          f2: 'PERFORMANCE',
-          f3: 'QUALITY',
-          rca: '5 WHYS RCA → STANDARD WORK & 5S'
-        };
-
-    return `
-      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${labels.title}">
-        <defs>
-          <pattern id="bp-grid-3" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#DBEAFE" stroke-width="0.8"/>
-          </pattern>
-        </defs>
-        <rect width="880" height="340" fill="#F8FAFC"/>
-        <rect width="880" height="340" fill="url(#bp-grid-3)"/>
-        <rect x="14" y="14" width="852" height="312" rx="10" fill="none" stroke="#93C5FD" stroke-width="1.4"/>
-
-        <!-- Header -->
-        <rect x="14" y="14" width="852" height="40" rx="10" fill="#EFF6FF"/>
-        <line x1="14" y1="54" x2="866" y2="54" stroke="#93C5FD" stroke-width="1.2"/>
-        <text x="30" y="34" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700" fill="#1D4ED8">${labels.title}</text>
-        <text x="30" y="48" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0284C7">${labels.subtitle}</text>
-
-        <!-- Left Box: Pareto Chart -->
-        <rect x="30" y="72" width="420" height="238" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
-        <text x="48" y="96" font-family="JetBrains Mono, monospace" font-size="10.2" font-weight="700" fill="#0F172A">${labels.paretoTitle}</text>
-
-        <!-- 80% Cumulative Line -->
-        <line x1="56" y1="138" x2="424" y2="138" stroke="#0284C7" stroke-width="1.3" stroke-dasharray="5 3"/>
-        <text x="424" y="132" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#0284C7">80% CUTOFF</text>
-
-        <!-- Pareto Bars -->
-        <rect x="70" y="128" width="60" height="142" rx="4" fill="#2563EB"/>
-        <text x="100" y="286" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">${labels.c1}</text>
-
-        <rect x="158" y="168" width="60" height="102" rx="4" fill="#3B82F6"/>
-        <text x="188" y="286" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">${labels.c2}</text>
-
-        <rect x="246" y="206" width="60" height="64" rx="4" fill="#60A5FA"/>
-        <text x="276" y="286" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">${labels.c3}</text>
-
-        <rect x="334" y="232" width="60" height="38" rx="4" fill="#93C5FD"/>
-        <text x="364" y="286" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">${labels.c4}</text>
-
-        <!-- Cumulative Curve -->
-        <polyline points="100,192 188,148 276,124 364,114" fill="none" stroke="#0F172A" stroke-width="2"/>
-        <circle cx="100" cy="192" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
-        <circle cx="188" cy="148" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
-        <circle cx="276" cy="124" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
-        <circle cx="364" cy="114" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
-
-        <!-- Right Box: OEE Decomposition & 5S -->
-        <rect x="468" y="72" width="382" height="238" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
-        <text x="486" y="96" font-family="JetBrains Mono, monospace" font-size="10.2" font-weight="700" fill="#0F172A">${labels.oeeTitle}</text>
-
-        <!-- OEE Factors -->
-        <rect x="486" y="114" width="346" height="34" rx="6" fill="#EFF6FF" stroke="#DBEAFE"/>
-        <text x="500" y="135" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">${labels.f1}</text>
-        <rect x="690" y="125" width="126" height="10" rx="5" fill="#DBEAFE"/>
-        <rect x="690" y="125" width="96" height="10" rx="5" fill="#2563EB"/>
-
-        <rect x="486" y="156" width="346" height="34" rx="6" fill="#EFF6FF" stroke="#DBEAFE"/>
-        <text x="500" y="177" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">${labels.f2}</text>
-        <rect x="690" y="167" width="126" height="10" rx="5" fill="#DBEAFE"/>
-        <rect x="690" y="167" width="104" height="10" rx="5" fill="#0284C7"/>
-
-        <rect x="486" y="198" width="346" height="34" rx="6" fill="#EFF6FF" stroke="#DBEAFE"/>
-        <text x="500" y="219" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#1D4ED8">${labels.f3}</text>
-        <rect x="690" y="209" width="126" height="10" rx="5" fill="#DBEAFE"/>
-        <rect x="690" y="209" width="118" height="10" rx="5" fill="#2563EB"/>
-
-        <!-- 5 Whys & 5S Visual Strip -->
-        <rect x="486" y="246" width="346" height="46" rx="6" fill="#DBEAFE" stroke="#93C5FD"/>
-        <text x="659" y="266" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#1D4ED8">${labels.rca}</text>
-        <text x="659" y="282" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0F172A">1S SORT · 2S SET · 3S SHINE · 4S STD · 5S SUSTAIN</text>
-      </svg>
-    `;
-  }
-
-  /* ========================================================================
-     6. Application State & DOM References
-     ======================================================================== */
-  let currentLang = 'en';
-  let currentFilter = 'all';
-  let activeProjectId = null;
-  let lastFocusedElement = null;
-  let toastTimeout = null;
-  let revealObserver = null;
-
-  const dom = {
-    html: document.documentElement,
-    scrollProgressBar: document.getElementById('scroll-progress-bar'),
-    navLinks: document.querySelectorAll('.main-nav .nav-link'),
-    mobileNavLinks: document.querySelectorAll('.mobile-drawer .mobile-nav-link'),
-    langBtnEn: document.getElementById('lang-btn-en'),
-    langBtnVi: document.getElementById('lang-btn-vi'),
-    projectsGrid: document.getElementById('projects-grid'),
-    filterButtons: document.querySelectorAll('#project-filters .filter-btn'),
-    skillsGrid: document.getElementById('skills-grid'),
-    timelineList: document.getElementById('timeline-list'),
-    modalBackdrop: document.getElementById('case-study-modal'),
-    modalBody: document.getElementById('modal-body'),
-    modalCloseBtn: document.getElementById('modal-close-btn'),
-    modalCategory: document.getElementById('modal-category'),
-    modalOrg: document.getElementById('modal-org'),
-    modalTitle: document.getElementById('modal-title'),
-    modalKpiPills: document.getElementById('modal-kpi-pills'),
-    modalNdaLabel: document.getElementById('modal-nda-label'),
-    modalBlueprintRef: document.getElementById('modal-blueprint-ref'),
-    modalPreviewImg: document.getElementById('modal-preview-img'),
-    modalSvgBlueprint: document.getElementById('modal-svg-blueprint'),
-    modalExecTitle: document.getElementById('modal-exec-title'),
-    modalExecText: document.getElementById('modal-exec-text'),
-    modalSectionsGrid: document.getElementById('modal-sections-grid'),
-    modalStack: document.getElementById('modal-stack'),
-    modalPrevBtn: document.getElementById('modal-prev-btn'),
-    modalNextBtn: document.getElementById('modal-next-btn'),
-    copyTriggers: document.querySelectorAll('.copy-email-trigger'),
-    copyToast: document.getElementById('copy-toast'),
-    copyToastText: document.getElementById('copy-toast-text'),
-    mobileMenuBtn: document.getElementById('mobile-menu-btn'),
-    mobileDrawer: document.getElementById('mobile-drawer')
-  };
-
-  /* ========================================================================
-     7. Helper Utilities & Blueprint Fallback Handler (onerror)
+     6. Helpers
      ======================================================================== */
   function escapeHtml(str) {
     return String(str)
@@ -1057,461 +881,1028 @@
       .replace(/'/g, '&#39;');
   }
 
-  function renderSvgFallbackIntoModal(projectId) {
-    if (!dom.modalSvgBlueprint) return;
-    dom.modalSvgBlueprint.innerHTML = buildTechnicalBlueprintSvg(projectId, currentLang);
-    dom.modalSvgBlueprint.hidden = false;
+  function wait(ms) {
+    return new Promise((resolve) => window.setTimeout(resolve, ms));
   }
 
-  /**
-   * Automatic Light-Blue SVG Technical Blueprint Fallback Function.
-   * Invoked via `onerror` if actual PNG screenshots are not yet placed in assets/images/.
-   */
-  window.handleBlueprintFallback = function (imgElement) {
-    if (!imgElement) return;
-    imgElement.hidden = true;
-    imgElement.style.display = 'none';
-    imgElement.setAttribute('aria-hidden', 'true');
-    const projectId = imgElement.getAttribute('data-project-id') || activeProjectId || 'project-1';
-    renderSvgFallbackIntoModal(projectId);
-  };
-
-  /* ========================================================================
-     8. IntersectionObserver Scroll-Reveal & ScrollProgress / ScrollSpy
-     ======================================================================== */
-  function initRevealObserver() {
-    const prefersReducedMotion =
-      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
-      document.querySelectorAll('.reveal-item').forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-
-    if (!revealObserver) {
-      revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              revealObserver.unobserve(entry.target);
-            }
-          });
-        },
-        {
-          root: null,
-          rootMargin: '0px 0px -40px 0px',
-          threshold: 0.08
-        }
-      );
-    }
-
-    document.querySelectorAll('.reveal-item:not(.is-visible)').forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= window.innerHeight * 0.96) {
-        el.classList.add('is-visible');
-      } else {
-        revealObserver.observe(el);
-      }
-    });
+  function nextFrame() {
+    return new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   }
 
-  function updateScrollProgressAndSpy() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
-    const docHeight =
-      Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        document.body.offsetHeight,
-        document.documentElement.offsetHeight
-      ) - window.innerHeight;
-
-    const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
-    if (dom.scrollProgressBar) {
-      dom.scrollProgressBar.style.width = `${pct.toFixed(2)}%`;
-    }
-
-    // Ensure any reveal item at or above the current scroll viewport is visible
-    document.querySelectorAll('.reveal-item:not(.is-visible)').forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= window.innerHeight * 0.96) {
-        el.classList.add('is-visible');
-        if (revealObserver) revealObserver.unobserve(el);
-      }
-    });
-
-    // ScrollSpy active section detection
-    const sectionIds = ['about', 'projects', 'skills', 'timeline', 'contact'];
-    const spyOffset = scrollTop + 160;
-    let activeSection = sectionIds[0];
-
-    for (const id of sectionIds) {
-      const sec = document.getElementById(id);
-      if (sec && sec.offsetTop <= spyOffset) {
-        activeSection = id;
-      }
-    }
-
-    if (docHeight > 0 && scrollTop >= docHeight - 30) {
-      activeSection = 'contact';
-    }
-
-    dom.navLinks.forEach((link) => {
-      const isMatch = link.getAttribute('data-section') === activeSection;
-      link.classList.toggle('is-active', isMatch);
-      if (isMatch) link.setAttribute('aria-current', 'page');
-      else link.removeAttribute('aria-current');
-    });
-
-    dom.mobileNavLinks.forEach((link) => {
-      const isMatch = link.getAttribute('data-section') === activeSection;
-      link.classList.toggle('is-active', isMatch);
-    });
+  function findProject(id) {
+    return PROJECTS.find((p) => p.id === id) || null;
   }
 
-  /* ========================================================================
-     9. Renderers (Projects, Skills Matrix, Timeline, Static Translations)
-     ======================================================================== */
-  function applyStaticTranslations(lang) {
-    const dict = I18N[lang];
-    dom.html.setAttribute('lang', lang);
-    document.title = dict.pageTitle;
-
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.getAttribute('data-i18n');
-      if (dict[key] !== undefined) {
-        el.textContent = dict[key];
-      }
-    });
-
-    const isEn = lang === 'en';
-    dom.langBtnEn.classList.toggle('is-active', isEn);
-    dom.langBtnEn.setAttribute('aria-pressed', String(isEn));
-    dom.langBtnVi.classList.toggle('is-active', !isEn);
-    dom.langBtnVi.setAttribute('aria-pressed', String(!isEn));
-  }
-
-  function renderProjects(immediateReveal = false) {
-    if (!dom.projectsGrid) return;
+  function t(key) {
     const dict = I18N[currentLang];
-
-    const filtered =
-      currentFilter === 'all'
-        ? PROJECTS
-        : PROJECTS.filter((project) => project.categoryKey === currentFilter);
-
-    dom.projectsGrid.classList.toggle('is-single', filtered.length === 1);
-
-    dom.projectsGrid.innerHTML = filtered
-      .map((project, index) => {
-        const content = project[currentLang];
-        const delayMs = index * 80;
-        const kpiMarkup = content.kpis
-          .map(
-            (kpi, kpiIdx) => `
-              <span class="kpi-pill">
-                <i data-lucide="${kpiIdx === 0 ? 'trending-up' : 'check-circle-2'}" aria-hidden="true"></i>
-                <span>${escapeHtml(kpi)}</span>
-              </span>
-            `
-          )
-          .join('');
-
-        const bulletsMarkup = content.cardBullets.map((item) => `<li>${item}</li>`).join('');
-
-        const stackMarkup = project.techStack
-          .map((tech) => `<span class="tech-tag">${escapeHtml(tech)}</span>`)
-          .join('');
-
-        return `
-          <article
-            class="project-card reveal-item${immediateReveal ? ' is-visible' : ''}"
-            style="--reveal-delay: ${delayMs}ms;"
-            tabindex="0"
-            role="button"
-            data-project-id="${escapeHtml(project.id)}"
-            aria-label="${escapeHtml(content.title)} — ${escapeHtml(dict.inspectAction)}"
-          >
-            <div class="project-card-top">
-              <span class="project-category">
-                <i data-lucide="${escapeHtml(project.domainIcon)}" class="icon-xs" aria-hidden="true"></i>
-                <span>${escapeHtml(content.categoryLabel)}</span>
-              </span>
-              <span class="project-org">
-                <i data-lucide="building-2" class="icon-xs" aria-hidden="true"></i>
-                <span>${escapeHtml(content.org)}</span>
-              </span>
-            </div>
-
-            <h3 class="project-title">${escapeHtml(content.title)}</h3>
-
-            <div class="kpi-pills" aria-label="Quantitative KPIs">
-              ${kpiMarkup}
-            </div>
-
-            <ul class="project-bullets">
-              ${bulletsMarkup}
-            </ul>
-
-            <div class="project-tags">
-              ${stackMarkup}
-            </div>
-
-            <div class="project-card-footer">
-              <span class="project-inspect-link">
-                <span>${escapeHtml(dict.inspectAction)}</span>
-                <i data-lucide="arrow-up-right" class="icon-sm" aria-hidden="true"></i>
-              </span>
-              <span class="project-code">${escapeHtml(project.code)}</span>
-            </div>
-          </article>
-        `;
-      })
-      .join('');
-
-    refreshLucideIcons();
-    initRevealObserver();
+    return dict[key] !== undefined ? dict[key] : I18N.en[key];
   }
 
-  function renderSkillsMatrix(immediateReveal = false) {
-    if (!dom.skillsGrid) return;
+  /* ========================================================================
+     7. Localized SVG blueprints (NDA-safe stand-ins for screenshots)
+     ======================================================================== */
+  function buildBlueprintSvg(projectId, lang) {
+    const vi = lang === 'vi';
+    const e = escapeHtml;
+    const MONO = 'JetBrains Mono, ui-monospace, monospace';
 
-    dom.skillsGrid.innerHTML = SKILLS_MATRIX.map((col, index) => {
-      const content = col[currentLang];
-      const delayMs = index * 80;
-      const skillItems = content.skills
-        .map(
-          (skill) => `
-            <li class="skill-chip">
-              <i data-lucide="check-circle-2" aria-hidden="true"></i>
-              <span>${escapeHtml(skill)}</span>
-            </li>
-          `
-        )
+    const frame = (id, title, subtitle, badge, badgeX, badgeW) => `
+      <defs>
+        <pattern id="bp-grid-${id}" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#DBEAFE" stroke-width="0.8"/>
+        </pattern>
+        <marker id="bp-arrow-${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB"/>
+        </marker>
+      </defs>
+      <rect width="880" height="340" fill="#F8FAFC"/>
+      <rect width="880" height="340" fill="url(#bp-grid-${id})"/>
+      <rect x="14" y="14" width="852" height="312" rx="10" fill="none" stroke="#93C5FD" stroke-width="1.4"/>
+      <rect x="14" y="14" width="852" height="40" rx="10" fill="#EFF6FF"/>
+      <line x1="14" y1="54" x2="866" y2="54" stroke="#93C5FD" stroke-width="1.2"/>
+      <text x="30" y="34" font-family="${MONO}" font-size="11.5" font-weight="700" fill="#1D4ED8">${e(title)}</text>
+      <text x="30" y="48" font-family="${MONO}" font-size="9.5" fill="#0369A1">${e(subtitle)}</text>
+      ${
+        badge
+          ? `<rect x="${badgeX}" y="22" width="${badgeW}" height="24" rx="12" fill="#DBEAFE" stroke="#93C5FD"/>
+             <text x="${badgeX + badgeW / 2}" y="38" text-anchor="middle" font-family="${MONO}" font-size="9.5" font-weight="700" fill="#1D4ED8">${e(badge)}</text>`
+          : ''
+      }`;
+
+    if (projectId === 'project-1') {
+      const L = vi
+        ? {
+            title: 'CÂN BẰNG CHUYỀN 4 CÔNG ĐOẠN & ĐIỀU ĐỘ HEIJUNKA (217 MÃ MÀU)',
+            subtitle: 'SONG SINH SỐ FLEXSIM 3D + JAVASCRIPT DES ENGINE',
+            badge: 'HÀNG CHỜ NGHẼN (MÔ PHỎNG): 0',
+            stage: 'CÔNG ĐOẠN',
+            s: ['In chuyển nhiệt thân', 'In nắp bút', 'Lắp nắp', 'Lắp ráp hoàn chỉnh'],
+            node: 'NÚT DES',
+            output: 'ĐẦU RA DES',
+            buf: 'ĐỆM WIP',
+            matrix: 'TRÌNH TỰ HEIJUNKA · 217 SKU MÀU (GOM NHÓM SMED)',
+            w: ['NHÓM A · MÀU NHẠT', 'NHÓM B · TRUNG TÍNH', 'NHÓM C · MÀU ĐẬM'],
+            takt: 'NHỊP TAKT MỤC TIÊU'
+          }
+        : {
+            title: '4-STAGE SEQUENTIAL LINE BALANCING & HEIJUNKA SCHEDULER (217 SKUs)',
+            subtitle: 'FLEXSIM 3D DIGITAL TWIN + JAVASCRIPT DES ENGINE',
+            badge: 'SIM BOTTLENECK QUEUE: 0',
+            stage: 'STAGE',
+            s: ['Barrel Heat-Transfer', 'Cap Printing', 'Cap Assembly', 'Final Assembly'],
+            node: 'DES NODE',
+            output: 'DES OUTPUT',
+            buf: 'WIP BUF',
+            matrix: 'HEIJUNKA LEVELING SEQUENCE · 217 COLOR SKUs (SMED GROUPED)',
+            w: ['WAVE A · LIGHT INK', 'WAVE B · MID TONE', 'WAVE C · DEEP INK'],
+            takt: 'TAKT TARGET LINE'
+          };
+
+      const stages = [
+        { x: 28, w: 152 },
+        { x: 264, w: 144 },
+        { x: 492, w: 144 },
+        { x: 720, w: 132 }
+      ];
+      const stageSvg = stages
+        .map((st, i) => {
+          const cx = st.x + st.w / 2;
+          const last = i === stages.length - 1;
+          return `
+            <rect x="${st.x}" y="78" width="${st.w}" height="78" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.8"/>
+            <rect x="${st.x}" y="78" width="${st.w}" height="22" rx="8" fill="${last ? '#2563EB' : '#DBEAFE'}"/>
+            <text x="${cx}" y="93" text-anchor="middle" font-family="${MONO}" font-size="10.5" font-weight="700" fill="${last ? '#FFFFFF' : '#1D4ED8'}">${e(L.stage)} 0${i + 1}</text>
+            <text x="${cx}" y="122" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#0F172A">${e(L.s[i])}</text>
+            <text x="${cx}" y="141" text-anchor="middle" font-family="${MONO}" font-size="9.5" fill="#0369A1">${e(last ? L.output : `${L.node} 0${i + 1}`)}</text>`;
+        })
+        .join('');
+      const buffers = [180, 408, 636]
+        .map((x, i) => `
+            <line x1="${x}" y1="117" x2="${x + 16}" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#bp-arrow-1)"/>
+            <rect x="${x + 20}" y="96" width="44" height="42" rx="6" fill="#EFF6FF" stroke="#0284C7" stroke-dasharray="3 2"/>
+            <text x="${x + 42}" y="113" text-anchor="middle" font-family="${MONO}" font-size="9" font-weight="700" fill="#0369A1">B${i + 1}</text>
+            <text x="${x + 42}" y="128" text-anchor="middle" font-family="${MONO}" font-size="7.5" fill="#475569">${e(L.buf)}</text>
+            <line x1="${x + 64}" y1="117" x2="${x + 80}" y2="117" stroke="#2563EB" stroke-width="2" marker-end="url(#bp-arrow-1)"/>`)
+        .join('');
+      const bars = [
+        [65, 266, 30, '#93C5FD'], [145, 268, 28, '#93C5FD'], [225, 265, 31, '#60A5FA'],
+        [305, 267, 29, '#60A5FA'], [385, 265, 31, '#3B82F6'], [465, 266, 30, '#3B82F6'],
+        [545, 268, 28, '#2563EB'], [625, 265, 31, '#2563EB'], [705, 266, 30, '#1D4ED8']
+      ]
+        .map(([x, y, h, c]) => `<rect x="${x}" y="${y}" width="60" height="${h}" rx="3" fill="${c}"/>`)
         .join('');
 
       return `
-        <section
-          class="skill-column reveal-item${immediateReveal ? ' is-visible' : ''}"
-          style="--reveal-delay: ${delayMs}ms;"
-        >
-          <div class="skill-col-top">
-            <span class="skill-col-icon" aria-hidden="true">
-              <i data-lucide="${escapeHtml(col.icon)}" class="icon-md"></i>
-            </span>
-            <span class="skill-col-code">${escapeHtml(col.code)}</span>
-          </div>
-          <h3 class="skill-col-title">${escapeHtml(content.title)}</h3>
-          <p class="skill-col-desc">${escapeHtml(content.desc)}</p>
-          <ul class="skill-list">
-            ${skillItems}
-          </ul>
-        </section>
-      `;
-    }).join('');
+        <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${e(L.title)}">
+          <title>${e(L.title)}</title>
+          ${frame(1, L.title, L.subtitle, L.badge, 630, 222)}
+          ${stageSvg}
+          ${buffers}
+          <rect x="30" y="176" width="822" height="134" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+          <text x="46" y="198" font-family="${MONO}" font-size="10.5" font-weight="700" fill="#0F172A">${e(L.matrix)}</text>
+          <rect x="46" y="212" width="230" height="24" rx="5" fill="#DBEAFE" stroke="#93C5FD"/>
+          <text x="161" y="228" text-anchor="middle" font-family="${MONO}" font-size="10" font-weight="700" fill="#1D4ED8">${e(L.w[0])} (001–072)</text>
+          <rect x="292" y="212" width="265" height="24" rx="5" fill="#EFF6FF" stroke="#2563EB"/>
+          <text x="424" y="228" text-anchor="middle" font-family="${MONO}" font-size="10" font-weight="700" fill="#1D4ED8">${e(L.w[1])} (073–148)</text>
+          <rect x="573" y="212" width="262" height="24" rx="5" fill="#2563EB"/>
+          <text x="704" y="228" text-anchor="middle" font-family="${MONO}" font-size="10" font-weight="700" fill="#FFFFFF">${e(L.w[2])} (149–217)</text>
+          <line x1="46" y1="264" x2="835" y2="264" stroke="#0284C7" stroke-width="1.4" stroke-dasharray="5 4"/>
+          <text x="835" y="258" text-anchor="end" font-family="${MONO}" font-size="9" font-weight="700" fill="#0369A1">${e(L.takt)}</text>
+          ${bars}
+        </svg>`;
+    }
 
-    refreshLucideIcons();
-    initRevealObserver();
-  }
+    if (projectId === 'project-2') {
+      const L = vi
+        ? {
+            title: 'KIẾN TRÚC TỰ ĐỘNG BÓC TÁCH BOM & THEO DÕI WIP ĐA CÔNG ĐOẠN',
+            subtitle: 'EXCEL VBA · POWER QUERY · GOOGLE APPS SCRIPT · QUERY() · SQL',
+            badge: '100% ĐỒNG BỘ BOM',
+            n: [
+              ['NHẬT KÝ MỰC (KG)', 'Dữ liệu cấp phát', 'Power Query ETL'],
+              ['ĐỘNG CƠ BOM', 'Quy đổi kg → cái', 'Ma trận Excel VBA'],
+              ['SỔ CÁI WIP', 'Apps Script / SQL', 'QUERY() thời gian thực'],
+              ['CẢNH BÁO THIẾU', 'Ngưỡng tồn đệm động', 'Kích hoạt tự động']
+            ],
+            chart: 'ĐỘ PHỦ WIP ĐA CÔNG ĐOẠN SO VỚI NGƯỠNG TỒN ĐỆM ĐỘNG (DỮ LIỆU MẪU)',
+            threshold: 'NGƯỠNG TỒN ĐỆM ĐỘNG',
+            alert: 'CẢNH BÁO BÙ VẬT TƯ',
+            cells: ['TỔ 01 · THÂN BÚT', 'TỔ 02 · NẮP', 'TỔ 03 · LÔ MỰC', 'TỔ 04 · HOÀN THIỆN', 'ĐỆM THÀNH PHẨM']
+          }
+        : {
+            title: 'AUTOMATED BOM EXPLOSION & MULTI-STAGE WIP TRACKING ARCHITECTURE',
+            subtitle: 'EXCEL VBA · POWER QUERY · GOOGLE APPS SCRIPT · QUERY() · SQL',
+            badge: '100% BOM SYNC',
+            n: [
+              ['INK MASS LOG (KG)', 'Raw material input', 'Power Query ETL'],
+              ['BOM ENGINE', 'Weight → unit sync', 'Excel VBA matrix'],
+              ['WIP LEDGER', 'Apps Script / SQL', 'Real-time QUERY()'],
+              ['SHORTAGE ALERT', 'Dynamic buffer', 'Automated trigger']
+            ],
+            chart: 'MULTI-STAGE WIP COVERAGE VS. DYNAMIC SAFETY BUFFER (SANITIZED MOCK)',
+            threshold: 'DYNAMIC SAFETY BUFFER',
+            alert: 'REPLENISH TRIGGER',
+            cells: ['CELL 01 · BARREL', 'CELL 02 · CAP', 'CELL 03 · INK LOT', 'CELL 04 · FINAL', 'FG BUFFER']
+          };
 
-  function renderTimeline(immediateReveal = false) {
-    if (!dom.timelineList) return;
-
-    dom.timelineList.innerHTML = TIMELINE_ITEMS.map((item, index) => {
-      const content = item[currentLang];
-      const delayMs = index * 80;
-      const bullets = content.bullets.map((b) => `<li>${b}</li>`).join('');
+      const nodes = [
+        { x: 30, w: 175 },
+        { x: 242, w: 180 },
+        { x: 459, w: 180 },
+        { x: 676, w: 176 }
+      ];
+      const nodeSvg = nodes
+        .map((nd, i) => {
+          const cx = nd.x + nd.w / 2;
+          const last = i === nodes.length - 1;
+          const arrow =
+            i < nodes.length - 1
+              ? `<line x1="${nd.x + nd.w}" y1="114" x2="${nodes[i + 1].x - 4}" y2="114" stroke="#2563EB" stroke-width="2" marker-end="url(#bp-arrow-2)"/>`
+              : '';
+          return `
+            <rect x="${nd.x}" y="76" width="${nd.w}" height="76" rx="8" fill="#FFFFFF" stroke="${last ? '#0284C7' : '#2563EB'}" stroke-width="1.7"/>
+            <rect x="${nd.x}" y="76" width="${nd.w}" height="22" rx="8" fill="${last ? '#2563EB' : '#DBEAFE'}"/>
+            <text x="${cx}" y="91" text-anchor="middle" font-family="${MONO}" font-size="9.5" font-weight="700" fill="${last ? '#FFFFFF' : '#1D4ED8'}">0${i + 1} · ${e(L.n[i][0])}</text>
+            <text x="${cx}" y="119" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#0F172A">${e(L.n[i][1])}</text>
+            <text x="${cx}" y="138" text-anchor="middle" font-family="${MONO}" font-size="9.5" fill="${last ? '#0369A1' : '#5B6B80'}">${e(L.n[i][2])}</text>
+            ${arrow}`;
+        })
+        .join('');
+      const cellBars = [
+        [75, 210, 76, '#2563EB'],
+        [235, 218, 68, '#3B82F6'],
+        null,
+        [555, 212, 74, '#2563EB'],
+        [715, 222, 64, '#60A5FA']
+      ]
+        .map((b, i) => {
+          const cx = [120, 280, 440, 600, 760][i];
+          const bar = b
+            ? `<rect x="${b[0]}" y="${b[1]}" width="90" height="${b[2]}" rx="4" fill="${b[3]}"/>`
+            : `<rect x="395" y="252" width="90" height="34" rx="4" fill="#93C5FD" stroke="#0284C7" stroke-width="1.5"/>
+               <rect x="389" y="226" width="102" height="20" rx="4" fill="#DBEAFE" stroke="#2563EB"/>
+               <text x="440" y="240" text-anchor="middle" font-family="${MONO}" font-size="8" font-weight="700" fill="#1D4ED8">${e(L.alert)}</text>`;
+          return `${bar}<text x="${cx}" y="300" text-anchor="middle" font-family="${MONO}" font-size="9.5" fill="#475569">${e(L.cells[i])}</text>`;
+        })
+        .join('');
 
       return `
-        <article
-          class="timeline-item reveal-item${immediateReveal ? ' is-visible' : ''}"
-          style="--reveal-delay: ${delayMs}ms;"
-        >
-          <div class="timeline-header">
-            <div class="timeline-heading-group">
-              <span class="timeline-badge-icon" aria-hidden="true">
-                <i data-lucide="${escapeHtml(item.icon)}" class="icon-sm"></i>
-              </span>
-              <div>
-                <h3 class="timeline-role">${escapeHtml(content.role)}</h3>
-                <div class="timeline-org">${escapeHtml(content.org)}</div>
-              </div>
-            </div>
-            <div class="timeline-meta">
-              <span class="timeline-type">${escapeHtml(content.type)}</span>
-              <span class="timeline-date">${escapeHtml(item.date)}</span>
-            </div>
-          </div>
-          <ul class="timeline-bullets">
-            ${bullets}
-          </ul>
-        </article>
-      `;
-    }).join('');
+        <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${e(L.title)}">
+          <title>${e(L.title)}</title>
+          ${frame(2, L.title, L.subtitle, L.badge, 676, 176)}
+          ${nodeSvg}
+          <rect x="30" y="172" width="822" height="138" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+          <text x="48" y="194" font-family="${MONO}" font-size="10.5" font-weight="700" fill="#0F172A">${e(L.chart)}</text>
+          <line x1="48" y1="242" x2="834" y2="242" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <text x="834" y="236" text-anchor="end" font-family="${MONO}" font-size="9" font-weight="700" fill="#0369A1">${e(L.threshold)}</text>
+          ${cellBars}
+        </svg>`;
+    }
 
-    refreshLucideIcons();
-    initRevealObserver();
-  }
+    // project-3 — OEE, Pareto, 5 Whys & 5S
+    const L = vi
+      ? {
+          title: 'BẢN ĐỒ ĐIỂM NGHẼN OEE, PARETO DỪNG MÁY & CHUẨN HÓA 5S',
+          subtitle: 'BẤM GIỜ TIME-STUDY · PHÂN TÍCH 5 WHYS RCA · QUẢN LÝ TRỰC QUAN 5S',
+          pareto: 'PARETO NGUYÊN NHÂN DỪNG MÁY NGOÀI KẾ HOẠCH (GIẢ LẬP)',
+          oee: 'PHÂN RÃ OEE & CHUẨN HÓA HIỆN TRƯỜNG',
+          c: ['Kẹt phôi', 'Chuyển đổi', 'Cảm biến', 'Dừng vặt'],
+          cutoff: 'NGƯỠNG 80%',
+          f: ['KHẢ DỤNG (A)', 'HIỆU SUẤT (P)', 'CHẤT LƯỢNG (Q)'],
+          rca: '5 WHYS RCA → CHUẨN HÓA SOP & 5S',
+          fiveS: 'SÀNG LỌC · SẮP XẾP · SẠCH SẼ · SĂN SÓC · SẴN SÀNG'
+        }
+      : {
+          title: 'MACHINERY OEE BOTTLENECK MAP, PARETO DOWNTIME & 5S STANDARD',
+          subtitle: 'STOPWATCH TIME-STUDY · 5 WHYS ROOT-CAUSE ANALYSIS · 5S SHOP FLOOR',
+          pareto: 'PARETO OF UNPLANNED DOWNTIME DRIVERS (SANITIZED MOCK)',
+          oee: 'OEE DECOMPOSITION & 5S WORKSTATION CONTROLS',
+          c: ['Feed Jam', 'Setup', 'Sensor', 'Micro-Stop'],
+          cutoff: '80% CUTOFF',
+          f: ['AVAILABILITY (A)', 'PERFORMANCE (P)', 'QUALITY (Q)'],
+          rca: '5 WHYS RCA → STANDARD WORK & 5S',
+          fiveS: 'SORT · SET IN ORDER · SHINE · STANDARDIZE · SUSTAIN'
+        };
 
-  /* ========================================================================
-     10. 4-Part Case Study Modal Management
-     ======================================================================== */
-  const MODAL_SECTION_ICONS = {
-    problem: 'activity',
-    methodology: 'settings',
-    architecture: 'layers',
-    outcomes: 'check-circle-2'
-  };
-
-  function populateModal(projectId) {
-    const project = PROJECTS.find((p) => p.id === projectId);
-    if (!project) return;
-
-    activeProjectId = project.id;
-    const dict = I18N[currentLang];
-    const content = project[currentLang];
-
-    dom.modalCategory.innerHTML = `
-      <i data-lucide="${escapeHtml(project.domainIcon)}" class="icon-xs" aria-hidden="true"></i>
-      <span>${escapeHtml(content.categoryLabel)}</span>
-    `;
-    dom.modalOrg.innerHTML = `
-      <i data-lucide="building-2" class="icon-xs" aria-hidden="true"></i>
-      <span>${escapeHtml(content.org)}</span>
-    `;
-    dom.modalTitle.textContent = content.title;
-    dom.modalNdaLabel.textContent = dict.ndaLabel;
-    dom.modalBlueprintRef.textContent = project.blueprintRef;
-
-    dom.modalKpiPills.innerHTML = content.kpis
+    const paretoBars = [
+      [70, 128, 142, '#2563EB'],
+      [158, 168, 102, '#3B82F6'],
+      [246, 206, 64, '#60A5FA'],
+      [334, 232, 38, '#93C5FD']
+    ]
       .map(
-        (kpi, idx) => `
-          <span class="kpi-pill">
-            <i data-lucide="${idx === 0 ? 'trending-up' : 'check-circle-2'}" aria-hidden="true"></i>
-            <span>${escapeHtml(kpi)}</span>
-          </span>
-        `
+        ([x, y, h, c], i) => `
+        <rect x="${x}" y="${y}" width="60" height="${h}" rx="4" fill="${c}"/>
+        <text x="${x + 30}" y="286" text-anchor="middle" font-family="${MONO}" font-size="9.5" fill="#475569">${e(L.c[i])}</text>`
+      )
+      .join('');
+    const oeeRows = [
+      [114, 96, '#2563EB'],
+      [156, 104, '#0284C7'],
+      [198, 118, '#2563EB']
+    ]
+      .map(
+        ([y, w, c], i) => `
+        <rect x="486" y="${y}" width="346" height="34" rx="6" fill="#EFF6FF" stroke="#DBEAFE"/>
+        <text x="500" y="${y + 21}" font-family="${MONO}" font-size="10" font-weight="700" fill="#1D4ED8">${e(L.f[i])}</text>
+        <rect x="690" y="${y + 11}" width="126" height="10" rx="5" fill="#DBEAFE"/>
+        <rect x="690" y="${y + 11}" width="${w}" height="10" rx="5" fill="${c}"/>`
       )
       .join('');
 
-    // Render Light-Blue SVG blueprint fallback immediately and attempt loading real PNG
-    renderSvgFallbackIntoModal(project.id);
-
-    dom.modalPreviewImg.hidden = true;
-    dom.modalPreviewImg.style.display = 'none';
-    dom.modalPreviewImg.removeAttribute('src');
-    dom.modalPreviewImg.removeAttribute('aria-hidden');
-    dom.modalPreviewImg.setAttribute('data-project-id', project.id);
-    dom.modalPreviewImg.alt = `${content.title} — ${dict.ndaLabel}`;
-    dom.modalPreviewImg.onload = function () {
-      dom.modalPreviewImg.hidden = false;
-      dom.modalPreviewImg.style.display = '';
-      dom.modalSvgBlueprint.hidden = true;
-    };
-    dom.modalPreviewImg.src = project.imageSrc;
-
-    // Executive Takeaway Banner
-    if (dom.modalExecTitle) {
-      dom.modalExecTitle.textContent = dict.execBannerTitle;
-    }
-    if (dom.modalExecText) {
-      dom.modalExecText.innerHTML = content.executiveTakeaway;
-    }
-
-    // 4-Part Structured Engineering Sections
-    const sectionOrder = ['problem', 'methodology', 'architecture', 'outcomes'];
-    dom.modalSectionsGrid.innerHTML = sectionOrder
-      .map((key) => {
-        const iconName = MODAL_SECTION_ICONS[key] || 'check-circle-2';
-        return `
-          <section class="case-part">
-            <h3 class="case-part-title">
-              <i data-lucide="${iconName}" class="icon-xs" aria-hidden="true"></i>
-              <span>${escapeHtml(dict.modalSectionTitles[key])}</span>
-            </h3>
-            <p class="case-part-body">${escapeHtml(content.sections[key])}</p>
-          </section>
-        `;
-      })
-      .join('');
-
-    dom.modalStack.innerHTML = project.techStack
-      .map((tech) => `<span class="tech-tag">${escapeHtml(tech)}</span>`)
-      .join('');
-
-    refreshLucideIcons();
+    return `
+      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${e(L.title)}">
+        <title>${e(L.title)}</title>
+        ${frame(3, L.title, L.subtitle, '', 0, 0)}
+        <rect x="30" y="72" width="420" height="238" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+        <text x="48" y="96" font-family="${MONO}" font-size="10" font-weight="700" fill="#0F172A">${e(L.pareto)}</text>
+        <line x1="56" y1="138" x2="424" y2="138" stroke="#0284C7" stroke-width="1.3" stroke-dasharray="5 3"/>
+        <text x="424" y="132" text-anchor="end" font-family="${MONO}" font-size="9" font-weight="700" fill="#0369A1">${e(L.cutoff)}</text>
+        ${paretoBars}
+        <polyline points="100,192 188,148 276,124 364,114" fill="none" stroke="#0F172A" stroke-width="2"/>
+        <circle cx="100" cy="192" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+        <circle cx="188" cy="148" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+        <circle cx="276" cy="124" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+        <circle cx="364" cy="114" r="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="2"/>
+        <rect x="468" y="72" width="382" height="238" rx="8" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+        <text x="486" y="96" font-family="${MONO}" font-size="10" font-weight="700" fill="#0F172A">${e(L.oee)}</text>
+        ${oeeRows}
+        <rect x="486" y="246" width="346" height="46" rx="6" fill="#DBEAFE" stroke="#93C5FD"/>
+        <text x="659" y="266" text-anchor="middle" font-family="${MONO}" font-size="10.5" font-weight="700" fill="#1D4ED8">${e(L.rca)}</text>
+        <text x="659" y="282" text-anchor="middle" font-family="${MONO}" font-size="8.6" fill="#0F172A">${e(L.fiveS)}</text>
+      </svg>`;
   }
 
-  function openModal(projectId, triggerElement) {
-    lastFocusedElement = triggerElement || document.activeElement;
+  /* ========================================================================
+     8. State & DOM references
+     ======================================================================== */
+  let currentLang = 'en';
+  let currentFilter = 'all';
+  let activeProjectId = null;
+  let activeSection = null;
+  let lastFocusedElement = null;
+  let copyResetTimer = null;
+  let toastKey = null;
+  let toastHideTimer = null;
+  let modalCloseTimer = null;
+  let modalNavBusy = false;
+  let filterToken = 0;
+  let globeTurns = 0;
+  let scrollTicking = false;
+
+  const $ = (id) => document.getElementById(id);
+  const dom = {
+    html: document.documentElement,
+    header: $('site-header'),
+    main: $('main-content'),
+    footer: $('site-footer'),
+    progressBar: $('scroll-progress-bar'),
+    nav: $('main-nav'),
+    navIndicator: $('nav-indicator'),
+    navLinks: Array.from(document.querySelectorAll('.main-nav .nav-link')),
+    mobileNavLinks: Array.from(document.querySelectorAll('.mobile-drawer .mobile-nav-link')),
+    langBtns: Array.from(document.querySelectorAll('.lang-btn')),
+    langGlobe: $('lang-globe'),
+    mobileMenuBtn: $('mobile-menu-btn'),
+    mobileDrawer: $('mobile-drawer'),
+    filterButtons: Array.from(document.querySelectorAll('#project-filters .filter-btn')),
+    projectsStatus: $('projects-status'),
+    projectsGrid: $('projects-grid'),
+    skillsGrid: $('skills-grid'),
+    timeline: document.querySelector('.timeline'),
+    timelineList: $('timeline-list'),
+    timelineFill: $('timeline-rail-fill'),
+    modalRoot: $('case-study-modal'),
+    modalDialog: $('modal-dialog'),
+    modalBody: $('modal-body'),
+    modalContent: $('modal-content'),
+    modalCategory: $('modal-category'),
+    modalOrg: $('modal-org'),
+    modalCounter: $('modal-counter'),
+    modalCode: $('modal-code'),
+    modalTitle: $('modal-title'),
+    modalKpis: $('modal-kpi-pills'),
+    modalExecText: $('modal-exec-text'),
+    modalSections: $('modal-sections-grid'),
+    modalBlueprintRef: $('modal-blueprint-ref'),
+    modalImg: $('modal-preview-img'),
+    modalSvg: $('modal-svg-blueprint'),
+    modalStack: $('modal-stack'),
+    modalCloseBtn: $('modal-close-btn'),
+    modalPrevBtn: $('modal-prev-btn'),
+    modalNextBtn: $('modal-next-btn'),
+    modalPrevTitle: $('modal-prev-title'),
+    modalNextTitle: $('modal-next-title'),
+    copyTriggers: Array.from(document.querySelectorAll('.copy-email-trigger')),
+    toast: $('copy-toast'),
+    toastText: $('copy-toast-text')
+  };
+
+  const SECTION_IDS = ['about', 'projects', 'skills', 'timeline', 'contact'];
+  const sections = SECTION_IDS.map((id) => $(id)).filter(Boolean);
+
+  /* ========================================================================
+     9. Scroll reveal — IntersectionObserver with batched 80ms stagger
+     ======================================================================== */
+  const Reveal = {
+    observer: null,
+    disabled: REDUCED_MOTION || !('IntersectionObserver' in window),
+
+    init() {
+      if (this.disabled) return;
+      this.observer = new IntersectionObserver((entries) => this.onIntersect(entries), {
+        rootMargin: '0px 0px -8% 0px',
+        threshold: 0.12
+      });
+    },
+
+    onIntersect(entries) {
+      const batch = entries
+        .filter((entry) => entry.isIntersecting)
+        .map((entry) => entry.target)
+        .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+
+      // Stagger siblings that enter together; nested items wait for their parent.
+      const perParent = new Map();
+      batch.forEach((el) => {
+        const parent = el.parentElement;
+        const index = perParent.get(parent) || 0;
+        perParent.set(parent, index + 1);
+        const nestedOffset = parent && parent.closest('.reveal-item') ? 200 : 0;
+        this.show(el, Math.min(index, 8) * STAGGER_MS + nestedOffset);
+        this.observer.unobserve(el);
+      });
+    },
+
+    show(el, delay) {
+      el.style.setProperty('--reveal-delay', `${delay}ms`);
+      el.classList.add('is-visible');
+      window.setTimeout(() => {
+        el.classList.add('reveal-done');
+        el.style.removeProperty('--reveal-delay');
+      }, delay + 620);
+    },
+
+    observe(root) {
+      (root || document).querySelectorAll('.reveal-item:not(.is-visible)').forEach((el) => {
+        if (this.disabled) {
+          el.classList.add('is-visible', 'reveal-done');
+        } else {
+          this.observer.observe(el);
+        }
+      });
+    }
+  };
+
+  /** Re-rendered groups keep their revealed state (no replay on EN | VI switch). */
+  function revealClassFor(container) {
+    return container && container.querySelector('.reveal-item.is-visible') ? ' is-visible reveal-done' : '';
+  }
+
+  /* ========================================================================
+     10. Reading progress, glass header, ScrollSpy & timeline rail
+     ======================================================================== */
+  function requestScrollUpdate() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(updateScroll);
+  }
+
+  function updateScroll() {
+    scrollTicking = false;
+
+    // Reads first …
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    const viewport = window.innerHeight;
+    const maxScroll = document.documentElement.scrollHeight - viewport;
+    const progress = maxScroll > 0 ? Math.min(1, Math.max(0, y / maxScroll)) : 0;
+
+    const spyLine = viewport * 0.35;
+    let spy = null;
+    sections.forEach((sec) => {
+      if (sec.getBoundingClientRect().top <= spyLine) spy = sec.id;
+    });
+    if (maxScroll > 0 && y >= maxScroll - 4) spy = 'contact';
+
+    let railProgress = 0;
+    if (dom.timeline) {
+      const rect = dom.timeline.getBoundingClientRect();
+      railProgress = Math.min(1, Math.max(0, (viewport * 0.62 - rect.top) / rect.height));
+    }
+
+    // … then writes.
+    if (dom.progressBar) dom.progressBar.style.transform = `scaleX(${progress.toFixed(4)})`;
+    if (dom.header) dom.header.classList.toggle('is-scrolled', y > 8);
+    if (dom.timelineFill) dom.timelineFill.style.transform = `scaleY(${railProgress.toFixed(4)})`;
+    setActiveSection(spy);
+  }
+
+  function setActiveSection(id, force) {
+    if (id === activeSection && !force) return;
+    activeSection = id;
+
+    dom.navLinks.forEach((link) => {
+      const match = link.dataset.section === id;
+      link.classList.toggle('is-active', match);
+      if (match) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+    dom.mobileNavLinks.forEach((link) => {
+      const match = link.dataset.section === id;
+      link.classList.toggle('is-active', match);
+      if (match) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+
+    positionNavIndicator(false);
+  }
+
+  function positionNavIndicator(instant) {
+    const indicator = dom.navIndicator;
+    if (!indicator || !dom.nav) return;
+    const link = dom.navLinks.find((l) => l.dataset.section === activeSection);
+
+    if (!link || dom.nav.offsetParent === null) {
+      indicator.classList.remove('is-visible');
+      return;
+    }
+
+    const inset = 10;
+    const x = link.offsetLeft + inset;
+    const width = Math.max(12, link.offsetWidth - inset * 2);
+    const transform = `translateX(${x}px) scaleX(${(width / 100).toFixed(4)})`;
+
+    if (instant || !indicator.classList.contains('is-visible')) {
+      indicator.style.transition = 'none';
+      indicator.style.transform = transform;
+      void indicator.offsetWidth;
+      indicator.style.transition = '';
+    } else {
+      indicator.style.transform = transform;
+    }
+    indicator.classList.add('is-visible');
+  }
+
+  /* ========================================================================
+     11. Renderers
+     ======================================================================== */
+  function applyStaticTranslations() {
+    const dict = I18N[currentLang];
+    dom.html.setAttribute('lang', currentLang);
+    document.title = dict.pageTitle;
+
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const value = dict[el.getAttribute('data-i18n')];
+      if (typeof value === 'string') el.textContent = value;
+    });
+
+    // Trusted, static strings authored in this file only.
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+      const value = dict[el.getAttribute('data-i18n-html')];
+      if (typeof value === 'string') el.innerHTML = value;
+    });
+
+    document.querySelectorAll('[data-i18n-attr]').forEach((el) => {
+      el.getAttribute('data-i18n-attr')
+        .split(';')
+        .forEach((pair) => {
+          const [attr, key] = pair.split(':').map((s) => s && s.trim());
+          if (attr && key && typeof dict[key] === 'string') el.setAttribute(attr, dict[key]);
+        });
+    });
+
+    dom.langBtns.forEach((btn) => {
+      const active = btn.dataset.lang === currentLang;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function kpiMarkup(kpis) {
+    return kpis
+      .map(
+        (k) => `<li class="kpi-pill"><strong class="kpi-value">${escapeHtml(k.v)}</strong><span>${escapeHtml(k.l)}</span></li>`
+      )
+      .join('');
+  }
+
+  function renderProjects() {
+    const grid = dom.projectsGrid;
+    if (!grid) return;
+    const revealed = revealClassFor(grid);
+
+    grid.innerHTML = PROJECTS.map((project) => {
+      const c = project[currentLang];
+      return `
+        <article class="project-card card lift reveal-item${revealed}" data-project-id="${project.id}" data-domain="${project.domain}">
+          <div class="project-card-head">
+            <span class="project-domain-icon" aria-hidden="true">
+              <i data-lucide="${DOMAIN_ICONS[project.domain]}" class="icon-md"></i>
+            </span>
+            <div class="project-head-text">
+              <span class="project-category">${escapeHtml(t(DOMAIN_LABEL_KEYS[project.domain]))}</span>
+              <span class="project-org">
+                <i data-lucide="building-2" class="icon-xs"></i>
+                <span>${escapeHtml(c.org)}</span>
+              </span>
+            </div>
+          </div>
+          <h3 class="project-title">
+            <button type="button" class="project-open" aria-haspopup="dialog">${escapeHtml(c.title)}</button>
+          </h3>
+          <ul class="kpi-pills" aria-label="${escapeHtml(t('kpiLabel'))}">${kpiMarkup(c.kpis)}</ul>
+          <ul class="project-bullets">${c.cardBullets.map((b) => `<li>${b}</li>`).join('')}</ul>
+          <ul class="project-tags">${project.techStack.map((s) => `<li class="tech-tag">${escapeHtml(s)}</li>`).join('')}</ul>
+          <div class="project-card-footer" aria-hidden="true">
+            <span class="project-inspect-link">
+              <span>${escapeHtml(t('inspectAction'))}</span>
+              <i data-lucide="arrow-up-right" class="icon-sm"></i>
+            </span>
+            <span class="project-code">${escapeHtml(project.code)}</span>
+          </div>
+        </article>`;
+    }).join('');
+
+    applyFilter(currentFilter, false);
+  }
+
+  function proofLinksMarkup(ids) {
+    return ids
+      .map((id) => {
+        const p = findProject(id);
+        if (!p) return '';
+        return `<button type="button" class="proof-link" data-open-project="${p.id}" aria-label="${escapeHtml(
+          t('openCaseAria')(p.code, p[currentLang].title)
+        )}">${escapeHtml(p.code)}<i data-lucide="arrow-up-right" class="icon-xs"></i></button>`;
+      })
+      .join('');
+  }
+
+  function renderSkills() {
+    const grid = dom.skillsGrid;
+    if (!grid) return;
+    const revealed = revealClassFor(grid);
+
+    grid.innerHTML = SKILLS_MATRIX.map((pillar) => {
+      const c = pillar[currentLang];
+      return `
+        <section class="skill-panel card lift reveal-item${revealed}" data-domain="${pillar.domain}">
+          <div class="skill-panel-head">
+            <span class="skill-icon" aria-hidden="true"><i data-lucide="${pillar.icon}" class="icon-md"></i></span>
+            <span class="skill-code">${escapeHtml(c.code)}</span>
+          </div>
+          <h3 class="skill-title">${escapeHtml(c.title)}</h3>
+          <p class="skill-desc">${escapeHtml(c.desc)}</p>
+          <ul class="skill-list">${c.skills.map((s) => `<li class="skill-chip">${escapeHtml(s)}</li>`).join('')}</ul>
+          <div class="skill-proof">
+            <span class="skill-proof-label">${escapeHtml(t('proofLabel'))}</span>
+            ${proofLinksMarkup(pillar.proof)}
+          </div>
+        </section>`;
+    }).join('');
+  }
+
+  function renderTimeline() {
+    const list = dom.timelineList;
+    if (!list) return;
+    const revealed = revealClassFor(list);
+
+    list.innerHTML = TIMELINE_ITEMS.map((item) => {
+      const c = item[currentLang];
+      const links = item.cases.length
+        ? `<div class="timeline-links">
+             <span class="skill-proof-label">${escapeHtml(t('relatedCases'))}</span>
+             ${proofLinksMarkup(item.cases)}
+           </div>`
+        : '';
+      return `
+        <li class="timeline-item card lift reveal-item${revealed}">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <div class="timeline-header">
+            <div class="timeline-heading-group">
+              <span class="timeline-badge-icon" aria-hidden="true"><i data-lucide="${item.icon}" class="icon-sm"></i></span>
+              <div>
+                <h3 class="timeline-role">${escapeHtml(c.role)}</h3>
+                <p class="timeline-org">${escapeHtml(c.org)}</p>
+              </div>
+            </div>
+            <div class="timeline-meta">
+              <span class="timeline-type">${escapeHtml(c.type)}</span>
+              <span class="timeline-date">${escapeHtml(item.date)}</span>
+            </div>
+          </div>
+          <ul class="timeline-bullets">${c.bullets.map((b) => `<li>${b}</li>`).join('')}</ul>
+          ${links}
+        </li>`;
+    }).join('');
+  }
+
+  function renderFilterCounts() {
+    document.querySelectorAll('[data-count-for]').forEach((el) => {
+      const key = el.getAttribute('data-count-for');
+      el.textContent = String(key === 'all' ? PROJECTS.length : PROJECTS.filter((p) => p.domain === key).length);
+    });
+  }
+
+  /* ========================================================================
+     12. Animated category filtering (fade-out → FLIP → staggered fade-up)
+     ======================================================================== */
+  function matchesFilter(card, filter) {
+    return filter === 'all' || card.dataset.domain === filter;
+  }
+
+  function announceFilter() {
+    if (!dom.projectsStatus) return;
+    const shown = PROJECTS.filter((p) => currentFilter === 'all' || p.domain === currentFilter).length;
+    dom.projectsStatus.textContent = t('filterStatus')(shown, PROJECTS.length);
+  }
+
+  async function applyFilter(filter, animate) {
+    const cards = Array.from(dom.projectsGrid.querySelectorAll('.project-card'));
+    const token = ++filterToken;
+
+    if (!animate || REDUCED_MOTION) {
+      cards.forEach((card) => {
+        card.hidden = !matchesFilter(card, filter);
+        card.classList.remove('is-filter-out', 'is-filter-in', 'is-filter-entering', 'is-flipping');
+        card.style.transform = '';
+      });
+      return;
+    }
+
+    // The user is looking at the grid: settle any pending reveal first.
+    cards.forEach((card) => card.classList.add('is-visible', 'reveal-done'));
+
+    const leaving = cards.filter((c) => !c.hidden && !matchesFilter(c, filter));
+    const staying = cards.filter((c) => !c.hidden && matchesFilter(c, filter));
+    const entering = cards.filter((c) => c.hidden && matchesFilter(c, filter));
+
+    leaving.forEach((c) => c.classList.add('is-filter-out'));
+    if (leaving.length) await wait(190);
+    if (token !== filterToken) return;
+
+    const first = new Map(staying.map((c) => [c, c.getBoundingClientRect()]));
+    leaving.forEach((c) => {
+      c.hidden = true;
+      c.classList.remove('is-filter-out');
+    });
+    entering.forEach((c) => {
+      c.classList.add('is-filter-in');
+      c.hidden = false;
+    });
+
+    staying.forEach((c) => {
+      const before = first.get(c);
+      const after = c.getBoundingClientRect();
+      const dx = before.left - after.left;
+      const dy = before.top - after.top;
+      if (dx || dy) {
+        c.classList.remove('is-flipping');
+        c.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+      }
+    });
+
+    await nextFrame();
+    if (token !== filterToken) return;
+
+    staying.forEach((c) => {
+      if (c.style.transform) {
+        c.classList.add('is-flipping');
+        c.style.transform = '';
+      }
+    });
+    entering.forEach((c, i) => {
+      c.style.setProperty('--filter-delay', `${i * STAGGER_MS}ms`);
+      c.classList.add('is-filter-entering');
+      c.classList.remove('is-filter-in');
+    });
+
+    await wait(560 + entering.length * STAGGER_MS);
+    if (token !== filterToken) return;
+    cards.forEach((c) => {
+      c.classList.remove('is-filter-entering', 'is-flipping');
+      c.style.removeProperty('--filter-delay');
+    });
+  }
+
+  function setFilter(filter) {
+    if (filter === currentFilter) return;
+    currentFilter = filter;
+    dom.filterButtons.forEach((btn) => {
+      btn.classList.toggle('is-active', btn.dataset.filter === filter);
+      btn.setAttribute('aria-pressed', String(btn.dataset.filter === filter));
+    });
+    applyFilter(filter, true);
+    announceFilter();
+  }
+
+  /* ========================================================================
+     13. Case-study modal — choreography, focus trap, Prev / Next
+     ======================================================================== */
+  const SECTION_ORDER = ['problem', 'methodology', 'architecture', 'outcomes'];
+  const SECTION_ICONS = {
+    problem: 'triangle-alert',
+    methodology: 'workflow',
+    architecture: 'layers',
+    outcomes: 'circle-check'
+  };
+
+  function neighbour(step) {
+    const idx = PROJECTS.findIndex((p) => p.id === activeProjectId);
+    return PROJECTS[(idx + step + PROJECTS.length) % PROJECTS.length];
+  }
+
+  function showBlueprint(project) {
+    dom.modalSvg.innerHTML = buildBlueprintSvg(project.id, currentLang);
+    dom.modalSvg.hidden = false;
+    dom.modalImg.hidden = true;
+    dom.modalImg.onload = null;
+    dom.modalImg.onerror = null;
+    dom.modalImg.removeAttribute('src');
+
+    if (!project.image) return;
+
+    // Optional real screenshot: shown only once it loads; blueprint stays as fallback.
+    dom.modalImg.dataset.projectId = project.id;
+    dom.modalImg.alt = `${project[currentLang].title} — ${t('ndaLabel')}`;
+    dom.modalImg.onload = () => {
+      if (dom.modalImg.dataset.projectId !== activeProjectId) return;
+      dom.modalImg.hidden = false;
+      dom.modalSvg.hidden = true;
+    };
+    dom.modalImg.onerror = () => {
+      dom.modalImg.hidden = true;
+      dom.modalSvg.hidden = false;
+    };
+    dom.modalImg.src = project.image;
+  }
+
+  function populateModal(projectId) {
+    const project = findProject(projectId);
+    if (!project) return;
+    activeProjectId = project.id;
+    const c = project[currentLang];
+    const titles = t('modalSectionTitles');
+    const index = PROJECTS.indexOf(project);
+
+    dom.modalDialog.dataset.domain = project.domain;
+    dom.modalCategory.innerHTML = `<i data-lucide="${DOMAIN_ICONS[project.domain]}" class="icon-xs"></i><span>${escapeHtml(
+      t(DOMAIN_LABEL_KEYS[project.domain])
+    )}</span>`;
+    dom.modalOrg.innerHTML = `<i data-lucide="building-2" class="icon-xs"></i><span>${escapeHtml(c.org)}</span>`;
+    dom.modalCounter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(PROJECTS.length).padStart(2, '0')}`;
+    dom.modalCode.textContent = project.fullCode;
+    dom.modalTitle.textContent = c.title;
+    dom.modalKpis.setAttribute('aria-label', t('kpiLabel'));
+    dom.modalKpis.innerHTML = kpiMarkup(c.kpis);
+    dom.modalExecText.innerHTML = c.executiveTakeaway;
+
+    dom.modalSections.innerHTML = SECTION_ORDER.map(
+      (key, i) => `
+        <section class="case-part" aria-labelledby="case-part-${key}">
+          <div class="case-part-head">
+            <span class="case-part-num" aria-hidden="true">0${i + 1}</span>
+            <h3 class="case-part-title" id="case-part-${key}">${escapeHtml(titles[key])}</h3>
+            <i data-lucide="${SECTION_ICONS[key]}" class="icon-sm"></i>
+          </div>
+          <ul class="case-part-list">${c.sections[key].map((line) => `<li>${escapeHtml(line)}</li>`).join('')}</ul>
+        </section>`
+    ).join('');
+
+    dom.modalBlueprintRef.textContent = project.blueprintRef[currentLang];
+    showBlueprint(project);
+    dom.modalStack.innerHTML = project.techStack.map((s) => `<li class="tech-tag">${escapeHtml(s)}</li>`).join('');
+
+    const prev = neighbour(-1);
+    const next = neighbour(1);
+    dom.modalPrevTitle.textContent = prev[currentLang].title;
+    dom.modalNextTitle.textContent = next[currentLang].title;
+    dom.modalPrevBtn.setAttribute('aria-label', `${t('modalPrev')}: ${prev[currentLang].title}`);
+    dom.modalNextBtn.setAttribute('aria-label', `${t('modalNext')}: ${next[currentLang].title}`);
+
+    Icons.refresh();
+  }
+
+  function setBackgroundInert(inert) {
+    [dom.header, dom.main, dom.footer].forEach((el) => {
+      if (!el) return;
+      if (inert) el.setAttribute('inert', '');
+      else el.removeAttribute('inert');
+    });
+  }
+
+  function openModal(projectId, trigger) {
+    if (!findProject(projectId)) return;
+    window.clearTimeout(modalCloseTimer);
+    closeDrawer(false);
+
+    const alreadyOpen = !dom.modalRoot.hidden && dom.modalRoot.classList.contains('is-open');
+    if (!alreadyOpen) lastFocusedElement = trigger || document.activeElement;
+
     populateModal(projectId);
-    dom.modalBackdrop.hidden = false;
+    dom.modalBody.scrollTop = 0;
+    dom.modalRoot.hidden = false;
     document.body.classList.add('modal-open');
-    if (dom.modalBody) dom.modalBody.scrollTop = 0;
-    dom.modalCloseBtn.focus();
+    setBackgroundInert(true);
+
+    void dom.modalRoot.offsetWidth; // commit the closed state so the transition plays
+    dom.modalRoot.classList.add('is-open');
+    dom.modalDialog.focus({ preventScroll: true });
   }
 
   function closeModal() {
-    if (dom.modalBackdrop.hidden) return;
-    dom.modalBackdrop.hidden = true;
-    document.body.classList.remove('modal-open');
-    activeProjectId = null;
+    if (dom.modalRoot.hidden || !dom.modalRoot.classList.contains('is-open')) return;
+    dom.modalRoot.classList.remove('is-open');
 
-    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-      lastFocusedElement.focus();
+    const finish = () => {
+      dom.modalRoot.hidden = true;
+      document.body.classList.remove('modal-open');
+      setBackgroundInert(false);
+      activeProjectId = null;
+      if (lastFocusedElement && document.contains(lastFocusedElement)) {
+        lastFocusedElement.focus({ preventScroll: true });
+      }
+    };
+
+    if (REDUCED_MOTION) finish();
+    else modalCloseTimer = window.setTimeout(finish, 320);
+  }
+
+  async function cycleModal(step) {
+    if (!activeProjectId || modalNavBusy) return;
+    const target = neighbour(step);
+
+    if (REDUCED_MOTION) {
+      populateModal(target.id);
+      dom.modalBody.scrollTop = 0;
+      return;
+    }
+
+    modalNavBusy = true;
+    const dir = step > 0 ? 'next' : 'prev';
+    const content = dom.modalContent;
+    content.classList.add(`is-leaving-${dir}`);
+    await wait(150);
+
+    populateModal(target.id);
+    dom.modalBody.scrollTop = 0;
+    content.classList.remove(`is-leaving-${dir}`);
+    content.classList.add(`is-entering-${dir}`);
+    void content.offsetWidth;
+    content.classList.remove(`is-entering-${dir}`);
+    modalNavBusy = false;
+  }
+
+  function trapFocus(event) {
+    const focusables = Array.from(
+      dom.modalDialog.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+    ).filter((el) => el.getClientRects().length > 0);
+    if (!focusables.length) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+
+    if (event.shiftKey && (active === first || active === dom.modalDialog)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
     }
   }
 
-  function cycleModal(step) {
-    if (!activeProjectId) return;
-    const idx = PROJECTS.findIndex((p) => p.id === activeProjectId);
-    if (idx === -1) return;
-    const nextIdx = (idx + step + PROJECTS.length) % PROJECTS.length;
-    populateModal(PROJECTS[nextIdx].id);
-    if (dom.modalBody) dom.modalBody.scrollTop = 0;
+  /* ========================================================================
+     14. Language switching
+     ======================================================================== */
+  function applyCvState() {
+    document.querySelectorAll('[data-cv-link]').forEach((link) => {
+      const label = link.querySelector('[data-i18n]');
+      if (ASSETS.cvAvailable) {
+        link.setAttribute('href', ASSETS.cvPath);
+        link.setAttribute('download', ASSETS.cvFileName);
+        if (label) label.setAttribute('data-i18n', 'btnDownloadCv');
+      } else {
+        const subject = encodeURIComponent(t('cvRequestSubject'));
+        link.setAttribute('href', `mailto:${EMAIL_ADDRESS}?subject=${subject}`);
+        link.removeAttribute('download');
+        if (label) label.setAttribute('data-i18n', 'btnRequestCv');
+      }
+    });
   }
 
-  /* ========================================================================
-     11. Language Switching & Persistence
-     ======================================================================== */
-  function setLanguage(lang, persist = true, isInitial = false) {
-    if (lang !== 'en' && lang !== 'vi') return;
+  function spinGlobe() {
+    if (!dom.langGlobe) return;
+    globeTurns += 1;
+    dom.langGlobe.style.setProperty('--globe-turns', String(globeTurns));
+  }
+
+  function setLanguage(lang, options) {
+    const opts = options || {};
+    if (!I18N[lang]) return;
+    if (lang === currentLang && !opts.initial) return;
     currentLang = lang;
 
-    if (persist) {
+    if (opts.persist !== false) {
       try {
         localStorage.setItem(STORAGE_KEY, lang);
       } catch (_) {
-        // Ignore storage restrictions
+        /* storage blocked — language still applies for this visit */
       }
     }
 
-    applyStaticTranslations(lang);
-    renderProjects(!isInitial);
-    renderSkillsMatrix(!isInitial);
-    renderTimeline(!isInitial);
+    applyCvState();
+    applyStaticTranslations();
+    renderProjects();
+    renderSkills();
+    renderTimeline();
 
-    if (activeProjectId && !dom.modalBackdrop.hidden) {
-      populateModal(activeProjectId);
-    }
+    if (activeProjectId && !dom.modalRoot.hidden) populateModal(activeProjectId);
+    if (toastKey) dom.toastText.textContent = t(toastKey);
+    if (!opts.initial) spinGlobe();
 
-    refreshLucideIcons();
+    // Re-create icons immediately after DOM text updates so none go missing.
+    Icons.refresh();
+    Reveal.observe();
+
+    requestAnimationFrame(() => {
+      positionNavIndicator(true);
+      requestScrollUpdate();
+    });
   }
 
   /* ========================================================================
-     12. Copy Email Functionality with Copy <-> Check Icon & Toast Feedback
+     15. Copy email (Copy → Check scale-pop) & toast
      ======================================================================== */
-  function setCopyButtonsIcon(iconName) {
-    dom.copyTriggers.forEach((btn) => {
-      const slot = btn.querySelector('.copy-icon-slot');
-      if (slot) {
-        slot.innerHTML = `<i data-lucide="${iconName}" class="icon-sm"></i>`;
-      }
-    });
-    refreshLucideIcons();
+  function showToast(key, isError) {
+    window.clearTimeout(toastHideTimer);
+    toastKey = key;
+    dom.toastText.textContent = t(key);
+    dom.toast.classList.toggle('is-error', !!isError);
+    dom.toast.classList.remove('is-visible');
+    void dom.toast.offsetWidth;
+    dom.toast.classList.add('is-visible');
   }
 
-  async function copyEmailToClipboard() {
+  function hideToast() {
+    toastKey = null;
+    dom.toast.classList.remove('is-visible');
+    toastHideTimer = window.setTimeout(() => {
+      if (!toastKey) dom.toastText.textContent = '';
+    }, 400);
+  }
+
+  function setCopiedState(copied) {
+    dom.copyTriggers.forEach((btn) => {
+      btn.classList.toggle('is-copied', copied);
+      const label = btn.querySelector('.copy-email-label');
+      if (!label) return;
+      label.setAttribute('data-i18n', copied ? 'btnCopied' : 'btnCopyEmail');
+      label.textContent = t(copied ? 'btnCopied' : 'btnCopyEmail');
+    });
+  }
+
+  async function copyEmail() {
     let copied = false;
 
     if (navigator.clipboard && window.isSecureContext) {
@@ -1524,157 +1915,187 @@
     }
 
     if (!copied) {
-      const tempInput = document.createElement('textarea');
-      tempInput.value = EMAIL_ADDRESS;
-      tempInput.setAttribute('readonly', '');
-      tempInput.style.position = 'fixed';
-      tempInput.style.left = '-9999px';
-      document.body.appendChild(tempInput);
-      tempInput.select();
+      const area = document.createElement('textarea');
+      area.value = EMAIL_ADDRESS;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      area.style.pointerEvents = 'none';
+      document.body.appendChild(area);
+      area.select();
       try {
         copied = document.execCommand('copy');
       } catch (_) {
         copied = false;
       }
-      document.body.removeChild(tempInput);
+      area.remove();
     }
 
-    const dict = I18N[currentLang];
-    dom.copyTriggers.forEach((btn) => {
-      const labelEl = btn.querySelector('.copy-email-label');
-      btn.classList.add('is-copied');
-      if (labelEl) labelEl.textContent = dict.btnCopied;
-    });
-    setCopyButtonsIcon('check');
+    window.clearTimeout(copyResetTimer);
+    setCopiedState(copied);
+    showToast(copied ? 'toastCopied' : 'toastCopyFailed', !copied);
 
-    if (dom.copyToast && dom.copyToastText) {
-      dom.copyToastText.textContent = dict.toastCopied;
-      dom.copyToast.hidden = false;
-    }
-
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-      dom.copyTriggers.forEach((btn) => {
-        btn.classList.remove('is-copied');
-        const labelEl = btn.querySelector('.copy-email-label');
-        if (labelEl) labelEl.textContent = I18N[currentLang].btnCopyEmail;
-      });
-      setCopyButtonsIcon('copy');
-      if (dom.copyToast) dom.copyToast.hidden = true;
-    }, 2400);
+    copyResetTimer = window.setTimeout(
+      () => {
+        setCopiedState(false);
+        hideToast();
+      },
+      copied ? 2400 : 5000
+    );
   }
 
   /* ========================================================================
-     13. Event Listeners & Initialization
+     16. Mobile drawer
+     ======================================================================== */
+  function isDrawerOpen() {
+    return dom.mobileMenuBtn && dom.mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+  }
+
+  function setMenuButtonLabel(open) {
+    const key = open ? 'menuClose' : 'menuToggle';
+    dom.mobileMenuBtn.setAttribute('data-i18n-attr', `aria-label:${key}`);
+    dom.mobileMenuBtn.setAttribute('aria-label', t(key));
+  }
+
+  function openDrawer() {
+    dom.mobileDrawer.hidden = false;
+    dom.mobileMenuBtn.setAttribute('aria-expanded', 'true');
+    setMenuButtonLabel(true);
+    void dom.mobileDrawer.offsetWidth;
+    dom.mobileDrawer.classList.add('is-open');
+  }
+
+  function closeDrawer(returnFocus) {
+    if (!dom.mobileDrawer || !isDrawerOpen()) return;
+    dom.mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    setMenuButtonLabel(false);
+    dom.mobileDrawer.classList.remove('is-open');
+    window.setTimeout(
+      () => {
+        if (!isDrawerOpen()) dom.mobileDrawer.hidden = true;
+      },
+      REDUCED_MOTION ? 0 : 280
+    );
+    if (returnFocus) dom.mobileMenuBtn.focus();
+  }
+
+  /* ========================================================================
+     17. Events
      ======================================================================== */
   function bindEvents() {
-    // Language Toggle
-    dom.langBtnEn.addEventListener('click', () => setLanguage('en', true, false));
-    dom.langBtnVi.addEventListener('click', () => setLanguage('vi', true, false));
-
-    // Scroll Progress & ScrollSpy
-    window.addEventListener('scroll', updateScrollProgressAndSpy, { passive: true });
-    window.addEventListener('resize', updateScrollProgressAndSpy, { passive: true });
-
-    // Project Domain Filters
-    dom.filterButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
-        if (!filter) return;
-        currentFilter = filter;
-
-        dom.filterButtons.forEach((b) => {
-          const isActive = b === btn;
-          b.classList.toggle('is-active', isActive);
-          b.setAttribute('aria-selected', String(isActive));
-        });
-
-        renderProjects(true);
-      });
+    dom.langBtns.forEach((btn) => {
+      btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
     });
 
-    // Project Card Click & Keyboard Activation (Event Delegation)
+    window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+    window.addEventListener(
+      'resize',
+      () => {
+        requestAnimationFrame(() => {
+          positionNavIndicator(true);
+          updateScroll();
+          if (window.innerWidth > 1000) closeDrawer(false);
+        });
+      },
+      { passive: true }
+    );
+
+    dom.filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+    });
+
     dom.projectsGrid.addEventListener('click', (event) => {
       const card = event.target.closest('.project-card');
-      if (!card) return;
-      const projectId = card.getAttribute('data-project-id');
-      if (projectId) openModal(projectId, card);
+      if (card) openModal(card.dataset.projectId, card.querySelector('.project-open'));
     });
 
-    dom.projectsGrid.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      const card = event.target.closest('.project-card');
-      if (!card) return;
-      event.preventDefault();
-      const projectId = card.getAttribute('data-project-id');
-      if (projectId) openModal(projectId, card);
+    document.addEventListener('click', (event) => {
+      const proof = event.target.closest('[data-open-project]');
+      if (proof) {
+        openModal(proof.getAttribute('data-open-project'), proof);
+        return;
+      }
+      if (isDrawerOpen() && !event.target.closest('#site-header')) closeDrawer(false);
     });
 
-    // Modal Controls
     dom.modalCloseBtn.addEventListener('click', closeModal);
     dom.modalPrevBtn.addEventListener('click', () => cycleModal(-1));
     dom.modalNextBtn.addEventListener('click', () => cycleModal(1));
-
-    dom.modalBackdrop.addEventListener('click', (event) => {
-      if (event.target === dom.modalBackdrop) {
-        closeModal();
-      }
+    dom.modalRoot.addEventListener('click', (event) => {
+      if (event.target.hasAttribute('data-modal-dismiss')) closeModal();
     });
 
     document.addEventListener('keydown', (event) => {
-      if (dom.modalBackdrop.hidden) return;
-      if (event.key === 'Escape') {
-        closeModal();
-      } else if (event.key === 'ArrowLeft') {
-        cycleModal(-1);
-      } else if (event.key === 'ArrowRight') {
-        cycleModal(1);
+      const modalOpen = !dom.modalRoot.hidden && dom.modalRoot.classList.contains('is-open');
+
+      if (modalOpen) {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeModal();
+        } else if (event.key === 'Tab') {
+          trapFocus(event);
+        } else if (
+          (event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
+          !event.altKey &&
+          !event.ctrlKey &&
+          !event.metaKey &&
+          !event.target.closest('.visual-canvas')
+        ) {
+          event.preventDefault();
+          cycleModal(event.key === 'ArrowRight' ? 1 : -1);
+        }
+        return;
       }
+
+      if (event.key === 'Escape' && isDrawerOpen()) closeDrawer(true);
     });
 
-    // Copy Email Buttons
-    dom.copyTriggers.forEach((btn) => {
-      btn.addEventListener('click', copyEmailToClipboard);
-    });
+    dom.copyTriggers.forEach((btn) => btn.addEventListener('click', copyEmail));
 
-    // Mobile Navigation Drawer
     if (dom.mobileMenuBtn && dom.mobileDrawer) {
       dom.mobileMenuBtn.addEventListener('click', () => {
-        const isOpen = dom.mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-        dom.mobileMenuBtn.setAttribute('aria-expanded', String(!isOpen));
-        dom.mobileDrawer.hidden = isOpen;
+        if (isDrawerOpen()) closeDrawer(false);
+        else openDrawer();
       });
-
-      dom.mobileNavLinks.forEach((link) => {
-        link.addEventListener('click', () => {
-          dom.mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          dom.mobileDrawer.hidden = true;
-        });
+      dom.mobileDrawer.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => closeDrawer(false));
       });
     }
 
-    // Re-run Lucide icon creation once external script completes loading
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => positionNavIndicator(true));
+    }
+
     window.addEventListener('load', () => {
-      refreshLucideIcons();
-      updateScrollProgressAndSpy();
+      positionNavIndicator(true);
+      requestScrollUpdate();
     });
   }
 
+  /* ========================================================================
+     18. Boot
+     ======================================================================== */
   function init() {
+    booted = true;
+
     let savedLang = 'en';
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored === 'vi' || stored === 'en') {
-        savedLang = stored;
-      }
+      if (stored === 'vi' || stored === 'en') savedLang = stored;
     } catch (_) {
       savedLang = 'en';
     }
 
+    if (!ASSETS.cvAvailable) {
+      document.querySelectorAll('i[data-cv-icon]').forEach((icon) => icon.setAttribute('data-lucide', 'file-text'));
+    }
+
+    Reveal.init();
+    renderFilterCounts();
     bindEvents();
-    setLanguage(savedLang, false, true);
-    initRevealObserver();
-    updateScrollProgressAndSpy();
+    setLanguage(savedLang, { persist: false, initial: true });
+    Icons.start();
+    updateScroll();
   }
 
   if (document.readyState === 'loading') {
