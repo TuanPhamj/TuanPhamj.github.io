@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean &amp; Data Analytics Portfolio</title>
+  <meta
+    name="description"
+    content="Portfolio of Phạm Anh Tuấn (Tuan Pham) — Final-year student at HCMUT specializing in Production Planning, Discrete-Event Simulation, Lean Manufacturing, OEE Optimization, and Data Automation."
+  />
+  <meta property="og:title" content="Phạm Anh Tuấn (Tuan Pham) — Operations &amp; Analytics Portfolio" />
+  <meta
+    property="og:description"
+    content="Quantitative Industrial Engineering, 3D Discrete-Event Simulation, Heijunka Scheduling, and Automated WIP/BOM Case Studies."
+  />
+  <meta property="og:type" content="website" />
+
+  <!-- Clean Engineering Light-Blue SVG Favicon -->
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563EB'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%23FFFFFF' font-family='monospace' font-weight='700' font-size='26'%3ETP%3C/text%3E%3C/svg%3E"
+  />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </noscript>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body id="top">
+  <!-- Skip Link for Accessibility -->
+  <a class="skip-link" href="#main-content" data-i18n="skipToContent">Skip to main content</a>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand" aria-label="Phạm Anh Tuấn Home">
+        <span class="brand-mark" aria-hidden="true">TP</span>
+        <span class="brand-text">
+          <span class="brand-name">Tuan Pham</span>
+          <span class="brand-sub" data-i18n="brandSub">IE · Planning · BI</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#about" class="nav-link" data-i18n="navAbout">Overview</a>
+        <a href="#projects" class="nav-link" data-i18n="navProjects">Case Studies</a>
+        <a href="#skills" class="nav-link" data-i18n="navSkills">Skills Matrix</a>
+        <a href="#timeline" class="nav-link" data-i18n="navTimeline">Experience</a>
+        <a href="#contact" class="nav-link" data-i18n="navContact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Bilingual Toggle (EN | VI) -->
+        <div class="lang-toggle" role="group" aria-label="Language toggle">
+          <button
+            type="button"
+            class="lang-btn is-active"
+            id="lang-btn-en"
+            data-lang="en"
+            aria-pressed="true"
+          >
+            EN
+          </button>
+          <button
+            type="button"
+            class="lang-btn"
+            id="lang-btn-vi"
+            data-lang="vi"
+            aria-pressed="false"
+          >
+            VI
+          </button>
+        </div>
+
+        <a
+          href="assets/cv/Pham-Anh-Tuan-CV.pdf"
+          download="Pham-Anh-Tuan-CV.pdf"
+          class="btn btn-primary btn-sm header-cta"
+          id="nav-download-cv"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span data-i18n="navCv">Download CV</span>
+        </a>
+
+        <button
+          type="button"
+          class="mobile-menu-btn"
+          id="mobile-menu-btn"
+          aria-expanded="false"
+          aria-controls="mobile-drawer"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer" hidden>
+      <div class="container mobile-drawer-inner">
+        <a href="#about" class="mobile-nav-link" data-i18n="navAbout">Overview</a>
+        <a href="#projects" class="mobile-nav-link" data-i18n="navProjects">Case Studies</a>
+        <a href="#skills" class="mobile-nav-link" data-i18n="navSkills">Skills Matrix</a>
+        <a href="#timeline" class="mobile-nav-link" data-i18n="navTimeline">Experience</a>
+        <a href="#contact" class="mobile-nav-link" data-i18n="navContact">Contact</a>
+        <a
+          href="assets/cv/Pham-Anh-Tuan-CV.pdf"
+          download="Pham-Anh-Tuan-CV.pdf"
+          class="btn btn-primary btn-block"
+        >
+          <span data-i18n="navCv">Download CV</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section (#F8FAFC) -->
+    <section class="section section-hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="hero-eyebrow" data-i18n="heroEyebrow">
+            PRODUCTION PLANNING · LEAN SYSTEMS · DATA ANALYTICS
+          </p>
+
+          <h1 class="hero-title">
+            <span class="hero-name">Phạm Anh Tuấn</span>
+            <span class="hero-alias">(Tuan Pham)</span>
+          </h1>
+
+          <p class="hero-role" data-i18n="heroRole">
+            Final-year student (Production Planning, Lean &amp; Data Analytics)
+          </p>
+
+          <p class="hero-education">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+            <span data-i18n="heroEducation">
+              Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)
+            </span>
+          </p>
+
+          <p class="hero-summary" data-i18n="heroSummary">
+            I solve manufacturing bottlenecks using Discrete-Event Simulation, Heijunka production scheduling, Lean OEE analysis, and automated WIP/BOM pipelines — bridging shop-floor reality with quantitative decision systems.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              href="assets/cv/Pham-Anh-Tuan-CV.pdf"
+              download="Pham-Anh-Tuan-CV.pdf"
+              class="btn btn-primary"
+              id="hero-download-cv"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span data-i18n="btnDownloadCv">Download CV</span>
+            </a>
+
+            <button
+              type="button"
+              class="btn btn-secondary copy-email-trigger"
+              id="hero-copy-email"
+              data-email="phamanhtuan802@gmail.com"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+              <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
+            </button>
+
+            <a href="#projects" class="btn btn-ghost" data-i18n="btnViewProjects">
+              Inspect Case Studies ↓
+            </a>
+          </div>
+
+          <div class="hero-tooling" aria-label="Core engineering toolchain">
+            <span class="tooling-label" data-i18n="toolingLabel">Core Stack:</span>
+            <ul class="tooling-list">
+              <li>FlexSim 3D</li>
+              <li>JavaScript DES</li>
+              <li>Excel VBA &amp; Power Query</li>
+              <li>Google Apps Script</li>
+              <li>SQL &amp; Python</li>
+              <li>Power BI</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Quantitative Engineering Snapshot Card -->
+        <aside class="hero-dossier" aria-label="Quantitative performance snapshot">
+          <div class="dossier-header">
+            <span class="dossier-code" data-i18n="dossierHeader">OPERATIONS SNAPSHOT // KPI</span>
+            <span class="dossier-status" data-i18n="dossierStatus">READY FOR HIRE · 2026</span>
+          </div>
+
+          <div class="dossier-metrics">
+            <div class="metric-tile">
+              <div class="metric-value">217</div>
+              <div class="metric-label" data-i18n="metric1Label">Color SKUs Sequenced</div>
+              <div class="metric-sub" data-i18n="metric1Sub">Heijunka Art Marker Line</div>
+            </div>
+
+            <div class="metric-tile">
+              <div class="metric-value">4-Stage</div>
+              <div class="metric-label" data-i18n="metric2Label">Line Balancing Scope</div>
+              <div class="metric-sub" data-i18n="metric2Sub">FlexSim 3D &amp; JS DES</div>
+            </div>
+
+            <div class="metric-tile">
+              <div class="metric-value">100%</div>
+              <div class="metric-label" data-i18n="metric3Label">Automated BOM Sync</div>
+              <div class="metric-sub" data-i18n="metric3Sub">Real-Time WIP &amp; Alerts</div>
+            </div>
+
+            <div class="metric-tile">
+              <div class="metric-value">OEE &amp; 5S</div>
+              <div class="metric-label" data-i18n="metric4Label">Shop-Floor Auditing</div>
+              <div class="metric-sub" data-i18n="metric4Sub">Time-Study &amp; 5 Whys RCA</div>
+            </div>
+          </div>
+
+          <div class="dossier-footer">
+            <div class="dossier-meta-row">
+              <span class="meta-key" data-i18n="metaLocationKey">Region</span>
+              <span class="meta-val" data-i18n="contactLocationValue">Ho Chi Minh City / Dong Nai / Binh Duong</span>
+            </div>
+            <div class="dossier-meta-row">
+              <span class="meta-key" data-i18n="metaEmailKey">Direct</span>
+              <span class="meta-val mono">phamanhtuan802@gmail.com</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Engineering Mindset / Overview Section (#EFF6FF) -->
+    <section class="section section-alt" id="about">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow" data-i18n="aboutEyebrow">01 // ENGINEERING APPROACH</p>
+          <h2 class="section-title" data-i18n="aboutTitle">
+            Engineering Operations with a Quantitative Mindset
+          </h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-narrative card-surface">
+            <h3 class="about-subhead" data-i18n="aboutSubhead">
+              Connecting Shop-Floor Industrial Engineering to Automated Analytics
+            </h3>
+            <p data-i18n="aboutPara1">
+              As a final-year student at Ho Chi Minh City University of Technology (HCMUT, 2022–2026) with manufacturing internships at Thien Long Group (Long Thanh Plant) and Duy Tan Recycling, I focus on transforming messy factory records and constrained production lines into predictable, measurable operations.
+            </p>
+            <p data-i18n="aboutPara2">
+              Whether balancing a 4-stage marker assembly line across 217 color SKUs in FlexSim 3D, automating ink-to-unit BOM explosion across multi-stage WIP buffers, or isolating unplanned downtime with Pareto &amp; 5 Whys RCA, every system I build is grounded in verifiable cycle times and zero-bottleneck flow logic.
+            </p>
+          </div>
+
+          <div class="methodology-steps">
+            <div class="step-card card-surface">
+              <div class="step-num">01</div>
+              <div class="step-body">
+                <h3 data-i18n="step1Title">Measure &amp; Standardize</h3>
+                <p data-i18n="step1Desc">
+                  Stopwatch time-studies, OEE loss decomposition, 5S workstation audits, and structured 5 Whys root-cause diagnostics on the shop floor.
+                </p>
+              </div>
+            </div>
+
+            <div class="step-card card-surface">
+              <div class="step-num">02</div>
+              <div class="step-body">
+                <h3 data-i18n="step2Title">Model &amp; Simulate</h3>
+                <p data-i18n="step2Desc">
+                  3D Discrete-Event Simulation in FlexSim and custom JavaScript DES engines to stress-test Heijunka schedules and inter-stage buffers.
+                </p>
+              </div>
+            </div>
+
+            <div class="step-card card-surface">
+              <div class="step-num">03</div>
+              <div class="step-body">
+                <h3 data-i18n="step3Title">Automate &amp; Control</h3>
+                <p data-i18n="step3Desc">
+                  End-to-end BOM explosion, SQL/Power Query ETL, Apps Script WIP tracking, and dynamic shortage alerting for planners.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Projects Section (#F8FAFC) -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-header section-header-row">
+          <div>
+            <p class="section-eyebrow" data-i18n="projectsEyebrow">02 // VERIFIED CASE STUDIES</p>
+            <h2 class="section-title" data-i18n="projectsTitle">Industrial &amp; Analytics Case Studies</h2>
+            <p class="section-subtitle" data-i18n="projectsSubtitle">
+              Filter by engineering domain and select any card to inspect the 4-part system architecture and NDA-sanitized technical blueprint.
+            </p>
+          </div>
+        </div>
+
+        <!-- Domain Filter Bar -->
+        <div class="filter-bar" id="project-filters" role="tablist" aria-label="Filter projects by domain">
+          <button
+            type="button"
+            class="filter-btn is-active"
+            data-filter="all"
+            role="tab"
+            aria-selected="true"
+          >
+            <span data-i18n="filterAll">All</span>
+            <span class="filter-count">3</span>
+          </button>
+          <button
+            type="button"
+            class="filter-btn"
+            data-filter="simulation"
+            role="tab"
+            aria-selected="false"
+          >
+            <span data-i18n="filterSimulation">Simulation &amp; Scheduling</span>
+            <span class="filter-count">1</span>
+          </button>
+          <button
+            type="button"
+            class="filter-btn"
+            data-filter="automation"
+            role="tab"
+            aria-selected="false"
+          >
+            <span data-i18n="filterAutomation">Data &amp; BI Automation</span>
+            <span class="filter-count">1</span>
+          </button>
+          <button
+            type="button"
+            class="filter-btn"
+            data-filter="lean"
+            role="tab"
+            aria-selected="false"
+          >
+            <span data-i18n="filterLean">Lean &amp; OEE</span>
+            <span class="filter-count">1</span>
+          </button>
+        </div>
+
+        <!-- Filterable Project Card Grid (Rendered dynamically via script.js) -->
+        <div class="projects-grid" id="projects-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- 3-Column Technical Skills Matrix (#EFF6FF) -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow" data-i18n="skillsEyebrow">03 // CAPABILITIES MATRIX</p>
+          <h2 class="section-title" data-i18n="skillsTitle">Technical &amp; Operational Skillset</h2>
+          <p class="section-subtitle" data-i18n="skillsSubtitle">
+            Three integrated pillars uniting Industrial Engineering, Simulation Modeling, and Production Data Automation.
+          </p>
+        </div>
+
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </section>
+
+    <!-- Experience & Education Timeline (#F8FAFC) -->
+    <section class="section" id="timeline">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow" data-i18n="timelineEyebrow">04 // CAREER &amp; EDUCATION TIMELINE</p>
+          <h2 class="section-title" data-i18n="timelineTitle">Industrial Experience &amp; Academic Track</h2>
+          <p class="section-subtitle" data-i18n="timelineSubtitle">
+            Hands-on plant operations, student leadership, and quantitative management education in Vietnam's southern industrial hub.
+          </p>
+        </div>
+
+        <div class="timeline-list" id="timeline-list"></div>
+      </div>
+    </section>
+
+    <!-- Contact Section (#EFF6FF) -->
+    <section class="section section-alt" id="contact">
+      <div class="container">
+        <div class="contact-card card-surface">
+          <div class="contact-left">
+            <p class="section-eyebrow" data-i18n="contactEyebrow">05 // CONNECT &amp; COLLABORATE</p>
+            <h2 class="section-title" data-i18n="contactTitle">
+              Open to Production Planning, IE &amp; Operations Analytics Opportunities
+            </h2>
+            <p class="contact-desc" data-i18n="contactDesc">
+              Available across Ho Chi Minh City, Dong Nai, and Binh Duong industrial zones. Reach out directly via email or phone, or download my full curriculum vitae.
+            </p>
+
+            <div class="contact-actions">
+              <button
+                type="button"
+                class="btn btn-primary copy-email-trigger"
+                id="contact-copy-email"
+                data-email="phamanhtuan802@gmail.com"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
+              </button>
+
+              <a
+                href="mailto:phamanhtuan802@gmail.com"
+                class="btn btn-secondary"
+                id="contact-mailto-btn"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <span data-i18n="btnSendEmail">Send Email</span>
+              </a>
+
+              <a
+                href="assets/cv/Pham-Anh-Tuan-CV.pdf"
+                download="Pham-Anh-Tuan-CV.pdf"
+                class="btn btn-ghost"
+                id="contact-download-cv"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span data-i18n="btnDownloadCv">Download CV</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-details">
+            <div class="contact-item">
+              <span class="contact-item-label" data-i18n="contactEmailLabel">Email Address</span>
+              <a href="mailto:phamanhtuan802@gmail.com" class="contact-item-value mono">
+                phamanhtuan802@gmail.com
+              </a>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-item-label" data-i18n="contactPhoneLabel">Phone / Zalo</span>
+              <a href="tel:+84972693749" class="contact-item-value mono">
+                (+84) 972 693 749
+              </a>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-item-label" data-i18n="contactLocationLabel">Preferred Work Region</span>
+              <span class="contact-item-value" data-i18n="contactLocationValue">
+                Ho Chi Minh City / Dong Nai / Binh Duong
+              </span>
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-item-label" data-i18n="contactEduLabel">University</span>
+              <span class="contact-item-value" data-i18n="heroEducation">
+                Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Minimalist Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark brand-mark-sm" aria-hidden="true">TP</span>
+        <span data-i18n="footerCopy">© 2026 Phạm Anh Tuấn (Tuan Pham). Built for GitHub Pages.</span>
+      </div>
+      <div class="footer-links">
+        <a href="#about" data-i18n="navAbout">Overview</a>
+        <a href="#projects" data-i18n="navProjects">Case Studies</a>
+        <a href="#skills" data-i18n="navSkills">Skills Matrix</a>
+        <a href="#timeline" data-i18n="navTimeline">Experience</a>
+        <a href="#top" data-i18n="backToTop">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive 4-Part Case Study Modal -->
+  <div
+    class="modal-backdrop"
+    id="case-study-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    hidden
+  >
+    <div class="modal-dialog" id="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-header-meta">
+          <span class="modal-category-badge" id="modal-category"></span>
+          <span class="modal-org" id="modal-org"></span>
+        </div>
+        <button
+          type="button"
+          class="modal-close-btn"
+          id="modal-close-btn"
+          aria-label="Close case study modal"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <h2 class="modal-title" id="modal-title"></h2>
+        <div class="kpi-pills modal-kpi-pills" id="modal-kpi-pills"></div>
+
+        <!-- Visual Preview Frame with NDA Banner & Light-Blue SVG Blueprint Fallback -->
+        <div class="modal-visual-frame">
+          <div class="visual-frame-bar">
+            <span class="nda-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span id="modal-nda-label" data-i18n="ndaLabel">Sanitized Mock Data – NDA Compliant</span>
+            </span>
+            <span class="blueprint-ref mono" id="modal-blueprint-ref"></span>
+          </div>
+
+          <div class="visual-canvas" id="modal-visual-canvas">
+            <img
+              id="modal-preview-img"
+              src=""
+              alt=""
+              onerror="window.handleBlueprintFallback && window.handleBlueprintFallback(this)"
+            />
+            <div class="svg-blueprint-container" id="modal-svg-blueprint" hidden></div>
+          </div>
+        </div>
+
+        <!-- 4-Part Structured Engineering Case Study -->
+        <div class="modal-sections-grid" id="modal-sections-grid"></div>
+
+        <!-- Tech Stack Footer inside Modal -->
+        <div class="modal-footer-bar">
+          <div class="modal-stack" id="modal-stack"></div>
+          <div class="modal-nav-actions">
+            <button type="button" class="btn btn-secondary btn-sm" id="modal-prev-btn">
+              ← <span data-i18n="modalPrev">Previous</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="modal-next-btn">
+              <span data-i18n="modalNext">Next</span> →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification for Copy Email Feedback -->
+  <div class="toast" id="copy-toast" role="status" aria-live="polite" hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+    <span id="copy-toast-text">Copied phamanhtuan802@gmail.com to clipboard</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
