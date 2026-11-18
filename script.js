@@ -1,5 +1,6 @@
 /**
- * Phạm Anh Tuấn (Tuan Pham) — Portfolio Interactive Logic & Bilingual Engine
+ * Phạm Anh Tuấn (Tuan Pham) — Portfolio Interactive Logic, Bilingual Engine,
+ * Lucide Vector Icon System, Scroll Progress / ScrollSpy & IntersectionObserver
  * Clean Engineering Light Blue Theme
  */
 
@@ -8,6 +9,87 @@
 
   const STORAGE_KEY = 'tuanpham_portfolio_lang';
   const EMAIL_ADDRESS = 'phamanhtuan802@gmail.com';
+
+  /* ========================================================================
+     0. Built-in Lucide Vector SVG Paths (Fallback if CDN is offline/blocked)
+     ======================================================================== */
+  const LUCIDE_FALLBACK_PATHS = {
+    user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    'folder-kanban':
+      '<path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/><path d="M8 10v4"/><path d="M12 10v2"/><path d="M16 10v6"/>',
+    cpu: '<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>',
+    briefcase:
+      '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+    globe:
+      '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+    'file-down':
+      '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/>',
+    'arrow-right': '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+    'arrow-left': '<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>',
+    'arrow-up-right': '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
+    palette:
+      '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
+    layers:
+      '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+    'refresh-cw':
+      '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+    activity: '<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
+    database:
+      '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+    gauge: '<path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>',
+    'check-circle-2': '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+    'trending-up': '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+    settings:
+      '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+    box: '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
+    'bar-chart-3': '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+    'building-2':
+      '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>',
+    'graduation-cap':
+      '<path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>',
+    phone:
+      '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    'map-pin':
+      '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
+    copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+    check: '<path d="M20 6 9 17l-5-5"/>',
+    x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    'shield-check':
+      '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>'
+  };
+
+  function refreshLucideIcons() {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+      return;
+    }
+
+    // Fallback SVG renderer if CDN script has not yet initialized
+    document.querySelectorAll('i[data-lucide]').forEach((el) => {
+      const iconName = el.getAttribute('data-lucide');
+      const innerPaths = LUCIDE_FALLBACK_PATHS[iconName];
+      if (!innerPaths) return;
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('data-lucide', iconName);
+      svg.setAttribute('aria-hidden', 'true');
+
+      const existingClass = el.getAttribute('class') || '';
+      svg.setAttribute('class', `lucide lucide-${iconName} ${existingClass}`.trim());
+      svg.innerHTML = innerPaths;
+      el.replaceWith(svg);
+    });
+  }
+
+  window.refreshLucideIcons = refreshLucideIcons;
 
   /* ========================================================================
      1. Bilingual Translation Dictionary (EN <-> VI)
@@ -28,11 +110,14 @@
       heroRole: 'Final-year student (Production Planning, Lean & Data Analytics)',
       heroEducation: 'Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)',
       heroSummary:
-        'I solve manufacturing bottlenecks using Discrete-Event Simulation, Heijunka production scheduling, Lean OEE analysis, and automated WIP/BOM pipelines — bridging shop-floor reality with quantitative decision systems.',
+        'Eliminating shop-floor bottlenecks and manual planning delays through 3D Discrete-Event Simulation, Heijunka leveling, and automated WIP/BOM data pipelines.',
+      focusTag1: 'Shop-Floor Lean & OEE',
+      focusTag2: '3D FlexSim & Heijunka Scheduling',
+      focusTag3: 'Python / SQL / VBA Automation',
+      btnViewProjects: 'Explore Case Studies',
       btnDownloadCv: 'Download CV',
       btnCopyEmail: 'Copy Email',
       btnCopied: 'Copied!',
-      btnViewProjects: 'Inspect Case Studies ↓',
       toolingLabel: 'Core Stack:',
 
       dossierHeader: 'OPERATIONS SNAPSHOT // KPI',
@@ -68,12 +153,12 @@
       projectsEyebrow: '02 // VERIFIED CASE STUDIES',
       projectsTitle: 'Industrial & Analytics Case Studies',
       projectsSubtitle:
-        'Filter by engineering domain and select any card to inspect the 4-part system architecture and NDA-sanitized technical blueprint.',
+        'Filter by engineering domain and select any card to inspect the Executive Takeaway, 4-part system architecture, and NDA-sanitized technical blueprint.',
       filterAll: 'All',
       filterSimulation: 'Simulation & Scheduling',
       filterAutomation: 'Data & BI Automation',
       filterLean: 'Lean & OEE',
-      inspectAction: 'Inspect 4-Part Case Study →',
+      inspectAction: 'Inspect Case',
 
       skillsEyebrow: '03 // CAPABILITIES MATRIX',
       skillsTitle: 'Technical & Operational Skillset',
@@ -100,8 +185,9 @@
       backToTop: 'Back to top ↑',
 
       ndaLabel: 'Sanitized Mock Data – NDA Compliant',
-      modalPrev: 'Previous',
-      modalNext: 'Next',
+      execBannerTitle: 'Executive Summary // Key Engineering Takeaway',
+      modalPrev: 'Prev Case Study',
+      modalNext: 'Next Case Study',
       toastCopied: 'Copied phamanhtuan802@gmail.com to clipboard',
       modalSectionTitles: {
         problem: '01 // Bottleneck & Problem Statement',
@@ -126,11 +212,14 @@
       heroRole: 'Sinh viên năm cuối (Hoạch định Sản xuất, Lean & Phân tích Dữ liệu)',
       heroEducation: 'Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT, 2022–2026)',
       heroSummary:
-        'Tôi giải quyết các điểm nghẽn sản xuất bằng Mô phỏng Sự kiện Rời rạc (DES), điều độ Heijunka, phân tích OEE theo Lean và hệ thống tự động hóa WIP/BOM — kết nối sát thực tế xưởng sản xuất với ra quyết định định lượng.',
+        'Giải quyết triệt để điểm nghẽn chuyền sản xuất và độ trễ lập kế hoạch thông qua Mô phỏng 3D (DES), điều độ Heijunka và tự động hóa dữ liệu WIP/BOM.',
+      focusTag1: 'Lean Hiện trường & OEE',
+      focusTag2: 'Mô phỏng 3D FlexSim & Điều độ Heijunka',
+      focusTag3: 'Tự động hóa Python / SQL / VBA',
+      btnViewProjects: 'Khám phá Dự án',
       btnDownloadCv: 'Tải CV',
       btnCopyEmail: 'Sao chép Email',
       btnCopied: 'Đã sao chép!',
-      btnViewProjects: 'Xem các Dự án ↓',
       toolingLabel: 'Công cụ chính:',
 
       dossierHeader: 'CHỈ SỐ VẬN HÀNH // KPI',
@@ -166,12 +255,12 @@
       projectsEyebrow: '02 // DỰ ÁN TIÊU BIỂU',
       projectsTitle: 'Các Dự án Cốt lõi tại Nhà máy & Phân tích Dữ liệu',
       projectsSubtitle:
-        'Lọc theo lĩnh vực chuyên môn và nhấp vào từng thẻ để xem phân tích 4 phần cùng sơ đồ kỹ thuật đã ẩn danh theo NDA.',
+        'Lọc theo lĩnh vực chuyên môn và nhấp vào từng thẻ để xem Tóm tắt kết quả cốt lõi, kiến trúc hệ thống 4 phần cùng sơ đồ kỹ thuật chuẩn NDA.',
       filterAll: 'Tất cả',
       filterSimulation: 'Mô phỏng & Điều độ',
       filterAutomation: 'Tự động hóa Dữ liệu & BI',
       filterLean: 'Lean & OEE',
-      inspectAction: 'Xem Phân tích 4 Phần →',
+      inspectAction: 'Xem Chi tiết',
 
       skillsEyebrow: '03 // MA TRẬN NĂNG LỰC',
       skillsTitle: 'Năng lực Kỹ thuật & Vận hành 3 Trụ cột',
@@ -198,8 +287,9 @@
       backToTop: 'Lên đầu trang ↑',
 
       ndaLabel: 'Dữ liệu Giả lập Đã Ẩn danh – Tuân thủ NDA',
+      execBannerTitle: 'Tóm tắt kết quả cốt lõi // Giá trị Kỹ thuật',
       modalPrev: 'Dự án trước',
-      modalNext: 'Dự án tiếp',
+      modalNext: 'Dự án tiếp theo',
       toastCopied: 'Đã sao chép phamanhtuan802@gmail.com vào bộ nhớ tạm',
       modalSectionTitles: {
         problem: '01 // Điểm nghẽn & Bài toán Thực tế',
@@ -211,13 +301,14 @@
   };
 
   /* ========================================================================
-     2. Three Core Projects Data (EN & VI)
+     2. Three Core Projects Data (EN & VI) with Scannable Bullets & Executive Summary
      ======================================================================== */
   const PROJECTS = [
     {
       id: 'project-1',
       code: 'PRJ-01 // HEIJUNKA-DES',
       categoryKey: 'simulation',
+      domainIcon: 'cpu',
       imageSrc: 'assets/images/project-1-heijunka-des.png',
       blueprintRef: 'FIG. 01 // 4-STAGE ART MARKER DES & HEIJUNKA FLOW',
       techStack: ['FlexSim 3D', 'JavaScript DES Engine', 'Heijunka', 'SMED', 'Line Balancing'],
@@ -226,8 +317,13 @@
         org: 'Thien Long Group · Long Thanh Plant',
         title: '3D Discrete-Event Simulation & Heijunka Web Scheduler',
         kpis: ['217 Color SKUs Sequenced', '4-Stage Line Balancing', 'Zero-Bottleneck Scheduling'],
-        summary:
-          'Modeled a 4-stage sequential Art Marker manufacturing line (barrel heat-transfer printing, cap printing, cap assembly, final assembly) using FlexSim 3D and a custom JavaScript DES Engine; optimized changeover sequences across 217 color SKUs via Heijunka leveling principles and controlled inter-stage safety buffers.',
+        cardBullets: [
+          'Modeled a <strong>4-stage sequential Art Marker line</strong> (barrel heat-transfer printing, cap printing, cap assembly, final assembly) in <strong>FlexSim 3D &amp; JavaScript DES Engine</strong>.',
+          'Sequenced <strong>217 color SKUs</strong> via <strong>Heijunka leveling</strong> and SMED color-family grouping to minimize changeover loss.',
+          'Controlled inter-stage <strong>Kanban safety buffers</strong> to achieve <strong>zero-bottleneck scheduling</strong> across shifts.'
+        ],
+        executiveTakeaway:
+          'Synchronized a <strong>4-stage Art Marker manufacturing line</strong> across <strong>217 color SKUs</strong> by combining a <strong>FlexSim 3D</strong> digital twin with a custom <strong>JavaScript DES Web Scheduler</strong>—eliminating inter-stage WIP bottlenecks and standardizing Heijunka color changeover sequences.',
         sections: {
           problem:
             'The Art Marker manufacturing line links 4 sequential workcenters: (1) Barrel Heat-Transfer Printing, (2) Cap Printing, (3) Cap Assembly, and (4) Final Assembly. Managing 217 distinct color SKUs with uncoordinated batching caused repetitive SMED color-changeover downtime, cycle-time imbalance across cells, and WIP congestion before final assembly.',
@@ -244,8 +340,13 @@
         org: 'Tập đoàn Thiên Long · Nhà máy Long Thành',
         title: 'Mô phỏng Sự kiện Rời rạc 3D & Hệ thống Điều độ Web Heijunka',
         kpis: ['Điều độ 217 Mã màu SKU', 'Cân bằng Chuyền 4 Công đoạn', 'Lịch Sản xuất Không Điểm nghẽn'],
-        summary:
-          'Mô hình hóa dây chuyền sản xuất bút lông nghệ thuật (Art Marker) gồm 4 công đoạn nối tiếp (in chuyển nhiệt thân, in nắp, lắp nắp, lắp ráp hoàn chỉnh) trên FlexSim 3D & JavaScript DES Engine; tối ưu thứ tự chuyển đổi 217 mã màu theo nguyên lý Heijunka và kiểm soát tồn kho đệm (safety buffer).',
+        cardBullets: [
+          'Mô hình hóa <strong>dây chuyền Art Marker 4 công đoạn nối tiếp</strong> (in chuyển nhiệt thân, in nắp, lắp nắp, lắp ráp hoàn chỉnh) trên <strong>FlexSim 3D &amp; JS DES Engine</strong>.',
+          'Tối ưu thứ tự chuyển đổi <strong>217 mã màu SKU</strong> theo nguyên lý <strong>Heijunka</strong> và gom nhóm dải màu SMED.',
+          'Kiểm soát ngưỡng <strong>tồn kho đệm (safety buffer)</strong> liên trạm, đảm bảo <strong>lịch điều độ không phát sinh điểm nghẽn</strong>.'
+        ],
+        executiveTakeaway:
+          'Đồng bộ hóa <strong>dây chuyền sản xuất Art Marker 4 công đoạn</strong> cho <strong>217 mã màu SKU</strong> bằng mô hình song sinh số <strong>FlexSim 3D</strong> kết hợp <strong>JavaScript DES Web Scheduler</strong>—triệt tiêu ứ đọng bán thành phẩm (WIP) và chuẩn hóa quy tắc chuyển đổi màu Heijunka.',
         sections: {
           problem:
             'Dây chuyền sản xuất Art Marker gồm 4 công đoạn nối tiếp: (1) In chuyển nhiệt thân, (2) In nắp, (3) Lắp nắp và (4) Lắp ráp hoàn chỉnh. Việc sắp xếp thủ công 217 mã màu khác nhau gây phát sinh nhiều lần dừng máy chuyển đổi SMED, mất cân bằng nhịp độ giữa các trạm và dồn ứ bán thành phẩm (WIP).',
@@ -263,6 +364,7 @@
       id: 'project-2',
       code: 'PRJ-02 // WIP-BOM-SYNC',
       categoryKey: 'automation',
+      domainIcon: 'database',
       imageSrc: 'assets/images/project-2-wip-bom.png',
       blueprintRef: 'FIG. 02 // AUTOMATED BOM EXPLOSION & WIP PIPELINE',
       techStack: ['Excel VBA', 'Power Query', 'Google Apps Script', 'Google QUERY', 'SQL Logic'],
@@ -271,8 +373,13 @@
         org: 'Thien Long Group · Long Thanh Plant',
         title: 'Automated WIP, BOM & Multi-Stage Production Tracking System',
         kpis: ['100% Automated BOM Sync', 'Dynamic Safety Buffer', 'Real-Time WIP Tracking'],
-        summary:
-          'Engineered an automated Bill of Materials (BOM) explosion system converting ink weight to unit counts, tracking real-time Work-in-Process (WIP) across production cells, and triggering dynamic shortage alerts using Advanced Excel (VBA, Power Query), Google Sheets (Apps Script, QUERY), and SQL logic.',
+        cardBullets: [
+          'Engineered <strong>100% automated BOM explosion</strong> converting raw ink weight (kg) into exact marker unit counts across SKUs.',
+          'Built <strong>real-time multi-stage WIP tracking</strong> across production cells using <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL logic</strong>.',
+          'Deployed <strong>dynamic safety buffer alerts</strong> to flag component shortages before downstream line starvation.'
+        ],
+        executiveTakeaway:
+          'Replaced error-prone manual spreadsheet reconciliation with a <strong>100% automated BOM &amp; multi-stage WIP pipeline</strong> powered by <strong>Excel VBA, Power Query, Google Apps Script, and SQL logic</strong>—converting ink weight to unit counts and triggering real-time shortage alerts.',
         sections: {
           problem:
             'Material dispatch logged raw ink issuance by weight (kg), whereas cell scheduling required exact semi-finished unit counts per SKU across multiple workstations. Manual cross-sheet reconciliation introduced reporting latency, BOM conversion errors, and unflagged WIP shortages.',
@@ -289,8 +396,13 @@
         org: 'Tập đoàn Thiên Long · Nhà máy Long Thành',
         title: 'Hệ thống Tự động Theo dõi WIP, Quy đổi BOM & Sản xuất Đa công đoạn',
         kpis: ['100% Tự động Đồng bộ BOM', 'Tồn kho Đệm Động', 'Theo dõi WIP Thời gian thực'],
-        summary:
-          'Thiết kế hệ thống tự động bóc tách định mức nguyên vật liệu (BOM), quy đổi trọng lượng mực sang đơn vị sản phẩm, theo dõi tồn kho bán thành phẩm (WIP) thời gian thực giữa các tổ sản xuất và cảnh báo thiếu hụt động bằng Excel (VBA, Power Query), Google Sheets (Apps Script, QUERY) và tư duy truy vấn SQL.',
+        cardBullets: [
+          'Tự động hóa <strong>100% bóc tách định mức BOM</strong>, quy đổi chính xác khối lượng mực (kg) sang số lượng đơn vị sản phẩm theo SKU.',
+          'Theo dõi <strong>tồn kho bán thành phẩm (WIP) thời gian thực</strong> giữa các tổ bằng <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL</strong>.',
+          'Thiết lập <strong>cảnh báo thiếu hụt động (Dynamic Safety Buffer)</strong> giúp ngăn ngừa đứt gãy vật tư trên chuyền.'
+        ],
+        executiveTakeaway:
+          'Thay thế hoàn toàn việc đối chiếu bảng tính thủ công bằng <strong>hệ thống đồng bộ BOM &amp; theo dõi WIP đa công đoạn tự động 100%</strong> trên nền tảng <strong>Excel VBA, Power Query, Google Apps Script và SQL</strong>—quy đổi tức thời khối lượng mực sang đơn vị sản phẩm và cảnh báo sớm thiếu hụt.',
         sections: {
           problem:
             'Dữ liệu cấp phát mực tại xưởng ghi nhận theo khối lượng (kg), trong khi điều độ lắp ráp cần số lượng bán thành phẩm (cái/chiếc) theo từng mã màu. Việc đối chiếu thủ công giữa nhiều bảng tính rời rạc gây độ trễ thông tin, sai số quy đổi BOM và thiếu cảnh báo sớm khi hụt tồn kho WIP.',
@@ -308,6 +420,7 @@
       id: 'project-3',
       code: 'PRJ-03 // OEE-TIME-5S',
       categoryKey: 'lean',
+      domainIcon: 'gauge',
       imageSrc: 'assets/images/project-3-oee-5s.png',
       blueprintRef: 'FIG. 03 // OEE DECOMPOSITION, PARETO & 5S RCA',
       techStack: ['OEE Analysis', 'Time & Work Study', 'Pareto Chart', '5 Whys RCA', '5S Visual Mgmt'],
@@ -316,8 +429,13 @@
         org: 'Duy Tan Recycling',
         title: 'Machinery OEE, Time-Study & 5S Root-Cause Optimization',
         kpis: ['OEE Bottleneck Mapping', 'Time-Study Standardization', '5 Whys RCA & 5S'],
-        summary:
-          'Conducted stopwatch cycle-time measurements, evaluated Overall Equipment Effectiveness (OEE), isolated root causes of unplanned downtime using Pareto charts and 5 Whys RCA, standardized operator workflows, and implemented 5S visual management on the shop floor.',
+        cardBullets: [
+          'Conducted <strong>stopwatch Time-Study measurements</strong> and full <strong>OEE loss decomposition</strong> (Availability × Performance × Quality).',
+          'Isolated top unplanned downtime drivers using <strong>Pareto 80/20 charts</strong> and structured <strong>5 Whys Root-Cause Analysis (RCA)</strong>.',
+          'Standardized operator SOPs and deployed <strong>5S visual management controls</strong> across shop-floor workstations.'
+        ],
+        executiveTakeaway:
+          'Diagnosed critical recycling line losses through <strong>stopwatch Time-Study</strong> and <strong>OEE bottleneck mapping</strong>, applying <strong>Pareto 80/20 ranking &amp; 5 Whys RCA</strong> to eliminate recurring micro-stops and enforce <strong>5S visual standards</strong> on the shop floor.',
         sections: {
           problem:
             'Plastic recycling lines suffered from frequent unplanned micro-stops, fluctuating shift throughput, and undocumented cycle-time standards. Lack of structured downtime categorization and workstation 5S standards obscured the core drivers of equipment utilization loss.',
@@ -334,8 +452,13 @@
         org: 'Duy Tân Recycling',
         title: 'Tối ưu OEE Thiết bị, Đo Thời gian & Cải tiến 5S / RCA',
         kpis: ['Bản đồ Điểm nghẽn OEE', 'Chuẩn hóa Time-Study', 'Phân tích 5 Whys & 5S'],
-        summary:
-          'Thực hiện bấm giờ đo chu kỳ máy (Cycle Time), đánh giá hiệu suất thiết bị tổng thể (OEE), truy tìm nguyên nhân gốc rễ dừng máy ngoài kế hoạch bằng biểu đồ Pareto & 5 Whys RCA, chuẩn hóa thao tác vận hành và triển khai quản lý trực quan 5S tại xưởng.',
+        cardBullets: [
+          'Thực hiện <strong>bấm giờ chu kỳ máy (Time-Study)</strong> và phân rã tổn thất <strong>OEE toàn diện</strong> (Khả dụng × Hiệu suất × Chất lượng).',
+          'Khoanh vùng nguyên nhân dừng máy ngoài kế hoạch bằng <strong>biểu đồ Pareto 80/20</strong> và truy vết <strong>5 Whys RCA</strong>.',
+          'Chuẩn hóa thao tác vận hành (SOP) và triển khai <strong>quản lý trực quan 5S</strong> tại các trạm sản xuất.'
+        ],
+        executiveTakeaway:
+          'Khoanh vùng chính xác tổn thất thiết bị trên chuyền tái chế thông qua <strong>bấm giờ Time-Study</strong> và <strong>bản đồ điểm nghẽn OEE</strong>, kết hợp <strong>Pareto 80/20 &amp; 5 Whys RCA</strong> để khắc phục lỗi dừng máy lặp lại và thiết lập chuẩn <strong>5S trực quan</strong> tại xưởng.',
         sections: {
           problem:
             'Hệ thống máy tái chế nhựa gặp tình trạng dừng vặt ngoài kế hoạch, sản lượng biến động giữa các ca và chưa có định mức thời gian chu kỳ chuẩn. Thiếu hệ thống phân loại lỗi dừng máy và chuẩn hóa mặt bằng 5S khiến việc xử lý tổn thất thiết bị thiếu trọng tâm.',
@@ -351,11 +474,12 @@
   ];
 
   /* ========================================================================
-     3. 3-Column Technical Skills Matrix Data (EN & VI)
+     3. 3-Column Technical Skills Matrix Data (EN & VI) with Header Icons
      ======================================================================== */
   const SKILLS_MATRIX = [
     {
       code: '01 // IE & LEAN',
+      icon: 'settings',
       en: {
         title: 'Industrial Engineering & Lean',
         desc: 'Shop-floor standardization, bottleneck diagnostics, and continuous waste elimination.',
@@ -369,6 +493,7 @@
     },
     {
       code: '02 // SIM & PLAN',
+      icon: 'box',
       en: {
         title: 'Simulation & Scheduling',
         desc: 'Stochastic line modeling, capacity validation, and multi-stage material planning.',
@@ -394,6 +519,7 @@
     },
     {
       code: '03 // DATA & BI',
+      icon: 'bar-chart-3',
       en: {
         title: 'Data Analytics & Automation',
         desc: 'Automated ETL workflows, relational querying, and live operational KPI dashboards.',
@@ -408,19 +534,20 @@
   ];
 
   /* ========================================================================
-     4. Experience & Education Timeline Data (EN & VI)
+     4. Experience & Education Timeline Data (EN & VI) with Bold Metrics/Tools
      ======================================================================== */
   const TIMELINE_ITEMS = [
     {
       date: '05/2026 – 11/2026',
+      icon: 'building-2',
       en: {
         role: 'Production Planning & Scheduling Intern',
         org: 'Thien Long Group — Long Thanh Manufacturing Plant',
         type: 'Internship',
         bullets: [
-          'Built a 3D Discrete-Event Simulation (FlexSim 3D) and custom JavaScript DES Engine modeling a 4-stage sequential Art Marker production line.',
-          'Sequenced 217 color SKUs using Heijunka leveling and SMED color-family grouping to maintain balanced inter-stage safety buffers with zero bottleneck buildup.',
-          'Automated ink-weight-to-unit BOM explosion and real-time multi-stage WIP shortage tracking via Excel VBA, Power Query, Google Apps Script, and SQL logic.'
+          'Modeled a <strong>4-stage Art Marker manufacturing line</strong> using <strong>FlexSim 3D &amp; a custom JavaScript DES Engine</strong> to validate shift capacity and line balancing.',
+          'Sequenced <strong>217 color SKUs</strong> via <strong>Heijunka leveling &amp; SMED grouping</strong>, maintaining balanced inter-stage safety buffers with <strong>zero bottleneck buildup</strong>.',
+          'Engineered <strong>100% automated BOM explosion</strong> (ink weight to units) and real-time WIP shortage alerts using <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL logic</strong>.'
         ]
       },
       vi: {
@@ -428,22 +555,23 @@
         org: 'Tập đoàn Thiên Long — Nhà máy Long Thành',
         type: 'Thực tập',
         bullets: [
-          'Xây dựng mô hình Mô phỏng Sự kiện Rời rạc 3D (FlexSim 3D) và JavaScript DES Engine cho dây chuyền sản xuất Art Marker gồm 4 công đoạn nối tiếp.',
-          'Điều độ thứ tự sản xuất 217 mã màu theo nguyên lý Heijunka và gom nhóm SMED nhằm duy trì tồn kho đệm liên trạm ổn định, không phát sinh điểm nghẽn.',
-          'Tự động hóa quy đổi định mức mực sang đơn vị sản phẩm (BOM) và theo dõi tồn kho WIP thời gian thực bằng Excel VBA, Power Query, Google Apps Script và SQL.'
+          'Xây dựng mô hình <strong>dây chuyền Art Marker 4 công đoạn</strong> trên <strong>FlexSim 3D &amp; JavaScript DES Engine</strong> để kiểm chứng công suất và cân bằng chuyền.',
+          'Điều độ <strong>217 mã màu SKU</strong> theo nguyên lý <strong>Heijunka &amp; gom nhóm SMED</strong>, duy trì tồn kho đệm liên trạm ổn định với <strong>0 điểm nghẽn</strong>.',
+          'Tự động hóa <strong>100% quy đổi BOM</strong> (khối lượng mực sang đơn vị sản phẩm) và cảnh báo thiếu hụt WIP thời gian thực bằng <strong>Excel VBA, Power Query, Google Apps Script &amp; SQL</strong>.'
         ]
       }
     },
     {
       date: '06/2025 – 08/2025',
+      icon: 'building-2',
       en: {
         role: 'Production & Lean Intern',
         org: 'Duy Tan Recycling',
         type: 'Internship',
         bullets: [
-          'Executed stopwatch cycle-time studies across recycling machinery to establish reliable standard operating baselines.',
-          'Evaluated Overall Equipment Effectiveness (OEE) and mapped primary downtime bottlenecks using Pareto charts and 5 Whys Root-Cause Analysis.',
-          'Standardized operator workflows and implemented 5S visual controls across shop-floor workstations.'
+          'Conducted <strong>stopwatch Time-Study measurements</strong> across plastic recycling machinery to establish standardized cycle-time baselines.',
+          'Evaluated <strong>Overall Equipment Effectiveness (OEE)</strong> and isolated top unplanned downtime drivers via <strong>Pareto 80/20 charts &amp; 5 Whys RCA</strong>.',
+          'Standardized operator workflows (SOPs) and deployed <strong>5S visual management controls</strong> across shop-floor workstations.'
         ]
       },
       vi: {
@@ -451,21 +579,22 @@
         org: 'Duy Tân Recycling',
         type: 'Thực tập',
         bullets: [
-          'Thực hiện bấm giờ đo thời gian chu kỳ máy (Time-Study) trên các dây chuyền tái chế nhằm thiết lập bộ định mức chuẩn.',
-          'Đánh giá hiệu suất thiết bị tổng thể (OEE) và phân tích điểm nghẽn dừng máy ngoài kế hoạch bằng biểu đồ Pareto & 5 Whys RCA.',
-          'Chuẩn hóa thao tác vận hành cho công nhân và triển khai quản lý trực quan 5S tại khu vực sản xuất.'
+          'Thực hiện <strong>bấm giờ đo chu kỳ máy (Time-Study)</strong> trên dây chuyền tái chế nhựa nhằm thiết lập bộ định mức thời gian chuẩn.',
+          'Đánh giá <strong>hiệu suất thiết bị tổng thể (OEE)</strong> và khoanh vùng nguyên nhân dừng máy ngoài kế hoạch bằng <strong>biểu đồ Pareto 80/20 &amp; 5 Whys RCA</strong>.',
+          'Chuẩn hóa quy trình thao tác chuẩn (SOP) cho công nhân và triển khai <strong>quản lý trực quan 5S</strong> tại hiện trường xưởng.'
         ]
       }
     },
     {
       date: '2025 – 2026',
+      icon: 'building-2',
       en: {
         role: 'President',
         org: 'E-Marketing Action Club (EMA HCMUT)',
         type: 'Leadership',
         bullets: [
-          'Led club strategy, cross-functional project execution, and member operations at Ho Chi Minh City University of Technology (HCMUT).',
-          'Coordinated academic alliance initiatives and stakeholder partnerships while managing timelines, deliverables, and team performance.'
+          'Directed <strong>club-wide operations, cross-functional project execution</strong>, and talent development at <strong>Ho Chi Minh City University of Technology (HCMUT)</strong>.',
+          'Coordinated <strong>academic alliance programs &amp; corporate partnerships</strong>, tracking milestone KPIs and deliverable quality.'
         ]
       },
       vi: {
@@ -473,20 +602,21 @@
         org: 'CLB E-Marketing Action (EMA HCMUT)',
         type: 'Lãnh đạo',
         bullets: [
-          'Điều hành định hướng chiến lược, quản lý dự án đa chức năng và hoạt động thành viên tại Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT).',
-          'Điều phối các chương trình hợp tác học thuật và đối tác doanh nghiệp, kiểm soát tiến độ và chất lượng đầu ra của đội ngũ.'
+          'Điều hành <strong>chiến lược hoạt động, quản trị dự án đa chức năng</strong> và phát triển nhân sự tại <strong>Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong>.',
+          'Điều phối <strong>các chương trình liên minh học thuật &amp; đối tác doanh nghiệp</strong>, kiểm soát KPI tiến độ và chất lượng đầu ra.'
         ]
       }
     },
     {
       date: '2022 – 2026',
+      icon: 'graduation-cap',
       en: {
         role: 'Bachelor of Business Administration',
         org: 'Ho Chi Minh City University of Technology (HCMUT)',
         type: 'Education',
         bullets: [
-          'Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026).',
-          'Focused on Operations Management, Production Planning, Lean Manufacturing Systems, and Quantitative Data Analytics.'
+          'Undergraduate training at <strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)</strong>.',
+          'Specialized in <strong>Production Planning &amp; Scheduling, Lean Manufacturing Systems, Operations Research</strong>, and <strong>Quantitative Data Analytics</strong>.'
         ]
       },
       vi: {
@@ -494,8 +624,8 @@
         org: 'Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)',
         type: 'Học vấn',
         bullets: [
-          'Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT, 2022–2026).',
-          'Định hướng chuyên sâu về Quản trị Vận hành, Hoạch định Sản xuất, Hệ thống Lean và Phân tích Dữ liệu Định lượng.'
+          'Đào tạo chính quy tại <strong>Trường Đại học Bách khoa – ĐHQG TP.HCM (HCMUT, 2022–2026)</strong>.',
+          'Chuyên sâu về <strong>Hoạch định &amp; Điều độ Sản xuất, Hệ thống Sản xuất Tinh gọn (Lean), Vận trù học</strong> và <strong>Phân tích Dữ liệu Định lượng</strong>.'
         ]
       }
     }
@@ -520,7 +650,6 @@
             s3Sub: 'Lắp nắp',
             s4: 'CÔNG ĐOẠN 04',
             s4Sub: 'Lắp ráp hoàn chỉnh',
-            buf: 'ĐỆM WIP',
             matrixTitle: 'TRÌNH TỰ HEIJUNKA · 217 SKU MÀU (TỐI ƯU SMED)',
             w1: 'NHÓM A · MÀU NHẠT',
             w2: 'NHÓM B · TRUNG TÍNH',
@@ -538,7 +667,6 @@
             s3Sub: 'Cap Assembly',
             s4: 'STAGE 04',
             s4Sub: 'Final Assembly',
-            buf: 'SAFETY WIP',
             matrixTitle: 'HEIJUNKA LEVELING SEQUENCE · 217 COLOR SKUs (SMED GROUPED)',
             w1: 'WAVE A · LIGHT INK',
             w2: 'WAVE B · MID TONE',
@@ -880,9 +1008,13 @@
   let activeProjectId = null;
   let lastFocusedElement = null;
   let toastTimeout = null;
+  let revealObserver = null;
 
   const dom = {
     html: document.documentElement,
+    scrollProgressBar: document.getElementById('scroll-progress-bar'),
+    navLinks: document.querySelectorAll('.main-nav .nav-link'),
+    mobileNavLinks: document.querySelectorAll('.mobile-drawer .mobile-nav-link'),
     langBtnEn: document.getElementById('lang-btn-en'),
     langBtnVi: document.getElementById('lang-btn-vi'),
     projectsGrid: document.getElementById('projects-grid'),
@@ -890,6 +1022,7 @@
     skillsGrid: document.getElementById('skills-grid'),
     timelineList: document.getElementById('timeline-list'),
     modalBackdrop: document.getElementById('case-study-modal'),
+    modalBody: document.getElementById('modal-body'),
     modalCloseBtn: document.getElementById('modal-close-btn'),
     modalCategory: document.getElementById('modal-category'),
     modalOrg: document.getElementById('modal-org'),
@@ -899,6 +1032,8 @@
     modalBlueprintRef: document.getElementById('modal-blueprint-ref'),
     modalPreviewImg: document.getElementById('modal-preview-img'),
     modalSvgBlueprint: document.getElementById('modal-svg-blueprint'),
+    modalExecTitle: document.getElementById('modal-exec-title'),
+    modalExecText: document.getElementById('modal-exec-text'),
     modalSectionsGrid: document.getElementById('modal-sections-grid'),
     modalStack: document.getElementById('modal-stack'),
     modalPrevBtn: document.getElementById('modal-prev-btn'),
@@ -907,8 +1042,7 @@
     copyToast: document.getElementById('copy-toast'),
     copyToastText: document.getElementById('copy-toast-text'),
     mobileMenuBtn: document.getElementById('mobile-menu-btn'),
-    mobileDrawer: document.getElementById('mobile-drawer'),
-    mobileLinks: document.querySelectorAll('.mobile-nav-link')
+    mobileDrawer: document.getElementById('mobile-drawer')
   };
 
   /* ========================================================================
@@ -943,7 +1077,100 @@
   };
 
   /* ========================================================================
-     8. Renderers (Projects, Skills Matrix, Timeline, Static Translations)
+     8. IntersectionObserver Scroll-Reveal & ScrollProgress / ScrollSpy
+     ======================================================================== */
+  function initRevealObserver() {
+    const prefersReducedMotion =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
+      document.querySelectorAll('.reveal-item').forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: '0px 0px -40px 0px',
+          threshold: 0.08
+        }
+      );
+    }
+
+    document.querySelectorAll('.reveal-item:not(.is-visible)').forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.96) {
+        el.classList.add('is-visible');
+      } else {
+        revealObserver.observe(el);
+      }
+    });
+  }
+
+  function updateScrollProgressAndSpy() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+    const docHeight =
+      Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      ) - window.innerHeight;
+
+    const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+    if (dom.scrollProgressBar) {
+      dom.scrollProgressBar.style.width = `${pct.toFixed(2)}%`;
+    }
+
+    // Ensure any reveal item at or above the current scroll viewport is visible
+    document.querySelectorAll('.reveal-item:not(.is-visible)').forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.96) {
+        el.classList.add('is-visible');
+        if (revealObserver) revealObserver.unobserve(el);
+      }
+    });
+
+    // ScrollSpy active section detection
+    const sectionIds = ['about', 'projects', 'skills', 'timeline', 'contact'];
+    const spyOffset = scrollTop + 160;
+    let activeSection = sectionIds[0];
+
+    for (const id of sectionIds) {
+      const sec = document.getElementById(id);
+      if (sec && sec.offsetTop <= spyOffset) {
+        activeSection = id;
+      }
+    }
+
+    if (docHeight > 0 && scrollTop >= docHeight - 30) {
+      activeSection = 'contact';
+    }
+
+    dom.navLinks.forEach((link) => {
+      const isMatch = link.getAttribute('data-section') === activeSection;
+      link.classList.toggle('is-active', isMatch);
+      if (isMatch) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+
+    dom.mobileNavLinks.forEach((link) => {
+      const isMatch = link.getAttribute('data-section') === activeSection;
+      link.classList.toggle('is-active', isMatch);
+    });
+  }
+
+  /* ========================================================================
+     9. Renderers (Projects, Skills Matrix, Timeline, Static Translations)
      ======================================================================== */
   function applyStaticTranslations(lang) {
     const dict = I18N[lang];
@@ -964,7 +1191,7 @@
     dom.langBtnVi.setAttribute('aria-pressed', String(!isEn));
   }
 
-  function renderProjects() {
+  function renderProjects(immediateReveal = false) {
     if (!dom.projectsGrid) return;
     const dict = I18N[currentLang];
 
@@ -976,26 +1203,44 @@
     dom.projectsGrid.classList.toggle('is-single', filtered.length === 1);
 
     dom.projectsGrid.innerHTML = filtered
-      .map((project) => {
+      .map((project, index) => {
         const content = project[currentLang];
+        const delayMs = index * 80;
         const kpiMarkup = content.kpis
-          .map((kpi) => `<span class="kpi-pill">${escapeHtml(kpi)}</span>`)
+          .map(
+            (kpi, kpiIdx) => `
+              <span class="kpi-pill">
+                <i data-lucide="${kpiIdx === 0 ? 'trending-up' : 'check-circle-2'}" aria-hidden="true"></i>
+                <span>${escapeHtml(kpi)}</span>
+              </span>
+            `
+          )
           .join('');
+
+        const bulletsMarkup = content.cardBullets.map((item) => `<li>${item}</li>`).join('');
+
         const stackMarkup = project.techStack
           .map((tech) => `<span class="tech-tag">${escapeHtml(tech)}</span>`)
           .join('');
 
         return `
           <article
-            class="project-card"
+            class="project-card reveal-item${immediateReveal ? ' is-visible' : ''}"
+            style="--reveal-delay: ${delayMs}ms;"
             tabindex="0"
             role="button"
             data-project-id="${escapeHtml(project.id)}"
             aria-label="${escapeHtml(content.title)} — ${escapeHtml(dict.inspectAction)}"
           >
             <div class="project-card-top">
-              <span class="project-category">${escapeHtml(content.categoryLabel)}</span>
-              <span class="project-org">${escapeHtml(content.org)}</span>
+              <span class="project-category">
+                <i data-lucide="${escapeHtml(project.domainIcon)}" class="icon-xs" aria-hidden="true"></i>
+                <span>${escapeHtml(content.categoryLabel)}</span>
+              </span>
+              <span class="project-org">
+                <i data-lucide="building-2" class="icon-xs" aria-hidden="true"></i>
+                <span>${escapeHtml(content.org)}</span>
+              </span>
             </div>
 
             <h3 class="project-title">${escapeHtml(content.title)}</h3>
@@ -1004,34 +1249,58 @@
               ${kpiMarkup}
             </div>
 
-            <p class="project-summary">${escapeHtml(content.summary)}</p>
+            <ul class="project-bullets">
+              ${bulletsMarkup}
+            </ul>
 
             <div class="project-tags">
               ${stackMarkup}
             </div>
 
             <div class="project-card-footer">
-              <span class="project-inspect-link">${escapeHtml(dict.inspectAction)}</span>
+              <span class="project-inspect-link">
+                <span>${escapeHtml(dict.inspectAction)}</span>
+                <i data-lucide="arrow-up-right" class="icon-sm" aria-hidden="true"></i>
+              </span>
               <span class="project-code">${escapeHtml(project.code)}</span>
             </div>
           </article>
         `;
       })
       .join('');
+
+    refreshLucideIcons();
+    initRevealObserver();
   }
 
-  function renderSkillsMatrix() {
+  function renderSkillsMatrix(immediateReveal = false) {
     if (!dom.skillsGrid) return;
 
-    dom.skillsGrid.innerHTML = SKILLS_MATRIX.map((col) => {
+    dom.skillsGrid.innerHTML = SKILLS_MATRIX.map((col, index) => {
       const content = col[currentLang];
+      const delayMs = index * 80;
       const skillItems = content.skills
-        .map((skill) => `<li class="skill-chip">${escapeHtml(skill)}</li>`)
+        .map(
+          (skill) => `
+            <li class="skill-chip">
+              <i data-lucide="check-circle-2" aria-hidden="true"></i>
+              <span>${escapeHtml(skill)}</span>
+            </li>
+          `
+        )
         .join('');
 
       return `
-        <section class="skill-column">
-          <div class="skill-col-code">${escapeHtml(col.code)}</div>
+        <section
+          class="skill-column reveal-item${immediateReveal ? ' is-visible' : ''}"
+          style="--reveal-delay: ${delayMs}ms;"
+        >
+          <div class="skill-col-top">
+            <span class="skill-col-icon" aria-hidden="true">
+              <i data-lucide="${escapeHtml(col.icon)}" class="icon-md"></i>
+            </span>
+            <span class="skill-col-code">${escapeHtml(col.code)}</span>
+          </div>
           <h3 class="skill-col-title">${escapeHtml(content.title)}</h3>
           <p class="skill-col-desc">${escapeHtml(content.desc)}</p>
           <ul class="skill-list">
@@ -1040,21 +1309,33 @@
         </section>
       `;
     }).join('');
+
+    refreshLucideIcons();
+    initRevealObserver();
   }
 
-  function renderTimeline() {
+  function renderTimeline(immediateReveal = false) {
     if (!dom.timelineList) return;
 
-    dom.timelineList.innerHTML = TIMELINE_ITEMS.map((item) => {
+    dom.timelineList.innerHTML = TIMELINE_ITEMS.map((item, index) => {
       const content = item[currentLang];
-      const bullets = content.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join('');
+      const delayMs = index * 80;
+      const bullets = content.bullets.map((b) => `<li>${b}</li>`).join('');
 
       return `
-        <article class="timeline-item">
+        <article
+          class="timeline-item reveal-item${immediateReveal ? ' is-visible' : ''}"
+          style="--reveal-delay: ${delayMs}ms;"
+        >
           <div class="timeline-header">
-            <div>
-              <h3 class="timeline-role">${escapeHtml(content.role)}</h3>
-              <div class="timeline-org">${escapeHtml(content.org)}</div>
+            <div class="timeline-heading-group">
+              <span class="timeline-badge-icon" aria-hidden="true">
+                <i data-lucide="${escapeHtml(item.icon)}" class="icon-sm"></i>
+              </span>
+              <div>
+                <h3 class="timeline-role">${escapeHtml(content.role)}</h3>
+                <div class="timeline-org">${escapeHtml(content.org)}</div>
+              </div>
             </div>
             <div class="timeline-meta">
               <span class="timeline-type">${escapeHtml(content.type)}</span>
@@ -1067,11 +1348,21 @@
         </article>
       `;
     }).join('');
+
+    refreshLucideIcons();
+    initRevealObserver();
   }
 
   /* ========================================================================
-     9. 4-Part Case Study Modal Management
+     10. 4-Part Case Study Modal Management
      ======================================================================== */
+  const MODAL_SECTION_ICONS = {
+    problem: 'activity',
+    methodology: 'settings',
+    architecture: 'layers',
+    outcomes: 'check-circle-2'
+  };
+
   function populateModal(projectId) {
     const project = PROJECTS.find((p) => p.id === projectId);
     if (!project) return;
@@ -1080,22 +1371,35 @@
     const dict = I18N[currentLang];
     const content = project[currentLang];
 
-    dom.modalCategory.textContent = content.categoryLabel;
-    dom.modalOrg.textContent = content.org;
+    dom.modalCategory.innerHTML = `
+      <i data-lucide="${escapeHtml(project.domainIcon)}" class="icon-xs" aria-hidden="true"></i>
+      <span>${escapeHtml(content.categoryLabel)}</span>
+    `;
+    dom.modalOrg.innerHTML = `
+      <i data-lucide="building-2" class="icon-xs" aria-hidden="true"></i>
+      <span>${escapeHtml(content.org)}</span>
+    `;
     dom.modalTitle.textContent = content.title;
     dom.modalNdaLabel.textContent = dict.ndaLabel;
     dom.modalBlueprintRef.textContent = project.blueprintRef;
 
     dom.modalKpiPills.innerHTML = content.kpis
-      .map((kpi) => `<span class="kpi-pill">${escapeHtml(kpi)}</span>`)
+      .map(
+        (kpi, idx) => `
+          <span class="kpi-pill">
+            <i data-lucide="${idx === 0 ? 'trending-up' : 'check-circle-2'}" aria-hidden="true"></i>
+            <span>${escapeHtml(kpi)}</span>
+          </span>
+        `
+      )
       .join('');
 
-    // Reset visual frame: try loading real PNG first; if missing, `onerror` fires Light-Blue SVG blueprint
-    dom.modalSvgBlueprint.hidden = true;
-    dom.modalSvgBlueprint.innerHTML = '';
+    // Render Light-Blue SVG blueprint fallback immediately and attempt loading real PNG
+    renderSvgFallbackIntoModal(project.id);
 
     dom.modalPreviewImg.hidden = true;
     dom.modalPreviewImg.style.display = 'none';
+    dom.modalPreviewImg.removeAttribute('src');
     dom.modalPreviewImg.removeAttribute('aria-hidden');
     dom.modalPreviewImg.setAttribute('data-project-id', project.id);
     dom.modalPreviewImg.alt = `${content.title} — ${dict.ndaLabel}`;
@@ -1106,13 +1410,25 @@
     };
     dom.modalPreviewImg.src = project.imageSrc;
 
+    // Executive Takeaway Banner
+    if (dom.modalExecTitle) {
+      dom.modalExecTitle.textContent = dict.execBannerTitle;
+    }
+    if (dom.modalExecText) {
+      dom.modalExecText.innerHTML = content.executiveTakeaway;
+    }
+
     // 4-Part Structured Engineering Sections
     const sectionOrder = ['problem', 'methodology', 'architecture', 'outcomes'];
     dom.modalSectionsGrid.innerHTML = sectionOrder
       .map((key) => {
+        const iconName = MODAL_SECTION_ICONS[key] || 'check-circle-2';
         return `
           <section class="case-part">
-            <h3 class="case-part-title">${escapeHtml(dict.modalSectionTitles[key])}</h3>
+            <h3 class="case-part-title">
+              <i data-lucide="${iconName}" class="icon-xs" aria-hidden="true"></i>
+              <span>${escapeHtml(dict.modalSectionTitles[key])}</span>
+            </h3>
             <p class="case-part-body">${escapeHtml(content.sections[key])}</p>
           </section>
         `;
@@ -1122,6 +1438,8 @@
     dom.modalStack.innerHTML = project.techStack
       .map((tech) => `<span class="tech-tag">${escapeHtml(tech)}</span>`)
       .join('');
+
+    refreshLucideIcons();
   }
 
   function openModal(projectId, triggerElement) {
@@ -1129,6 +1447,7 @@
     populateModal(projectId);
     dom.modalBackdrop.hidden = false;
     document.body.classList.add('modal-open');
+    if (dom.modalBody) dom.modalBody.scrollTop = 0;
     dom.modalCloseBtn.focus();
   }
 
@@ -1149,12 +1468,13 @@
     if (idx === -1) return;
     const nextIdx = (idx + step + PROJECTS.length) % PROJECTS.length;
     populateModal(PROJECTS[nextIdx].id);
+    if (dom.modalBody) dom.modalBody.scrollTop = 0;
   }
 
   /* ========================================================================
-     10. Language Switching & Persistence
+     11. Language Switching & Persistence
      ======================================================================== */
-  function setLanguage(lang, persist = true) {
+  function setLanguage(lang, persist = true, isInitial = false) {
     if (lang !== 'en' && lang !== 'vi') return;
     currentLang = lang;
 
@@ -1167,18 +1487,30 @@
     }
 
     applyStaticTranslations(lang);
-    renderProjects();
-    renderSkillsMatrix();
-    renderTimeline();
+    renderProjects(!isInitial);
+    renderSkillsMatrix(!isInitial);
+    renderTimeline(!isInitial);
 
     if (activeProjectId && !dom.modalBackdrop.hidden) {
       populateModal(activeProjectId);
     }
+
+    refreshLucideIcons();
   }
 
   /* ========================================================================
-     11. Copy Email Functionality with Toast Feedback
+     12. Copy Email Functionality with Copy <-> Check Icon & Toast Feedback
      ======================================================================== */
+  function setCopyButtonsIcon(iconName) {
+    dom.copyTriggers.forEach((btn) => {
+      const slot = btn.querySelector('.copy-icon-slot');
+      if (slot) {
+        slot.innerHTML = `<i data-lucide="${iconName}" class="icon-sm"></i>`;
+      }
+    });
+    refreshLucideIcons();
+  }
+
   async function copyEmailToClipboard() {
     let copied = false;
 
@@ -1213,6 +1545,7 @@
       btn.classList.add('is-copied');
       if (labelEl) labelEl.textContent = dict.btnCopied;
     });
+    setCopyButtonsIcon('check');
 
     if (dom.copyToast && dom.copyToastText) {
       dom.copyToastText.textContent = dict.toastCopied;
@@ -1226,17 +1559,22 @@
         const labelEl = btn.querySelector('.copy-email-label');
         if (labelEl) labelEl.textContent = I18N[currentLang].btnCopyEmail;
       });
+      setCopyButtonsIcon('copy');
       if (dom.copyToast) dom.copyToast.hidden = true;
     }, 2400);
   }
 
   /* ========================================================================
-     12. Event Listeners & Initialization
+     13. Event Listeners & Initialization
      ======================================================================== */
   function bindEvents() {
     // Language Toggle
-    dom.langBtnEn.addEventListener('click', () => setLanguage('en'));
-    dom.langBtnVi.addEventListener('click', () => setLanguage('vi'));
+    dom.langBtnEn.addEventListener('click', () => setLanguage('en', true, false));
+    dom.langBtnVi.addEventListener('click', () => setLanguage('vi', true, false));
+
+    // Scroll Progress & ScrollSpy
+    window.addEventListener('scroll', updateScrollProgressAndSpy, { passive: true });
+    window.addEventListener('resize', updateScrollProgressAndSpy, { passive: true });
 
     // Project Domain Filters
     dom.filterButtons.forEach((btn) => {
@@ -1251,7 +1589,7 @@
           b.setAttribute('aria-selected', String(isActive));
         });
 
-        renderProjects();
+        renderProjects(true);
       });
     });
 
@@ -1284,8 +1622,13 @@
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !dom.modalBackdrop.hidden) {
+      if (dom.modalBackdrop.hidden) return;
+      if (event.key === 'Escape') {
         closeModal();
+      } else if (event.key === 'ArrowLeft') {
+        cycleModal(-1);
+      } else if (event.key === 'ArrowRight') {
+        cycleModal(1);
       }
     });
 
@@ -1302,13 +1645,19 @@
         dom.mobileDrawer.hidden = isOpen;
       });
 
-      dom.mobileLinks.forEach((link) => {
+      dom.mobileNavLinks.forEach((link) => {
         link.addEventListener('click', () => {
           dom.mobileMenuBtn.setAttribute('aria-expanded', 'false');
           dom.mobileDrawer.hidden = true;
         });
       });
     }
+
+    // Re-run Lucide icon creation once external script completes loading
+    window.addEventListener('load', () => {
+      refreshLucideIcons();
+      updateScrollProgressAndSpy();
+    });
   }
 
   function init() {
@@ -1323,7 +1672,9 @@
     }
 
     bindEvents();
-    setLanguage(savedLang, false);
+    setLanguage(savedLang, false, true);
+    initRevealObserver();
+    updateScrollProgressAndSpy();
   }
 
   if (document.readyState === 'loading') {

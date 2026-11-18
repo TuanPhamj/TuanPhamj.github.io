@@ -39,13 +39,24 @@
   </noscript>
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Vector Icon System: Lucide Icons -->
+  <script
+    src="https://unpkg.com/lucide@latest"
+    async
+    onload="window.refreshLucideIcons && window.refreshLucideIcons()"
+  ></script>
 </head>
 <body id="top">
   <!-- Skip Link for Accessibility -->
   <a class="skip-link" href="#main-content" data-i18n="skipToContent">Skip to main content</a>
 
-  <!-- Sticky Top Navigation Bar -->
+  <!-- Sticky Top Navigation Bar with 3px Top Scroll Progress Bar -->
   <header class="site-header" id="site-header">
+    <div class="scroll-progress-track" aria-hidden="true">
+      <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+    </div>
+
     <div class="container header-inner">
       <a href="#top" class="brand" aria-label="Phạm Anh Tuấn Home">
         <span class="brand-mark" aria-hidden="true">TP</span>
@@ -56,16 +67,34 @@
       </a>
 
       <nav class="main-nav" aria-label="Primary navigation">
-        <a href="#about" class="nav-link" data-i18n="navAbout">Overview</a>
-        <a href="#projects" class="nav-link" data-i18n="navProjects">Case Studies</a>
-        <a href="#skills" class="nav-link" data-i18n="navSkills">Skills Matrix</a>
-        <a href="#timeline" class="nav-link" data-i18n="navTimeline">Experience</a>
-        <a href="#contact" class="nav-link" data-i18n="navContact">Contact</a>
+        <a href="#about" class="nav-link is-active" data-section="about">
+          <i data-lucide="user" class="icon-nav" aria-hidden="true"></i>
+          <span data-i18n="navAbout">Overview</span>
+        </a>
+        <a href="#projects" class="nav-link" data-section="projects">
+          <i data-lucide="folder-kanban" class="icon-nav" aria-hidden="true"></i>
+          <span data-i18n="navProjects">Case Studies</span>
+        </a>
+        <a href="#skills" class="nav-link" data-section="skills">
+          <i data-lucide="cpu" class="icon-nav" aria-hidden="true"></i>
+          <span data-i18n="navSkills">Skills Matrix</span>
+        </a>
+        <a href="#timeline" class="nav-link" data-section="timeline">
+          <i data-lucide="briefcase" class="icon-nav" aria-hidden="true"></i>
+          <span data-i18n="navTimeline">Experience</span>
+        </a>
+        <a href="#contact" class="nav-link" data-section="contact">
+          <i data-lucide="mail" class="icon-nav" aria-hidden="true"></i>
+          <span data-i18n="navContact">Contact</span>
+        </a>
       </nav>
 
       <div class="header-actions">
-        <!-- Bilingual Toggle (EN | VI) -->
+        <!-- Bilingual Toggle (EN | VI) with Globe Icon -->
         <div class="lang-toggle" role="group" aria-label="Language toggle">
+          <span class="lang-globe" aria-hidden="true">
+            <i data-lucide="globe" class="icon-xs"></i>
+          </span>
           <button
             type="button"
             class="lang-btn is-active"
@@ -92,11 +121,7 @@
           class="btn btn-primary btn-sm header-cta"
           id="nav-download-cv"
         >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
+          <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
           <span data-i18n="navCv">Download CV</span>
         </a>
 
@@ -118,16 +143,32 @@
     <!-- Mobile Navigation Drawer -->
     <div class="mobile-drawer" id="mobile-drawer" hidden>
       <div class="container mobile-drawer-inner">
-        <a href="#about" class="mobile-nav-link" data-i18n="navAbout">Overview</a>
-        <a href="#projects" class="mobile-nav-link" data-i18n="navProjects">Case Studies</a>
-        <a href="#skills" class="mobile-nav-link" data-i18n="navSkills">Skills Matrix</a>
-        <a href="#timeline" class="mobile-nav-link" data-i18n="navTimeline">Experience</a>
-        <a href="#contact" class="mobile-nav-link" data-i18n="navContact">Contact</a>
+        <a href="#about" class="mobile-nav-link is-active" data-section="about">
+          <i data-lucide="user" class="icon-sm" aria-hidden="true"></i>
+          <span data-i18n="navAbout">Overview</span>
+        </a>
+        <a href="#projects" class="mobile-nav-link" data-section="projects">
+          <i data-lucide="folder-kanban" class="icon-sm" aria-hidden="true"></i>
+          <span data-i18n="navProjects">Case Studies</span>
+        </a>
+        <a href="#skills" class="mobile-nav-link" data-section="skills">
+          <i data-lucide="cpu" class="icon-sm" aria-hidden="true"></i>
+          <span data-i18n="navSkills">Skills Matrix</span>
+        </a>
+        <a href="#timeline" class="mobile-nav-link" data-section="timeline">
+          <i data-lucide="briefcase" class="icon-sm" aria-hidden="true"></i>
+          <span data-i18n="navTimeline">Experience</span>
+        </a>
+        <a href="#contact" class="mobile-nav-link" data-section="contact">
+          <i data-lucide="mail" class="icon-sm" aria-hidden="true"></i>
+          <span data-i18n="navContact">Contact</span>
+        </a>
         <a
           href="assets/cv/Pham-Anh-Tuan-CV.pdf"
           download="Pham-Anh-Tuan-CV.pdf"
           class="btn btn-primary btn-block"
         >
+          <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
           <span data-i18n="navCv">Download CV</span>
         </a>
       </div>
@@ -153,31 +194,46 @@
           </p>
 
           <p class="hero-education">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-              <path d="M6 12v5c3 3 9 3 12 0v-5" />
-            </svg>
+            <i data-lucide="graduation-cap" class="icon-sm" aria-hidden="true"></i>
             <span data-i18n="heroEducation">
               Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)
             </span>
           </p>
 
+          <!-- Punchy 2-Line Value Proposition for Recruiters -->
           <p class="hero-summary" data-i18n="heroSummary">
-            I solve manufacturing bottlenecks using Discrete-Event Simulation, Heijunka production scheduling, Lean OEE analysis, and automated WIP/BOM pipelines — bridging shop-floor reality with quantitative decision systems.
+            Eliminating shop-floor bottlenecks and manual planning delays through 3D Discrete-Event Simulation, Heijunka leveling, and automated WIP/BOM data pipelines.
           </p>
 
+          <!-- Hero Quick-Scan Value Strip (3 Concise Focus Tags) -->
+          <div class="hero-focus-strip" aria-label="Core engineering focus areas">
+            <div class="focus-pill">
+              <i data-lucide="gauge" class="icon-xs" aria-hidden="true"></i>
+              <span data-i18n="focusTag1">Shop-Floor Lean &amp; OEE</span>
+            </div>
+            <div class="focus-pill">
+              <i data-lucide="cpu" class="icon-xs" aria-hidden="true"></i>
+              <span data-i18n="focusTag2">3D FlexSim &amp; Heijunka Scheduling</span>
+            </div>
+            <div class="focus-pill">
+              <i data-lucide="database" class="icon-xs" aria-hidden="true"></i>
+              <span data-i18n="focusTag3">Python / SQL / VBA Automation</span>
+            </div>
+          </div>
+
           <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary" id="hero-explore-projects">
+              <span data-i18n="btnViewProjects">Explore Case Studies</span>
+              <i data-lucide="arrow-right" class="icon-sm" aria-hidden="true"></i>
+            </a>
+
             <a
               href="assets/cv/Pham-Anh-Tuan-CV.pdf"
               download="Pham-Anh-Tuan-CV.pdf"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               id="hero-download-cv"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
+              <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
               <span data-i18n="btnDownloadCv">Download CV</span>
             </a>
 
@@ -187,16 +243,11 @@
               id="hero-copy-email"
               data-email="phamanhtuan802@gmail.com"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-              </svg>
+              <span class="copy-icon-slot" aria-hidden="true">
+                <i data-lucide="copy" class="icon-sm"></i>
+              </span>
               <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
             </button>
-
-            <a href="#projects" class="btn btn-ghost" data-i18n="btnViewProjects">
-              Inspect Case Studies ↓
-            </a>
           </div>
 
           <div class="hero-tooling" aria-label="Core engineering toolchain">
@@ -212,34 +263,57 @@
           </div>
         </div>
 
-        <!-- Quantitative Engineering Snapshot Card -->
+        <!-- Quantitative Engineering Telemetry Dossier -->
         <aside class="hero-dossier" aria-label="Quantitative performance snapshot">
           <div class="dossier-header">
-            <span class="dossier-code" data-i18n="dossierHeader">OPERATIONS SNAPSHOT // KPI</span>
-            <span class="dossier-status" data-i18n="dossierStatus">READY FOR HIRE · 2026</span>
+            <span class="dossier-code">
+              <i data-lucide="activity" class="icon-xs" aria-hidden="true"></i>
+              <span data-i18n="dossierHeader">OPERATIONS SNAPSHOT // KPI</span>
+            </span>
+            <span class="dossier-status" data-i18n="dossierStatus">OPEN TO WORK · 2026</span>
           </div>
 
           <div class="dossier-metrics">
-            <div class="metric-tile">
-              <div class="metric-value">217</div>
+            <div class="metric-tile reveal-item" style="--reveal-delay: 0ms;">
+              <div class="metric-top">
+                <div class="metric-value">217</div>
+                <span class="metric-icon-badge" aria-hidden="true">
+                  <i data-lucide="palette" class="icon-sm"></i>
+                </span>
+              </div>
               <div class="metric-label" data-i18n="metric1Label">Color SKUs Sequenced</div>
               <div class="metric-sub" data-i18n="metric1Sub">Heijunka Art Marker Line</div>
             </div>
 
-            <div class="metric-tile">
-              <div class="metric-value">4-Stage</div>
+            <div class="metric-tile reveal-item" style="--reveal-delay: 80ms;">
+              <div class="metric-top">
+                <div class="metric-value">4-Stage</div>
+                <span class="metric-icon-badge" aria-hidden="true">
+                  <i data-lucide="layers" class="icon-sm"></i>
+                </span>
+              </div>
               <div class="metric-label" data-i18n="metric2Label">Line Balancing Scope</div>
               <div class="metric-sub" data-i18n="metric2Sub">FlexSim 3D &amp; JS DES</div>
             </div>
 
-            <div class="metric-tile">
-              <div class="metric-value">100%</div>
+            <div class="metric-tile reveal-item" style="--reveal-delay: 160ms;">
+              <div class="metric-top">
+                <div class="metric-value">100%</div>
+                <span class="metric-icon-badge" aria-hidden="true">
+                  <i data-lucide="refresh-cw" class="icon-sm"></i>
+                </span>
+              </div>
               <div class="metric-label" data-i18n="metric3Label">Automated BOM Sync</div>
               <div class="metric-sub" data-i18n="metric3Sub">Real-Time WIP &amp; Alerts</div>
             </div>
 
-            <div class="metric-tile">
-              <div class="metric-value">OEE &amp; 5S</div>
+            <div class="metric-tile reveal-item" style="--reveal-delay: 240ms;">
+              <div class="metric-top">
+                <div class="metric-value">OEE &amp; 5S</div>
+                <span class="metric-icon-badge" aria-hidden="true">
+                  <i data-lucide="activity" class="icon-sm"></i>
+                </span>
+              </div>
               <div class="metric-label" data-i18n="metric4Label">Shop-Floor Auditing</div>
               <div class="metric-sub" data-i18n="metric4Sub">Time-Study &amp; 5 Whys RCA</div>
             </div>
@@ -247,11 +321,17 @@
 
           <div class="dossier-footer">
             <div class="dossier-meta-row">
-              <span class="meta-key" data-i18n="metaLocationKey">Region</span>
+              <span class="meta-key">
+                <i data-lucide="map-pin" class="icon-xs" aria-hidden="true"></i>
+                <span data-i18n="metaLocationKey">Region</span>
+              </span>
               <span class="meta-val" data-i18n="contactLocationValue">Ho Chi Minh City / Dong Nai / Binh Duong</span>
             </div>
             <div class="dossier-meta-row">
-              <span class="meta-key" data-i18n="metaEmailKey">Direct</span>
+              <span class="meta-key">
+                <i data-lucide="mail" class="icon-xs" aria-hidden="true"></i>
+                <span data-i18n="metaEmailKey">Direct</span>
+              </span>
               <span class="meta-val mono">phamanhtuan802@gmail.com</span>
             </div>
           </div>
@@ -270,7 +350,7 @@
         </div>
 
         <div class="about-grid">
-          <div class="about-narrative card-surface">
+          <div class="about-narrative card-surface reveal-item" style="--reveal-delay: 0ms;">
             <h3 class="about-subhead" data-i18n="aboutSubhead">
               Connecting Shop-Floor Industrial Engineering to Automated Analytics
             </h3>
@@ -283,9 +363,12 @@
           </div>
 
           <div class="methodology-steps">
-            <div class="step-card card-surface">
-              <div class="step-num">01</div>
+            <div class="step-card card-surface reveal-item" style="--reveal-delay: 80ms;">
+              <div class="step-num" aria-hidden="true">
+                <i data-lucide="gauge" class="icon-sm"></i>
+              </div>
               <div class="step-body">
+                <div class="step-kicker mono">01 // SHOP-FLOOR IE</div>
                 <h3 data-i18n="step1Title">Measure &amp; Standardize</h3>
                 <p data-i18n="step1Desc">
                   Stopwatch time-studies, OEE loss decomposition, 5S workstation audits, and structured 5 Whys root-cause diagnostics on the shop floor.
@@ -293,9 +376,12 @@
               </div>
             </div>
 
-            <div class="step-card card-surface">
-              <div class="step-num">02</div>
+            <div class="step-card card-surface reveal-item" style="--reveal-delay: 160ms;">
+              <div class="step-num" aria-hidden="true">
+                <i data-lucide="box" class="icon-sm"></i>
+              </div>
               <div class="step-body">
+                <div class="step-kicker mono">02 // DIGITAL TWIN &amp; DES</div>
                 <h3 data-i18n="step2Title">Model &amp; Simulate</h3>
                 <p data-i18n="step2Desc">
                   3D Discrete-Event Simulation in FlexSim and custom JavaScript DES engines to stress-test Heijunka schedules and inter-stage buffers.
@@ -303,9 +389,12 @@
               </div>
             </div>
 
-            <div class="step-card card-surface">
-              <div class="step-num">03</div>
+            <div class="step-card card-surface reveal-item" style="--reveal-delay: 240ms;">
+              <div class="step-num" aria-hidden="true">
+                <i data-lucide="bar-chart-3" class="icon-sm"></i>
+              </div>
               <div class="step-body">
+                <div class="step-kicker mono">03 // DATA PIPELINES</div>
                 <h3 data-i18n="step3Title">Automate &amp; Control</h3>
                 <p data-i18n="step3Desc">
                   End-to-end BOM explosion, SQL/Power Query ETL, Apps Script WIP tracking, and dynamic shortage alerting for planners.
@@ -325,7 +414,7 @@
             <p class="section-eyebrow" data-i18n="projectsEyebrow">02 // VERIFIED CASE STUDIES</p>
             <h2 class="section-title" data-i18n="projectsTitle">Industrial &amp; Analytics Case Studies</h2>
             <p class="section-subtitle" data-i18n="projectsSubtitle">
-              Filter by engineering domain and select any card to inspect the 4-part system architecture and NDA-sanitized technical blueprint.
+              Filter by engineering domain and select any card to inspect the Executive Takeaway, 4-part system architecture, and NDA-sanitized technical blueprint.
             </p>
           </div>
         </div>
@@ -339,6 +428,7 @@
             role="tab"
             aria-selected="true"
           >
+            <i data-lucide="folder-kanban" class="icon-xs" aria-hidden="true"></i>
             <span data-i18n="filterAll">All</span>
             <span class="filter-count">3</span>
           </button>
@@ -349,6 +439,7 @@
             role="tab"
             aria-selected="false"
           >
+            <i data-lucide="cpu" class="icon-xs" aria-hidden="true"></i>
             <span data-i18n="filterSimulation">Simulation &amp; Scheduling</span>
             <span class="filter-count">1</span>
           </button>
@@ -359,6 +450,7 @@
             role="tab"
             aria-selected="false"
           >
+            <i data-lucide="database" class="icon-xs" aria-hidden="true"></i>
             <span data-i18n="filterAutomation">Data &amp; BI Automation</span>
             <span class="filter-count">1</span>
           </button>
@@ -369,6 +461,7 @@
             role="tab"
             aria-selected="false"
           >
+            <i data-lucide="gauge" class="icon-xs" aria-hidden="true"></i>
             <span data-i18n="filterLean">Lean &amp; OEE</span>
             <span class="filter-count">1</span>
           </button>
@@ -412,7 +505,7 @@
     <!-- Contact Section (#EFF6FF) -->
     <section class="section section-alt" id="contact">
       <div class="container">
-        <div class="contact-card card-surface">
+        <div class="contact-card card-surface reveal-item" style="--reveal-delay: 0ms;">
           <div class="contact-left">
             <p class="section-eyebrow" data-i18n="contactEyebrow">05 // CONNECT &amp; COLLABORATE</p>
             <h2 class="section-title" data-i18n="contactTitle">
@@ -429,10 +522,9 @@
                 id="contact-copy-email"
                 data-email="phamanhtuan802@gmail.com"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
+                <span class="copy-icon-slot" aria-hidden="true">
+                  <i data-lucide="copy" class="icon-sm"></i>
+                </span>
                 <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
               </button>
 
@@ -441,10 +533,7 @@
                 class="btn btn-secondary"
                 id="contact-mailto-btn"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
+                <i data-lucide="mail" class="icon-sm" aria-hidden="true"></i>
                 <span data-i18n="btnSendEmail">Send Email</span>
               </a>
 
@@ -454,11 +543,7 @@
                 class="btn btn-ghost"
                 id="contact-download-cv"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
+                <i data-lucide="file-down" class="icon-sm" aria-hidden="true"></i>
                 <span data-i18n="btnDownloadCv">Download CV</span>
               </a>
             </div>
@@ -466,28 +551,40 @@
 
           <div class="contact-details">
             <div class="contact-item">
-              <span class="contact-item-label" data-i18n="contactEmailLabel">Email Address</span>
+              <span class="contact-item-label">
+                <i data-lucide="mail" class="icon-xs" aria-hidden="true"></i>
+                <span data-i18n="contactEmailLabel">Email Address</span>
+              </span>
               <a href="mailto:phamanhtuan802@gmail.com" class="contact-item-value mono">
                 phamanhtuan802@gmail.com
               </a>
             </div>
 
             <div class="contact-item">
-              <span class="contact-item-label" data-i18n="contactPhoneLabel">Phone / Zalo</span>
+              <span class="contact-item-label">
+                <i data-lucide="phone" class="icon-xs" aria-hidden="true"></i>
+                <span data-i18n="contactPhoneLabel">Phone / Zalo</span>
+              </span>
               <a href="tel:+84972693749" class="contact-item-value mono">
                 (+84) 972 693 749
               </a>
             </div>
 
             <div class="contact-item">
-              <span class="contact-item-label" data-i18n="contactLocationLabel">Preferred Work Region</span>
+              <span class="contact-item-label">
+                <i data-lucide="map-pin" class="icon-xs" aria-hidden="true"></i>
+                <span data-i18n="contactLocationLabel">Preferred Work Region</span>
+              </span>
               <span class="contact-item-value" data-i18n="contactLocationValue">
                 Ho Chi Minh City / Dong Nai / Binh Duong
               </span>
             </div>
 
             <div class="contact-item">
-              <span class="contact-item-label" data-i18n="contactEduLabel">University</span>
+              <span class="contact-item-label">
+                <i data-lucide="graduation-cap" class="icon-xs" aria-hidden="true"></i>
+                <span data-i18n="contactEduLabel">University</span>
+              </span>
               <span class="contact-item-value" data-i18n="heroEducation">
                 Ho Chi Minh City University of Technology – VNU-HCM (HCMUT, 2022–2026)
               </span>
@@ -503,7 +600,7 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <span class="brand-mark brand-mark-sm" aria-hidden="true">TP</span>
-        <span data-i18n="footerCopy">© 2026 Phạm Anh Tuấn (Tuan Pham). Built for GitHub Pages.</span>
+        <span data-i18n="footerCopy">© 2026 Phạm Anh Tuấn (Tuan Pham). Static Portfolio ready for GitHub Pages.</span>
       </div>
       <div class="footer-links">
         <a href="#about" data-i18n="navAbout">Overview</a>
@@ -536,14 +633,11 @@
           id="modal-close-btn"
           aria-label="Close case study modal"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          <i data-lucide="x" class="icon-md" aria-hidden="true"></i>
         </button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body" id="modal-body">
         <h2 class="modal-title" id="modal-title"></h2>
         <div class="kpi-pills modal-kpi-pills" id="modal-kpi-pills"></div>
 
@@ -551,9 +645,7 @@
         <div class="modal-visual-frame">
           <div class="visual-frame-bar">
             <span class="nda-badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
+              <i data-lucide="shield-check" class="icon-xs" aria-hidden="true"></i>
               <span id="modal-nda-label" data-i18n="ndaLabel">Sanitized Mock Data – NDA Compliant</span>
             </span>
             <span class="blueprint-ref mono" id="modal-blueprint-ref"></span>
@@ -564,24 +656,38 @@
               id="modal-preview-img"
               src=""
               alt=""
+              hidden
               onerror="window.handleBlueprintFallback && window.handleBlueprintFallback(this)"
             />
             <div class="svg-blueprint-container" id="modal-svg-blueprint" hidden></div>
           </div>
         </div>
 
+        <!-- Highlighted Executive Takeaway Callout Banner -->
+        <div class="executive-takeaway-banner" id="modal-executive-banner">
+          <div class="executive-banner-header">
+            <i data-lucide="check-circle-2" class="icon-sm" aria-hidden="true"></i>
+            <span class="executive-banner-title" id="modal-exec-title" data-i18n="execBannerTitle">
+              Executive Summary // Key Engineering Takeaway
+            </span>
+          </div>
+          <p class="executive-banner-text" id="modal-exec-text"></p>
+        </div>
+
         <!-- 4-Part Structured Engineering Case Study -->
         <div class="modal-sections-grid" id="modal-sections-grid"></div>
 
-        <!-- Tech Stack Footer inside Modal -->
+        <!-- Tech Stack & Prev/Next Case Study Navigation Footer inside Modal -->
         <div class="modal-footer-bar">
           <div class="modal-stack" id="modal-stack"></div>
           <div class="modal-nav-actions">
             <button type="button" class="btn btn-secondary btn-sm" id="modal-prev-btn">
-              ← <span data-i18n="modalPrev">Previous</span>
+              <i data-lucide="arrow-left" class="icon-xs" aria-hidden="true"></i>
+              <span data-i18n="modalPrev">Prev Case Study</span>
             </button>
-            <button type="button" class="btn btn-secondary btn-sm" id="modal-next-btn">
-              <span data-i18n="modalNext">Next</span> →
+            <button type="button" class="btn btn-primary btn-sm" id="modal-next-btn">
+              <span data-i18n="modalNext">Next Case Study</span>
+              <i data-lucide="arrow-right" class="icon-xs" aria-hidden="true"></i>
             </button>
           </div>
         </div>
@@ -591,9 +697,7 @@
 
   <!-- Toast Notification for Copy Email Feedback -->
   <div class="toast" id="copy-toast" role="status" aria-live="polite" hidden>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
+    <i data-lucide="check" class="icon-sm" aria-hidden="true"></i>
     <span id="copy-toast-text">Copied phamanhtuan802@gmail.com to clipboard</span>
   </div>
 
