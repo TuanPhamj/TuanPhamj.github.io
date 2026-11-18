@@ -191,7 +191,7 @@
       menuToggle: 'Open navigation menu',
       menuClose: 'Close navigation menu',
       btnDownloadCv: 'Download CV',
-      btnRequestCv: 'Request CV',
+      btnRequestCv: 'Download CV',
       cvRequestSubject: 'CV request — Phạm Anh Tuấn',
 
       heroEyebrow: 'PRODUCTION PLANNING · LEAN · DATA AUTOMATION',
@@ -320,7 +320,7 @@
       menuToggle: 'Mở menu điều hướng',
       menuClose: 'Đóng menu điều hướng',
       btnDownloadCv: 'Tải CV',
-      btnRequestCv: 'Yêu cầu CV',
+      btnRequestCv: 'Tải CV',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
 
       heroEyebrow: 'HOẠCH ĐỊNH SẢN XUẤT · LEAN · TỰ ĐỘNG HÓA DỮ LIỆU',
@@ -2086,10 +2086,6 @@
       if (stored === 'vi' || stored === 'en') savedLang = stored;
     } catch (_) {
       savedLang = 'en';
-    }
-
-    if (!ASSETS.cvAvailable) {
-      document.querySelectorAll('i[data-cv-icon]').forEach((icon) => icon.setAttribute('data-lucide', 'file-text'));
     }
 
     Reveal.init();
