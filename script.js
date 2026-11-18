@@ -74,7 +74,8 @@
     'triangle-alert': '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
     'layout-grid': '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
     'send': '<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',
-    'move-horizontal': '<path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/>'
+    'move-horizontal': '<path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/>',
+    'shuffle': '<path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/>'
   };
 
   const Icons = (function () {
@@ -225,6 +226,51 @@
       regionShort: 'HCMC · Dong Nai · Binh Duong',
       metaEmailKey: 'Email',
 
+      simHeaderTitle: 'LIVE SHOP-FLOOR TELEMETRY // INTERACTIVE LINE FLOW',
+      simNdaBadge: 'Sanitized Mock Telemetry – NDA Compliant',
+      simModeGroupAria: 'Production scheduling mode',
+      simModeLabel: 'Mode:',
+      simModeRandom: 'Random Sequence',
+      simModeHeijunka: 'Heijunka Leveled',
+      simKpiChangeoverHeijunka: 'Changeover Loss: 4.1% (-77%)',
+      simKpiChangeoverRandom: 'Changeover Loss: 18.4% (High)',
+      simKpiBalanceHeijunka: 'Line Balance: 94.8%',
+      simKpiBalanceRandom: 'Line Balance: 72.0%',
+      simKpiStatusHeijunka: 'Status: Balanced Flow (217 SKUs)',
+      simKpiStatusRandom: 'Status: Changeover Friction',
+      stage1Name: '01. Barrel Printing',
+      stage1Sub: 'Heat-Transfer Foil · 217 SKUs',
+      stage1MetricHeijunka: 'Util: 95.2% · SMED Grouped',
+      stage1MetricRandom: 'Util: 81.4% · Frequent Wash',
+      stage2Name: '02. Cap Printing',
+      stage2Sub: 'Pad Printing · Batch Sync',
+      stage2MetricHeijunka: 'Util: 94.6% · Synced Takt',
+      stage2MetricRandom: 'Util: 74.8% · Color Mismatch',
+      stage3Name: '03. Cap Assembly',
+      stage3Sub: 'Sub-Assembly · WIP Feeder',
+      stage3MetricHeijunka: 'Util: 94.9% · Buffer Stable',
+      stage3MetricRandom: 'Util: 68.5% · Starved / Blocked',
+      stage4Name: '04. Final Assembly',
+      stage4Sub: 'Nib + Ink + Barrel + Cap',
+      stage4MetricHeijunka: 'Util: 94.5% · Zero Bottleneck',
+      stage4MetricRandom: 'Util: 99.2% · BOTTLENECK QUEUE',
+      stage4AlertHeijunka: 'Flow Balanced',
+      stage4AlertRandom: 'Bottleneck Alert',
+      wipPanelTitle: 'Dynamic WIP Safety Buffer Monitor',
+      wipPanelSub: 'Inter-Stage Safety Stock & Automated BOM Replenishment',
+      wipReadoutDefault: 'Current WIP Buffer: 2,450 / 3,000 units',
+      wipReadoutFormat: (val) => `Current WIP Buffer: ${val.toLocaleString('en-US')} / 3,000 units`,
+      wipThresholdTag: 'Threshold: 1,800',
+      wipSafetyMark: 'Safety Min: 1,800',
+      wipSyncPillText: 'Safety Buffer Threshold -> Auto-Sync Triggered',
+      oeePanelTitle: 'Shop-Floor OEE & 5S Readiness',
+      oeePanelSub: 'Availability × Performance × Quality Decomposition',
+      oee5sBadge: '5S Audit Score: 96/100',
+      oeeRingSub: 'OEE',
+      oeeAvailLabel: 'Availability: 91.2%',
+      oeePerfLabel: 'Performance: 95.8%',
+      oeeQualLabel: 'Quality: 98.9%',
+
       aboutEyebrow: '01 // ENGINEERING APPROACH',
       aboutTitle: 'A Quantitative Approach to Operations',
       aboutSubhead: 'From shop-floor stopwatch to automated dashboard',
@@ -353,6 +399,51 @@
       metaLocationKey: 'Khu vực',
       regionShort: 'TP.HCM · Đồng Nai · Bình Dương',
       metaEmailKey: 'Email',
+
+      simHeaderTitle: 'TELEMETRY XƯỞNG THỜI GIAN THỰC // LUỒNG CHUYỀN TƯƠNG TÁC',
+      simNdaBadge: 'Dữ liệu Mô phỏng đã Chuẩn hóa – Tuân thủ NDA',
+      simModeGroupAria: 'Chế độ điều độ sản xuất',
+      simModeLabel: 'Chế độ:',
+      simModeRandom: 'Điều độ Ngẫu nhiên',
+      simModeHeijunka: 'Cân bằng Heijunka',
+      simKpiChangeoverHeijunka: 'Tổn thất Chuyển mã: 4.1% (-77%)',
+      simKpiChangeoverRandom: 'Tổn thất Chuyển mã: 18.4% (Cao)',
+      simKpiBalanceHeijunka: 'Cân bằng Chuyền: 94.8%',
+      simKpiBalanceRandom: 'Cân bằng Chuyền: 72.0%',
+      simKpiStatusHeijunka: 'Trạng thái: Luồng Cân bằng (217 SKU)',
+      simKpiStatusRandom: 'Trạng thái: Nghẽn Chuyển đổi Mã',
+      stage1Name: '01. In chuyển nhiệt thân',
+      stage1Sub: 'Màng nhiệt · 217 mã màu SKU',
+      stage1MetricHeijunka: 'Hiệu suất: 95.2% · Gom nhóm SMED',
+      stage1MetricRandom: 'Hiệu suất: 81.4% · Đổi màu liên tục',
+      stage2Name: '02. In nắp',
+      stage2Sub: 'In tampon · Đồng bộ lô',
+      stage2MetricHeijunka: 'Hiệu suất: 94.6% · Đồng bộ nhịp Takt',
+      stage2MetricRandom: 'Hiệu suất: 74.8% · Lệch mã màu',
+      stage3Name: '03. Lắp nắp',
+      stage3Sub: 'Lắp cụm phụ · Cấp phôi WIP',
+      stage3MetricHeijunka: 'Hiệu suất: 94.9% · Đệm ổn định',
+      stage3MetricRandom: 'Hiệu suất: 68.5% · Chờ phôi / Ứ đọng',
+      stage4Name: '04. Lắp ráp hoàn chỉnh',
+      stage4Sub: 'Ngòi + Mực + Thân + Nắp',
+      stage4MetricHeijunka: 'Hiệu suất: 94.5% · 0 Điểm nghẽn',
+      stage4MetricRandom: 'Hiệu suất: 99.2% · NGHẼN HÀNG ĐỢI',
+      stage4AlertHeijunka: 'Luồng Cân bằng',
+      stage4AlertRandom: 'Cảnh báo Điểm nghẽn',
+      wipPanelTitle: 'Giám sát Tồn kho Đệm WIP Động',
+      wipPanelSub: 'Tồn kho Đệm Liên trạm & Tự động Bù vật tư BOM',
+      wipReadoutDefault: 'Tồn kho Đệm WIP Hiện tại: 2,450 / 3,000 đơn vị',
+      wipReadoutFormat: (val) => `Tồn kho Đệm WIP Hiện tại: ${val.toLocaleString('en-US')} / 3,000 đơn vị`,
+      wipThresholdTag: 'Ngưỡng: 1,800',
+      wipSafetyMark: 'Tối thiểu: 1,800',
+      wipSyncPillText: 'Chạm Ngưỡng Đệm An toàn -> Đã Kích hoạt Tự động Đồng bộ',
+      oeePanelTitle: 'Hiệu suất OEE Hiện trường & Sẵn sàng 5S',
+      oeePanelSub: 'Phân rã Khả dụng × Hiệu suất × Chất lượng',
+      oee5sBadge: 'Điểm Kiểm toán 5S: 96/100',
+      oeeRingSub: 'OEE',
+      oeeAvailLabel: 'Khả dụng (Availability): 91.2%',
+      oeePerfLabel: 'Hiệu suất (Performance): 95.8%',
+      oeeQualLabel: 'Chất lượng (Quality): 98.9%',
 
       aboutEyebrow: '01 // PHƯƠNG PHÁP KỸ THUẬT',
       aboutTitle: 'Tư duy Định lượng trong Vận hành',
@@ -1855,6 +1946,8 @@
 
     applyCvState();
     applyStaticTranslations();
+    syncSimModeDom();
+    updateWipReadoutText();
     renderProjects();
     renderSkills();
     renderTimeline();
@@ -1871,6 +1964,154 @@
       positionNavIndicator(true);
       requestScrollUpdate();
     });
+  }
+
+  /* ========================================================================
+     14b. Main-Page Live Production Line & Heijunka Simulator + WIP Monitor
+     ======================================================================== */
+  let currentSimMode = 'heijunka';
+  let currentWipUnits = 2450;
+  let wipIntervalId = null;
+
+  function syncSimModeDom() {
+    const showcase = $('telemetry-showcase');
+    if (!showcase) return;
+
+    const isRandom = currentSimMode === 'random';
+    showcase.setAttribute('data-sim-state', currentSimMode);
+
+    const btnRandom = $('sim-btn-random');
+    const btnHeijunka = $('sim-btn-heijunka');
+    if (btnRandom) {
+      btnRandom.classList.toggle('is-active', isRandom);
+      btnRandom.setAttribute('aria-pressed', String(isRandom));
+    }
+    if (btnHeijunka) {
+      btnHeijunka.classList.toggle('is-active', !isRandom);
+      btnHeijunka.setAttribute('aria-pressed', String(!isRandom));
+    }
+
+    const suffix = isRandom ? 'Random' : 'Heijunka';
+    const kpiBindings = [
+      ['sim-kpi-changeover', `simKpiChangeover${suffix}`],
+      ['sim-kpi-balance', `simKpiBalance${suffix}`],
+      ['sim-kpi-status', `simKpiStatus${suffix}`],
+      ['stage-metric-1', `stage1Metric${suffix}`],
+      ['stage-metric-2', `stage2Metric${suffix}`],
+      ['stage-metric-3', `stage3Metric${suffix}`],
+      ['stage-metric-4', `stage4Metric${suffix}`],
+      ['stage-4-alert', `stage4Alert${suffix}`]
+    ];
+
+    kpiBindings.forEach(([elId, i18nKey]) => {
+      const el = $(elId);
+      if (!el) return;
+      el.setAttribute('data-i18n', i18nKey);
+      el.textContent = t(i18nKey);
+    });
+
+    const stageWidths = isRandom ? [81.4, 74.8, 68.5, 99.2] : [95.2, 94.6, 94.9, 94.5];
+    stageWidths.forEach((w, idx) => {
+      const fill = $(`stage-fill-${idx + 1}`);
+      if (fill) fill.style.width = `${w}%`;
+    });
+  }
+
+  function setSimMode(mode) {
+    const normalized = mode === 'random' ? 'random' : 'heijunka';
+    if (normalized === currentSimMode) return;
+    currentSimMode = normalized;
+    syncSimModeDom();
+  }
+
+  function updateWipReadoutText() {
+    const readout = $('wip-buffer-readout');
+    if (!readout) return;
+    const dict = I18N[currentLang];
+    if (dict && typeof dict.wipReadoutFormat === 'function') {
+      readout.textContent = dict.wipReadoutFormat(currentWipUnits);
+    }
+  }
+
+  function setWipUnits(units, triggered) {
+    currentWipUnits = units;
+    const fill = $('wip-gauge-fill');
+    const bar = $('wip-progressbar');
+    const pill = $('wip-sync-pill');
+    const pct = Math.min(100, Math.max(0, (units / 3000) * 100));
+
+    if (fill) {
+      fill.style.width = `${pct.toFixed(2)}%`;
+      fill.classList.toggle('is-near-threshold', units <= 1860);
+    }
+    if (bar) {
+      bar.setAttribute('aria-valuenow', String(units));
+    }
+    if (pill) {
+      pill.classList.toggle('is-triggered', Boolean(triggered));
+    }
+    updateWipReadoutText();
+  }
+
+  function initWipBufferMonitor() {
+    setWipUnits(2450, false);
+    if (REDUCED_MOTION) return;
+
+    const sequence = [
+      { units: 2450, triggered: false },
+      { units: 2340, triggered: false },
+      { units: 2120, triggered: false },
+      { units: 1890, triggered: false },
+      { units: 1785, triggered: true },
+      { units: 2290, triggered: true },
+      { units: 2540, triggered: false },
+      { units: 2450, triggered: false }
+    ];
+    let stepIndex = 0;
+
+    window.setTimeout(() => {
+      wipIntervalId = window.setInterval(() => {
+        stepIndex = (stepIndex + 1) % sequence.length;
+        const step = sequence[stepIndex];
+        setWipUnits(step.units, step.triggered);
+      }, 2200);
+    }, 1800);
+  }
+
+  function initHeroCountUp() {
+    const els = document.querySelectorAll('.hero-telemetry-strip [data-countup]');
+    if (!els.length) return;
+
+    if (REDUCED_MOTION) {
+      els.forEach((el) => {
+        const target = Number(el.getAttribute('data-countup')) || 0;
+        const suffix = el.getAttribute('data-countup-suffix') || '';
+        el.textContent = `${target}${suffix}`;
+      });
+      return;
+    }
+
+    const duration = 680;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(1, Math.max(0, elapsed / duration));
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      els.forEach((el) => {
+        const target = Number(el.getAttribute('data-countup')) || 0;
+        const suffix = el.getAttribute('data-countup-suffix') || '';
+        const current = progress >= 1 ? target : Math.round(target * eased);
+        el.textContent = `${current}${suffix}`;
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      }
+    }
+
+    requestAnimationFrame(tick);
   }
 
   /* ========================================================================
@@ -1989,6 +2230,18 @@
       btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
     });
 
+    document.querySelectorAll('.sim-mode-btn').forEach((btn) => {
+      btn.addEventListener('click', () => setSimMode(btn.getAttribute('data-sim-mode')));
+    });
+
+    const wipPill = $('wip-sync-pill');
+    if (wipPill) {
+      wipPill.addEventListener('click', () => {
+        setWipUnits(1785, true);
+        window.setTimeout(() => setWipUnits(2450, false), 1400);
+      });
+    }
+
     window.addEventListener('scroll', requestScrollUpdate, { passive: true });
     window.addEventListener(
       'resize',
@@ -2092,6 +2345,8 @@
     renderFilterCounts();
     bindEvents();
     setLanguage(savedLang, { persist: false, initial: true });
+    initHeroCountUp();
+    initWipBufferMonitor();
     Icons.start();
     updateScroll();
   }
