@@ -48,3 +48,15 @@ Lucide is loaded from unpkg, pinned to `lucide@1.66.0` so a new release can't re
 If the CDN is slow or blocked, `script.js` renders the same icons from a built-in fallback set after 2.5 s.
 When adding a new icon name, check it exists in the pinned version and add its paths to `ICON_FALLBACK`.
 Lucide no longer ships brand logos (LinkedIn, GitHub), so those rows use the generic `link` / `code-xml` icons.
+
+## Motion
+
+- **Icon draw-in** — icons inside a scroll-reveal card trace their strokes as the card appears
+  (`prepareDraw` in `script.js` measures each stroke; the CSS lives next to `.reveal-item`).
+- **Icon micro-interactions** — on hover / keyboard focus, icons act out their meaning (gauge needle sweeps,
+  file arrow drops, envelope opens, chart bars re-grow, phone rings, …). Rules are in the
+  "Icon micro-interactions" block of `style.css` and match shapes by their path data (`path[d^="…"]`),
+  which is identical in the pinned Lucide build and `ICON_FALLBACK`. They only run on devices with a real
+  hover pointer.
+- The PRJ-01 line widget pauses its looping animations and WIP ticker while off screen.
+- `prefers-reduced-motion: reduce` turns all of the above off.

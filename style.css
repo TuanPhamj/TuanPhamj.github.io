@@ -331,18 +331,6 @@ svg.lucide {
   }
 }
 
-@keyframes ping {
-  0% {
-    transform: scale(1);
-    opacity: 0.55;
-  }
-  80%,
-  100% {
-    transform: scale(2.8);
-    opacity: 0;
-  }
-}
-
 /* ==========================================================================
    Buttons
    ========================================================================== */
@@ -905,8 +893,15 @@ svg.lucide {
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
-  gap: 40px;
+  grid-template-areas:
+    "content profile"
+    "stats   stats";
+  gap: 28px 40px;
   align-items: center;
+}
+
+.hero-content {
+  grid-area: content;
 }
 
 .hero-eyebrow {
@@ -1018,7 +1013,6 @@ svg.lucide {
   align-items: center;
   gap: 10px 14px;
   padding-top: 18px;
-  padding-bottom: 20px;
   border-top: 1px solid var(--border-light);
 }
 
@@ -1051,22 +1045,22 @@ svg.lucide {
   border-radius: var(--radius-sm);
 }
 
-/* 4-Item Quantitative Telemetry Strip */
+/* 4-item metric strip — full-width row under the text and portrait columns */
 .hero-telemetry-strip {
+  grid-area: stats;
   list-style: none;
   margin: 0;
-  padding: 20px 0 0;
-  border-top: 1px solid var(--border-light);
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .telemetry-item {
   background-color: var(--surface);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
-  padding: 13px 14px;
+  padding: 15px 16px;
   box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
   transition:
     border-color var(--dur-fast) var(--ease-out),
@@ -1090,7 +1084,7 @@ svg.lucide {
 
 .telemetry-value {
   font-family: var(--font-mono);
-  font-size: 1.18rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--accent-primary);
   line-height: 1.1;
@@ -1127,6 +1121,7 @@ svg.lucide {
 
 /* Right Column: Profile Visual Card & Floating Badge */
 .hero-profile-col {
+  grid-area: profile;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1219,6 +1214,12 @@ svg.lucide {
   transition:
     border-color 280ms var(--ease-out),
     box-shadow 280ms var(--ease-out);
+}
+
+/* Off screen (script.js → initShowcaseVisibility): freeze the looping line animations. */
+.telemetry-showcase-card.is-offscreen,
+.telemetry-showcase-card.is-offscreen * {
+  animation-play-state: paused !important;
 }
 
 .telemetry-showcase-card[data-sim-state="random"] {
@@ -1686,10 +1687,6 @@ svg.lucide {
   color: #92400E;
 }
 
-.stage-mobile-arrow {
-  display: none;
-}
-
 /* Bottom Half: 2-Column Integrated WIP Buffer & OEE Live Micro-Gauges */
 .telemetry-monitors-grid {
   display: grid;
@@ -1966,212 +1963,13 @@ svg.lucide {
   background: linear-gradient(90deg, #2563EB, #0284C7);
 }
 
-/* Telemetry dossier */
-.hero-dossier {
-  position: relative;
-  background-color: var(--surface);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-xl);
-  box-shadow: 0 24px 60px rgba(37, 99, 235, 0.1), var(--shadow-card);
-  overflow: hidden;
-}
-
-.dossier-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 20px;
-  background-color: var(--bg-alt);
-  border-bottom: 1px solid var(--border-light);
-}
-
-.dossier-code {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--text-heading);
-  letter-spacing: 0.06em;
-}
-
-.dossier-code .lucide {
-  color: var(--accent-primary);
-}
-
-.dossier-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--accent-soft-text);
-  background-color: var(--surface);
-  border: 1px solid var(--border-kpi);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  white-space: nowrap;
-}
-
-.status-dot {
-  position: relative;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--accent-primary);
-}
-
-.status-dot::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background-color: var(--accent-primary);
-  animation: ping 2.4s var(--ease-out) infinite;
-}
-
-.dossier-metrics {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  background-color: var(--border-light);
-}
-
-.metric-tile {
-  position: relative;
-  background-color: var(--surface);
-  padding: 20px;
-}
-
-.metric-tile::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, var(--bg-alt), transparent 70%);
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out);
-  pointer-events: none;
-}
-
-.metric-tile:hover::before {
-  opacity: 1;
-}
-
-.metric-top {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.metric-value {
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--accent-primary);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  white-space: nowrap;
-}
-
+/* Unit suffix in the hero metric strip ("4 stages") */
 .metric-unit {
   font-size: 0.5em;
   font-weight: 600;
   letter-spacing: 0;
   margin-left: 5px;
   color: var(--accent-sky-ink);
-}
-
-.metric-icon-badge {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background-color: var(--bg-alt);
-  border: 1px solid var(--border-light);
-  color: var(--accent-primary);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform var(--dur-base) var(--ease-pop);
-}
-
-.metric-tile:hover .metric-icon-badge {
-  transform: scale(1.08) rotate(-4deg);
-}
-
-.metric-tile:hover .metric-icon-badge .lucide {
-  animation: iconPulse 900ms var(--ease-out);
-}
-
-.metric-label {
-  position: relative;
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text-heading);
-  line-height: 1.3;
-  margin-bottom: 4px;
-}
-
-.metric-sub {
-  position: relative;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-
-.dossier-footer {
-  margin: 0;
-  padding: 14px 20px;
-  background-color: var(--bg-primary);
-  border-top: 1px solid var(--border-light);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.dossier-meta-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 0.82rem;
-}
-
-.meta-key {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.meta-key .lucide {
-  color: var(--accent-sky);
-}
-
-.meta-val {
-  color: var(--text-heading);
-  font-weight: 600;
-  text-align: right;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.meta-val a:hover {
-  color: var(--accent-primary);
 }
 
 /* ==========================================================================
@@ -3578,6 +3376,21 @@ a.contact-item-value:hover {
   transition-delay: 0ms;
 }
 
+/* Icon draw-in: icons inside a reveal card trace their strokes as the card arrives.
+   script.js (prepareDraw) tags each stroke with [data-draw], its length --len and order --draw-i.
+   The hidden rule comes second so it wins while any enclosing reveal-item is still hidden. */
+.js .reveal-item.is-visible svg [data-draw] {
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 900ms var(--ease-out);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 160ms + var(--draw-i, 0) * 80ms);
+}
+
+.js .reveal-item:not(.is-visible) svg [data-draw] {
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+}
+
 /* Category filtering choreography */
 .js .projects-grid .project-card.is-filter-out {
   opacity: 0;
@@ -3601,6 +3414,196 @@ a.contact-item-value:hover {
 
 .js .projects-grid .project-card.is-flipping {
   transition: transform 460ms var(--ease-out);
+}
+
+/* ==========================================================================
+   Icon micro-interactions — on hover / keyboard focus each icon acts out what
+   it stands for (gauge needle sweeps, file arrow drops, envelope opens, ...).
+   Shapes are matched by their path data, which is identical in the pinned
+   Lucide build and the ICON_FALLBACK set in script.js. Pointer devices only,
+   so a tap on a phone never leaves an icon frozen mid-move.
+   ========================================================================== */
+
+@keyframes ico-needle {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(-95deg); }
+  72% { transform: rotate(14deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes ico-turn {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+@keyframes ico-drop {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(2.5px); }
+}
+
+@keyframes ico-send {
+  0% { transform: translate(0, 0); opacity: 1; }
+  40% { transform: translate(6px, -6px); opacity: 0; }
+  41% { transform: translate(-6px, 6px); opacity: 0; }
+  100% { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes ico-flap {
+  0%, 100% { transform: scaleY(1); }
+  45% { transform: scaleY(-1); }
+}
+
+@keyframes ico-lift {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(-2.5px); }
+}
+
+@keyframes ico-sink {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(1.5px); }
+}
+
+@keyframes ico-bar {
+  0% { transform: scaleY(1); }
+  30% { transform: scaleY(0.25); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes ico-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.1; }
+}
+
+@keyframes ico-redraw {
+  from { stroke-dashoffset: var(--len); }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes ico-toss {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-3px) rotate(-10deg); }
+}
+
+@keyframes ico-wobble {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-18deg); }
+  65% { transform: rotate(10deg); }
+}
+
+@keyframes ico-ring {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(-14deg); }
+  35% { transform: rotate(12deg); }
+  55% { transform: rotate(-8deg); }
+  75% { transform: rotate(5deg); }
+}
+
+@keyframes ico-bounce {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-3px); }
+  65% { transform: translateY(0.5px); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-gauge > path[d^="m12 14"] {
+    transform-box: fill-box;
+    transform-origin: 0% 100%;
+    animation: ico-needle 900ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-refresh-cw > * {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: ico-turn 650ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) :is(.lucide-file-down > path[d^="M12 18v-6"], .lucide-file-down > path[d^="m9 15"]) {
+    animation: ico-drop 600ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-send > * {
+    transform-box: view-box;
+    animation: ico-send 650ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-mail > path[d^="m22 7"] {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    animation: ico-flap 650ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-layers > path[d^="M12.83"] {
+    animation: ico-lift 600ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-layers > path[d^="M2 17"] {
+    animation: ico-sink 600ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-chart-column > path[d^="M8 17"] {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: ico-bar 700ms var(--ease-out) 0ms both;
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-chart-column > path[d^="M13 17"] {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: ico-bar 700ms var(--ease-out) 70ms both;
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-chart-column > path[d^="M18 17"] {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: ico-bar 700ms var(--ease-out) 140ms both;
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-database > ellipse {
+    animation: ico-lift 600ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-factory > path[d^="M8 16h.01"] {
+    animation: ico-blink 700ms ease-in-out 0ms;
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-factory > path[d^="M12 16h.01"] {
+    animation: ico-blink 700ms ease-in-out 110ms;
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-factory > path[d^="M16 16h.01"] {
+    animation: ico-blink 700ms ease-in-out 220ms;
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) :is(.lucide-search-check > path[data-draw][d^="m8 11"], .lucide-circle-check > path[data-draw][d^="m16 9"]) {
+    animation: ico-redraw 700ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-graduation-cap > * {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: ico-toss 700ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-palette > * {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: ico-wobble 700ms var(--ease-out);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) :is(.lucide-boxes > path[d^="M7.97"], .lucide-boxes > path[d^="M12 8 "], .lucide-boxes > path[d^="m12 8 "], .lucide-boxes > path[d^="M12 13.5V8"]) {
+    animation: ico-lift 600ms var(--ease-pop);
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-phone > * {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: ico-ring 650ms ease-in-out;
+  }
+
+  :is(a:hover, button:hover, li:hover, .project-card:hover, .skill-panel:hover, .line-stage-card:hover, .telemetry-monitor-panel:hover, .contact-item:hover, a:focus-visible, button:focus-visible) .lucide-map-pin > * {
+    transform-box: view-box;
+    animation: ico-bounce 650ms var(--ease-out);
+  }
 }
 
 /* ==========================================================================
@@ -3635,16 +3638,38 @@ a.contact-item-value:hover {
 
 @media (max-width: 960px) {
   .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "content"
+      "stats";
+    gap: 28px;
   }
 
   .hero-profile-col {
-    justify-content: center;
+    grid-area: content;
+    justify-self: end;
+    align-self: start;
+    position: relative;
+    z-index: 1;
   }
 
-  .hero-telemetry-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .profile-visual-card {
+    width: 112px;
+  }
+
+  .portrait-frame {
+    border-radius: 16px;
+  }
+
+  /* The education line right below the name already says HCMUT '26 */
+  .portrait-floating-badge {
+    display: none;
+  }
+
+  .hero-eyebrow,
+  .hero-title,
+  .hero-role {
+    padding-right: 128px;
   }
 
   .telemetry-monitors-grid {
@@ -3671,42 +3696,56 @@ a.contact-item-value:hover {
     display: none;
   }
 
+  /* Mode switch becomes a full-width two-way segmented control */
+  .telemetry-mode-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    padding: 4px;
+    border-radius: 12px;
+  }
+
+  .telemetry-mode-label {
+    display: none;
+  }
+
+  .sim-mode-btn {
+    justify-content: center;
+    border-radius: 9px;
+    padding: 9px 10px;
+  }
+
+  /* 2 × 2 stage grid (numbered badges keep the 01 → 04 order) instead of 4 stacked cards */
   .line-stages-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
-  .stage-mobile-arrow {
-    display: flex;
-    justify-content: center;
-    padding-top: 8px;
+  .line-stage-card {
+    padding: 12px;
   }
 
-  .mobile-flow-arrow {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: #2563EB;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    animation: mobileArrowPulse 1.4s ease-in-out infinite;
+  .stage-card-top {
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
-  .telemetry-showcase-card[data-sim-state="random"] .mobile-flow-arrow {
-    stroke: #F59E0B;
+  .stage-sku-dots {
+    display: none;
   }
 
-  @keyframes mobileArrowPulse {
-    0%,
-    100% {
-      transform: translateY(0);
-      opacity: 0.7;
-    }
-    50% {
-      transform: translateY(3px);
-      opacity: 1;
-    }
+  .stage-card-title {
+    font-size: 0.88rem;
+  }
+
+  .stage-card-sub {
+    font-size: 0.66rem;
+    margin-bottom: 8px;
+  }
+
+  .stage-card-Readout {
+    font-size: 0.66rem;
+    line-height: 1.4;
   }
 
   .telemetry-monitors-grid {
@@ -3783,35 +3822,31 @@ a.contact-item-value:hover {
   }
 
   .profile-visual-card {
-    max-width: 248px;
+    width: 80px;
   }
 
-  .portrait-floating-badge {
-    right: 8px;
-    bottom: 10px;
-    font-size: 0.7rem;
-    padding: 6px 11px;
+  .portrait-frame {
+    border-radius: 14px;
+    border-width: 2px;
+  }
+
+  .hero-eyebrow,
+  .hero-title {
+    padding-right: 92px;
+  }
+
+  /* Keep "Phạm Anh Tuấn" on one line beside the avatar (name ≈ 7.3 × font-size wide). */
+  .hero-title {
+    font-size: min(2.2rem, calc((100vw - 150px) / 7.6));
+  }
+
+  .hero-role {
+    padding-right: 0;
   }
 
   .about-narrative,
   .contact-card {
     padding: 24px 22px;
-  }
-
-  .metric-tile {
-    padding: 16px;
-  }
-
-  .metric-value {
-    font-size: 1.36rem;
-  }
-
-  .dossier-header {
-    padding: 12px 16px;
-  }
-
-  .dossier-footer {
-    padding: 12px 16px;
   }
 
   .timeline {
@@ -3903,16 +3938,6 @@ a.contact-item-value:hover {
     flex: 1 1 100%;
   }
 
-  .dossier-meta-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-
-  .meta-val {
-    text-align: left;
-  }
-
   .modal-header-meta .modal-org {
     font-size: 0.78rem;
   }
@@ -3934,6 +3959,12 @@ a.contact-item-value:hover {
     font-size: 0.72rem;
     white-space: normal;
     line-height: 1.3;
+  }
+}
+
+@media (max-width: 340px) {
+  .line-stages-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -3960,9 +3991,6 @@ a.contact-item-value:hover {
     transform: none;
   }
 
-  .status-dot::after {
-    display: none;
-  }
 }
 
 @media print {

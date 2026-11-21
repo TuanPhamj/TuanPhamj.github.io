@@ -132,6 +132,31 @@
       });
     }
 
+    /* Draw-in: each stroke inside a scroll-reveal card gets its own length (--len) and
+       order (--draw-i), so CSS can trace the icon when the card reveals. A shape whose
+       length can't be measured is simply left as-is (always fully drawn). */
+    const DRAWABLE = 'path, circle, rect, line, polyline, polygon, ellipse';
+
+    function prepareDraw() {
+      if (REDUCED_MOTION) return;
+      document.querySelectorAll('.reveal-item svg[data-icon]:not([data-draw-ready])').forEach((svg) => {
+        svg.setAttribute('data-draw-ready', '');
+        svg.querySelectorAll(DRAWABLE).forEach((shape, index) => {
+          let length = 0;
+          try {
+            length = typeof shape.getTotalLength === 'function' ? shape.getTotalLength() : 0;
+          } catch (_) {
+            length = 0;
+          }
+          if (!(length > 0) || !isFinite(length)) return;
+          // +1 so rounding never leaves a hairline gap at the end of the stroke.
+          shape.style.setProperty('--len', (length + 1).toFixed(2));
+          shape.style.setProperty('--draw-i', String(Math.min(index, 5)));
+          shape.setAttribute('data-draw', '');
+        });
+      });
+    }
+
     /** Call after any DOM update that adds <i data-lucide> placeholders. */
     function refresh() {
       if (lucideReady()) {
@@ -143,6 +168,7 @@
       }
       if (fallbackMode) renderFallback();
       markRendered();
+      prepareDraw();
     }
 
     function enableFallback() {
@@ -268,6 +294,7 @@
       wipReadoutFormat: (val) => `Current WIP Buffer: ${val.toLocaleString('en-US')} / 3,000 units`,
       wipThresholdTag: 'Threshold: 1,800',
       wipSafetyMark: 'Safety Min: 1,800',
+      wipScaleMax: '3,000 units',
       wipSyncPillText: 'Safety Buffer Threshold -> Auto-Sync Triggered',
       oeePanelTitle: 'OEE Loss Decomposition',
       oeePanelSub: 'Availability × Performance × Quality',
@@ -445,6 +472,7 @@
       wipReadoutFormat: (val) => `Tồn kho Đệm WIP Hiện tại: ${val.toLocaleString('en-US')} / 3,000 đơn vị`,
       wipThresholdTag: 'Ngưỡng: 1,800',
       wipSafetyMark: 'Tối thiểu: 1,800',
+      wipScaleMax: '3,000 đơn vị',
       wipSyncPillText: 'Chạm Ngưỡng Đệm An toàn -> Đã Kích hoạt Tự động Đồng bộ',
       oeePanelTitle: 'Phân rã Tổn thất OEE',
       oeePanelSub: 'Khả dụng × Hiệu suất × Chất lượng',
@@ -2012,6 +2040,21 @@
   let currentSimMode = 'heijunka';
   let currentWipUnits = 2450;
   let wipIntervalId = null;
+  let showcaseOnScreen = true;
+
+  /* The line flow, SKU pulses and bottleneck glow loop forever: pause them (and the WIP
+     ticker below) while the card is off screen so phones don't burn battery on them. */
+  function initShowcaseVisibility() {
+    const card = $('telemetry-showcase');
+    if (!card || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(
+      (entries) => {
+        showcaseOnScreen = entries[entries.length - 1].isIntersecting;
+        card.classList.toggle('is-offscreen', !showcaseOnScreen);
+      },
+      { rootMargin: '120px 0px' }
+    ).observe(card);
+  }
 
   function syncSimModeDom() {
     const showcase = $('telemetry-showcase');
@@ -2112,6 +2155,7 @@
 
     window.setTimeout(() => {
       wipIntervalId = window.setInterval(() => {
+        if (!showcaseOnScreen || document.hidden) return;
         stepIndex = (stepIndex + 1) % sequence.length;
         const step = sequence[stepIndex];
         setWipUnits(step.units, step.triggered);
@@ -2397,6 +2441,7 @@
     applyProfileLinks();
     setLanguage(savedLang, { persist: false, initial: true });
     initHeroCountUp();
+    initShowcaseVisibility();
     initWipBufferMonitor();
     Icons.start();
     updateScroll();

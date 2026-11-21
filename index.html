@@ -290,44 +290,9 @@
             </ul>
           </div>
 
-          <!-- 4-Item Quantitative Telemetry Strip -->
-          <ul class="hero-telemetry-strip reveal-item" data-i18n-attr="aria-label:dossierLabel" aria-label="Operations snapshot" data-reveal-group>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value" data-countup="217">217</span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="palette" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric1Label">Color SKUs sequenced</div>
-              <div class="telemetry-sub" data-i18n="metric1Sub">Heijunka · SMED color families</div>
-            </li>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value"><span data-countup="4">4</span> <span class="metric-unit" data-i18n="metric2Unit">stages</span></span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="layers" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric2Label">Sequential line modeled</div>
-              <div class="telemetry-sub" data-i18n="metric2Sub">FlexSim 3D + JS DES</div>
-            </li>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value" data-countup="100" data-countup-suffix="%">100%</span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric3Label">BOM sync automated</div>
-              <div class="telemetry-sub" data-i18n="metric3Sub">Excel VBA · Apps Script · SQL</div>
-            </li>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value">A×P×Q</span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="gauge" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric4Label">OEE loss decomposition</div>
-              <div class="telemetry-sub" data-i18n="metric4Sub">Time-study · Pareto · 5 Whys · 5S</div>
-            </li>
-          </ul>
         </div>
 
-        <!-- Right Column: Framed Portrait Visual Card & Floating Engineering Badge -->
+        <!-- Portrait: right column on desktop, compact top-right avatar on tablet/mobile -->
         <div class="hero-profile-col">
           <div class="profile-visual-card reveal-item">
             <div class="portrait-frame">
@@ -347,6 +312,42 @@
             </div>
           </div>
         </div>
+
+      <!-- 4-item metric strip: full-width row under both hero columns -->
+        <ul class="hero-telemetry-strip reveal-item" data-i18n-attr="aria-label:dossierLabel" aria-label="Operations snapshot" data-reveal-group>
+          <li class="telemetry-item reveal-item">
+            <div class="telemetry-top">
+              <span class="telemetry-value" data-countup="217">217</span>
+              <span class="telemetry-icon" aria-hidden="true"><i data-lucide="palette" class="icon-xs"></i></span>
+            </div>
+            <div class="telemetry-label" data-i18n="metric1Label">Color SKUs sequenced</div>
+            <div class="telemetry-sub" data-i18n="metric1Sub">Heijunka · SMED color families</div>
+          </li>
+          <li class="telemetry-item reveal-item">
+            <div class="telemetry-top">
+              <span class="telemetry-value"><span data-countup="4">4</span> <span class="metric-unit" data-i18n="metric2Unit">stages</span></span>
+              <span class="telemetry-icon" aria-hidden="true"><i data-lucide="layers" class="icon-xs"></i></span>
+            </div>
+            <div class="telemetry-label" data-i18n="metric2Label">Sequential line modeled</div>
+            <div class="telemetry-sub" data-i18n="metric2Sub">FlexSim 3D + JS DES</div>
+          </li>
+          <li class="telemetry-item reveal-item">
+            <div class="telemetry-top">
+              <span class="telemetry-value" data-countup="100" data-countup-suffix="%">100%</span>
+              <span class="telemetry-icon" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-xs"></i></span>
+            </div>
+            <div class="telemetry-label" data-i18n="metric3Label">BOM sync automated</div>
+            <div class="telemetry-sub" data-i18n="metric3Sub">Excel VBA · Apps Script · SQL</div>
+          </li>
+          <li class="telemetry-item reveal-item">
+            <div class="telemetry-top">
+              <span class="telemetry-value">A×P×Q</span>
+              <span class="telemetry-icon" aria-hidden="true"><i data-lucide="gauge" class="icon-xs"></i></span>
+            </div>
+            <div class="telemetry-label" data-i18n="metric4Label">OEE loss decomposition</div>
+            <div class="telemetry-sub" data-i18n="metric4Sub">Time-study · Pareto · 5 Whys · 5S</div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -572,9 +573,6 @@
                   <span class="stage-util-fill" id="stage-fill-1" style="width: 89.2%"></span>
                 </div>
                 <div class="stage-card-Readout" id="stage-metric-1" data-i18n="stage1MetricHeijunka">Util: 89.2% · SMED Grouped</div>
-                <div class="stage-mobile-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="mobile-flow-arrow"><path d="M12 4v14m0 0-5-5m5 5 5-5" /></svg>
-                </div>
               </li>
 
               <!-- Stage 02 -->
@@ -593,9 +591,6 @@
                   <span class="stage-util-fill" id="stage-fill-2" style="width: 87.6%"></span>
                 </div>
                 <div class="stage-card-Readout" id="stage-metric-2" data-i18n="stage2MetricHeijunka">Util: 87.6% · Synced Takt</div>
-                <div class="stage-mobile-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="mobile-flow-arrow"><path d="M12 4v14m0 0-5-5m5 5 5-5" /></svg>
-                </div>
               </li>
 
               <!-- Stage 03 -->
@@ -614,9 +609,6 @@
                   <span class="stage-util-fill" id="stage-fill-3" style="width: 90.1%"></span>
                 </div>
                 <div class="stage-card-Readout" id="stage-metric-3" data-i18n="stage3MetricHeijunka">Util: 90.1% · Buffer Stable</div>
-                <div class="stage-mobile-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="mobile-flow-arrow"><path d="M12 4v14m0 0-5-5m5 5 5-5" /></svg>
-                </div>
               </li>
 
               <!-- Stage 04 -->
@@ -660,7 +652,7 @@
                 <div class="wip-gauge-scale" aria-hidden="true">
                   <span>0</span>
                   <span data-i18n="wipSafetyMark">Safety Min: 1,800</span>
-                  <span>3,000 units</span>
+                  <span data-i18n="wipScaleMax">3,000 units</span>
                 </div>
               </div>
 
