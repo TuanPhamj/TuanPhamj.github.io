@@ -1204,7 +1204,7 @@ svg.lucide {
 }
 
 /* ==========================================================================
-   Main-Page Live Production Operations & Line Telemetry Showcase
+   PRJ-01 interactive illustration (Heijunka vs. random) — sits below the case-study grid
    ========================================================================== */
 
 .telemetry-showcase-card {
@@ -1214,7 +1214,7 @@ svg.lucide {
   box-shadow:
     0 20px 50px rgba(37, 99, 235, 0.09),
     0 4px 14px rgba(15, 23, 42, 0.04);
-  margin-bottom: 52px;
+  margin-top: 56px;
   overflow: hidden;
   transition:
     border-color 280ms var(--ease-out),
@@ -1245,34 +1245,6 @@ svg.lucide {
   flex-wrap: wrap;
   gap: 10px 12px;
   min-width: 0;
-}
-
-.telemetry-live-dot {
-  position: relative;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background-color: #2563EB;
-  flex-shrink: 0;
-  transition: background-color 250ms ease;
-}
-
-.telemetry-live-dot::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 2px solid #2563EB;
-  opacity: 0.55;
-  animation: ping 2.2s var(--ease-out) infinite;
-}
-
-.telemetry-showcase-card[data-sim-state="random"] .telemetry-live-dot {
-  background-color: #F59E0B;
-}
-
-.telemetry-showcase-card[data-sim-state="random"] .telemetry-live-dot::after {
-  border-color: #F59E0B;
 }
 
 .telemetry-header-code {

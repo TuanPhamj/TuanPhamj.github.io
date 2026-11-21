@@ -24,7 +24,10 @@
   const ASSETS = {
     cvAvailable: false,
     cvPath: 'assets/cv/Pham-Anh-Tuan-CV.pdf',
-    cvFileName: 'Pham-Anh-Tuan-CV.pdf'
+    cvFileName: 'Pham-Anh-Tuan-CV.pdf',
+    // Profile links: paste the full URL to show the row in Contact (null = hidden).
+    linkedinUrl: null, // e.g. 'https://www.linkedin.com/in/your-handle/'
+    githubUrl: null // e.g. 'https://github.com/TuanPhamj'
   };
 
   const REDUCED_MOTION =
@@ -75,7 +78,10 @@
     'layout-grid': '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
     'send': '<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',
     'move-horizontal': '<path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/>',
-    'shuffle': '<path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/>'
+    'shuffle': '<path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/>',
+    'link': '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+    'code-xml': '<path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/>',
+    'info': '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>'
   };
 
   const Icons = (function () {
@@ -181,7 +187,7 @@
       pageTitle: 'Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean & Data Analytics Portfolio',
       skipToContent: 'Skip to main content',
       brandHome: 'Phạm Anh Tuấn — back to top',
-      brandSub: 'IE · Planning · BI',
+      brandSub: 'Planning · Lean · BI',
       navLabel: 'Primary',
       navAbout: 'Overview',
       navProjects: 'Case Studies',
@@ -192,12 +198,12 @@
       menuToggle: 'Open navigation menu',
       menuClose: 'Close navigation menu',
       btnDownloadCv: 'Download CV',
-      btnRequestCv: 'Download CV',
+      btnRequestCv: 'Request CV',
       cvRequestSubject: 'CV request — Phạm Anh Tuấn',
 
       heroEyebrow: 'PRODUCTION PLANNING · LEAN · DATA AUTOMATION',
-      heroRole: 'Final-year student · Production Planning & Operations Analytics',
-      heroEducation: 'Ho Chi Minh City University of Technology – VNU-HCM · 2022–2026',
+      heroRole: 'Production Planning & Operations Analytics · 2 manufacturing internships',
+      heroEducation: 'BBA · School of Industrial Management, HCMUT – VNU-HCM · 2022–2026',
       heroSummary:
         'I model, schedule, and automate production lines — sequencing <strong>217 color SKUs</strong> on a <strong>4-stage line</strong> in FlexSim 3D, and replacing manual BOM reconciliation with <strong>Excel VBA &amp; Apps Script</strong> pipelines.',
       focusLabel: 'Focus areas',
@@ -210,7 +216,7 @@
       toolingLabel: 'Core stack',
 
       dossierLabel: 'Operations snapshot',
-      portraitBadge: "HCMUT '26 • IE & Data",
+      portraitBadge: "HCMUT '26 • Ops & Data",
       dossierHeader: 'OPERATIONS SNAPSHOT',
       dossierStatus: 'OPEN TO WORK · 2026',
       metric1Label: 'Color SKUs sequenced',
@@ -223,38 +229,38 @@
       metric4Label: 'OEE loss decomposition',
       metric4Sub: 'Time-study · Pareto · 5 Whys · 5S',
       metaLocationKey: 'Region',
-      regionShort: 'HCMC · Dong Nai · Binh Duong',
+      regionShort: 'HCMC (incl. former Binh Duong) · Dong Nai',
       metaEmailKey: 'Email',
 
-      simHeaderTitle: 'LIVE SHOP-FLOOR TELEMETRY // INTERACTIVE LINE FLOW',
-      simNdaBadge: 'Sanitized Mock Telemetry – NDA Compliant',
+      simHeaderTitle: 'PRJ-01 · ILLUSTRATIVE LINE MODEL // HEIJUNKA vs. RANDOM',
+      simNdaBadge: 'Illustrative values · not plant data',
       simModeGroupAria: 'Production scheduling mode',
       simModeLabel: 'Mode:',
       simModeRandom: 'Random Sequence',
       simModeHeijunka: 'Heijunka Leveled',
-      simKpiChangeoverHeijunka: 'Changeover Loss: 4.1% (-77%)',
-      simKpiChangeoverRandom: 'Changeover Loss: 18.4% (High)',
+      simKpiChangeoverHeijunka: 'Changeover: 4.1% of shift (Random: 18.4%)',
+      simKpiChangeoverRandom: 'Changeover: 18.4% of shift (High)',
       simKpiBalanceHeijunka: 'Line Balance: 94.8%',
       simKpiBalanceRandom: 'Line Balance: 72.0%',
-      simKpiStatusHeijunka: 'Status: Balanced Flow (217 SKUs)',
+      simKpiStatusHeijunka: 'Status: Constraint Protected (217 SKUs)',
       simKpiStatusRandom: 'Status: Changeover Friction',
       stage1Name: '01. Barrel Printing',
       stage1Sub: 'Heat-Transfer Foil · 217 SKUs',
-      stage1MetricHeijunka: 'Util: 95.2% · SMED Grouped',
-      stage1MetricRandom: 'Util: 81.4% · Frequent Wash',
+      stage1MetricHeijunka: 'Util: 89.2% · SMED Grouped',
+      stage1MetricRandom: 'Util: 66.3% · Frequent Wash',
       stage2Name: '02. Cap Printing',
       stage2Sub: 'Pad Printing · Batch Sync',
-      stage2MetricHeijunka: 'Util: 94.6% · Synced Takt',
-      stage2MetricRandom: 'Util: 74.8% · Color Mismatch',
+      stage2MetricHeijunka: 'Util: 87.6% · Synced Takt',
+      stage2MetricRandom: 'Util: 61.8% · Color Mismatch',
       stage3Name: '03. Cap Assembly',
       stage3Sub: 'Sub-Assembly · WIP Feeder',
-      stage3MetricHeijunka: 'Util: 94.9% · Buffer Stable',
-      stage3MetricRandom: 'Util: 68.5% · Starved / Blocked',
+      stage3MetricHeijunka: 'Util: 90.1% · Buffer Stable',
+      stage3MetricRandom: 'Util: 58.4% · Starved / Blocked',
       stage4Name: '04. Final Assembly',
       stage4Sub: 'Nib + Ink + Barrel + Cap',
-      stage4MetricHeijunka: 'Util: 94.5% · Zero Bottleneck',
+      stage4MetricHeijunka: 'Util: 95.6% · Constraint Protected',
       stage4MetricRandom: 'Util: 99.2% · BOTTLENECK QUEUE',
-      stage4AlertHeijunka: 'Flow Balanced',
+      stage4AlertHeijunka: 'Constraint · Buffered',
       stage4AlertRandom: 'Bottleneck Alert',
       wipPanelTitle: 'Dynamic WIP Safety Buffer Monitor',
       wipPanelSub: 'Inter-Stage Safety Stock & Automated BOM Replenishment',
@@ -263,19 +269,20 @@
       wipThresholdTag: 'Threshold: 1,800',
       wipSafetyMark: 'Safety Min: 1,800',
       wipSyncPillText: 'Safety Buffer Threshold -> Auto-Sync Triggered',
-      oeePanelTitle: 'Shop-Floor OEE & 5S Readiness',
-      oeePanelSub: 'Availability × Performance × Quality Decomposition',
-      oee5sBadge: '5S Audit Score: 96/100',
+      oeePanelTitle: 'OEE Loss Decomposition',
+      oeePanelSub: 'Availability × Performance × Quality',
+      oee5sBadge: 'Worked example',
       oeeRingSub: 'OEE',
-      oeeAvailLabel: 'Availability: 91.2%',
-      oeePerfLabel: 'Performance: 95.8%',
-      oeeQualLabel: 'Quality: 98.9%',
+      oeeRingAria: 'Example OEE: 76.3%',
+      oeeAvailLabel: 'Availability: 90.0%',
+      oeePerfLabel: 'Performance: 87.0%',
+      oeeQualLabel: 'Quality: 97.5%',
 
       aboutEyebrow: '01 // ENGINEERING APPROACH',
       aboutTitle: 'A Quantitative Approach to Operations',
       aboutSubhead: 'From shop-floor stopwatch to automated dashboard',
       aboutLead:
-        'Final-year HCMUT student with two manufacturing internships. I turn constrained lines and messy factory records into schedules and data that planners can trust.',
+        'HCMUT Class of 2026 (Business Administration, School of Industrial Management) with two manufacturing internships. I turn constrained lines and messy factory records into schedules and data that planners can trust.',
       aboutProof1:
         '<strong>Thien Long Group</strong> (Long Thanh Plant) &amp; <strong>Duy Tan Recycling</strong> internships',
       aboutProof2:
@@ -286,7 +293,7 @@
       step1Kicker: '01 // SHOP-FLOOR IE',
       step1Title: 'Measure & Standardize',
       step1Desc: 'Time-studies, OEE loss decomposition, 5S audits, and 5 Whys RCA at the workstation.',
-      step2Kicker: '02 // DIGITAL TWIN & DES',
+      step2Kicker: '02 // 3D SIMULATION & DES',
       step2Title: 'Model & Simulate',
       step2Desc: 'FlexSim 3D and a JavaScript DES engine to stress-test Heijunka schedules and inter-stage buffers.',
       step3Kicker: '03 // DATA PIPELINES',
@@ -320,12 +327,14 @@
       contactEyebrow: '05 // CONTACT',
       contactTitle: 'Open to Production Planning, IE & Operations Analytics Roles',
       contactDesc:
-        'Based in Ho Chi Minh City and available across Dong Nai and Binh Duong industrial zones. Reach me by email or phone / Zalo.',
+        'Based in Ho Chi Minh City and available for plants across HCMC — including the former Binh Duong industrial parks — and Dong Nai. Reach me by email or phone / Zalo.',
       btnSendEmail: 'Send Email',
       contactEmailLabel: 'Email',
       contactPhoneLabel: 'Phone / Zalo',
+      contactLinkedinLabel: 'LinkedIn',
+      contactGithubLabel: 'GitHub',
       contactLocationLabel: 'Preferred region',
-      contactLocationValue: 'Ho Chi Minh City · Dong Nai · Binh Duong',
+      contactLocationValue: 'Ho Chi Minh City (incl. former Binh Duong) · Dong Nai',
       contactEduLabel: 'University',
       contactEduValue: 'HCMUT – VNU-HCM · 2022–2026',
 
@@ -345,7 +354,7 @@
         problem: 'Bottleneck',
         methodology: 'Methodology',
         architecture: 'Architecture',
-        outcomes: 'Verified Outcomes'
+        outcomes: 'Results'
       },
       toastCopied: 'Copied phamanhtuan802@gmail.com',
       toastCopyFailed: "Couldn't copy — email: phamanhtuan802@gmail.com"
@@ -355,7 +364,7 @@
       pageTitle: 'Phạm Anh Tuấn (Tuan Pham) — Hồ sơ Hoạch định Sản xuất, Lean & Phân tích Dữ liệu',
       skipToContent: 'Chuyển đến nội dung chính',
       brandHome: 'Phạm Anh Tuấn — về đầu trang',
-      brandSub: 'IE · Hoạch định · BI',
+      brandSub: 'Hoạch định · Lean · BI',
       navLabel: 'Điều hướng chính',
       navAbout: 'Tổng quan',
       navProjects: 'Dự án',
@@ -366,12 +375,12 @@
       menuToggle: 'Mở menu điều hướng',
       menuClose: 'Đóng menu điều hướng',
       btnDownloadCv: 'Tải CV',
-      btnRequestCv: 'Tải CV',
+      btnRequestCv: 'Yêu cầu CV',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
 
       heroEyebrow: 'HOẠCH ĐỊNH SẢN XUẤT · LEAN · TỰ ĐỘNG HÓA DỮ LIỆU',
-      heroRole: 'Sinh viên năm cuối · Hoạch định Sản xuất & Phân tích Vận hành',
-      heroEducation: 'Trường Đại học Bách khoa – ĐHQG TP.HCM · 2022–2026',
+      heroRole: 'Hoạch định Sản xuất & Phân tích Vận hành · 2 kỳ thực tập nhà máy',
+      heroEducation: 'QTKD · Khoa Quản lý Công nghiệp, ĐH Bách khoa – ĐHQG TP.HCM · 2022–2026',
       heroSummary:
         'Tôi mô hình hóa, điều độ và tự động hóa dây chuyền sản xuất — điều độ <strong>217 mã màu SKU</strong> trên <strong>chuyền 4 công đoạn</strong> bằng FlexSim 3D, và thay thế đối chiếu BOM thủ công bằng luồng <strong>Excel VBA &amp; Apps Script</strong>.',
       focusLabel: 'Lĩnh vực trọng tâm',
@@ -384,7 +393,7 @@
       toolingLabel: 'Công cụ chính',
 
       dossierLabel: 'Tóm tắt chỉ số vận hành',
-      portraitBadge: "Bách Khoa '26 • IE & Data",
+      portraitBadge: "Bách Khoa '26 • Vận hành & Data",
       dossierHeader: 'CHỈ SỐ VẬN HÀNH',
       dossierStatus: 'SẴN SÀNG NHẬN VIỆC · 2026',
       metric1Label: 'Mã màu SKU được điều độ',
@@ -397,38 +406,38 @@
       metric4Label: 'Phân rã tổn thất OEE',
       metric4Sub: 'Bấm giờ · Pareto · 5 Whys · 5S',
       metaLocationKey: 'Khu vực',
-      regionShort: 'TP.HCM · Đồng Nai · Bình Dương',
+      regionShort: 'TP.HCM (gồm Bình Dương cũ) · Đồng Nai',
       metaEmailKey: 'Email',
 
-      simHeaderTitle: 'TELEMETRY XƯỞNG THỜI GIAN THỰC // LUỒNG CHUYỀN TƯƠNG TÁC',
-      simNdaBadge: 'Dữ liệu Mô phỏng đã Chuẩn hóa – Tuân thủ NDA',
+      simHeaderTitle: 'PRJ-01 · MÔ HÌNH CHUYỀN MINH HỌA // HEIJUNKA vs. NGẪU NHIÊN',
+      simNdaBadge: 'Số liệu minh họa · không phải dữ liệu nhà máy',
       simModeGroupAria: 'Chế độ điều độ sản xuất',
       simModeLabel: 'Chế độ:',
       simModeRandom: 'Điều độ Ngẫu nhiên',
       simModeHeijunka: 'Cân bằng Heijunka',
-      simKpiChangeoverHeijunka: 'Tổn thất Chuyển mã: 4.1% (-77%)',
-      simKpiChangeoverRandom: 'Tổn thất Chuyển mã: 18.4% (Cao)',
+      simKpiChangeoverHeijunka: 'Chuyển mã: 4.1% thời gian ca (Ngẫu nhiên: 18.4%)',
+      simKpiChangeoverRandom: 'Chuyển mã: 18.4% thời gian ca (Cao)',
       simKpiBalanceHeijunka: 'Cân bằng Chuyền: 94.8%',
       simKpiBalanceRandom: 'Cân bằng Chuyền: 72.0%',
-      simKpiStatusHeijunka: 'Trạng thái: Luồng Cân bằng (217 SKU)',
+      simKpiStatusHeijunka: 'Trạng thái: Đã bảo vệ điểm ràng buộc (217 SKU)',
       simKpiStatusRandom: 'Trạng thái: Nghẽn Chuyển đổi Mã',
       stage1Name: '01. In chuyển nhiệt thân',
       stage1Sub: 'Màng nhiệt · 217 mã màu SKU',
-      stage1MetricHeijunka: 'Hiệu suất: 95.2% · Gom nhóm SMED',
-      stage1MetricRandom: 'Hiệu suất: 81.4% · Đổi màu liên tục',
+      stage1MetricHeijunka: 'Hiệu suất: 89.2% · Gom nhóm SMED',
+      stage1MetricRandom: 'Hiệu suất: 66.3% · Đổi màu liên tục',
       stage2Name: '02. In nắp',
       stage2Sub: 'In tampon · Đồng bộ lô',
-      stage2MetricHeijunka: 'Hiệu suất: 94.6% · Đồng bộ nhịp Takt',
-      stage2MetricRandom: 'Hiệu suất: 74.8% · Lệch mã màu',
+      stage2MetricHeijunka: 'Hiệu suất: 87.6% · Đồng bộ nhịp Takt',
+      stage2MetricRandom: 'Hiệu suất: 61.8% · Lệch mã màu',
       stage3Name: '03. Lắp nắp',
       stage3Sub: 'Lắp cụm phụ · Cấp phôi WIP',
-      stage3MetricHeijunka: 'Hiệu suất: 94.9% · Đệm ổn định',
-      stage3MetricRandom: 'Hiệu suất: 68.5% · Chờ phôi / Ứ đọng',
+      stage3MetricHeijunka: 'Hiệu suất: 90.1% · Đệm ổn định',
+      stage3MetricRandom: 'Hiệu suất: 58.4% · Chờ phôi / Ứ đọng',
       stage4Name: '04. Lắp ráp hoàn chỉnh',
       stage4Sub: 'Ngòi + Mực + Thân + Nắp',
-      stage4MetricHeijunka: 'Hiệu suất: 94.5% · 0 Điểm nghẽn',
+      stage4MetricHeijunka: 'Hiệu suất: 95.6% · Ràng buộc được bảo vệ',
       stage4MetricRandom: 'Hiệu suất: 99.2% · NGHẼN HÀNG ĐỢI',
-      stage4AlertHeijunka: 'Luồng Cân bằng',
+      stage4AlertHeijunka: 'Ràng buộc · Có đệm',
       stage4AlertRandom: 'Cảnh báo Điểm nghẽn',
       wipPanelTitle: 'Giám sát Tồn kho Đệm WIP Động',
       wipPanelSub: 'Tồn kho Đệm Liên trạm & Tự động Bù vật tư BOM',
@@ -437,19 +446,20 @@
       wipThresholdTag: 'Ngưỡng: 1,800',
       wipSafetyMark: 'Tối thiểu: 1,800',
       wipSyncPillText: 'Chạm Ngưỡng Đệm An toàn -> Đã Kích hoạt Tự động Đồng bộ',
-      oeePanelTitle: 'Hiệu suất OEE Hiện trường & Sẵn sàng 5S',
-      oeePanelSub: 'Phân rã Khả dụng × Hiệu suất × Chất lượng',
-      oee5sBadge: 'Điểm Kiểm toán 5S: 96/100',
+      oeePanelTitle: 'Phân rã Tổn thất OEE',
+      oeePanelSub: 'Khả dụng × Hiệu suất × Chất lượng',
+      oee5sBadge: 'Ví dụ tính toán',
       oeeRingSub: 'OEE',
-      oeeAvailLabel: 'Khả dụng (Availability): 91.2%',
-      oeePerfLabel: 'Hiệu suất (Performance): 95.8%',
-      oeeQualLabel: 'Chất lượng (Quality): 98.9%',
+      oeeRingAria: 'OEE ví dụ: 76.3%',
+      oeeAvailLabel: 'Khả dụng (Availability): 90.0%',
+      oeePerfLabel: 'Hiệu suất (Performance): 87.0%',
+      oeeQualLabel: 'Chất lượng (Quality): 97.5%',
 
       aboutEyebrow: '01 // PHƯƠNG PHÁP KỸ THUẬT',
       aboutTitle: 'Tư duy Định lượng trong Vận hành',
       aboutSubhead: 'Từ đồng hồ bấm giờ tại xưởng đến dashboard tự động',
       aboutLead:
-        'Sinh viên năm cuối HCMUT với hai kỳ thực tập tại nhà máy. Tôi biến chuyền sản xuất nhiều ràng buộc và dữ liệu xưởng rời rạc thành lịch điều độ và số liệu mà kế hoạch viên có thể tin cậy.',
+        'Khóa 2022–2026 ngành Quản trị Kinh doanh (Khoa Quản lý Công nghiệp, Bách khoa) với hai kỳ thực tập tại nhà máy. Tôi biến chuyền sản xuất nhiều ràng buộc và dữ liệu xưởng rời rạc thành lịch điều độ và số liệu mà kế hoạch viên có thể tin cậy.',
       aboutProof1:
         'Thực tập tại <strong>Tập đoàn Thiên Long</strong> (Nhà máy Long Thành) &amp; <strong>Duy Tân Recycling</strong>',
       aboutProof2:
@@ -460,7 +470,7 @@
       step1Kicker: '01 // IE HIỆN TRƯỜNG',
       step1Title: 'Đo lường & Chuẩn hóa',
       step1Desc: 'Bấm giờ, phân rã tổn thất OEE, đánh giá 5S và 5 Whys RCA ngay tại trạm.',
-      step2Kicker: '02 // SONG SINH SỐ & DES',
+      step2Kicker: '02 // MÔ PHỎNG 3D & DES',
       step2Title: 'Mô hình hóa & Mô phỏng',
       step2Desc: 'FlexSim 3D và JavaScript DES engine để kiểm thử lịch Heijunka và tồn đệm liên trạm.',
       step3Kicker: '03 // LUỒNG DỮ LIỆU',
@@ -494,12 +504,14 @@
       contactEyebrow: '05 // LIÊN HỆ',
       contactTitle: 'Sẵn sàng cho vị trí Hoạch định Sản xuất, IE & Phân tích Vận hành',
       contactDesc:
-        'Sinh sống tại TP.HCM, sẵn sàng làm việc tại các khu công nghiệp Đồng Nai và Bình Dương. Liên hệ qua email hoặc điện thoại / Zalo.',
+        'Sinh sống tại TP.HCM, sẵn sàng làm việc tại các khu công nghiệp trên địa bàn TP.HCM (gồm Bình Dương cũ) và Đồng Nai. Liên hệ qua email hoặc điện thoại / Zalo.',
       btnSendEmail: 'Gửi Email',
       contactEmailLabel: 'Email',
       contactPhoneLabel: 'Điện thoại / Zalo',
+      contactLinkedinLabel: 'LinkedIn',
+      contactGithubLabel: 'GitHub',
       contactLocationLabel: 'Khu vực mong muốn',
-      contactLocationValue: 'TP. Hồ Chí Minh · Đồng Nai · Bình Dương',
+      contactLocationValue: 'TP. Hồ Chí Minh (gồm Bình Dương cũ) · Đồng Nai',
       contactEduLabel: 'Trường Đại học',
       contactEduValue: 'Bách khoa (HCMUT) – ĐHQG TP.HCM · 2022–2026',
 
@@ -519,7 +531,7 @@
         problem: 'Điểm nghẽn',
         methodology: 'Phương pháp',
         architecture: 'Kiến trúc',
-        outcomes: 'Kết quả kiểm chứng'
+        outcomes: 'Kết quả'
       },
       toastCopied: 'Đã sao chép phamanhtuan802@gmail.com',
       toastCopyFailed: 'Không thể sao chép — email: phamanhtuan802@gmail.com'
@@ -554,15 +566,15 @@
         kpis: [
           { v: '217', l: 'color SKUs sequenced' },
           { v: '4-stage', l: 'line balanced' },
-          { v: '0', l: 'simulated bottleneck queues' }
+          { v: '0', l: 'Kanban buffer overflows (simulated)' }
         ],
         cardBullets: [
           'Modeled a <strong>4-stage sequential Art Marker line</strong> — barrel printing → cap printing → cap assembly → final assembly — in <strong>FlexSim 3D</strong> and a custom <strong>JS DES engine</strong>.',
           'Sequenced <strong>217 color SKUs</strong> with <strong>Heijunka</strong> leveling and <strong>SMED</strong> color-family grouping to cut changeover loss.',
-          'Capped inter-stage <strong>Kanban buffers</strong> — <strong>0 bottleneck queues</strong> across simulated shifts.'
+          'Identified <strong>final assembly</strong> as the constraint and protected it with capped <strong>Kanban buffers</strong> — <strong>0 buffer overflows</strong> across simulated shifts.'
         ],
         executiveTakeaway:
-          'Synchronized a <strong>4-stage Art Marker line</strong> across <strong>217 color SKUs</strong> by pairing a <strong>FlexSim 3D</strong> digital twin with a browser-based <strong>JavaScript DES scheduler</strong> — no inter-stage WIP build-up in simulated shifts, and a standardized Heijunka changeover sequence planners can reuse.',
+          'Synchronized a <strong>4-stage Art Marker line</strong> across <strong>217 color SKUs</strong> by pairing a <strong>FlexSim 3D</strong> simulation model with a browser-based <strong>JavaScript DES scheduler</strong> — the final-assembly constraint stays fed without inter-stage WIP build-up in simulated shifts, and planners get a standardized Heijunka changeover sequence they can reuse.',
         sections: {
           problem: [
             '4 sequential workcenters: barrel heat-transfer printing, cap printing, cap assembly, final assembly.',
@@ -572,7 +584,7 @@
           methodology: [
             'Heijunka level-scheduling with SMED color-family clustering.',
             'Multi-stage line balancing against takt time.',
-            'FlexSim 3D digital twin + browser-native JavaScript DES engine for fast what-if runs.'
+            'FlexSim 3D simulation model + browser-native JavaScript DES engine for fast what-if runs.'
           ],
           architecture: [
             'Sequencing rule orders 217 SKUs to minimize shade-transition setups while smoothing shift volume.',
@@ -580,7 +592,7 @@
             'Kanban buffer caps between stages keep downstream stations fed but never flooded.'
           ],
           outcomes: [
-            'Synchronized 4-stage schedule covering all 217 SKUs with 0 bottleneck queues in simulated shifts.',
+            'Synchronized 4-stage schedule covering all 217 SKUs — final-assembly constraint protected, 0 buffer overflows in simulated shifts.',
             'Standardized inter-stage safety-buffer thresholds.',
             'Interactive web scheduler for planners, cross-validated against the FlexSim 3D model.'
           ]
@@ -592,15 +604,15 @@
         kpis: [
           { v: '217', l: 'mã màu SKU được điều độ' },
           { v: '4', l: 'công đoạn được cân bằng' },
-          { v: '0', l: 'hàng chờ nghẽn (mô phỏng)' }
+          { v: '0', l: 'lần tràn tồn đệm Kanban (mô phỏng)' }
         ],
         cardBullets: [
           'Mô hình hóa <strong>chuyền Art Marker 4 công đoạn nối tiếp</strong> — in thân → in nắp → lắp nắp → lắp ráp hoàn chỉnh — trên <strong>FlexSim 3D</strong> và <strong>JS DES engine</strong> tự phát triển.',
           'Điều độ <strong>217 mã màu SKU</strong> theo <strong>Heijunka</strong> và gom nhóm màu <strong>SMED</strong> để giảm tổn thất chuyển đổi.',
-          'Giới hạn <strong>tồn đệm Kanban</strong> liên trạm — <strong>0 hàng chờ nghẽn</strong> trong các ca mô phỏng.'
+          'Xác định <strong>lắp ráp hoàn chỉnh</strong> là điểm ràng buộc và bảo vệ bằng <strong>tồn đệm Kanban</strong> có giới hạn — <strong>0 lần tràn đệm</strong> trong các ca mô phỏng.'
         ],
         executiveTakeaway:
-          'Đồng bộ <strong>chuyền Art Marker 4 công đoạn</strong> cho <strong>217 mã màu SKU</strong> bằng song sinh số <strong>FlexSim 3D</strong> kết hợp <strong>bộ điều độ JavaScript DES</strong> chạy trên web — không dồn ứ WIP liên trạm trong các ca mô phỏng, cùng trình tự chuyển đổi màu Heijunka chuẩn hóa để kế hoạch viên tái sử dụng.',
+          'Đồng bộ <strong>chuyền Art Marker 4 công đoạn</strong> cho <strong>217 mã màu SKU</strong> bằng mô hình mô phỏng <strong>FlexSim 3D</strong> kết hợp <strong>bộ điều độ JavaScript DES</strong> chạy trên web — điểm ràng buộc ở lắp ráp hoàn chỉnh luôn đủ hàng mà không dồn ứ WIP liên trạm trong các ca mô phỏng, cùng trình tự chuyển đổi màu Heijunka chuẩn hóa để kế hoạch viên tái sử dụng.',
         sections: {
           problem: [
             '4 công đoạn nối tiếp: in chuyển nhiệt thân, in nắp, lắp nắp, lắp ráp hoàn chỉnh.',
@@ -610,7 +622,7 @@
           methodology: [
             'Điều độ san bằng Heijunka kết hợp gom nhóm màu SMED.',
             'Cân bằng chuyền đa công đoạn theo nhịp takt.',
-            'Song sinh số FlexSim 3D + JavaScript DES engine chạy trên trình duyệt để thử nhanh kịch bản.'
+            'Mô hình mô phỏng FlexSim 3D + JavaScript DES engine chạy trên trình duyệt để thử nhanh kịch bản.'
           ],
           architecture: [
             'Quy tắc sắp xếp 217 SKU giảm thiểu chuyển đổi sắc độ màu, đồng thời san đều sản lượng theo ca.',
@@ -618,7 +630,7 @@
             'Ngưỡng tồn đệm Kanban liên trạm giữ trạm sau luôn đủ hàng nhưng không bị dồn ứ.'
           ],
           outcomes: [
-            'Lịch điều độ đồng bộ 4 công đoạn cho toàn bộ 217 SKU, 0 hàng chờ nghẽn trong các ca mô phỏng.',
+            'Lịch điều độ đồng bộ 4 công đoạn cho toàn bộ 217 SKU — bảo vệ điểm ràng buộc ở lắp ráp hoàn chỉnh, 0 lần tràn đệm trong các ca mô phỏng.',
             'Chuẩn hóa ngưỡng tồn đệm an toàn giữa các trạm.',
             'Bàn giao công cụ điều độ web tương tác, đã đối chiếu với mô hình FlexSim 3D.'
           ]
@@ -876,7 +888,7 @@
         type: 'Internship',
         bullets: [
           'Modeled a <strong>4-stage Art Marker line</strong> in <strong>FlexSim 3D</strong> and a custom <strong>JavaScript DES engine</strong> to validate shift capacity and line balance.',
-          'Sequenced <strong>217 color SKUs</strong> with <strong>Heijunka &amp; SMED grouping</strong> — <strong>0 bottleneck queues</strong> in simulated shifts.',
+          'Sequenced <strong>217 color SKUs</strong> with <strong>Heijunka &amp; SMED grouping</strong> — final-assembly constraint protected, <strong>0 buffer overflows</strong> in simulated shifts.',
           'Automated <strong>100% of BOM explosion</strong> (ink kg → units) and real-time WIP shortage alerts with <strong>Excel VBA, Power Query, Apps Script &amp; SQL</strong>.'
         ]
       },
@@ -886,7 +898,7 @@
         type: 'Thực tập',
         bullets: [
           'Mô hình hóa <strong>chuyền Art Marker 4 công đoạn</strong> trên <strong>FlexSim 3D</strong> và <strong>JavaScript DES engine</strong> tự phát triển để kiểm chứng công suất ca và cân bằng chuyền.',
-          'Điều độ <strong>217 mã màu SKU</strong> theo <strong>Heijunka &amp; gom nhóm SMED</strong> — <strong>0 hàng chờ nghẽn</strong> trong các ca mô phỏng.',
+          'Điều độ <strong>217 mã màu SKU</strong> theo <strong>Heijunka &amp; gom nhóm SMED</strong> — bảo vệ điểm ràng buộc ở lắp ráp hoàn chỉnh, <strong>0 lần tràn đệm</strong> trong các ca mô phỏng.',
           'Tự động <strong>100% bóc tách BOM</strong> (kg mực → sản phẩm) và cảnh báo thiếu hụt WIP tức thời bằng <strong>Excel VBA, Power Query, Apps Script &amp; SQL</strong>.'
         ]
       }
@@ -945,7 +957,7 @@
       cases: [],
       en: {
         role: 'Bachelor of Business Administration',
-        org: 'Ho Chi Minh City University of Technology – VNU-HCM',
+        org: 'School of Industrial Management · Ho Chi Minh City University of Technology – VNU-HCM',
         type: 'Education',
         bullets: [
           'Focus: <strong>Production Planning &amp; Scheduling</strong>, <strong>Lean Manufacturing</strong>, <strong>Operations Research</strong>, and <strong>Quantitative Data Analytics</strong>.'
@@ -953,7 +965,7 @@
       },
       vi: {
         role: 'Cử nhân Quản trị Kinh doanh',
-        org: 'Trường Đại học Bách khoa – ĐHQG TP.HCM',
+        org: 'Khoa Quản lý Công nghiệp · Trường Đại học Bách khoa – ĐHQG TP.HCM',
         type: 'Học vấn',
         bullets: [
           'Trọng tâm: <strong>Hoạch định &amp; Điều độ Sản xuất</strong>, <strong>Sản xuất Tinh gọn (Lean)</strong>, <strong>Vận trù học</strong> và <strong>Phân tích Dữ liệu Định lượng</strong>.'
@@ -1909,8 +1921,18 @@
      14. Language switching
      ======================================================================== */
   function applyCvState() {
+    // Icon matches the action: a file download when the PDF exists, an email otherwise.
+    const iconName = ASSETS.cvAvailable ? 'file-down' : 'mail';
     document.querySelectorAll('[data-cv-link]').forEach((link) => {
       const label = link.querySelector('[data-i18n]');
+      const icon = link.querySelector('[data-cv-icon]');
+      if (icon && icon.getAttribute('data-cv-icon') !== iconName) {
+        const fresh = document.createElement('i');
+        fresh.setAttribute('data-lucide', iconName);
+        fresh.setAttribute('data-cv-icon', iconName);
+        fresh.className = 'icon-sm';
+        icon.replaceWith(fresh);
+      }
       if (ASSETS.cvAvailable) {
         link.setAttribute('href', ASSETS.cvPath);
         link.setAttribute('download', ASSETS.cvFileName);
@@ -1920,6 +1942,24 @@
         link.setAttribute('href', `mailto:${EMAIL_ADDRESS}?subject=${subject}`);
         link.removeAttribute('download');
         if (label) label.setAttribute('data-i18n', 'btnRequestCv');
+      }
+    });
+  }
+
+  /** Show the LinkedIn / GitHub rows in Contact only once a URL is configured in ASSETS. */
+  function applyProfileLinks() {
+    [
+      ['contact-linkedin', ASSETS.linkedinUrl],
+      ['contact-github', ASSETS.githubUrl]
+    ].forEach(([id, url]) => {
+      const row = $(id);
+      if (!row) return;
+      const valid = typeof url === 'string' && /^https:\/\//.test(url);
+      row.hidden = !valid;
+      const anchor = row.querySelector('a');
+      if (valid && anchor) {
+        anchor.href = url;
+        anchor.textContent = url.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, '');
       }
     });
   }
@@ -2010,7 +2050,8 @@
       el.textContent = t(i18nKey);
     });
 
-    const stageWidths = isRandom ? [81.4, 74.8, 68.5, 99.2] : [95.2, 94.6, 94.9, 94.5];
+    // Line balance KPI = mean / max of these (Heijunka 94.8%, Random 72.0%).
+    const stageWidths = isRandom ? [66.3, 61.8, 58.4, 99.2] : [89.2, 87.6, 90.1, 95.6];
     stageWidths.forEach((w, idx) => {
       const fill = $(`stage-fill-${idx + 1}`);
       if (fill) fill.style.width = `${w}%`;
@@ -2341,9 +2382,19 @@
       savedLang = 'en';
     }
 
+    // A shared link such as ?lang=vi opens in that language (overrides the stored choice).
+    let urlLang = null;
+    try {
+      urlLang = new URLSearchParams(window.location.search).get('lang');
+    } catch (_) {
+      urlLang = null;
+    }
+    if (urlLang === 'vi' || urlLang === 'en') savedLang = urlLang;
+
     Reveal.init();
     renderFilterCounts();
     bindEvents();
+    applyProfileLinks();
     setLanguage(savedLang, { persist: false, initial: true });
     initHeroCountUp();
     initWipBufferMonitor();
