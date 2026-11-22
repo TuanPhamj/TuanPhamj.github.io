@@ -2151,17 +2151,6 @@ svg.lucide {
    Project Visuals — animated mini-charts (SMED · OEE · Gantt · QR flow)
    ========================================================================== */
 
-.project-visual {
-  margin-bottom: 2px;
-}
-
-/* Reserve the chart's height before it is hydrated (no layout shift) */
-.project-visual.is-pending {
-  min-height: 140px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  background: linear-gradient(180deg, var(--surface-subtle) 0%, var(--bg-alt) 100%);
-}
 
 .viz {
   position: relative;
@@ -2177,9 +2166,9 @@ svg.lucide {
   overflow: hidden;
 }
 
-.viz.no-anim *,
-.viz.no-anim *::before,
-.viz.no-anim *::after {
+.no-anim *,
+.no-anim *::before,
+.no-anim *::after {
   animation: none !important;
   transition: none !important;
 }
@@ -2933,7 +2922,6 @@ svg.lucide {
 }
 
 /* Narrow containers (phone cards / phone modal): stack OEE bars, tighten QR labels */
-.project-visual,
 .modal-viz-stage {
   container-type: inline-size;
 }
@@ -2985,6 +2973,260 @@ svg.lucide {
     max-width: 74px;
     font-size: 0.62rem;
   }
+}
+
+/* ==========================================================================
+   Project cover — window-framed thumbnail, KPI chip, before/after wipe
+   ========================================================================== */
+
+.project-cover {
+  margin: 0 0 2px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  background-color: var(--surface);
+  overflow: hidden;
+}
+
+.cover-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 64px;
+  background-color: #F1F5F9;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.cover-dots {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  display: inline-flex;
+  gap: 6px;
+  transform: translateY(-50%);
+}
+
+.cover-dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #FF5F57;
+}
+
+.cover-dots i:nth-child(2) {
+  background-color: #FEBC2E;
+}
+
+.cover-dots i:nth-child(3) {
+  background-color: #28C840;
+}
+
+.cover-label {
+  max-width: 100%;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cover-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--bg-alt);
+}
+
+.cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 900ms var(--ease-out),
+    opacity 600ms ease;
+}
+
+/* Before / after split with a wipe-in "after" half */
+.cover-split {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  transition:
+    transform 900ms var(--ease-out),
+    opacity 600ms ease;
+}
+
+.cover-half {
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-mask,
+.cover-mask-inner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transition: transform 900ms var(--ease-in-out) 450ms;
+}
+
+.cover-mask {
+  border-left: 2px solid #FFFFFF;
+}
+
+.cover-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(15, 23, 42, 0.74);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.cover-tag.is-after {
+  background-color: var(--viz-good);
+}
+
+.cover-live {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
+  color: var(--text-heading);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.cover-live i {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--status-live);
+}
+
+.cover-live i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--status-live);
+  animation: livePulse 2.4s var(--ease-out) 3;
+}
+
+.cover-kpi {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  max-width: calc(100% - 20px);
+  padding: 6px 11px;
+  border-radius: var(--radius-sm);
+  background-color: rgba(15, 23, 42, 0.78);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  transition:
+    opacity 420ms ease 300ms,
+    transform 520ms var(--ease-out) 300ms;
+}
+
+.cover-kpi b {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cover-kpi > span {
+  overflow: hidden;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Pre-reveal state (removed by .is-on) */
+.project-cover:not(.is-on) .cover-img,
+.project-cover:not(.is-on) .cover-split {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+.project-cover:not(.is-on) .cover-mask {
+  transform: translate3d(100%, 0, 0);
+}
+
+.project-cover:not(.is-on) .cover-mask-inner {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.project-cover:not(.is-on) .cover-kpi {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+}
+
+.project-cover .cover-split .cover-img {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hover: slow push-in on the image */
+.project-card:hover .project-cover.is-on .cover-media > .cover-img,
+.project-card:hover .project-cover.is-on .cover-split {
+  transform: scale(1.035);
+  transition-duration: 1200ms;
+}
+
+@media (max-width: 480px) {
+  .cover-bar {
+    justify-content: flex-start;
+    padding: 0 12px 0 56px;
+  }
+}
+
+/* Tool icons inside chips */
+.tool-chip,
+.tech-tag,
+.case-part-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tool-ico {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.tool-ico.is-line {
+  color: var(--accent-sky-ink);
 }
 
 /* Card footer: grouped right-side actions (photos chip, GitHub, live demo) */
