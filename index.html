@@ -47,7 +47,7 @@
 
   <!-- Lucide icons (CDN). script.js falls back to an inline SVG icon set if offline or blocked. -->
   <script
-    src="https://unpkg.com/lucide@latest"
+    src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"
     async
     onload="window.__lucideState='ready'; window.__onLucideReady && window.__onLucideReady();"
     onerror="window.__lucideState='error'; window.__onLucideError && window.__onLucideError();"
@@ -69,7 +69,7 @@
       <a href="#top" class="brand" data-i18n-attr="aria-label:brandHome" aria-label="Phạm Anh Tuấn — về đầu trang">
         <img
           src="assets/images/avatar.jpg"
-          alt="Phạm Anh Tuấn"
+          alt=""
           class="nav-avatar"
           width="34"
           height="34"
@@ -98,8 +98,8 @@
           <span class="lang-globe" id="lang-globe" aria-hidden="true">
             <i data-lucide="globe" class="icon-xs"></i>
           </span>
-          <button type="button" class="lang-btn is-active" id="lang-btn-vi" data-lang="vi" aria-pressed="true" aria-label="Tiếng Việt" lang="vi">VI</button>
-          <button type="button" class="lang-btn" id="lang-btn-en" data-lang="en" aria-pressed="false" aria-label="English" lang="en">EN</button>
+          <button type="button" class="lang-btn is-active" id="lang-btn-vi" data-lang="vi" aria-pressed="true" aria-label="VI — Tiếng Việt" lang="vi">VI</button>
+          <button type="button" class="lang-btn" id="lang-btn-en" data-lang="en" aria-pressed="false" aria-label="EN — English" lang="en">EN</button>
         </div>
 
         <div class="header-quick-contact" role="group" data-i18n-attr="aria-label:quickContactLabel" aria-label="Liên hệ nhanh">
@@ -247,16 +247,16 @@
           <!-- Bento Card 1: Profile, Readiness & Shop-Floor Experience -->
           <article class="bento-card bento-profile reveal-item">
             <div class="profile-top">
-              <p class="eyebrow-code" data-i18n="overviewEyebrow">01 // GIỚI THIỆU &amp; KINH NGHIỆM THỰC TẾ</p>
+              <p class="eyebrow-code hero-seq" style="--seq:0" data-i18n="overviewEyebrow">01 // GIỚI THIỆU &amp; KINH NGHIỆM THỰC TẾ</p>
 
-              <h1 class="hero-title" id="hero-name-heading" data-i18n="heroName">Phạm Anh Tuấn</h1>
+              <h1 class="hero-title hero-seq" style="--seq:1" id="hero-name-heading" data-i18n="heroName">Phạm Anh Tuấn</h1>
 
-              <p class="hero-tagline" data-i18n="heroTagline">
+              <p class="hero-tagline hero-seq" style="--seq:2" data-i18n="heroTagline">
                 Kế hoạch &amp; Điều độ Sản xuất (Production Planning) · Cải tiến Lean &amp; OEE · Phân tích Dữ liệu Vận hành
               </p>
 
-              <p class="status-pill">
-                <i data-lucide="circle-check" class="icon-xs"></i>
+              <p class="status-pill hero-seq" style="--seq:3" data-loop>
+                <span class="status-dot" aria-hidden="true"></span>
                 <span data-i18n="heroStatus">Sẵn sàng nhận việc Full-time ngay · TP.HCM · Đồng Nai · Bình Dương</span>
               </p>
             </div>
@@ -567,6 +567,12 @@
             </div>
           </div>
 
+          <figure class="modal-viz" id="modal-viz" hidden>
+            <p class="modal-viz-kicker" data-i18n="modalVizKicker">TRỰC QUAN HÓA</p>
+            <div class="modal-viz-stage" id="modal-viz-stage"></div>
+            <figcaption class="modal-viz-source" id="modal-viz-source"></figcaption>
+          </figure>
+
           <div class="modal-external-row" id="modal-external-row" hidden>
             <a
               href="#"
@@ -586,6 +592,12 @@
 
           <!-- 4-Part Structured Engineering Breakdown -->
           <div class="modal-sections-grid" id="modal-sections-grid"></div>
+
+          <!-- On-site photos (only for projects with a gallery) -->
+          <section class="modal-gallery" id="modal-gallery" aria-labelledby="modal-gallery-title" hidden>
+            <h3 class="modal-gallery-kicker" id="modal-gallery-title" data-i18n="modalGalleryKicker">HÌNH ẢNH TRIỂN KHAI</h3>
+            <div class="modal-gallery-grid" id="modal-gallery-grid"></div>
+          </section>
         </div>
       </div>
 

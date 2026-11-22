@@ -2,7 +2,8 @@
  * Phạm Anh Tuấn — Production Planning, Lean & Operations Analytics Portfolio
  * Bilingual engine (VI default | EN), Lucide icon layer with inline fallback,
  * scroll reveal, reading progress + ScrollSpy, clipboard copy with toast,
- * and accessible 4-part project detail modal.
+ * animated project mini-charts (SMED · OEE · Gantt · QR flow), and an
+ * accessible 4-part project detail modal with on-site photo gallery.
  */
 (function () {
   'use strict';
@@ -57,7 +58,8 @@
     'building-2': '<path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/>',
     'wrench': '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/>',
     'package-check': '<path d="m16 16 2 2 4-4"/><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"/><path d="m7.5 4.27 9 5.15"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" x2="12" y1="22" y2="12"/>',
-    'clipboard-list': '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>'
+    'clipboard-list': '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
+    'images': '<path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.296-1.296a2.41 2.41 0 0 0-3.408 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/>'
   };
 
   const Icons = (function () {
@@ -232,6 +234,40 @@
         deliverables: 'Sản phẩm đầu ra',
         results: 'Kết quả đạt được'
       },
+      modalVizKicker: 'TRỰC QUAN HÓA',
+      modalGalleryKicker: 'HÌNH ẢNH TRIỂN KHAI',
+      modalGalleryOpen: 'Mở ảnh kích thước đầy đủ',
+      cardPhotos: 'ảnh thực tế',
+
+      vizSmedNow: 'Hiện trạng',
+      vizSmedTarget: 'Mục tiêu SMED',
+      vizSmedInternal: 'Dừng máy (Internal)',
+      vizSmedExternal: 'Chuẩn bị song song (External)',
+      vizSmedSteps: '11 → 9 thao tác dừng máy',
+      vizSmedAria:
+        'Đề xuất SMED đổi màu mực: thời gian dừng máy từ khoảng 16,5 phút xuống mục tiêu 10 phút trở xuống; số thao tác khi dừng máy từ 11 còn 9.',
+      vizSmedSource: 'Nguồn: Đề xuất SMED chuyển đổi màu mực – máy lắp ráp bút Art DTM (07/2026). Số liệu sau cải tiến là mục tiêu.',
+
+      vizOeeA: 'Sẵn sàng (A)',
+      vizOeeP: 'Hiệu suất (P)',
+      vizOeeQ: 'Chất lượng (Q)',
+      vizOeeWorld: 'Chuẩn thế giới ≥ 85%',
+      vizOeeAria:
+        'OEE máy tạo hạt HDPE xưởng F2: Sẵn sàng 79,78%, Hiệu suất 60%, Chất lượng 85%, OEE khoảng 40% so với chuẩn thế giới 85%.',
+      vizOeeSource: 'Nguồn: Báo cáo thực tập “Đánh giá chỉ số OEE của máy tạo hạt” – DUYTAN Recycling, xưởng F2 (08/2025).',
+
+      vizGanttLot: 'Lô sản xuất',
+      vizGanttChange: 'Đổi mã (SMED)',
+      vizGanttAria:
+        'Biểu đồ Gantt mô phỏng lịch chạy song song 3 máy cho 217 SKU: các lô được san đều theo Heijunka, xen giữa là khoảng đổi mã SMED.',
+      vizGanttSource: 'Mô phỏng minh họa — tham số nhà máy đã được ẩn danh.',
+
+      vizQrScan: 'Quét QR tại chuyền',
+      vizQrSheet: 'Google Sheets',
+      vizQrDash: 'Dashboard OEE',
+      vizQrAria:
+        'Luồng dữ liệu tự động: quét mã QR tại chuyền đóng gói, ghi vào Google Sheets, tổng hợp lên Dashboard OEE giao diện tối.',
+      vizQrSource: 'Mô phỏng minh họa luồng QR → Google Sheets → Dashboard OEE.',
 
       footerCopy: '© 2026 Phạm Anh Tuấn · Kế hoạch Sản xuất · Lean · Phân tích Dữ liệu Vận hành',
       footerNavLabel: 'Liên kết chân trang',
@@ -321,6 +357,40 @@
         deliverables: 'Deliverables',
         results: 'Key Outcomes'
       },
+      modalVizKicker: 'AT A GLANCE',
+      modalGalleryKicker: 'ON-SITE DELIVERABLES',
+      modalGalleryOpen: 'Open full-size image',
+      cardPhotos: 'on-site photos',
+
+      vizSmedNow: 'Current',
+      vizSmedTarget: 'SMED target',
+      vizSmedInternal: 'Machine stopped (Internal)',
+      vizSmedExternal: 'Prepared in parallel (External)',
+      vizSmedSteps: '11 → 9 stopped-machine steps',
+      vizSmedAria:
+        'SMED ink-color changeover proposal: machine downtime cut from about 16.5 minutes to a target of 10 minutes or less; stopped-machine steps reduced from 11 to 9.',
+      vizSmedSource: 'Source: SMED ink-color changeover proposal – Art DTM marker assembly machine (07/2026). Post-improvement figures are targets.',
+
+      vizOeeA: 'Availability (A)',
+      vizOeeP: 'Performance (P)',
+      vizOeeQ: 'Quality (Q)',
+      vizOeeWorld: 'World-class ≥ 85%',
+      vizOeeAria:
+        'OEE of the HDPE pelletizing machine in workshop F2: Availability 79.78%, Performance 60%, Quality 85%, OEE about 40% versus the 85% world-class benchmark.',
+      vizOeeSource: 'Source: internship report “OEE Evaluation of the Pelletizing Machine” – DUYTAN Recycling, workshop F2 (08/2025).',
+
+      vizGanttLot: 'Production lot',
+      vizGanttChange: 'Changeover (SMED)',
+      vizGanttAria:
+        'Simulated Gantt chart of a 3-machine parallel schedule for 217 SKUs: lots leveled with Heijunka, separated by SMED changeover gaps.',
+      vizGanttSource: 'Illustrative simulation — plant parameters anonymized.',
+
+      vizQrScan: 'QR scan on the line',
+      vizQrSheet: 'Google Sheets',
+      vizQrDash: 'OEE Dashboard',
+      vizQrAria:
+        'Automated data flow: QR codes scanned on the packaging line, logged to Google Sheets, and rolled up into a dark-mode OEE dashboard.',
+      vizQrSource: 'Illustrative simulation of the QR → Google Sheets → OEE Dashboard flow.',
 
       footerCopy: '© 2026 Pham Anh Tuan · Production Planning · Lean · Operations Analytics',
       footerNavLabel: 'Footer navigation',
@@ -342,6 +412,7 @@
       code: 'PRJ-01',
       timeframe: '05/2026 – 11/2026',
       repoUrl: null,
+      visual: 'smed',
       tools: [
         'SAP Logon (MM/PP, MB52, COGI)',
         'SMED',
@@ -386,6 +457,35 @@
       code: 'PRJ-02',
       timeframe: '06/2025 – 08/2025',
       repoUrl: null,
+      visual: 'oee',
+      gallery: [
+        {
+          src: 'assets/images/projects/prj-02-f2-signage-mockup.webp',
+          width: 1280,
+          height: 905,
+          vi: {
+            alt: 'Phối cảnh hệ thống poster truyền thông nội bộ 5S và an toàn lao động gắn trên cột xưởng F2, DUYTAN Recycling',
+            caption: 'Đề xuất truyền thông nội bộ 5S & an toàn — phối cảnh tại xưởng F2'
+          },
+          en: {
+            alt: 'Mock-up of 5S and workplace-safety internal communication posters mounted on the columns of workshop F2, DUYTAN Recycling',
+            caption: '5S & safety internal communication proposal — workshop F2 mock-up'
+          }
+        },
+        {
+          src: 'assets/images/projects/prj-02-posters-onsite.webp',
+          width: 1280,
+          height: 960,
+          vi: {
+            alt: 'Ba bảng truyền thông về phân loại nhựa và sản xuất an toàn đã in, đặt cạnh dây chuyền tại nhà máy DUYTAN Recycling',
+            caption: 'Bảng truyền thông phân loại nhựa & an toàn đã in và đặt tại xưởng'
+          },
+          en: {
+            alt: 'Three printed boards on plastic sorting and production safety placed beside the line at the DUYTAN Recycling plant',
+            caption: 'Plastic-sorting & safety boards printed and placed on the shop floor'
+          }
+        }
+      ],
       tools: [
         'OEE (Availability · Performance · Quality)',
         'Cycle Time Study',
@@ -428,6 +528,7 @@
       id: 'project-3',
       code: 'PRJ-03',
       timeframe: '11/2026',
+      visual: 'gantt',
       repoUrl: 'https://github.com/TuanPhamJ/Production_Scheduler',
       repoText: 'TuanPhamJ/Production_Scheduler',
       tools: [
@@ -476,6 +577,7 @@
       code: 'PRJ-04',
       timeframe: '07/2026 & 10/2026 – 11/2026',
       repoUrl: null,
+      visual: 'qr',
       tools: [
         'Google Forms',
         'Google Sheets (Dynamic Arrays, Apps Script)',
@@ -530,6 +632,7 @@
   let modalNavBusy = false;
   let globeTurns = 0;
   let scrollTicking = false;
+  let suppressVizReplay = false;
 
   const $ = (id) => document.getElementById(id);
 
@@ -562,6 +665,11 @@
     modalExternalLink: $('modal-external-link'),
     modalExternalLabel: $('modal-external-label'),
     modalSections: $('modal-sections-grid'),
+    modalViz: $('modal-viz'),
+    modalVizStage: $('modal-viz-stage'),
+    modalVizSource: $('modal-viz-source'),
+    modalGallery: $('modal-gallery'),
+    modalGalleryGrid: $('modal-gallery-grid'),
     modalCloseBtn: $('modal-close-btn'),
     modalPrevBtn: $('modal-prev-btn'),
     modalNextBtn: $('modal-next-btn'),
@@ -632,6 +740,8 @@
     show(el, delay) {
       el.style.setProperty('--reveal-delay', `${delay}ms`);
       el.classList.add('is-visible');
+      const viz = hydrateViz(el);
+      if (viz && !viz.classList.contains('is-on')) window.setTimeout(() => Viz.play(viz), delay + 240);
       window.setTimeout(() => {
         el.classList.add('reveal-done');
         el.style.removeProperty('--reveal-delay');
@@ -642,6 +752,8 @@
       (root || document).querySelectorAll('.reveal-item:not(.is-visible)').forEach((el) => {
         if (this.disabled) {
           el.classList.add('is-visible', 'reveal-done');
+          const viz = hydrateViz(el);
+          if (viz && !viz.classList.contains('is-on')) Viz.play(viz, { instant: true });
         } else {
           this.observer.observe(el);
         }
@@ -652,6 +764,275 @@
   function revealClassFor(container) {
     return container && container.querySelector('.reveal-item.is-visible') ? ' is-visible reveal-done' : '';
   }
+
+  /* ========================================================================
+     5b. Project Visuals — animated mini-charts built from real project data
+         (SMED changeover, OEE A×P×Q, Heijunka Gantt, QR → Sheets → Dashboard).
+         Markup always carries the final values, so reduced motion / instant
+         renders are correct; animation only adds the build-up.
+     ======================================================================== */
+  const NUM_LOCALE = { vi: 'vi-VN', en: 'en-US' };
+
+  const VIZ_META = {
+    smed: { aria: 'vizSmedAria', source: 'vizSmedSource' },
+    oee: { aria: 'vizOeeAria', source: 'vizOeeSource' },
+    gantt: { aria: 'vizGanttAria', source: 'vizGanttSource' },
+    qr: { aria: 'vizQrAria', source: 'vizQrSource' }
+  };
+
+  function formatNumber(value, decimals) {
+    return Number(value).toLocaleString(NUM_LOCALE[currentLang] || 'en-US', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+  }
+
+  function countSpan(to, opts) {
+    const o = opts || {};
+    const decimals = o.decimals || 0;
+    const prefix = o.prefix || '';
+    const suffix = o.suffix || '';
+    return `<span class="viz-num" data-count-to="${to}" data-decimals="${decimals}" data-prefix="${escapeHtml(prefix)}" data-suffix="${escapeHtml(suffix)}" data-count-delay="${o.delay || 0}" data-count-dur="${o.dur || 900}">${escapeHtml(prefix + formatNumber(to, decimals) + suffix)}</span>`;
+  }
+
+  function vizSmed() {
+    const scale = 26;
+    const pct = (min) => `${((min / scale) * 100).toFixed(2)}%`;
+    return `
+      <div class="smed-row">
+        <span class="smed-label">${escapeHtml(t('vizSmedNow'))}</span>
+        <div class="smed-track">
+          <span class="smed-seg is-ext" style="left:0;width:${pct(8)}"></span>
+          <span class="smed-seg is-int is-before" style="left:${pct(8)};width:${pct(16.5)}"></span>
+        </div>
+        <span class="smed-value">≈${formatNumber(16.5, 1)}′</span>
+      </div>
+      <div class="smed-row">
+        <span class="smed-label">${escapeHtml(t('vizSmedTarget'))}</span>
+        <div class="smed-track">
+          <span class="smed-seg is-ext is-late" style="left:0;width:${pct(7.5)}"></span>
+          <span class="smed-seg is-int is-after" style="left:${pct(7.5)};width:${pct(10)}"></span>
+        </div>
+        <span class="smed-value is-target">
+          <span class="smed-value-from">${formatNumber(16.5, 1)}′</span>
+          <span class="smed-value-to">≤10′</span>
+        </span>
+      </div>
+      <div class="viz-legend">
+        <span class="legend-item"><i class="legend-swatch is-int"></i>${escapeHtml(t('vizSmedInternal'))}</span>
+        <span class="legend-item"><i class="legend-swatch is-ext"></i>${escapeHtml(t('vizSmedExternal'))}</span>
+        <span class="viz-pill">${escapeHtml(t('vizSmedSteps'))}</span>
+      </div>`;
+  }
+
+  function vizOee() {
+    const r = 34;
+    const circ = 2 * Math.PI * r;
+    const a = 79.78;
+    const p = 60;
+    const q = 85;
+    const oee = (a / 100) * (p / 100) * (q / 100);
+    const bars = [
+      ['vizOeeA', a, 2],
+      ['vizOeeP', p, 0],
+      ['vizOeeQ', q, 0]
+    ];
+    return `
+      <div class="oee-ring">
+        <svg viewBox="0 0 84 84" aria-hidden="true" focusable="false">
+          <circle class="oee-ring-track" cx="42" cy="42" r="${r}"></circle>
+          <circle class="oee-ring-fill" cx="42" cy="42" r="${r}" stroke-dasharray="${circ.toFixed(2)}" style="--c:${circ.toFixed(2)};--off:${(circ * (1 - oee)).toFixed(2)}"></circle>
+          <line class="oee-ring-tick" x1="42" y1="0.5" x2="42" y2="15" transform="rotate(${0.85 * 360} 42 42)"></line>
+        </svg>
+        <span class="oee-ring-value">
+          ${countSpan(oee * 100, { decimals: 1, suffix: '%', delay: 200, dur: 1200 })}
+          <span class="oee-ring-label">OEE</span>
+        </span>
+      </div>
+      <div class="oee-bars">
+        ${bars
+          .map(
+            ([key, value, decimals], i) => `
+          <div class="oee-bar" style="--i:${i}">
+            <span class="oee-bar-label">${escapeHtml(t(key))}</span>
+            <span class="oee-bar-track"><span class="oee-bar-fill" style="width:${value}%"></span></span>
+            <span class="oee-bar-value">${countSpan(value, { decimals, suffix: '%', delay: 140 + i * 150 })}</span>
+          </div>`
+          )
+          .join('')}
+        <span class="oee-world"><i class="legend-swatch is-good"></i>${escapeHtml(t('vizOeeWorld'))}</span>
+      </div>`;
+  }
+
+  function vizGantt() {
+    const LEN = { A: 4, B: 3, C: 3.5 };
+    const GAP = 0.5;
+    const SCALE = 24;
+    const pct = (v) => `${((v / SCALE) * 100).toFixed(2)}%`;
+    const sequences = ['ABCABC', 'BCABCA', 'CABCAB'];
+
+    const rows = sequences.map((seq, row) => {
+      let cursor = 0;
+      const parts = [];
+      seq.split('').forEach((fam, idx) => {
+        if (idx > 0) {
+          parts.push(`<span class="gantt-gap" style="left:${pct(cursor)};width:${pct(GAP)}"></span>`);
+          cursor += GAP;
+        }
+        const delay = row * 90 + idx * 110;
+        parts.push(
+          `<span class="gantt-lot fam-${fam.toLowerCase()}" style="left:${pct(cursor)};width:${pct(LEN[fam])};--d:${delay}ms">${fam}</span>`
+        );
+        cursor += LEN[fam];
+      });
+      return `<div class="gantt-track">${parts.join('')}</div>`;
+    });
+
+    return `
+      <div class="gantt-head">
+        <span class="gantt-sku">${countSpan(217, { dur: 1100 })} SKU</span>
+        <span class="viz-legend">
+          <span class="legend-item"><i class="legend-swatch is-lot"></i>${escapeHtml(t('vizGanttLot'))}</span>
+          <span class="legend-item"><i class="legend-swatch is-change"></i>${escapeHtml(t('vizGanttChange'))}</span>
+        </span>
+      </div>
+      <div class="gantt-body">
+        <div class="gantt-machines"><span>M1</span><span>M2</span><span>M3</span></div>
+        <div class="gantt-tracks">
+          ${rows.join('')}
+          <span class="gantt-sweep" aria-hidden="true"></span>
+        </div>
+      </div>`;
+  }
+
+  function vizQr() {
+    const modules = [
+      [9, 1], [11, 2], [9, 4], [10, 6], [12, 8], [1, 9], [3, 10], [6, 9], [9, 9], [11, 11],
+      [14, 9], [16, 10], [19, 9], [18, 12], [9, 13], [12, 14], [10, 16], [14, 15], [17, 17],
+      [12, 19], [15, 19], [19, 15], [16, 14], [10, 19]
+    ];
+    const finder = (x, y) =>
+      `<rect x="${x}" y="${y}" width="7" height="7" rx="1.4"></rect><rect class="qr-hole" x="${x + 1}" y="${y + 1}" width="5" height="5" rx="0.9"></rect><rect x="${x + 2}" y="${y + 2}" width="3" height="3" rx="0.6"></rect>`;
+    const flow = '<span class="qr-flow" aria-hidden="true"><i></i><i></i><i></i></span>';
+    const sheetRows = [0, 1, 2, 3]
+      .map((i) => `<span class="sheet-row" style="--i:${i}"><i style="width:${[78, 56, 88, 64][i]}%"></i></span>`)
+      .join('');
+    const dashBars = [46, 72, 58, 88, 66]
+      .map((h, i) => `<i style="height:${h}%;--i:${i}"></i>`)
+      .join('');
+
+    return `
+      <div class="qr-node">
+        <span class="qr-box">
+          <svg viewBox="0 0 21 21" aria-hidden="true" focusable="false">
+            ${finder(0, 0)}${finder(14, 0)}${finder(0, 14)}
+            ${modules.map(([x, y]) => `<rect x="${x}" y="${y}" width="1.6" height="1.6" rx="0.3"></rect>`).join('')}
+          </svg>
+          <span class="qr-scan"></span>
+        </span>
+        <span class="qr-label">${escapeHtml(t('vizQrScan'))}</span>
+      </div>
+      ${flow}
+      <div class="qr-node">
+        <span class="qr-sheet">${sheetRows}</span>
+        <span class="qr-label">${escapeHtml(t('vizQrSheet'))}</span>
+      </div>
+      ${flow}
+      <div class="qr-node">
+        <span class="qr-dash"><span class="qr-dash-kpi">OEE</span><span class="qr-dash-bars">${dashBars}</span></span>
+        <span class="qr-label">${escapeHtml(t('vizQrDash'))}</span>
+      </div>`;
+  }
+
+  const VIZ_BUILDERS = { smed: vizSmed, oee: vizOee, gantt: vizGantt, qr: vizQr };
+
+  function renderViz(project, opts) {
+    const o = opts || {};
+    const build = VIZ_BUILDERS[project.visual];
+    if (!build) return '';
+    const classes = ['viz', `viz-${project.visual}`];
+    if (o.large) classes.push('viz--lg');
+    if (o.played) classes.push('is-on', 'no-anim');
+    return `<div class="${classes.join(' ')}" role="img" aria-label="${escapeHtml(t(VIZ_META[project.visual].aria))}">${build()}</div>`;
+  }
+
+  /* Fill a revealed card's pending chart slot; returns the card's .viz element (if any) */
+  function hydrateViz(card) {
+    const slot = card.querySelector('[data-viz-pending]');
+    if (slot) {
+      const project = findProject(card.dataset.projectId);
+      if (project) slot.innerHTML = renderViz(project);
+      slot.removeAttribute('data-viz-pending');
+      slot.classList.remove('is-pending');
+    }
+    return card.querySelector('.viz');
+  }
+
+  const Viz = {
+    format(el, progress) {
+      const to = parseFloat(el.dataset.countTo);
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      return `${el.dataset.prefix || ''}${formatNumber(to * progress, decimals)}${el.dataset.suffix || ''}`;
+    },
+
+    countUp(root) {
+      root.querySelectorAll('[data-count-to]').forEach((el) => {
+        const delay = parseInt(el.dataset.countDelay || '0', 10);
+        const duration = parseInt(el.dataset.countDur || '900', 10);
+        const start = performance.now() + delay;
+        el.textContent = this.format(el, 0);
+
+        const tick = (now) => {
+          if (!root.isConnected || !root.classList.contains('is-on')) return;
+          const p = Math.min(1, Math.max(0, (now - start) / duration));
+          el.textContent = this.format(el, 1 - Math.pow(1 - p, 3));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    },
+
+    play(root, opts) {
+      if (!root) return;
+      const instant = REDUCED_MOTION || !!(opts && opts.instant);
+      root.classList.remove('is-on');
+      root.classList.toggle('no-anim', instant);
+      if (instant) {
+        root.classList.add('is-on');
+        root.querySelectorAll('[data-count-to]').forEach((el) => {
+          el.textContent = this.format(el, 1);
+        });
+        return;
+      }
+      void root.offsetWidth;
+      root.classList.add('is-on');
+      root.dataset.playedAt = String(Date.now());
+      this.countUp(root);
+    },
+
+    replay(root) {
+      if (!root || REDUCED_MOTION || !root.classList.contains('is-on')) return;
+      if (Date.now() - Number(root.dataset.playedAt || 0) < 2800) return;
+      this.play(root);
+    }
+  };
+
+  /* Pause decorative looping animations when off-screen or the tab is hidden */
+  const LoopGate = {
+    init() {
+      const loops = Array.from(document.querySelectorAll('[data-loop]'));
+      if (!loops.length) return;
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => entry.target.classList.toggle('is-paused', !entry.isIntersecting));
+        });
+        loops.forEach((el) => io.observe(el));
+      }
+      document.addEventListener('visibilitychange', () => {
+        loops.forEach((el) => el.classList.toggle('is-tab-hidden', document.hidden));
+      });
+    }
+  };
 
   /* ========================================================================
      6. Reading Progress, Glass Header & 2-Section ScrollSpy
@@ -799,8 +1180,24 @@
            </a>`
         : '';
 
+      const mediaMarkup =
+        project.gallery && project.gallery.length
+          ? `<span class="project-media-chip">
+               <i data-lucide="images" class="icon-xs"></i>
+               <span>${project.gallery.length} ${escapeHtml(t('cardPhotos'))}</span>
+             </span>`
+          : '';
+
+      // Charts are built lazily when the card is revealed (keeps the initial DOM light)
+      const visualMarkup = project.visual
+        ? revealed
+          ? `<div class="project-visual">${renderViz(project, { played: true })}</div>`
+          : '<div class="project-visual is-pending" data-viz-pending></div>'
+        : '';
+
       return `
         <article class="project-card reveal-item${revealed}" data-project-id="${project.id}">
+          ${visualMarkup}
           <div class="project-card-meta">
             <span class="project-org-tag">
               <i data-lucide="building-2" class="icon-xs"></i>
@@ -829,7 +1226,7 @@
               <span>${escapeHtml(t('btnViewDetails'))}</span>
               <i data-lucide="arrow-up-right" class="icon-sm"></i>
             </span>
-            ${externalMarkup}
+            ${externalMarkup}${mediaMarkup}
           </div>
         </article>`;
     }).join('');
@@ -843,9 +1240,48 @@
     return PROJECTS[(idx + step + PROJECTS.length) % PROJECTS.length];
   }
 
-  function populateModal(projectId) {
+  function renderModalMedia(project, animateViz) {
+    if (project.visual) {
+      dom.modalVizStage.innerHTML = renderViz(project, { large: true, played: !animateViz });
+      dom.modalVizSource.textContent = t(VIZ_META[project.visual].source);
+      dom.modalViz.hidden = false;
+    } else {
+      dom.modalVizStage.innerHTML = '';
+      dom.modalViz.hidden = true;
+    }
+
+    if (project.gallery && project.gallery.length) {
+      dom.modalGalleryGrid.innerHTML = project.gallery
+        .map((item) => {
+          const g = item[currentLang];
+          return `
+            <figure class="gallery-item">
+              <a class="gallery-link" href="${escapeHtml(item.src)}" target="_blank" rel="noopener noreferrer"
+                 aria-label="${escapeHtml(`${t('modalGalleryOpen')}: ${g.caption}`)}">
+                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(g.alt)}" width="${item.width}" height="${item.height}" loading="lazy" decoding="async" />
+              </a>
+              <figcaption>${escapeHtml(g.caption)}</figcaption>
+            </figure>`;
+        })
+        .join('');
+      dom.modalGallery.hidden = false;
+    } else {
+      dom.modalGalleryGrid.innerHTML = '';
+      dom.modalGallery.hidden = true;
+    }
+  }
+
+  function playModalViz(delay) {
+    const viz = dom.modalVizStage.querySelector('.viz:not(.is-on)');
+    if (!viz) return;
+    if (REDUCED_MOTION) Viz.play(viz, { instant: true });
+    else window.setTimeout(() => Viz.play(viz), delay);
+  }
+
+  function populateModal(projectId, options) {
     const project = findProject(projectId);
     if (!project) return;
+    const animateViz = !!(options && options.animateViz);
     activeProjectId = project.id;
     const c = project[currentLang];
     const titles = t('modalSectionTitles');
@@ -908,6 +1344,8 @@
       </section>
     `;
 
+    renderModalMedia(project, animateViz);
+
     const prev = neighbour(-1);
     const next = neighbour(1);
     dom.modalPrevTitle.textContent = prev[currentLang].title;
@@ -934,15 +1372,28 @@
     const alreadyOpen = !dom.modalRoot.hidden && dom.modalRoot.classList.contains('is-open');
     if (!alreadyOpen) lastFocusedElement = trigger || document.activeElement;
 
-    populateModal(projectId);
+    populateModal(projectId, { animateViz: true });
     dom.modalBody.scrollTop = 0;
     dom.modalRoot.hidden = false;
     document.body.classList.add('modal-open');
     setBackgroundInert(true);
 
+    // Grow the dialog out of the card that was clicked (transform-origin only — no layout cost)
+    const card = !alreadyOpen && trigger && trigger.closest ? trigger.closest('.project-card') : null;
+    if (card) {
+      const from = card.getBoundingClientRect();
+      const to = dom.modalDialog.getBoundingClientRect();
+      const ox = from.left + from.width / 2 - to.left;
+      const oy = from.top + from.height / 2 - to.top;
+      dom.modalDialog.style.transformOrigin = `${Math.round(ox)}px ${Math.round(oy)}px`;
+    } else if (!alreadyOpen) {
+      dom.modalDialog.style.transformOrigin = '';
+    }
+
     void dom.modalRoot.offsetWidth;
     dom.modalRoot.classList.add('is-open');
     dom.modalDialog.focus({ preventScroll: true });
+    playModalViz(alreadyOpen ? 80 : 300);
   }
 
   function closeModal() {
@@ -955,7 +1406,9 @@
       setBackgroundInert(false);
       activeProjectId = null;
       if (lastFocusedElement && document.contains(lastFocusedElement)) {
+        suppressVizReplay = true; // focus returning from the modal should not replay the chart
         lastFocusedElement.focus({ preventScroll: true });
+        suppressVizReplay = false;
       }
     };
 
@@ -979,12 +1432,13 @@
     content.classList.add(`is-leaving-${dir}`);
     await wait(140);
 
-    populateModal(target.id);
+    populateModal(target.id, { animateViz: true });
     dom.modalBody.scrollTop = 0;
     content.classList.remove(`is-leaving-${dir}`);
     content.classList.add(`is-entering-${dir}`);
     void content.offsetWidth;
     content.classList.remove(`is-entering-${dir}`);
+    playModalViz(160);
     modalNavBusy = false;
   }
 
@@ -1206,6 +1660,17 @@
       if (card) openModal(card.dataset.projectId, card.querySelector('.project-open'));
     });
 
+    // Replay a card's mini-chart when the pointer (or keyboard focus) enters it
+    const replayCardViz = (event) => {
+      const card = event.target.closest('.project-card');
+      if (suppressVizReplay || !card || (event.relatedTarget && card.contains(event.relatedTarget))) return;
+      Viz.replay(card.querySelector('.viz'));
+    };
+    if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      dom.projectsGrid.addEventListener('mouseover', replayCardViz);
+    }
+    dom.projectsGrid.addEventListener('focusin', replayCardViz);
+
     document.addEventListener('click', (event) => {
       if (isDrawerOpen() && !event.target.closest('#site-header')) closeDrawer(false);
     });
@@ -1278,10 +1743,13 @@
       savedLang = 'vi';
     }
 
+    document.querySelectorAll('.tool-chip').forEach((chip, i) => chip.style.setProperty('--i', String(i)));
+
     Reveal.init();
     bindEvents();
     setLanguage(savedLang, { persist: false, initial: true });
     Icons.start();
+    LoopGate.init();
     updateScroll();
   }
 

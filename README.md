@@ -16,3 +16,11 @@ Static site for GitHub Pages: `index.html`, `style.css`, `script.js`. No build s
 ## Editing Content
 
 All bilingual UI strings (`I18N`) and project data (`PROJECTS`) live in `script.js` with full `vi` and `en` parity.
+
+## Project Visuals & Motion
+
+- Each project card has an animated mini-chart built in `script.js` (`renderViz` → `vizSmed`, `vizOee`, `vizGantt`, `vizQr`), selected by the `visual` field in `PROJECTS`. Charts are hydrated when the card scrolls into view, replay on hover, and render in their final state under `prefers-reduced-motion`.
+- Chart numbers come from the source documents: PRJ-01 SMED proposal (internal changeover ≈16.5′ → target ≤10′, 11 → 9 steps) and PRJ-02 OEE report (A 79.78% × P 60% × Q 85%). PRJ-03/04 charts are illustrative.
+- On-site photos live in `assets/images/projects/` (WebP, ~1280px wide) and are listed in a project's `gallery` array with bilingual `alt`/`caption`; they appear in the detail modal.
+- Motion tokens (`--ease-*`, `--dur-*`) and data-viz colors (`--viz-*`) are defined in `:root` in `style.css`.
+
