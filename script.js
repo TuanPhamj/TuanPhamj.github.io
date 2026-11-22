@@ -196,7 +196,7 @@
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
 
-      overviewEyebrow: '01 // SINH VIÊN MỚI TỐT NGHIỆP · ĐH BÁCH KHOA TP.HCM (HCMUT)',
+      overviewEyebrow: '01 // SINH VIÊN NĂM CUỐI · ĐH BÁCH KHOA TP.HCM (HCMUT)',
       heroName: 'Phạm Anh Tuấn',
       heroTagline:
         'Kế hoạch & Điều độ Sản xuất (Production Planning) · Hỗ trợ Cải tiến Lean/OEE & Tự động hóa Báo cáo',
@@ -221,7 +221,7 @@
       credCardTitle: 'HỌC VẤN, CHỨNG CHỈ & HOẠT ĐỘNG CLB',
       eduLabel: 'Học vấn',
       eduValue:
-        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Khoa Quản lý Công nghiệp, cử nhân chuyên ngành <strong>Quản trị Kinh doanh</strong> (2022–2026).',
+        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Khoa Quản lý Công nghiệp, sinh viên năm cuối chuyên ngành <strong>Quản trị Kinh doanh</strong> (2022–2026). Đã hoàn thành chương trình học, có thể làm việc <strong>Full-time</strong>.',
       certLabel: 'Chứng chỉ',
       leadLabel: 'Hoạt động CLB',
       certOpenDrive: '(mở chứng chỉ trên Google Drive)',
@@ -331,7 +331,7 @@
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'CV Request — Pham Anh Tuan',
 
-      overviewEyebrow: '01 // FRESH GRADUATE · HCMUT (SCHOOL OF INDUSTRIAL MANAGEMENT)',
+      overviewEyebrow: '01 // FINAL-YEAR STUDENT · HCMUT (SCHOOL OF INDUSTRIAL MANAGEMENT)',
       heroName: 'Pham Anh Tuan',
       heroTagline:
         'Production Planning & Scheduling · Lean/OEE & Operations Reporting Automation',
@@ -356,7 +356,7 @@
       credCardTitle: 'EDUCATION, CERTIFICATES & CLUB ACTIVITIES',
       eduLabel: 'Education',
       eduValue:
-        "<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — School of Industrial Management, Bachelor's in <strong>Business Administration</strong> (2022–2026).",
+        '<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — School of Industrial Management, final-year student majoring in <strong>Business Administration</strong> (2022–2026). Completed all coursework and available to work <strong>full-time</strong>.',
       certLabel: 'Certificates',
       leadLabel: 'Club Activities',
       certOpenDrive: '(open certificate on Google Drive)',
