@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="vi" class="no-js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean &amp; Data Analytics Portfolio</title>
+  <title>Phạm Anh Tuấn — Kế hoạch Sản xuất, Lean &amp; Phân tích Dữ liệu Vận hành</title>
   <meta
     name="description"
-    content="Phạm Anh Tuấn (Tuan Pham) — final-year HCMUT student. 4-stage line balancing across 217 color SKUs in FlexSim 3D &amp; JS DES, automated BOM/WIP sync in Excel VBA &amp; Apps Script, and OEE / 5 Whys / 5S shop-floor improvement."
+    content="Phạm Anh Tuấn — Kế hoạch &amp; Điều độ Sản xuất (Production Planning), Cải tiến Lean &amp; OEE, SAP Logon (MM/PP, MB52, COGI) và Tự động hóa Dữ liệu Vận hành."
   />
   <meta name="theme-color" content="#2563EB" />
-  <meta property="og:title" content="Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean &amp; Data Analytics" />
+  <meta property="og:title" content="Phạm Anh Tuấn — Production Planning, Lean &amp; Operations Analytics" />
   <meta
     property="og:description"
-    content="Case studies: Heijunka scheduling of 217 color SKUs on a 4-stage line (FlexSim 3D + JS DES), automated BOM &amp; WIP tracking, and OEE / 5 Whys RCA / 5S."
+    content="Hồ sơ năng lực Phạm Anh Tuấn: Tối ưu hóa vận hành &amp; SAP ERP tại Xưởng Bút Lông DTM (Thiên Long), đánh giá OEE máy tạo hạt HDPE (Duy Tân Recycling), điều độ song song Gantt &amp; Heijunka và hệ thống QR OEE Dark-Mode."
   />
   <meta property="og:type" content="website" />
 
   <!-- Remove the no-JS guard before first paint so reveal states never hide content without JS -->
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
-  <!-- Favicon: profile portrait with Light-Blue TP SVG fallback -->
+  <!-- Favicon: profile portrait with Clean Light-Blue PAT SVG fallback -->
   <link rel="icon" type="image/jpeg" href="assets/images/avatar.jpg" />
   <link
     rel="alternate icon"
     type="image/svg+xml"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23EFF6FF' stroke='%232563EB' stroke-width='4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%232563EB' font-family='Inter,sans-serif' font-weight='800' font-size='26'%3ETP%3C/text%3E%3C/svg%3E"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23EFF6FF' stroke='%232563EB' stroke-width='4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='%232563EB' font-family='Inter,sans-serif' font-weight='800' font-size='22'%3EPAT%3C/text%3E%3C/svg%3E"
   />
 
   <!-- Google Fonts: Inter & JetBrains Mono (non-blocking) -->
@@ -45,7 +45,7 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Lucide icons (CDN). script.js falls back to an inline icon set if this never loads. -->
+  <!-- Lucide icons (CDN). script.js falls back to an inline SVG icon set if offline or blocked. -->
   <script
     src="https://unpkg.com/lucide@latest"
     async
@@ -54,10 +54,10 @@
   ></script>
 </head>
 <body id="top">
-  <a class="skip-link" href="#main-content" data-i18n="skipToContent">Skip to main content</a>
+  <a class="skip-link" href="#main-content" data-i18n="skipToContent">Chuyển đến nội dung chính</a>
 
   <!-- ================================================================
-       Sticky glass navbar + 3px reading progress bar
+       Sticky Top Navigation Bar (Minimal & Functional)
        ================================================================ -->
   <header class="site-header" id="site-header">
     <div class="scroll-progress-track" aria-hidden="true">
@@ -65,57 +65,103 @@
     </div>
 
     <div class="container header-inner">
-      <a href="#top" class="brand" data-i18n-attr="aria-label:brandHome" aria-label="Phạm Anh Tuấn — back to top">
+      <!-- Left: Name + Role Subtitle -->
+      <a href="#top" class="brand" data-i18n-attr="aria-label:brandHome" aria-label="Phạm Anh Tuấn — về đầu trang">
         <img
           src="assets/images/avatar.jpg"
           alt="Phạm Anh Tuấn"
           class="nav-avatar"
-          width="32"
-          height="32"
+          width="34"
+          height="34"
           onerror="window.handleAvatarFallback && window.handleAvatarFallback(this)"
         />
         <span class="brand-text">
-          <span class="brand-name">Tuan Pham</span>
-          <span class="brand-sub" data-i18n="brandSub">IE · Planning · BI</span>
+          <span class="brand-name" data-i18n="brandName">Phạm Anh Tuấn</span>
+          <span class="brand-sub" data-i18n="brandSub">Production Planning · Lean · Operations Analytics</span>
         </span>
       </a>
 
-      <nav class="main-nav" id="main-nav" data-i18n-attr="aria-label:navLabel" aria-label="Primary">
-        <a href="#about" class="nav-link" data-section="about">
-          <i data-lucide="user" class="icon-nav"></i>
-          <span data-i18n="navAbout">Overview</span>
+      <!-- Center: 2-Section Anchor Navigation -->
+      <nav class="main-nav" id="main-nav" data-i18n-attr="aria-label:navLabel" aria-label="Điều hướng chính">
+        <a href="#overview" class="nav-link is-active" data-section="overview">
+          <span data-i18n="navOverview">Giới thiệu</span>
         </a>
         <a href="#projects" class="nav-link" data-section="projects">
-          <i data-lucide="folder-kanban" class="icon-nav"></i>
-          <span data-i18n="navProjects">Case Studies</span>
-        </a>
-        <a href="#skills" class="nav-link" data-section="skills">
-          <i data-lucide="cpu" class="icon-nav"></i>
-          <span data-i18n="navSkills">Skills</span>
-        </a>
-        <a href="#timeline" class="nav-link" data-section="timeline">
-          <i data-lucide="briefcase" class="icon-nav"></i>
-          <span data-i18n="navTimeline">Experience</span>
-        </a>
-        <a href="#contact" class="nav-link" data-section="contact">
-          <i data-lucide="mail" class="icon-nav"></i>
-          <span data-i18n="navContact">Contact</span>
+          <span data-i18n="navProjects">Dự án</span>
         </a>
         <span class="nav-indicator" id="nav-indicator" aria-hidden="true"></span>
       </nav>
 
+      <!-- Right: VI | EN Switcher, Quick Contact Icons & Primary CV CTA -->
       <div class="header-actions">
-        <div class="lang-toggle" role="group" data-i18n-attr="aria-label:langGroup" aria-label="Language">
+        <div class="lang-toggle" role="group" data-i18n-attr="aria-label:langGroup" aria-label="Ngôn ngữ">
           <span class="lang-globe" id="lang-globe" aria-hidden="true">
             <i data-lucide="globe" class="icon-xs"></i>
           </span>
-          <button type="button" class="lang-btn is-active" id="lang-btn-en" data-lang="en" aria-pressed="true" aria-label="English">EN</button>
-          <button type="button" class="lang-btn" id="lang-btn-vi" data-lang="vi" aria-pressed="false" aria-label="Tiếng Việt" lang="vi">VI</button>
+          <button type="button" class="lang-btn is-active" id="lang-btn-vi" data-lang="vi" aria-pressed="true" aria-label="Tiếng Việt" lang="vi">VI</button>
+          <button type="button" class="lang-btn" id="lang-btn-en" data-lang="en" aria-pressed="false" aria-label="English" lang="en">EN</button>
         </div>
 
-        <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-primary btn-sm header-cta" data-cv-link>
-          <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
-          <span data-i18n="btnDownloadCv">Download CV</span>
+        <div class="header-quick-contact" role="group" data-i18n-attr="aria-label:quickContactLabel" aria-label="Liên hệ nhanh">
+          <a
+            href="mailto:phamanhtuan802@gmail.com"
+            class="icon-btn"
+            data-i18n-attr="aria-label:quickEmailAria;title:quickEmailTitle"
+            aria-label="Gửi Email tới phamanhtuan802@gmail.com"
+            title="Email: phamanhtuan802@gmail.com"
+          >
+            <i data-lucide="mail" class="icon-sm"></i>
+          </a>
+
+          <div class="phone-quick-group">
+            <a
+              href="tel:+84972693749"
+              class="icon-btn phone-dial-btn"
+              data-i18n-attr="aria-label:quickPhoneAria;title:quickPhoneTitle"
+              aria-label="Gọi điện thoại hoặc Zalo (+84) 972 693 749"
+              title="Phone / Zalo: (+84) 972 693 749"
+            >
+              <i data-lucide="phone" class="icon-sm"></i>
+            </a>
+            <button
+              type="button"
+              class="icon-btn phone-copy-btn copy-phone-trigger"
+              data-phone="+84972693749"
+              data-i18n-attr="aria-label:btnCopyPhoneAria;title:btnCopyPhoneTitle"
+              aria-label="Sao chép số điện thoại / Zalo +84972693749"
+              title="Sao chép số Điện thoại / Zalo"
+            >
+              <span class="icon-swap" aria-hidden="true">
+                <i data-lucide="copy" class="icon-xs icon-swap-a"></i>
+                <i data-lucide="check" class="icon-xs icon-swap-b"></i>
+              </span>
+            </button>
+          </div>
+
+          <a
+            href="https://github.com/TuanPhamj"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="icon-btn"
+            data-i18n-attr="aria-label:quickGithubAria;title:quickGithubTitle"
+            aria-label="Mở GitHub TuanPhamj"
+            title="GitHub: github.com/TuanPhamj"
+          >
+            <svg class="icon-sm brand-svg-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+              <path d="M9 18c-4.51 2-5-2-7-2" />
+            </svg>
+          </a>
+        </div>
+
+        <a
+          href="assets/cv/Pham-Anh-Tuan-CV.pdf"
+          download="Pham-Anh-Tuan-CV.pdf"
+          class="btn btn-primary btn-sm header-cta"
+          data-cv-link
+        >
+          <i data-lucide="file-down" class="icon-sm"></i>
+          <span data-i18n="btnDownloadCv">Tải CV</span>
         </a>
 
         <button
@@ -125,7 +171,7 @@
           aria-expanded="false"
           aria-controls="mobile-drawer"
           data-i18n-attr="aria-label:menuToggle"
-          aria-label="Open navigation menu"
+          aria-label="Mở menu điều hướng"
         >
           <span class="menu-bar"></span>
           <span class="menu-bar"></span>
@@ -134,31 +180,55 @@
       </div>
     </div>
 
+    <!-- Mobile Navigation Drawer -->
     <div class="mobile-drawer" id="mobile-drawer" hidden>
-      <nav class="container mobile-drawer-inner" data-i18n-attr="aria-label:navLabel" aria-label="Primary">
-        <a href="#about" class="mobile-nav-link" data-section="about">
+      <nav class="container mobile-drawer-inner" data-i18n-attr="aria-label:navLabel" aria-label="Điều hướng chính">
+        <a href="#overview" class="mobile-nav-link" data-section="overview">
           <i data-lucide="user" class="icon-sm"></i>
-          <span data-i18n="navAbout">Overview</span>
+          <span data-i18n="navOverview">Giới thiệu</span>
         </a>
         <a href="#projects" class="mobile-nav-link" data-section="projects">
           <i data-lucide="folder-kanban" class="icon-sm"></i>
-          <span data-i18n="navProjects">Case Studies</span>
+          <span data-i18n="navProjects">Dự án</span>
         </a>
-        <a href="#skills" class="mobile-nav-link" data-section="skills">
-          <i data-lucide="cpu" class="icon-sm"></i>
-          <span data-i18n="navSkills">Skills</span>
-        </a>
-        <a href="#timeline" class="mobile-nav-link" data-section="timeline">
-          <i data-lucide="briefcase" class="icon-sm"></i>
-          <span data-i18n="navTimeline">Experience</span>
-        </a>
-        <a href="#contact" class="mobile-nav-link" data-section="contact">
-          <i data-lucide="mail" class="icon-sm"></i>
-          <span data-i18n="navContact">Contact</span>
-        </a>
-        <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-primary btn-block mobile-cv" data-cv-link>
-          <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
-          <span data-i18n="btnDownloadCv">Download CV</span>
+
+        <div class="mobile-drawer-divider" aria-hidden="true"></div>
+
+        <div class="mobile-quick-links">
+          <a href="mailto:phamanhtuan802@gmail.com" class="mobile-contact-link">
+            <i data-lucide="mail" class="icon-sm"></i>
+            <span class="mono">phamanhtuan802@gmail.com</span>
+          </a>
+          <div class="mobile-phone-row">
+            <a href="tel:+84972693749" class="mobile-contact-link">
+              <i data-lucide="phone" class="icon-sm"></i>
+              <span class="mono">(+84) 972 693 749</span>
+            </a>
+            <button type="button" class="btn-inline-copy copy-phone-trigger" data-phone="+84972693749">
+              <span class="icon-swap" aria-hidden="true">
+                <i data-lucide="copy" class="icon-xs icon-swap-a"></i>
+                <i data-lucide="check" class="icon-xs icon-swap-b"></i>
+              </span>
+              <span class="copy-phone-label" data-i18n="btnCopyPhone">Sao chép</span>
+            </button>
+          </div>
+          <a href="https://github.com/TuanPhamj" target="_blank" rel="noopener noreferrer" class="mobile-contact-link">
+            <svg class="icon-sm brand-svg-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+              <path d="M9 18c-4.51 2-5-2-7-2" />
+            </svg>
+            <span class="mono">github.com/TuanPhamj</span>
+          </a>
+        </div>
+
+        <a
+          href="assets/cv/Pham-Anh-Tuan-CV.pdf"
+          download="Pham-Anh-Tuan-CV.pdf"
+          class="btn btn-primary btn-block mobile-cv"
+          data-cv-link
+        >
+          <i data-lucide="file-down" class="icon-sm"></i>
+          <span data-i18n="btnDownloadCv">Tải CV</span>
         </a>
       </nav>
     </div>
@@ -166,627 +236,265 @@
 
   <main id="main-content">
     <!-- ================================================================
-         Hero (#F8FAFC) with engineering dot/grid texture + radial fade
+         SECTION 1 (#overview): Giới thiệu Bản thân, Học vấn & Công cụ
+         Asymmetric 3-Card Bento Grid (Left: Profile & Shop-Floor Experience;
+         Right Stack: Education/Cert/Leadership + Grouped Core Tools)
          ================================================================ -->
-    <section class="section section-hero" id="hero">
-      <div class="hero-texture" aria-hidden="true"></div>
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <p class="hero-eyebrow reveal-item" data-i18n="heroEyebrow">PRODUCTION PLANNING · LEAN · DATA AUTOMATION</p>
-
-          <h1 class="hero-title reveal-item">
-            <span class="hero-name" lang="vi">Phạm Anh Tuấn</span>
-            <span class="hero-alias">(Tuan Pham)</span>
-          </h1>
-
-          <p class="hero-role reveal-item" data-i18n="heroRole">Final-year student · Production Planning &amp; Operations Analytics</p>
-
-          <p class="hero-education reveal-item">
-            <i data-lucide="graduation-cap" class="icon-sm"></i>
-            <span data-i18n="heroEducation">Ho Chi Minh City University of Technology – VNU-HCM · 2022–2026</span>
-          </p>
-
-          <p class="hero-summary reveal-item" data-i18n-html="heroSummary">
-            I model, schedule, and automate production lines — sequencing <strong>217 color SKUs</strong> on a <strong>4-stage line</strong> in FlexSim 3D, and replacing manual BOM reconciliation with <strong>Excel VBA &amp; Apps Script</strong> pipelines.
-          </p>
-
-          <ul class="hero-focus-strip reveal-item" data-i18n-attr="aria-label:focusLabel" aria-label="Focus areas">
-            <li class="focus-pill">
-              <i data-lucide="gauge" class="icon-xs"></i>
-              <span data-i18n="focusTag1">Shop-floor Lean &amp; OEE</span>
-            </li>
-            <li class="focus-pill">
-              <i data-lucide="boxes" class="icon-xs"></i>
-              <span data-i18n="focusTag2">Simulation &amp; Heijunka Scheduling</span>
-            </li>
-            <li class="focus-pill">
-              <i data-lucide="database" class="icon-xs"></i>
-              <span data-i18n="focusTag3">BOM / WIP Data Automation</span>
-            </li>
-          </ul>
-
-          <div class="hero-actions reveal-item">
-            <a href="#projects" class="btn btn-primary btn-lg">
-              <span data-i18n="btnViewProjects">Explore Case Studies</span>
-              <i data-lucide="arrow-right" class="icon-sm"></i>
-            </a>
-            <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-secondary btn-lg" data-cv-link>
-              <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
-              <span data-i18n="btnDownloadCv">Download CV</span>
-            </a>
-            <button type="button" class="btn btn-secondary btn-lg copy-email-trigger" data-email="phamanhtuan802@gmail.com">
-              <span class="icon-swap" aria-hidden="true">
-                <i data-lucide="copy" class="icon-sm icon-swap-a"></i>
-                <i data-lucide="check" class="icon-sm icon-swap-b"></i>
-              </span>
-              <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
-            </button>
-          </div>
-
-          <div class="hero-tooling reveal-item">
-            <span class="tooling-label" id="tooling-label" data-i18n="toolingLabel">Core stack</span>
-            <ul class="tooling-list" aria-labelledby="tooling-label">
-              <li>FlexSim 3D</li>
-              <li>JavaScript DES</li>
-              <li>Excel VBA</li>
-              <li>Power Query</li>
-              <li>Google Apps Script</li>
-              <li>SQL</li>
-              <li>Python</li>
-              <li>Power BI</li>
-            </ul>
-          </div>
-
-          <!-- 4-Item Quantitative Telemetry Strip -->
-          <ul class="hero-telemetry-strip reveal-item" data-i18n-attr="aria-label:dossierLabel" aria-label="Operations snapshot" data-reveal-group>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value" data-countup="217">217</span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="palette" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric1Label">Color SKUs sequenced</div>
-              <div class="telemetry-sub" data-i18n="metric1Sub">Heijunka · SMED color families</div>
-            </li>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value"><span data-countup="4">4</span> <span class="metric-unit" data-i18n="metric2Unit">stages</span></span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="layers" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric2Label">Sequential line modeled</div>
-              <div class="telemetry-sub" data-i18n="metric2Sub">FlexSim 3D + JS DES</div>
-            </li>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value" data-countup="100" data-countup-suffix="%">100%</span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric3Label">BOM sync automated</div>
-              <div class="telemetry-sub" data-i18n="metric3Sub">Excel VBA · Apps Script · SQL</div>
-            </li>
-            <li class="telemetry-item reveal-item">
-              <div class="telemetry-top">
-                <span class="telemetry-value">A×P×Q</span>
-                <span class="telemetry-icon" aria-hidden="true"><i data-lucide="gauge" class="icon-xs"></i></span>
-              </div>
-              <div class="telemetry-label" data-i18n="metric4Label">OEE loss decomposition</div>
-              <div class="telemetry-sub" data-i18n="metric4Sub">Time-study · Pareto · 5 Whys · 5S</div>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Right Column: Framed Portrait Visual Card & Floating Engineering Badge -->
-        <div class="hero-profile-col">
-          <div class="profile-visual-card reveal-item">
-            <div class="portrait-frame">
-              <img
-                id="hero-portrait-img"
-                class="hero-portrait-img"
-                src="assets/images/avatar.jpg"
-                alt="Phạm Anh Tuấn (Tuan Pham)"
-                width="280"
-                height="350"
-                onerror="window.handleAvatarFallback && window.handleAvatarFallback(this)"
-              />
-            </div>
-            <div class="portrait-floating-badge">
-              <i data-lucide="circle-check" class="icon-xs"></i>
-              <span data-i18n="portraitBadge">HCMUT '26 • IE &amp; Data</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         01 — Live Production Operations & Line Telemetry Showcase + Engineering Approach (#EFF6FF)
-         ================================================================ -->
-    <section class="section section-alt" id="about" aria-labelledby="about-title">
+    <section class="section section-overview" id="overview" aria-labelledby="hero-name-heading">
+      <div class="overview-ambient" aria-hidden="true"></div>
       <div class="container">
-        <!-- Main-Page Live Production Line & Heijunka Simulator + WIP/OEE Micro-Gauges -->
-        <div class="telemetry-showcase-card reveal-item" id="telemetry-showcase" data-sim-state="heijunka">
-          <!-- Top Header Bar -->
-          <div class="telemetry-showcase-header">
-            <div class="telemetry-header-left">
-              <span class="telemetry-live-dot" aria-hidden="true"></span>
-              <span class="telemetry-header-code" data-i18n="simHeaderTitle">LIVE SHOP-FLOOR TELEMETRY // INTERACTIVE LINE FLOW</span>
-              <span class="telemetry-nda-badge">
-                <i data-lucide="shield-check" class="icon-xs"></i>
-                <span data-i18n="simNdaBadge">Sanitized Mock Telemetry – NDA Compliant</span>
-              </span>
+        <div class="overview-bento-grid">
+          <!-- Bento Card 1: Profile, Readiness & Shop-Floor Experience -->
+          <article class="bento-card bento-profile reveal-item">
+            <div class="profile-top">
+              <p class="eyebrow-code" data-i18n="overviewEyebrow">01 // GIỚI THIỆU &amp; KINH NGHIỆM THỰC TẾ</p>
+
+              <h1 class="hero-title" id="hero-name-heading" data-i18n="heroName">Phạm Anh Tuấn</h1>
+
+              <p class="hero-tagline" data-i18n="heroTagline">
+                Kế hoạch &amp; Điều độ Sản xuất (Production Planning) · Cải tiến Lean &amp; OEE · Phân tích Dữ liệu Vận hành
+              </p>
+
+              <p class="status-pill">
+                <i data-lucide="circle-check" class="icon-xs"></i>
+                <span data-i18n="heroStatus">Sẵn sàng nhận việc Full-time ngay · TP.HCM · Đồng Nai · Bình Dương</span>
+              </p>
             </div>
 
-            <div class="telemetry-mode-switch" role="group" data-i18n-attr="aria-label:simModeGroupAria" aria-label="Production scheduling mode">
-              <span class="telemetry-mode-label" data-i18n="simModeLabel">Mode:</span>
-              <button
-                type="button"
-                class="sim-mode-btn"
-                id="sim-btn-random"
-                data-sim-mode="random"
-                aria-pressed="false"
-              >
-                <i data-lucide="shuffle" class="icon-xs"></i>
-                <span data-i18n="simModeRandom">Random Sequence</span>
-              </button>
-              <button
-                type="button"
-                class="sim-mode-btn is-active"
-                id="sim-btn-heijunka"
-                data-sim-mode="heijunka"
-                aria-pressed="true"
-              >
-                <i data-lucide="layers" class="icon-xs"></i>
-                <span data-i18n="simModeHeijunka">Heijunka Leveled</span>
-              </button>
-            </div>
-          </div>
+            <!-- Concise Impact-Driven Shop-Floor Experience Highlights -->
+            <div class="experience-block">
+              <h2 class="block-kicker" data-i18n="expBlockTitle">KINH NGHIỆM TẠI NHÀ MÁY</h2>
 
-          <!-- Live KPI Readout Bar -->
-          <div class="telemetry-kpi-strip" role="status" aria-live="polite">
-            <div class="telemetry-kpi-pill" id="sim-kpi-changeover-box">
-              <span class="telemetry-kpi-dot" aria-hidden="true"></span>
-              <span class="telemetry-kpi-text" id="sim-kpi-changeover" data-i18n="simKpiChangeoverHeijunka">Changeover Loss: 4.1% (-77%)</span>
-            </div>
-            <div class="telemetry-kpi-pill" id="sim-kpi-balance-box">
-              <i data-lucide="gauge" class="icon-xs"></i>
-              <span class="telemetry-kpi-text" id="sim-kpi-balance" data-i18n="simKpiBalanceHeijunka">Line Balance: 94.8%</span>
-            </div>
-            <div class="telemetry-kpi-pill" id="sim-kpi-status-box">
-              <i data-lucide="activity" class="icon-xs"></i>
-              <span class="telemetry-kpi-text" id="sim-kpi-status" data-i18n="simKpiStatusHeijunka">Status: Balanced Flow (217 SKUs)</span>
-            </div>
-          </div>
-
-          <!-- 4-Stage Sequential SVG Flow Diagram & Interactive Stage Track -->
-          <div class="telemetry-flow-body">
-            <!-- Animated SVG Schematic Track (Desktop & Tablet) -->
-            <div class="line-svg-schematic-wrap" aria-hidden="true">
-              <svg class="line-flow-svg" id="line-flow-svg" viewBox="0 0 960 76" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                  <linearGradient id="flow-grad-blue" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#2563EB" />
-                    <stop offset="50%" stop-color="#0284C7" />
-                    <stop offset="100%" stop-color="#2563EB" />
-                  </linearGradient>
-                  <linearGradient id="flow-grad-amber" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#D97706" />
-                    <stop offset="65%" stop-color="#F59E0B" />
-                    <stop offset="100%" stop-color="#DC2626" />
-                  </linearGradient>
-                </defs>
-
-                <!-- Base guide rail -->
-                <line x1="90" y1="38" x2="870" y2="38" class="svg-rail-bg" />
-
-                <!-- Animated stroke-dashoffset flow line -->
-                <line x1="90" y1="38" x2="870" y2="38" class="svg-flow-line" />
-
-                <!-- Moving colored SKU pulses representing the 217-color Art Marker wheel -->
-                <g class="svg-sku-pulses">
-                  <circle class="sku-pulse sku-pulse-1" cx="140" cy="38" r="6" fill="#2563EB" />
-                  <circle class="sku-pulse sku-pulse-2" cx="290" cy="38" r="6" fill="#0284C7" />
-                  <circle class="sku-pulse sku-pulse-3" cx="440" cy="38" r="6" fill="#0EA5E9" />
-                  <circle class="sku-pulse sku-pulse-4" cx="590" cy="38" r="6" fill="#6366F1" />
-                  <circle class="sku-pulse sku-pulse-5" cx="740" cy="38" r="6" fill="#10B981" />
-                </g>
-
-                <!-- 4 Stage Anchor Nodes on the SVG Schematic -->
-                <g class="svg-stage-anchors">
-                  <circle cx="115" cy="38" r="11" class="svg-anchor-node" />
-                  <circle cx="358" cy="38" r="11" class="svg-anchor-node" />
-                  <circle cx="602" cy="38" r="11" class="svg-anchor-node" />
-                  <circle cx="845" cy="38" r="11" class="svg-anchor-node svg-anchor-stage4" />
-                </g>
-              </svg>
-            </div>
-
-            <!-- 4 Sequential Stage Cards (Responsive 4-col Desktop / 2x2 or Vertical Mobile) -->
-            <ol class="line-stages-grid" id="line-stages-grid">
-              <!-- Stage 01 -->
-              <li class="line-stage-card" data-stage="1">
-                <div class="stage-card-top">
-                  <span class="stage-step-badge">STAGE 01</span>
-                  <span class="stage-sku-dots" aria-hidden="true">
-                    <span class="sku-dot" style="background:#2563EB"></span>
-                    <span class="sku-dot" style="background:#0284C7"></span>
-                    <span class="sku-dot" style="background:#0EA5E9"></span>
-                  </span>
-                </div>
-                <h3 class="stage-card-title" data-i18n="stage1Name">01. Barrel Printing</h3>
-                <p class="stage-card-sub" data-i18n="stage1Sub">Heat-Transfer Foil · 217 SKUs</p>
-                <div class="stage-util-bar" aria-hidden="true">
-                  <span class="stage-util-fill" id="stage-fill-1" style="width: 95.2%"></span>
-                </div>
-                <div class="stage-card-Readout" id="stage-metric-1" data-i18n="stage1MetricHeijunka">Util: 95.2% · SMED Grouped</div>
-                <div class="stage-mobile-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="mobile-flow-arrow"><path d="M12 4v14m0 0-5-5m5 5 5-5" /></svg>
-                </div>
-              </li>
-
-              <!-- Stage 02 -->
-              <li class="line-stage-card" data-stage="2">
-                <div class="stage-card-top">
-                  <span class="stage-step-badge">STAGE 02</span>
-                  <span class="stage-sku-dots" aria-hidden="true">
-                    <span class="sku-dot" style="background:#0284C7"></span>
-                    <span class="sku-dot" style="background:#6366F1"></span>
-                    <span class="sku-dot" style="background:#3B82F6"></span>
-                  </span>
-                </div>
-                <h3 class="stage-card-title" data-i18n="stage2Name">02. Cap Printing</h3>
-                <p class="stage-card-sub" data-i18n="stage2Sub">Pad Printing · Batch Sync</p>
-                <div class="stage-util-bar" aria-hidden="true">
-                  <span class="stage-util-fill" id="stage-fill-2" style="width: 94.6%"></span>
-                </div>
-                <div class="stage-card-Readout" id="stage-metric-2" data-i18n="stage2MetricHeijunka">Util: 94.6% · Synced Takt</div>
-                <div class="stage-mobile-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="mobile-flow-arrow"><path d="M12 4v14m0 0-5-5m5 5 5-5" /></svg>
-                </div>
-              </li>
-
-              <!-- Stage 03 -->
-              <li class="line-stage-card" data-stage="3">
-                <div class="stage-card-top">
-                  <span class="stage-step-badge">STAGE 03</span>
-                  <span class="stage-sku-dots" aria-hidden="true">
-                    <span class="sku-dot" style="background:#0EA5E9"></span>
-                    <span class="sku-dot" style="background:#10B981"></span>
-                    <span class="sku-dot" style="background:#2563EB"></span>
-                  </span>
-                </div>
-                <h3 class="stage-card-title" data-i18n="stage3Name">03. Cap Assembly</h3>
-                <p class="stage-card-sub" data-i18n="stage3Sub">Sub-Assembly · WIP Feeder</p>
-                <div class="stage-util-bar" aria-hidden="true">
-                  <span class="stage-util-fill" id="stage-fill-3" style="width: 94.9%"></span>
-                </div>
-                <div class="stage-card-Readout" id="stage-metric-3" data-i18n="stage3MetricHeijunka">Util: 94.9% · Buffer Stable</div>
-                <div class="stage-mobile-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" class="mobile-flow-arrow"><path d="M12 4v14m0 0-5-5m5 5 5-5" /></svg>
-                </div>
-              </li>
-
-              <!-- Stage 04 -->
-              <li class="line-stage-card" id="line-stage-4" data-stage="4">
-                <div class="stage-card-top">
-                  <span class="stage-step-badge">STAGE 04</span>
-                  <span class="stage-bottleneck-tag" id="stage-4-alert" data-i18n="stage4AlertHeijunka">Flow Balanced</span>
-                </div>
-                <h3 class="stage-card-title" data-i18n="stage4Name">04. Final Assembly</h3>
-                <p class="stage-card-sub" data-i18n="stage4Sub">Nib + Ink + Barrel + Cap</p>
-                <div class="stage-util-bar" aria-hidden="true">
-                  <span class="stage-util-fill" id="stage-fill-4" style="width: 94.5%"></span>
-                </div>
-                <div class="stage-card-Readout" id="stage-metric-4" data-i18n="stage4MetricHeijunka">Util: 94.5% · Zero Bottleneck</div>
-              </li>
-            </ol>
-          </div>
-
-          <!-- Bottom Half: 2-Column Integrated WIP Buffer & OEE Live Micro-Gauges -->
-          <div class="telemetry-monitors-grid">
-            <!-- Left Panel: Dynamic WIP Safety Buffer Monitor -->
-            <div class="telemetry-monitor-panel wip-monitor-panel">
-              <div class="monitor-panel-head">
-                <div>
-                  <h3 class="monitor-panel-title">
-                    <i data-lucide="database" class="icon-xs"></i>
-                    <span data-i18n="wipPanelTitle">Dynamic WIP Safety Buffer Monitor</span>
-                  </h3>
-                  <p class="monitor-panel-sub" data-i18n="wipPanelSub">Inter-Stage Safety Stock &amp; Automated BOM Replenishment</p>
-                </div>
-                <span class="wip-live-readout" id="wip-buffer-readout" data-i18n="wipReadoutDefault">Current WIP Buffer: 2,450 / 3,000 units</span>
-              </div>
-
-              <div class="wip-gauge-container">
-                <div class="wip-gauge-track" role="progressbar" aria-valuemin="0" aria-valuemax="3000" aria-valuenow="2450" id="wip-progressbar">
-                  <div class="wip-gauge-fill" id="wip-gauge-fill" style="width: 81.67%"></div>
-                  <div class="wip-threshold-line" style="left: 60%" title="Safety Threshold: 1,800 units">
-                    <span class="wip-threshold-tag" data-i18n="wipThresholdTag">Threshold: 1,800</span>
+              <ul class="experience-list">
+                <li class="experience-item">
+                  <div class="experience-head">
+                    <span class="experience-org">
+                      <i data-lucide="factory" class="icon-xs"></i>
+                      <span data-i18n="exp1Org">Tập đoàn Thiên Long – Nhà máy Long Thành</span>
+                    </span>
+                    <span class="experience-date mono">05/2026 – 11/2026</span>
                   </div>
-                </div>
-                <div class="wip-gauge-scale" aria-hidden="true">
-                  <span>0</span>
-                  <span data-i18n="wipSafetyMark">Safety Min: 1,800</span>
-                  <span>3,000 units</span>
-                </div>
-              </div>
+                  <p class="experience-desc" data-i18n-html="exp1Desc">
+                    Thực tập sinh Kế hoạch &amp; Điều độ sản xuất (KHSX) và Tổ trưởng sản xuất tại Xưởng Bút Lông 2 đầu (DTM – 217 mã màu); vận hành <strong>SAP Logon</strong> (MM/PP, MB52, COGI), lập lịch MPS/MRP, đồng bộ BOM/Routing, cải tiến chuyển đổi nhanh SMED và <strong>đi Gemba xưởng, duy trì tiêu chuẩn 5S hằng ngày</strong>.
+                  </p>
+                </li>
 
-              <div class="wip-panel-footer">
-                <div class="wip-sync-pill" id="wip-sync-pill">
-                  <i data-lucide="refresh-cw" class="icon-xs"></i>
-                  <span id="wip-sync-pill-text" data-i18n="wipSyncPillText">Safety Buffer Threshold -&gt; Auto-Sync Triggered</span>
-                </div>
-              </div>
+                <li class="experience-item">
+                  <div class="experience-head">
+                    <span class="experience-org">
+                      <i data-lucide="factory" class="icon-xs"></i>
+                      <span data-i18n="exp2Org">Nhà máy Nhựa Tái chế Duy Tân – DUYTAN Recycling</span>
+                    </span>
+                    <span class="experience-date mono">06/2025 – 08/2025</span>
+                  </div>
+                  <p class="experience-desc" data-i18n-html="exp2Desc">
+                    Thực tập sinh Bộ phận Sản xuất; đo lường hiệu suất thiết bị toàn phần (OEE), phân tích thời gian chu kỳ (Cycle Time), truy tìm nguyên nhân gốc rễ 5 Whys và kiểm tra 5S cho cụm máy tạo hạt nhựa tái chế HDPE.
+                  </p>
+                </li>
+              </ul>
             </div>
 
-            <!-- Right Panel: Shop-Floor OEE & 5S Readiness -->
-            <div class="telemetry-monitor-panel oee-monitor-panel">
-              <div class="monitor-panel-head">
-                <div>
-                  <h3 class="monitor-panel-title">
-                    <i data-lucide="gauge" class="icon-xs"></i>
-                    <span data-i18n="oeePanelTitle">Shop-Floor OEE &amp; 5S Readiness</span>
-                  </h3>
-                  <p class="monitor-panel-sub" data-i18n="oeePanelSub">Availability × Performance × Quality Decomposition</p>
-                </div>
-                <span class="oee-5s-badge">
-                  <i data-lucide="shield-check" class="icon-xs"></i>
-                  <span data-i18n="oee5sBadge">5S Audit Score: 96/100</span>
+            <!-- Primary CTAs + Inline Contact Bar -->
+            <div class="profile-footer">
+              <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary btn-lg">
+                  <span data-i18n="btnExploreProjects">Xem Dự án</span>
+                  <i data-lucide="arrow-right" class="icon-sm"></i>
+                </a>
+                <a
+                  href="assets/cv/Pham-Anh-Tuan-CV.pdf"
+                  download="Pham-Anh-Tuan-CV.pdf"
+                  class="btn btn-secondary btn-lg"
+                  data-cv-link
+                >
+                  <i data-lucide="file-down" class="icon-sm"></i>
+                  <span data-i18n="btnDownloadCv">Tải CV</span>
+                </a>
+              </div>
+
+              <div class="inline-contact-bar" data-i18n-attr="aria-label:contactBarAria" aria-label="Thông tin liên hệ trực tiếp">
+                <span class="contact-entry">
+                  <i data-lucide="mail" class="icon-xs"></i>
+                  <a href="mailto:phamanhtuan802@gmail.com" class="contact-link mono">phamanhtuan802@gmail.com</a>
+                  <button
+                    type="button"
+                    class="btn-micro-copy copy-email-trigger"
+                    data-email="phamanhtuan802@gmail.com"
+                    data-i18n-attr="aria-label:btnCopyEmailAria;title:btnCopyEmailTitle"
+                    aria-label="Sao chép email phamanhtuan802@gmail.com"
+                    title="Sao chép Email"
+                  >
+                    <span class="icon-swap" aria-hidden="true">
+                      <i data-lucide="copy" class="icon-xs icon-swap-a"></i>
+                      <i data-lucide="check" class="icon-xs icon-swap-b"></i>
+                    </span>
+                  </button>
+                </span>
+
+                <span class="contact-entry">
+                  <i data-lucide="phone" class="icon-xs"></i>
+                  <a href="tel:+84972693749" class="contact-link mono">(+84) 972 693 749</a>
+                  <button
+                    type="button"
+                    class="btn-inline-copy copy-phone-trigger"
+                    data-phone="+84972693749"
+                    data-i18n-attr="aria-label:btnCopyPhoneAria"
+                    aria-label="Sao chép số điện thoại / Zalo +84972693749"
+                  >
+                    <span class="icon-swap" aria-hidden="true">
+                      <i data-lucide="copy" class="icon-xs icon-swap-a"></i>
+                      <i data-lucide="check" class="icon-xs icon-swap-b"></i>
+                    </span>
+                    <span class="copy-phone-label" data-i18n="btnCopyPhone">Sao chép</span>
+                  </button>
+                </span>
+
+                <span class="contact-entry">
+                  <svg class="icon-xs brand-svg-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                    <path d="M9 18c-4.51 2-5-2-7-2" />
+                  </svg>
+                  <a href="https://github.com/TuanPhamj" target="_blank" rel="noopener noreferrer" class="contact-link mono">github.com/TuanPhamj</a>
                 </span>
               </div>
+            </div>
+          </article>
 
-              <div class="oee-monitor-body">
-                <!-- Animated SVG Circular OEE Gauge -->
-                <div class="oee-ring-wrap">
-                  <svg class="oee-ring-svg" viewBox="0 0 112 112" role="img" aria-label="86.4% OEE">
-                    <circle class="oee-ring-track" cx="56" cy="56" r="44" />
-                    <circle
-                      class="oee-ring-progress"
-                      id="oee-ring-progress"
-                      cx="56"
-                      cy="56"
-                      r="44"
-                      stroke-dasharray="276.46"
-                      stroke-dashoffset="37.6"
-                    />
-                  </svg>
-                  <div class="oee-ring-center">
-                    <span class="oee-ring-val" id="oee-ring-val">86.4%</span>
-                    <span class="oee-ring-label" data-i18n="oeeRingSub">OEE</span>
-                  </div>
+          <!-- Bento Card 2: Education, Certification & Leadership -->
+          <section class="bento-card bento-credentials reveal-item" aria-labelledby="credentials-card-title">
+            <div class="bento-card-header">
+              <span class="bento-card-code" id="credentials-card-title" data-i18n="credCardTitle">HỌC VẤN, CHỨNG CHỈ &amp; LÃNH ĐẠO</span>
+              <i data-lucide="graduation-cap" class="icon-sm bento-header-icon"></i>
+            </div>
+
+            <dl class="credentials-list">
+              <div class="credential-row">
+                <dt class="credential-label">
+                  <span class="credential-icon" aria-hidden="true"><i data-lucide="graduation-cap" class="icon-xs"></i></span>
+                  <span data-i18n="eduLabel">Học vấn</span>
+                </dt>
+                <dd class="credential-value" data-i18n-html="eduValue">
+                  <strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Cử nhân chuyên ngành <strong>Quản trị Kinh doanh</strong> (2022–2026).
+                </dd>
+              </div>
+
+              <div class="credential-row">
+                <dt class="credential-label">
+                  <span class="credential-icon" aria-hidden="true"><i data-lucide="award" class="icon-xs"></i></span>
+                  <span data-i18n="certLabel">Chứng chỉ</span>
+                </dt>
+                <dd class="credential-value">
+                  <span class="cert-badge">Python for Data Analysis</span>
+                </dd>
+              </div>
+
+              <div class="credential-row">
+                <dt class="credential-label">
+                  <span class="credential-icon" aria-hidden="true"><i data-lucide="users" class="icon-xs"></i></span>
+                  <span data-i18n="leadLabel">Hoạt động Lãnh đạo</span>
+                </dt>
+                <dd class="credential-value" data-i18n-html="leadValue">
+                  <strong>Chủ nhiệm CLB E-Marketing Action (EMA HCMUT)</strong> — Điều phối vận hành, chiến lược nội dung và hệ thống quản lý đối tác B2B.
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <!-- Bento Card 3: Core Tools Grouped by Function (Crisp Inline SVG Icons) -->
+          <section class="bento-card bento-tools reveal-item" aria-labelledby="tools-card-title">
+            <div class="bento-card-header">
+              <span class="bento-card-code" id="tools-card-title" data-i18n="toolsCardTitle">CÔNG CỤ SỬ DỤNG</span>
+              <span class="bento-header-meta mono" data-i18n="toolsCardSub">3 nhóm chức năng</span>
+            </div>
+
+            <div class="tools-groups-list">
+              <!-- Group 1: ERP & Lean Operations -->
+              <div class="tool-group">
+                <div class="tool-group-head">
+                  <span class="tool-group-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="16" rx="2" />
+                      <path d="M3 9h18" />
+                      <path d="M9 9v11" />
+                      <path d="M13 13h4" />
+                      <path d="M13 17h3" />
+                    </svg>
+                  </span>
+                  <h3 class="tool-group-title" data-i18n="toolGroup1">ERP &amp; Vận hành Tinh gọn</h3>
                 </div>
+                <ul class="tool-chip-list">
+                  <li class="tool-chip is-primary-tool">SAP Logon (MM/PP · MB52 · COGI)</li>
+                  <li class="tool-chip">Heijunka</li>
+                  <li class="tool-chip">SMED</li>
+                  <li class="tool-chip">Lean &amp; OEE</li>
+                  <li class="tool-chip">5S &amp; Gemba</li>
+                </ul>
+              </div>
 
-                <!-- 3 Compact OEE Sub-Bars -->
-                <div class="oee-subbars">
-                  <div class="oee-subbar-item">
-                    <div class="oee-subbar-top">
-                      <span class="oee-subbar-label" data-i18n="oeeAvailLabel">Availability: 91.2%</span>
-                    </div>
-                    <div class="oee-subbar-track" aria-hidden="true">
-                      <span class="oee-subbar-fill" style="width: 91.2%"></span>
-                    </div>
-                  </div>
-
-                  <div class="oee-subbar-item">
-                    <div class="oee-subbar-top">
-                      <span class="oee-subbar-label" data-i18n="oeePerfLabel">Performance: 95.8%</span>
-                    </div>
-                    <div class="oee-subbar-track" aria-hidden="true">
-                      <span class="oee-subbar-fill" style="width: 95.8%"></span>
-                    </div>
-                  </div>
-
-                  <div class="oee-subbar-item">
-                    <div class="oee-subbar-top">
-                      <span class="oee-subbar-label" data-i18n="oeeQualLabel">Quality: 98.9%</span>
-                    </div>
-                    <div class="oee-subbar-track" aria-hidden="true">
-                      <span class="oee-subbar-fill" style="width: 98.9%"></span>
-                    </div>
-                  </div>
+              <!-- Group 2: Data & Automation -->
+              <div class="tool-group">
+                <div class="tool-group-head">
+                  <span class="tool-group-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <path d="M14 2v6h6" />
+                      <path d="M8 13h8" />
+                      <path d="M8 17h5" />
+                    </svg>
+                  </span>
+                  <h3 class="tool-group-title" data-i18n="toolGroup2">Dữ liệu &amp; Tự động hóa</h3>
                 </div>
+                <ul class="tool-chip-list">
+                  <li class="tool-chip">Excel (VBA Macros · Dynamic Arrays)</li>
+                  <li class="tool-chip">Power Query</li>
+                  <li class="tool-chip">Google Apps Script</li>
+                  <li class="tool-chip">Python (openpyxl)</li>
+                </ul>
+              </div>
+
+              <!-- Group 3: Business Intelligence -->
+              <div class="tool-group">
+                <div class="tool-group-head">
+                  <span class="tool-group-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 3v18h18" />
+                      <path d="M18 17V9" />
+                      <path d="M13 17V5" />
+                      <path d="M8 17v-3" />
+                    </svg>
+                  </span>
+                  <h3 class="tool-group-title" data-i18n="toolGroup3">Trực quan hóa Báo cáo</h3>
+                </div>
+                <ul class="tool-chip-list">
+                  <li class="tool-chip">Power BI</li>
+                </ul>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="section-header">
-          <p class="section-eyebrow" data-i18n="aboutEyebrow">01 // ENGINEERING APPROACH</p>
-          <h2 class="section-title" id="about-title" data-i18n="aboutTitle">A Quantitative Approach to Operations</h2>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-narrative card lift reveal-item">
-            <h3 class="about-subhead" data-i18n="aboutSubhead">From shop-floor stopwatch to automated dashboard</h3>
-            <p class="about-lead" data-i18n="aboutLead">
-              Final-year HCMUT student with two manufacturing internships. I turn constrained lines and messy factory records into schedules and data that planners can trust.
-            </p>
-            <ul class="proof-list">
-              <li>
-                <span class="proof-icon" aria-hidden="true"><i data-lucide="factory" class="icon-sm"></i></span>
-                <span data-i18n-html="aboutProof1"><strong>Thien Long Group</strong> (Long Thanh Plant) &amp; <strong>Duy Tan Recycling</strong> internships</span>
-              </li>
-              <li>
-                <span class="proof-icon" aria-hidden="true"><i data-lucide="layers" class="icon-sm"></i></span>
-                <span data-i18n-html="aboutProof2"><strong>217 color SKUs</strong> sequenced on a <strong>4-stage line</strong> in FlexSim 3D &amp; JS DES</span>
-              </li>
-              <li>
-                <span class="proof-icon" aria-hidden="true"><i data-lucide="refresh-cw" class="icon-sm"></i></span>
-                <span data-i18n-html="aboutProof3"><strong>100% automated</strong> ink-to-unit BOM sync with Excel VBA &amp; Apps Script</span>
-              </li>
-              <li>
-                <span class="proof-icon" aria-hidden="true"><i data-lucide="search-check" class="icon-sm"></i></span>
-                <span data-i18n-html="aboutProof4">Downtime isolated with <strong>OEE</strong>, <strong>Pareto</strong> &amp; <strong>5 Whys RCA</strong>; <strong>5S</strong> standards deployed</span>
-              </li>
-            </ul>
-          </div>
-
-          <ol class="methodology-steps" data-reveal-group>
-            <li class="step-card card lift reveal-item">
-              <span class="step-num" aria-hidden="true"><i data-lucide="gauge" class="icon-sm"></i></span>
-              <div class="step-body">
-                <p class="step-kicker" data-i18n="step1Kicker">01 // SHOP-FLOOR IE</p>
-                <h3 data-i18n="step1Title">Measure &amp; Standardize</h3>
-                <p data-i18n="step1Desc">Time-studies, OEE loss decomposition, 5S audits, and 5 Whys RCA at the workstation.</p>
-              </div>
-            </li>
-            <li class="step-card card lift reveal-item">
-              <span class="step-num" aria-hidden="true"><i data-lucide="boxes" class="icon-sm"></i></span>
-              <div class="step-body">
-                <p class="step-kicker" data-i18n="step2Kicker">02 // DIGITAL TWIN &amp; DES</p>
-                <h3 data-i18n="step2Title">Model &amp; Simulate</h3>
-                <p data-i18n="step2Desc">FlexSim 3D and a JavaScript DES engine to stress-test Heijunka schedules and inter-stage buffers.</p>
-              </div>
-            </li>
-            <li class="step-card card lift reveal-item">
-              <span class="step-num" aria-hidden="true"><i data-lucide="chart-column" class="icon-sm"></i></span>
-              <div class="step-body">
-                <p class="step-kicker" data-i18n="step3Kicker">03 // DATA PIPELINES</p>
-                <h3 data-i18n="step3Title">Automate &amp; Control</h3>
-                <p data-i18n="step3Desc">BOM explosion, Power Query / SQL ETL, Apps Script WIP tracking, and shortage alerts.</p>
-              </div>
-            </li>
-          </ol>
+          </section>
         </div>
       </div>
     </section>
 
     <!-- ================================================================
-         02 — Case studies (#F8FAFC)
+         SECTION 2 (#projects): Dự án Thực chiến (2x2 Grid + Detail Modal)
          ================================================================ -->
-    <section class="section" id="projects" aria-labelledby="projects-title">
+    <section class="section section-alt" id="projects" aria-labelledby="projects-title">
       <div class="container">
         <div class="section-header">
-          <p class="section-eyebrow" data-i18n="projectsEyebrow">02 // CASE STUDIES</p>
-          <h2 class="section-title" id="projects-title" data-i18n="projectsTitle">Industrial &amp; Analytics Case Studies</h2>
+          <p class="section-eyebrow" data-i18n="projectsEyebrow">02 // DỰ ÁN THỰC CHIẾN</p>
+          <h2 class="section-title" id="projects-title" data-i18n="projectsTitle">Dự án Vận hành, Tự động hóa &amp; Cải tiến</h2>
           <p class="section-subtitle" data-i18n="projectsSubtitle">
-            Filter by domain, then open any card for the executive takeaway, a 4-part breakdown, and an NDA-safe system blueprint.
+            Bốn dự án thực tế tại nhà máy và công cụ điều độ sản xuất — nhấp vào từng thẻ để xem phân tích chi tiết 4 phần.
           </p>
         </div>
-
-        <div class="filter-bar" id="project-filters" role="group" data-i18n-attr="aria-label:filterLabel" aria-label="Filter case studies by domain">
-          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">
-            <i data-lucide="layout-grid" class="icon-xs"></i>
-            <span data-i18n="filterAll">All</span>
-            <span class="filter-count" data-count-for="all" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="filter-btn" data-filter="simulation" aria-pressed="false" data-domain="simulation">
-            <i data-lucide="boxes" class="icon-xs"></i>
-            <span data-i18n="filterSimulation">Simulation &amp; Scheduling</span>
-            <span class="filter-count" data-count-for="simulation" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="filter-btn" data-filter="automation" aria-pressed="false" data-domain="automation">
-            <i data-lucide="database" class="icon-xs"></i>
-            <span data-i18n="filterAutomation">Data &amp; BI Automation</span>
-            <span class="filter-count" data-count-for="automation" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="filter-btn" data-filter="lean" aria-pressed="false" data-domain="lean">
-            <i data-lucide="gauge" class="icon-xs"></i>
-            <span data-i18n="filterLean">Lean &amp; OEE</span>
-            <span class="filter-count" data-count-for="lean" aria-hidden="true"></span>
-          </button>
-        </div>
-        <p class="sr-only" id="projects-status" aria-live="polite"></p>
 
         <div class="projects-grid" id="projects-grid" data-reveal-group></div>
+
         <noscript>
-          <p class="noscript-note">Interactive case studies need JavaScript. Summary: 217-SKU Heijunka scheduling on a 4-stage line (FlexSim 3D + JS DES) · automated BOM &amp; WIP tracking (Excel VBA, Apps Script, SQL) · OEE, Pareto, 5 Whys RCA &amp; 5S at Duy Tan Recycling.</p>
+          <p class="noscript-note">
+            Cần bật JavaScript để mở chi tiết dự án. Tóm tắt: (1) Tối ưu hóa vận hành &amp; SAP ERP/SMED/5S tại Xưởng Bút Lông DTM – Tập đoàn Thiên Long; (2) Đánh giá OEE &amp; 5 Whys máy tạo hạt HDPE – DUYTAN Recycling; (3) Web App điều độ sản xuất song song Gantt &amp; Heijunka (TuanPhamJ/Production_Scheduler); (4) Hệ thống theo dõi năng suất đóng gói qua QR &amp; Dashboard OEE Dark-Mode.
+          </p>
         </noscript>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         03 — Skills matrix (#EFF6FF)
-         ================================================================ -->
-    <section class="section section-alt" id="skills" aria-labelledby="skills-title">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-eyebrow" data-i18n="skillsEyebrow">03 // CAPABILITIES MATRIX</p>
-          <h2 class="section-title" id="skills-title" data-i18n="skillsTitle">Technical &amp; Operational Skills</h2>
-          <p class="section-subtitle" data-i18n="skillsSubtitle">Three pillars — each one backed by a case study above.</p>
-        </div>
-        <div class="skills-grid" id="skills-grid" data-reveal-group></div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         04 — Experience & education (#F8FAFC)
-         ================================================================ -->
-    <section class="section" id="timeline" aria-labelledby="timeline-title">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-eyebrow" data-i18n="timelineEyebrow">04 // EXPERIENCE &amp; EDUCATION</p>
-          <h2 class="section-title" id="timeline-title" data-i18n="timelineTitle">Plant Experience &amp; Academic Track</h2>
-          <p class="section-subtitle" data-i18n="timelineSubtitle">Shop-floor internships, student leadership, and a quantitative management degree.</p>
-        </div>
-        <div class="timeline">
-          <div class="timeline-rail" aria-hidden="true"><span class="timeline-rail-fill" id="timeline-rail-fill"></span></div>
-          <ol class="timeline-list" id="timeline-list" data-reveal-group></ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         05 — Contact (#EFF6FF)
-         ================================================================ -->
-    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
-      <div class="container">
-        <div class="contact-card card reveal-item">
-          <div class="contact-left">
-            <p class="section-eyebrow" data-i18n="contactEyebrow">05 // CONTACT</p>
-            <h2 class="section-title" id="contact-title" data-i18n="contactTitle">Open to Production Planning, IE &amp; Operations Analytics Roles</h2>
-            <p class="contact-desc" data-i18n="contactDesc">
-              Based in Ho Chi Minh City and available across Dong Nai and Binh Duong industrial zones. Reach me by email or phone / Zalo.
-            </p>
-
-            <div class="contact-actions">
-              <button type="button" class="btn btn-primary btn-lg copy-email-trigger" data-email="phamanhtuan802@gmail.com">
-                <span class="icon-swap" aria-hidden="true">
-                  <i data-lucide="copy" class="icon-sm icon-swap-a"></i>
-                  <i data-lucide="check" class="icon-sm icon-swap-b"></i>
-                </span>
-                <span class="copy-email-label" data-i18n="btnCopyEmail">Copy Email</span>
-              </button>
-              <a href="mailto:phamanhtuan802@gmail.com" class="btn btn-secondary btn-lg">
-                <i data-lucide="send" class="icon-sm"></i>
-                <span data-i18n="btnSendEmail">Send Email</span>
-              </a>
-              <a href="assets/cv/Pham-Anh-Tuan-CV.pdf" download="Pham-Anh-Tuan-CV.pdf" class="btn btn-ghost btn-lg" data-cv-link>
-                <i data-lucide="file-down" class="icon-sm" data-cv-icon></i>
-                <span data-i18n="btnDownloadCv">Download CV</span>
-              </a>
-            </div>
-          </div>
-
-          <dl class="contact-details">
-            <div class="contact-item">
-              <dt class="contact-item-label">
-                <i data-lucide="mail" class="icon-xs"></i>
-                <span data-i18n="contactEmailLabel">Email</span>
-              </dt>
-              <dd><a href="mailto:phamanhtuan802@gmail.com" class="contact-item-value mono">phamanhtuan802@gmail.com</a></dd>
-            </div>
-            <div class="contact-item">
-              <dt class="contact-item-label">
-                <i data-lucide="phone" class="icon-xs"></i>
-                <span data-i18n="contactPhoneLabel">Phone / Zalo</span>
-              </dt>
-              <dd><a href="tel:+84972693749" class="contact-item-value mono">(+84) 972 693 749</a></dd>
-            </div>
-            <div class="contact-item">
-              <dt class="contact-item-label">
-                <i data-lucide="map-pin" class="icon-xs"></i>
-                <span data-i18n="contactLocationLabel">Preferred region</span>
-              </dt>
-              <dd class="contact-item-value" data-i18n="contactLocationValue">Ho Chi Minh City · Dong Nai · Binh Duong</dd>
-            </div>
-            <div class="contact-item">
-              <dt class="contact-item-label">
-                <i data-lucide="graduation-cap" class="icon-xs"></i>
-                <span data-i18n="contactEduLabel">University</span>
-              </dt>
-              <dd class="contact-item-value" data-i18n="contactEduValue">HCMUT – VNU-HCM · 2022–2026</dd>
-            </div>
-          </dl>
-        </div>
       </div>
     </section>
   </main>
@@ -794,16 +502,17 @@
   <footer class="site-footer" id="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <span class="brand-mark brand-mark-sm" aria-hidden="true">TP</span>
-        <span data-i18n="footerCopy">© 2026 Phạm Anh Tuấn (Tuan Pham) · Production Planning · Lean · Data Analytics</span>
+        <span class="brand-mark" aria-hidden="true">PAT</span>
+        <span data-i18n="footerCopy">© 2026 Phạm Anh Tuấn · Kế hoạch Sản xuất · Lean · Phân tích Dữ liệu Vận hành</span>
       </div>
-      <nav class="footer-links" data-i18n-attr="aria-label:footerNavLabel" aria-label="Footer">
-        <a href="#about" data-i18n="navAbout">Overview</a>
-        <a href="#projects" data-i18n="navProjects">Case Studies</a>
-        <a href="#skills" data-i18n="navSkills">Skills</a>
-        <a href="#timeline" data-i18n="navTimeline">Experience</a>
+      <nav class="footer-links" data-i18n-attr="aria-label:footerNavLabel" aria-label="Liên kết chân trang">
+        <a href="#overview" data-i18n="navOverview">Giới thiệu</a>
+        <a href="#projects" data-i18n="navProjects">Dự án</a>
+        <a href="mailto:phamanhtuan802@gmail.com">Email</a>
+        <a href="tel:+84972693749" class="mono">(+84) 972 693 749</a>
+        <a href="https://github.com/TuanPhamj" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="#top" class="back-to-top">
-          <span data-i18n="backToTop">Back to top</span>
+          <span data-i18n="backToTop">Lên đầu trang</span>
           <i data-lucide="arrow-up" class="icon-xs"></i>
         </a>
       </nav>
@@ -811,9 +520,9 @@
   </footer>
 
   <!-- ================================================================
-       Case study modal (backdrop fade + dialog scale choreography)
+       Interactive 4-Part Project Detail Modal
        ================================================================ -->
-  <div class="modal-root" id="case-study-modal" hidden>
+  <div class="modal-root" id="project-modal" hidden>
     <div class="modal-backdrop" data-modal-dismiss></div>
     <div
       class="modal-dialog"
@@ -821,17 +530,23 @@
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
-      aria-describedby="modal-exec-text"
+      aria-describedby="modal-outcome-text"
       tabindex="-1"
     >
       <div class="modal-header">
         <div class="modal-header-meta">
-          <span class="modal-category-badge" id="modal-category"></span>
+          <span class="modal-code-badge" id="modal-code"></span>
           <span class="modal-org" id="modal-org"></span>
         </div>
         <div class="modal-header-actions">
           <span class="modal-counter" id="modal-counter" aria-hidden="true"></span>
-          <button type="button" class="modal-close-btn" id="modal-close-btn" data-i18n-attr="aria-label:modalClose" aria-label="Close case study">
+          <button
+            type="button"
+            class="modal-close-btn"
+            id="modal-close-btn"
+            data-i18n-attr="aria-label:modalClose"
+            aria-label="Đóng chi tiết dự án"
+          >
             <i data-lucide="x" class="icon-md"></i>
           </button>
         </div>
@@ -839,42 +554,38 @@
 
       <div class="modal-body" id="modal-body">
         <div class="modal-content" id="modal-content">
-          <p class="modal-code" id="modal-code"></p>
+          <p class="modal-timeframe" id="modal-timeframe"></p>
           <h2 class="modal-title" id="modal-title"></h2>
-          <ul class="kpi-pills modal-kpi-pills" id="modal-kpi-pills"></ul>
 
-          <section class="exec-banner" id="modal-exec-banner" aria-labelledby="modal-exec-title">
-            <div class="exec-banner-header">
-              <span class="exec-banner-icon" aria-hidden="true"><i data-lucide="target" class="icon-sm"></i></span>
-              <h3 class="exec-banner-title" id="modal-exec-title" data-i18n="execBannerTitle">Executive Takeaway</h3>
+          <div class="modal-outcome-banner" id="modal-outcome-banner">
+            <span class="outcome-banner-icon" aria-hidden="true">
+              <i data-lucide="target" class="icon-sm"></i>
+            </span>
+            <div>
+              <p class="outcome-banner-kicker" data-i18n="modalOutcomeKicker">KẾT QUẢ NỔI BẬT</p>
+              <p class="outcome-banner-text" id="modal-outcome-text"></p>
             </div>
-            <p class="exec-banner-text" id="modal-exec-text"></p>
-          </section>
-
-          <div class="modal-sections-grid" id="modal-sections-grid"></div>
-
-          <figure class="modal-visual-frame">
-            <div class="visual-frame-bar">
-              <span class="nda-badge">
-                <i data-lucide="shield-check" class="icon-xs"></i>
-                <span data-i18n="ndaLabel">Sanitized mock data · NDA-safe</span>
-              </span>
-              <span class="blueprint-ref" id="modal-blueprint-ref"></span>
-            </div>
-            <div class="visual-canvas" id="modal-visual-canvas" tabindex="0" role="region" data-i18n-attr="aria-label:blueprintRegion" aria-label="System blueprint (scrollable)">
-              <img id="modal-preview-img" alt="" hidden />
-              <div class="svg-blueprint-container" id="modal-svg-blueprint"></div>
-            </div>
-            <figcaption class="visual-scroll-hint">
-              <i data-lucide="move-horizontal" class="icon-xs"></i>
-              <span data-i18n="blueprintHint">Swipe to explore the blueprint</span>
-            </figcaption>
-          </figure>
-
-          <div class="modal-stack-row">
-            <span class="modal-stack-label" id="modal-stack-label" data-i18n="stackLabel">Tech stack</span>
-            <ul class="modal-stack" id="modal-stack" aria-labelledby="modal-stack-label"></ul>
           </div>
+
+          <div class="modal-external-row" id="modal-external-row" hidden>
+            <a
+              href="#"
+              id="modal-external-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-secondary btn-sm"
+            >
+              <svg class="icon-sm brand-svg-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                <path d="M9 18c-4.51 2-5-2-7-2" />
+              </svg>
+              <span id="modal-external-label">GitHub</span>
+              <i data-lucide="arrow-up-right" class="icon-xs"></i>
+            </a>
+          </div>
+
+          <!-- 4-Part Structured Engineering Breakdown -->
+          <div class="modal-sections-grid" id="modal-sections-grid"></div>
         </div>
       </div>
 
@@ -882,13 +593,13 @@
         <button type="button" class="modal-nav-btn modal-nav-prev" id="modal-prev-btn">
           <i data-lucide="arrow-left" class="icon-sm"></i>
           <span class="modal-nav-text">
-            <span class="modal-nav-kicker" data-i18n="modalPrev">Previous Case Study</span>
+            <span class="modal-nav-kicker" data-i18n="modalPrev">Dự án trước</span>
             <span class="modal-nav-title" id="modal-prev-title"></span>
           </span>
         </button>
         <button type="button" class="modal-nav-btn modal-nav-next" id="modal-next-btn">
           <span class="modal-nav-text">
-            <span class="modal-nav-kicker" data-i18n="modalNext">Next Case Study</span>
+            <span class="modal-nav-kicker" data-i18n="modalNext">Dự án tiếp theo</span>
             <span class="modal-nav-title" id="modal-next-title"></span>
           </span>
           <i data-lucide="arrow-right" class="icon-sm"></i>
@@ -897,7 +608,7 @@
     </div>
   </div>
 
-  <!-- Copy feedback toast (always in the accessibility tree; text is set on copy) -->
+  <!-- Accessible Copy Feedback Toast -->
   <div class="toast" id="copy-toast" role="status" aria-live="polite">
     <span class="toast-icon" aria-hidden="true"><i data-lucide="circle-check" class="icon-sm"></i></span>
     <span id="copy-toast-text"></span>
