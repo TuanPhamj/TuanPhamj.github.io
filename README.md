@@ -19,7 +19,9 @@ All bilingual UI strings (`I18N`) and project data (`PROJECTS`) live in `script.
 
 ## Project Visuals & Motion
 
-- Each project card has an animated mini-chart built in `script.js` (`renderViz` → `vizSmed`, `vizOee`, `vizGantt`, `vizQr`), selected by the `visual` field in `PROJECTS`. Charts are hydrated when the card scrolls into view, replay on hover, and render in their final state under `prefers-reduced-motion`.
+- Each project card opens with a window-framed cover (`cover` field in `PROJECTS`, rendered by `renderCover`): a 16:9 image (`small` 640px variant used via `srcset`) or a before/after `split`, an optional `LIVE` badge, and a KPI chip that counts up when the card is revealed. Cover sources are attached by `CoverLoader` ~600px before the card enters the viewport.
+- Animated mini-charts (`renderViz` → `vizSmed`, `vizOee`, `vizGantt`, `vizQr`, chosen by `visual`) appear in the project modal and render in their final state under `prefers-reduced-motion`.
+- Tool chips get icons from `TOOL_ICON_RULES` (regex → icon key): brand marks from Simple Icons (CC0) for software and Lucide line icons for methods, served from one hidden `<symbol>` sprite. Excel, Power BI and Power Query have no open brand mark and use brand-colored generic glyphs.
 - Chart numbers come from the source documents: PRJ-01 SMED proposal (internal changeover ≈16.5′ → target ≤10′, 11 → 9 steps) and PRJ-02 OEE report (A 79.78% × P 60% × Q 85%). PRJ-03/04 charts are illustrative.
 - Project images live in `assets/images/projects/` (WebP) and are listed in a project's `gallery` array with bilingual `alt`/`caption`; they appear in the detail modal. Item types: a plain photo (2-column grid), `wide: true` for screenshots shown uncropped at full width, and `kind: 'pair'` with `before`/`after` images for 5S before/after evidence. An optional `galleryNote` adds a one-line context sentence.
 - `demoUrl` on a project adds a "Live demo" button to its card and modal (PRJ-03 → productionscheduler.vercel.app).
