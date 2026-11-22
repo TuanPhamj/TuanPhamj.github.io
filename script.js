@@ -269,7 +269,7 @@
       vizQrSheet: 'Google Sheets',
       vizQrDash: 'Dashboard OEE',
       vizQrAria:
-        'Luồng dữ liệu tự động: quét mã QR tại chuyền đóng gói, ghi vào Google Sheets, tổng hợp lên Dashboard OEE giao diện tối.',
+        'Luồng dữ liệu tự động: quét mã QR tại chuyền đóng gói, ghi vào Google Sheets, tổng hợp lên Dashboard OEE.',
       vizQrSource: 'Mô phỏng minh họa luồng QR → Google Sheets → Dashboard OEE.',
 
       footerCopy: '© 2026 Phạm Anh Tuấn · Kế hoạch Sản xuất · Lean · Phân tích Dữ liệu Vận hành',
@@ -395,7 +395,7 @@
       vizQrSheet: 'Google Sheets',
       vizQrDash: 'OEE Dashboard',
       vizQrAria:
-        'Automated data flow: QR codes scanned on the packaging line, logged to Google Sheets, and rolled up into a dark-mode OEE dashboard.',
+        'Automated data flow: QR codes scanned on the packaging line, logged to Google Sheets, and rolled up into an OEE dashboard.',
       vizQrSource: 'Illustrative simulation of the QR → Google Sheets → OEE Dashboard flow.',
 
       footerCopy: '© 2026 Pham Anh Tuan · Production Planning · Lean · Operations Analytics',
@@ -528,6 +528,7 @@
           src: 'assets/images/projects/prj-02-f2-signage-mockup.webp',
           width: 1280,
           height: 905,
+          wide: true,
           vi: {
             alt: 'Phối cảnh hệ thống poster truyền thông nội bộ 5S và an toàn lao động gắn trên cột xưởng F2, DUYTAN Recycling',
             caption: 'Đề xuất truyền thông nội bộ 5S & an toàn — phối cảnh tại xưởng F2'
@@ -540,13 +541,14 @@
         {
           src: 'assets/images/projects/prj-02-posters-onsite.webp',
           width: 1280,
-          height: 960,
+          height: 593,
+          wide: true,
           vi: {
-            alt: 'Ba bảng truyền thông về phân loại nhựa và sản xuất an toàn đã in, đặt cạnh dây chuyền tại nhà máy DUYTAN Recycling',
+            alt: 'Ba bảng truyền thông về phân loại nhựa và sản xuất an toàn đã in, đặt tại nhà máy DUYTAN Recycling',
             caption: 'Bảng truyền thông phân loại nhựa & an toàn đã in và đặt tại xưởng'
           },
           en: {
-            alt: 'Three printed boards on plastic sorting and production safety placed beside the line at the DUYTAN Recycling plant',
+            alt: 'Three printed boards on plastic sorting and production safety placed at the DUYTAN Recycling plant',
             caption: 'Plastic-sorting & safety boards printed and placed on the shop floor'
           }
         }
@@ -730,31 +732,31 @@
       ],
       vi: {
         orgShort: 'Tập đoàn Thiên Long · Xưởng Bút Lông',
-        title: 'Hệ thống Theo dõi Năng suất Đóng gói qua QR & Dashboard OEE Dark-Mode',
+        title: 'Hệ thống Theo dõi Năng suất Đóng gói qua QR & Dashboard OEE',
         highlightBadge: 'Tự động hóa 100% luồng QR → Sheets → Dashboard OEE thời gian thực',
         summary:
-          'Loại bỏ sổ giấy và tổng hợp tay cuối ca bằng quy trình quét mã QR nhập liệu liên kết Google Sheets, Excel VBA và Dashboard OEE Dark-Mode theo dõi sản lượng theo Set.',
+          'Loại bỏ sổ giấy và tổng hợp tay cuối ca bằng quy trình quét mã QR nhập liệu liên kết Google Sheets, Excel VBA và Dashboard OEE theo dõi sản lượng theo Set.',
         timeframeContext:
           '07/2026 & 10/2026 – 11/2026 | Triển khai phục vụ quản lý vận hành tại Xưởng Bút Lông, Tập đoàn Thiên Long.',
         objective:
           'Loại bỏ khâu ghi chép giấy và tổng hợp tay cuối ca; theo dõi sản lượng thực tế theo Set đóng gói và cập nhật thời gian dừng máy (TGDM), chỉ số OEE trực quan.',
         deliverables:
-          'Hệ thống quét mã QR nhập liệu sản lượng liên kết Google Sheets (QR OEE Xưởng Bút Lông, NHẬP OEE Xưởng Bút Lông); hệ thống tổng hợp và Dashboard OEE giao diện Dark-Mode (TỔNG TGDM + OEE - BL 2026).',
+          'Hệ thống quét mã QR nhập liệu sản lượng liên kết Google Sheets (QR OEE Xưởng Bút Lông, NHẬP OEE Xưởng Bút Lông); hệ thống tổng hợp và Dashboard OEE (TỔNG TGDM + OEE - BL 2026).',
         results:
           'Tự động hóa hoàn toàn luồng dữ liệu từ chuyền đóng gói lên dashboard quản trị, giúp theo dõi sản lượng theo Set và chỉ số OEE theo thời gian thực.'
       },
       en: {
         orgShort: 'Thien Long Group · Marker Workshop',
-        title: 'QR-Based Packaging Productivity Tracking System & Dark-Mode OEE Dashboard',
-        highlightBadge: '100% Automated QR → Sheets → Real-Time Dark-Mode OEE Dashboard',
+        title: 'QR-Based Packaging Productivity Tracking System & OEE Dashboard',
+        highlightBadge: '100% Automated QR → Sheets → Real-Time OEE Dashboard',
         summary:
-          'Eliminated paper logbooks and manual shift consolidation via QR-code production entry linked to Google Sheets, Excel VBA/openpyxl, and a Dark-Mode OEE Dashboard.',
+          'Eliminated paper logbooks and manual shift consolidation via QR-code production entry linked to Google Sheets, Excel VBA/openpyxl, and an OEE Dashboard.',
         timeframeContext:
           '07/2026 & 10/2026 – 11/2026 | Deployed for shop-floor operations management at the Marker Workshop, Thien Long Group.',
         objective:
           'Eliminate paper logbooks and manual end-of-shift consolidation; track real-time output by packaging set alongside machine downtime and OEE metrics.',
         deliverables:
-          'QR-code production entry workflow linked to Google Sheets (QR OEE Xưởng Bút Lông, NHẬP OEE Xưởng Bút Lông); automated consolidation engine and Dark-Mode OEE Dashboard (TỔNG TGDM + OEE - BL 2026).',
+          'QR-code production entry workflow linked to Google Sheets (QR OEE Xưởng Bút Lông, NHẬP OEE Xưởng Bút Lông); automated consolidation engine and OEE Dashboard (TỔNG TGDM + OEE - BL 2026).',
         results:
           'Fully automated the data pipeline from packaging lines to management dashboards, enabling real-time visibility into set-based output and OEE performance.'
       }

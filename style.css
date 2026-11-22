@@ -67,8 +67,6 @@
   --viz-good-ink: #15803D;
   --viz-indigo: #6366F1;
   --viz-track: rgba(148, 163, 184, 0.14);
-  --viz-dark: #0F172A;
-  --viz-dark-line: #1E293B;
 }
 
 /* ==========================================================================
@@ -2839,16 +2837,20 @@ svg.lucide {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 7px 8px 8px;
-  background-color: var(--viz-dark);
-  border: 1px solid var(--viz-dark-line);
+  padding: 0 8px 8px;
+  background-color: var(--surface);
+  border: 1px solid var(--border-kpi);
+  overflow: hidden;
 }
 
 .qr-dash-kpi {
+  margin: 0 -8px;
+  padding: 3px 8px;
+  background-color: #1E3A5F;
   font-size: 0.56rem;
   font-weight: 800;
   letter-spacing: 0.06em;
-  color: #7DD3FC;
+  color: #FFFFFF;
 }
 
 .qr-dash-bars {
