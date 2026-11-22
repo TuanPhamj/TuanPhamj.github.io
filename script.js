@@ -187,6 +187,13 @@
       menuToggle: 'Mở menu điều hướng',
       menuClose: 'Đóng menu điều hướng',
       btnDownloadCv: 'Tải CV',
+      btnRequestCv: 'Nhận CV qua email',
+      btnRequestCvShort: 'Nhận CV',
+      cvRequestTitle: 'Gửi email để nhận CV',
+      heroValue:
+        '2 kỳ thực tập nhà máy: lập kế hoạch &amp; điều độ trên SAP cho 217 mã bút tại Thiên Long; đo OEE, truy nguyên nhân dừng máy tại Duy Tân. Tự xây hệ thống <strong>QR → dashboard OEE</strong> và <strong>web app xếp lịch sản xuất</strong>.',
+      quickZaloAria: 'Nhắn Zalo (+84) 972 693 749',
+      quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
 
       overviewEyebrow: '01 // GIỚI THIỆU & KINH NGHIỆM THỰC TẾ',
@@ -197,10 +204,10 @@
       expBlockTitle: 'KINH NGHIỆM TẠI NHÀ MÁY',
       exp1Org: 'Tập đoàn Thiên Long – Nhà máy Long Thành',
       exp1Desc:
-        '<p class="experience-role">Thực tập sinh Kế hoạch &amp; Điều độ sản xuất (KHSX) · Tổ trưởng sản xuất — Xưởng Bút Lông 2 đầu (DTM – 217 mã màu)</p><ul class="experience-points"><li>Vận hành <strong>SAP Logon</strong> (MM/PP, MB52, COGI)</li><li>Lập lịch sản xuất MPS/MRP</li><li>Đồng bộ định mức BOM/Routing</li><li>Cải tiến chuyển đổi nhanh SMED</li><li><strong>Đi Gemba xưởng, duy trì tiêu chuẩn 5S</strong> hằng ngày</li></ul>',
+        '<p class="experience-role">Thực tập sinh Kế hoạch &amp; Điều độ sản xuất (KHSX) · Tổ trưởng sản xuất — Xưởng Bút Lông 2 đầu (DTM – 217 mã màu)</p><ul class="experience-points"><li>Xử lý dứt điểm lỗi treo tồn kho <strong>COGI</strong> trên <strong>SAP Logon</strong> (MM/PP, MB52) phát sinh trong kỳ thực tập</li><li>Lập lịch sản xuất MPS/MRP, đồng bộ định mức BOM/Routing cho 217 mã màu</li><li>Đề xuất quy trình SMED đổi màu mực: mục tiêu giảm thời gian dừng máy từ ≈16,5 phút xuống <strong>≤10 phút</strong></li><li>Đi Gemba, duy trì 5S hằng ngày; đợt đánh giá 5S 18–20/11: <strong>10/10 lỗi</strong> đã được khắc phục</li></ul>',
       exp2Org: 'Nhà máy Nhựa Tái chế Duy Tân – DUYTAN Recycling',
       exp2Desc:
-        '<p class="experience-role">Thực tập sinh Bộ phận Sản xuất — cụm máy tạo hạt nhựa tái chế HDPE</p><ul class="experience-points"><li>Đo lường hiệu suất thiết bị toàn phần (OEE)</li><li>Phân tích thời gian chu kỳ (Cycle Time)</li><li>Truy tìm nguyên nhân gốc rễ bằng 5 Whys</li><li>Kiểm tra 5S</li></ul>',
+        '<p class="experience-role">Thực tập sinh Bộ phận Sản xuất — cụm máy tạo hạt nhựa tái chế HDPE</p><ul class="experience-points"><li>Đo OEE cụm máy tạo hạt: <strong>≈40,7%</strong> (A 79,8% · P 60% · Q 85%) so với chuẩn thế giới 85%</li><li>Phân tích thời gian chu kỳ (Cycle Time), truy nguyên nhân gốc bằng 5 Whys</li><li>Đề xuất cải tiến bồn trộn và bộ truyền thông 5S nội bộ cho xưởng F2</li></ul>',
 
       btnExploreProjects: 'Xem Dự án',
       contactBarAria: 'Thông tin liên hệ trực tiếp',
@@ -214,7 +221,7 @@
       credCardTitle: 'HỌC VẤN, CHỨNG CHỈ & HOẠT ĐỘNG CLB',
       eduLabel: 'Học vấn',
       eduValue:
-        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Cử nhân chuyên ngành <strong>Quản trị Kinh doanh</strong> (2022–2026).',
+        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Khoa Quản lý Công nghiệp, cử nhân chuyên ngành <strong>Quản trị Kinh doanh</strong> (2022–2026).',
       certLabel: 'Chứng chỉ',
       leadLabel: 'Hoạt động CLB',
       certOpenDrive: '(mở chứng chỉ trên Google Drive)',
@@ -315,6 +322,13 @@
       menuToggle: 'Open navigation menu',
       menuClose: 'Close navigation menu',
       btnDownloadCv: 'Download CV',
+      btnRequestCv: 'Request CV by email',
+      btnRequestCvShort: 'Request CV',
+      cvRequestTitle: 'Email me to receive my CV',
+      heroValue:
+        'Two plant internships: planned and scheduled 217 marker SKUs on SAP at Thien Long; measured OEE and traced downtime causes at Duy Tan. Built a <strong>QR → OEE dashboard</strong> and a <strong>production-scheduling web app</strong>.',
+      quickZaloAria: 'Message on Zalo (+84) 972 693 749',
+      quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'CV Request — Pham Anh Tuan',
 
       overviewEyebrow: '01 // OVERVIEW & SHOP-FLOOR EXPERIENCE',
@@ -325,10 +339,10 @@
       expBlockTitle: 'SHOP-FLOOR EXPERIENCE',
       exp1Org: 'Thien Long Group – Long Thanh Plant',
       exp1Desc:
-        '<p class="experience-role">Production Planning &amp; Scheduling Intern · Production Team Leader — Dual Tip Marker workshop (DTM – 217 color SKUs)</p><ul class="experience-points"><li>Operated <strong>SAP Logon</strong> (MM/PP, MB52, COGI)</li><li>Managed MPS/MRP scheduling</li><li>Synchronized BOM/Routing norms</li><li>Drove SMED changeover improvements</li><li><strong>Daily shop-floor Gemba walks &amp; 5S</strong> upkeep</li></ul>',
+        '<p class="experience-role">Production Planning &amp; Scheduling Intern · Production Team Leader — Dual Tip Marker workshop (DTM – 217 color SKUs)</p><ul class="experience-points"><li>Cleared the <strong>COGI</strong> inventory-posting errors raised on <strong>SAP Logon</strong> (MM/PP, MB52) during the internship</li><li>Ran MPS/MRP scheduling and synchronized BOM/Routing norms for 217 color SKUs</li><li>Proposed an SMED ink-color changeover: target downtime cut from ≈16.5 to <strong>≤10 minutes</strong></li><li>Daily Gemba walks &amp; 5S; 5S audit 18–20 Nov: <strong>10/10 findings</strong> fixed</li></ul>',
       exp2Org: 'Duy Tan Recycling Plant – DUYTAN Recycling',
       exp2Desc:
-        '<p class="experience-role">Production Department Intern — HDPE recycled-plastic pelletizing lines</p><ul class="experience-points"><li>Measured Overall Equipment Effectiveness (OEE)</li><li>Analyzed Cycle Time</li><li>Ran 5 Whys root-cause analysis</li><li>Conducted 5S audits</li></ul>',
+        '<p class="experience-role">Production Department Intern — HDPE recycled-plastic pelletizing lines</p><ul class="experience-points"><li>Measured line OEE: <strong>≈40.7%</strong> (A 79.8% · P 60% · Q 85%) vs. the 85% world-class benchmark</li><li>Analyzed Cycle Time and traced root causes with 5 Whys</li><li>Proposed a mixing-tank improvement and an internal 5S communication kit for workshop F2</li></ul>',
 
       btnExploreProjects: 'Explore Projects',
       contactBarAria: 'Direct contact details',
@@ -342,7 +356,7 @@
       credCardTitle: 'EDUCATION, CERTIFICATES & CLUB ACTIVITIES',
       eduLabel: 'Education',
       eduValue:
-        "<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — Bachelor's in <strong>Business Administration</strong> (2022–2026).",
+        "<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — School of Industrial Management, Bachelor's in <strong>Business Administration</strong> (2022–2026).",
       certLabel: 'Certificates',
       leadLabel: 'Club Activities',
       certOpenDrive: '(open certificate on Google Drive)',
@@ -511,7 +525,7 @@
       vi: {
         orgShort: 'Tập đoàn Thiên Long · Nhà máy Long Thành',
         title: 'Tối ưu hóa Vận hành, Chuẩn hóa SAP ERP & Cải tiến SMED/5S tại Xưởng Bút Lông DTM',
-        highlightBadge: 'Xử lý triệt để lỗi COGI · Đồng bộ BOM/Routing 217 SKU (4M SP/tháng)',
+        highlightBadge: 'Xử lý triệt để lỗi COGI · Đồng bộ BOM/Routing 217 SKU (mục tiêu 4M SP/tháng)',
         summary:
           'Đồng bộ định mức BOM/Routing, xử lý dứt điểm lỗi treo tồn kho backflush (COGI) cho dòng Bút Lông 2 đầu (217 mã màu), đồng thời rút ngắn đổi mã bằng SMED và duy trì 5S.',
         timeframeContext:
@@ -526,7 +540,7 @@
       en: {
         orgShort: 'Thien Long Group · Long Thanh Plant',
         title: 'Operations Optimization, SAP ERP Standardization & SMED/5S Improvement at DTM Marker Workshop',
-        highlightBadge: 'Eliminated COGI Errors · Standardized 217-SKU BOM/Routing (4M units/mo)',
+        highlightBadge: 'Eliminated COGI Errors · Standardized 217-SKU BOM/Routing (4M units/mo target)',
         summary:
           'Synchronized BOM/Routing norms and eliminated backflush inventory errors (COGI) across 217 Dual Tip Marker SKUs while reducing changeover times via SMED and daily 5S.',
         timeframeContext:
@@ -1481,6 +1495,20 @@
      ======================================================================== */
   function applyCvState() {
     document.querySelectorAll('[data-cv-link]').forEach((link) => {
+      // Label and icon must match what the button does: download the PDF, or email a CV request
+      const label = link.querySelector('[data-i18n^="btn"]');
+      const shortLabel = link.classList.contains('header-cta');
+      if (label) {
+        label.setAttribute(
+          'data-i18n',
+          ASSETS.cvAvailable ? 'btnDownloadCv' : shortLabel ? 'btnRequestCvShort' : 'btnRequestCv'
+        );
+      }
+      const icon = link.querySelector('i[data-lucide]');
+      if (icon) icon.setAttribute('data-lucide', ASSETS.cvAvailable ? 'file-down' : 'mail');
+      if (ASSETS.cvAvailable) link.removeAttribute('title');
+      else link.setAttribute('title', t('cvRequestTitle'));
+
       if (ASSETS.cvAvailable) {
         link.setAttribute('href', ASSETS.cvPath);
         link.setAttribute('download', ASSETS.cvFileName);

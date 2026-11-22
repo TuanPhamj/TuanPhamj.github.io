@@ -906,6 +906,19 @@ svg.lucide {
   margin-bottom: 12px;
 }
 
+/* One-line value proposition under the tagline */
+.hero-value {
+  max-width: 62ch;
+  margin: -2px 0 14px;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.hero-value strong {
+  color: var(--text-heading);
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -998,9 +1011,8 @@ svg.lucide {
   margin-bottom: 0;
 }
 
-/* Profile Footer: CTAs + Inline Contact Bar */
+/* Profile Footer: CTAs + Inline Contact Bar (follows the content — no mid-card gap) */
 .profile-footer {
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -3216,6 +3228,18 @@ svg.lucide {
   }
 }
 
+/* Phones: header shows avatar + language + CV + menu; the name is already the hero title */
+@media (max-width: 480px) {
+  .brand-text {
+    display: none;
+  }
+
+  .header-cta {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
 /* Tool icons inside chips */
 .tool-chip,
 .tech-tag,
@@ -3692,8 +3716,7 @@ svg.lucide {
 
 @media (max-width: 1024px) {
   .main-nav,
-  .header-quick-contact,
-  .header-cta {
+  .header-quick-contact {
     display: none;
   }
 
