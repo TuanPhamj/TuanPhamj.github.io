@@ -191,7 +191,7 @@
       btnRequestCvShort: 'Nhận CV',
       cvRequestTitle: 'Gửi email để nhận CV',
       heroValue:
-        '2 kỳ thực tập nhà máy: tham gia lập lịch sản xuất &amp; đối soát tồn kho trên SAP (MM/PP) cho 217 mã màu tại Thiên Long; đo OEE, phân tích nguyên nhân dừng máy tại Duy Tân Recycling. Tự xây <strong>Form Excel VBA</strong>, <strong>báo cáo QR → Google Sheets</strong> và <strong>web app xếp lịch Gantt</strong>.',
+        '2 kỳ thực tập nhà máy: tham gia lập lịch sản xuất &amp; đối soát tồn kho trên SAP (MM/PP) cho 217 mã màu tại Thiên Long; đo OEE, phân tích nguyên nhân dừng máy tại Duy Tân Recycling. Tự xây <strong>Form Excel VBA</strong>, <strong>Dashboard Power BI</strong>, <strong>báo cáo QR → Google Sheets</strong> và <strong>web app xếp lịch Gantt</strong>.',
       quickZaloAria: 'Nhắn Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
@@ -287,10 +287,10 @@
 
       vizQrScan: 'QR cuối ca / Form VBA',
       vizQrSheet: 'Sheets / Bảng log Excel',
-      vizQrDash: 'Báo cáo & OEE tháng',
+      vizQrDash: 'Dashboard Excel & Power BI',
       vizQrAria:
-        'Luồng số hóa dữ liệu vận hành: quét mã QR báo cáo sản lượng đóng gói cuối ca về Google Sheets, kết hợp Form Excel VBA nhập 19 nguyên nhân dừng máy để tổng hợp báo cáo Pareto và OEE theo tháng.',
-      vizQrSource: 'Sơ đồ minh họa 2 luồng công cụ: QR cuối ca → Google Sheets và Form Excel VBA → Dashboard OEE theo tháng.',
+        'Luồng số hóa dữ liệu vận hành: quét mã QR báo cáo sản lượng đóng gói cuối ca về Google Sheets, kết hợp Form Excel VBA nhập 19 nguyên nhân dừng máy để tổng hợp báo cáo Pareto, OEE và hiệu suất vận hành trên Excel và Power BI.',
+      vizQrSource: 'Sơ đồ minh họa 2 luồng công cụ: QR cuối ca → Google Sheets và Form Excel VBA → Dashboard Excel / Power BI.',
 
       footerCopy: '© 2026 Phạm Anh Tuấn · Kế hoạch Sản xuất · Lean · Phân tích Dữ liệu Vận hành',
       footerNavLabel: 'Liên kết chân trang',
@@ -326,7 +326,7 @@
       btnRequestCvShort: 'Request CV',
       cvRequestTitle: 'Email me to receive my CV',
       heroValue:
-        'Two plant internships: supported SAP (MM/PP) scheduling and inventory reconciliation across 217 marker SKUs at Thien Long; measured OEE and analyzed downtime causes at Duy Tan Recycling. Built <strong>Excel VBA tools</strong>, a <strong>QR-to-Sheets output tracker</strong>, and a <strong>Gantt scheduling web app</strong>.',
+        'Two plant internships: supported SAP (MM/PP) scheduling and inventory reconciliation across 217 marker SKUs at Thien Long; measured OEE and analyzed downtime causes at Duy Tan Recycling. Built <strong>Excel VBA tools</strong>, <strong>Power BI dashboards</strong>, a <strong>QR-to-Sheets output tracker</strong>, and a <strong>Gantt scheduling web app</strong>.',
       quickZaloAria: 'Message on Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'CV Request — Pham Anh Tuan',
@@ -422,10 +422,10 @@
 
       vizQrScan: 'Shift QR / VBA Form',
       vizQrSheet: 'Sheets / Excel Log',
-      vizQrDash: 'Monthly OEE Report',
+      vizQrDash: 'Excel & Power BI Dashboards',
       vizQrAria:
-        'Digitized operations reporting flow: end-of-shift packaging QR forms consolidate into Google Sheets, while an Excel VBA entry form logs 19 downtime reasons into monthly Pareto and OEE dashboards.',
-      vizQrSource: 'Illustrative diagram of the two workflows: shift QR → Google Sheets and Excel VBA form → monthly OEE dashboard.',
+        'Digitized operations reporting flow: end-of-shift packaging QR forms consolidate into Google Sheets, while an Excel VBA entry form logs 19 downtime reasons into Excel and Power BI Pareto, Availability, and OEE dashboards.',
+      vizQrSource: 'Illustrative diagram of the two workflows: shift QR → Google Sheets and Excel VBA form → Excel / Power BI dashboards.',
 
       footerCopy: '© 2026 Pham Anh Tuan · Production Planning · Lean · Operations Analytics',
       footerNavLabel: 'Footer navigation',
@@ -777,11 +777,43 @@
         small: 'assets/images/projects/prj-04-cover-640.webp',
         width: 1200,
         height: 675,
-        kpi: { to: 19, suffix: '', vi: 'mã dừng máy · Form VBA & QR cuối ca', en: 'downtime codes · VBA & shift QR form' },
-        vi: { label: 'Form VBA & Dashboard OEE · Báo cáo QR', alt: 'Dashboard OEE và thời gian dừng máy Xưởng Bút Lông trong Excel' },
-        en: { label: 'OEE VBA Form & Dashboard · QR Report', alt: 'Marker Workshop OEE and downtime dashboard in Excel' }
+        kpi: { to: 19, suffix: '', vi: 'mã dừng máy · Power BI · VBA · QR', en: 'downtime codes · Power BI · VBA · QR' },
+        vi: { label: 'Power BI · Form VBA · Báo cáo QR', alt: 'Dashboard Power BI tổng quan hiệu suất sản xuất Xưởng DTM (dữ liệu giả lập đã che mờ số liệu nhạy cảm)' },
+        en: { label: 'Power BI · VBA Form · QR Report', alt: 'Power BI production performance overview dashboard for DTM Workshop (NDA-sanitized simulated data)' }
+      },
+      galleryNote: {
+        vi: 'Lưu ý bảo mật (NDA): Các ảnh chụp Dashboard Power BI chỉ sử dụng dữ liệu giả lập đã điều chỉnh; số liệu vận hành thực tế đã được che mờ và mã công đoạn được ẩn danh (CĐ-1 → CĐ-4) nhằm minh họa bố cục và năng lực trực quan hóa.',
+        en: 'NDA Note: The Power BI dashboard screenshots use modified/simulated data for portfolio illustration; sensitive plant figures are blurred and internal process stages anonymized (CĐ-1 to CĐ-4).'
       },
       gallery: [
+        {
+          src: 'assets/images/projects/prj-04-pbi-overview.webp',
+          width: 1024,
+          height: 599,
+          wide: true,
+          vi: {
+            alt: 'Dashboard Power BI trang Tổng quan Hiệu suất Sản xuất Xưởng DTM: bộ lọc Tháng, Công đoạn, Ca làm việc; 6 thẻ KPI khả dụng và giờ vận hành; biểu đồ xu hướng theo tháng, hiệu suất theo công đoạn ẩn danh CĐ-1 đến CĐ-4, top nguyên nhân dừng máy, tổn thất theo ca và tóm tắt phát hiện chính (số liệu nhạy cảm đã che mờ)',
+            caption: 'Power BI — Trang 1 (Tổng quan Hiệu suất Sản xuất): 6 thẻ KPI, xu hướng Availability theo tháng, so sánh công đoạn (CĐ-1 → CĐ-4), top nguyên nhân dừng, tổn thất theo ca & tóm tắt phát hiện (dữ liệu giả lập đã che mờ NDA)'
+          },
+          en: {
+            alt: 'Power BI Production Performance Overview page for DTM Workshop: Month, Stage, and Shift slicers; 6 availability and operating-hour KPI cards; monthly trend and anonymized stage CĐ-1 to CĐ-4 combo charts, top downtime causes, shift loss chart, and executive summary card (sensitive numbers blurred)',
+            caption: 'Power BI — Page 1 (Production Performance Overview): 6 KPI cards, monthly Availability trend, anonymized stage comparison (CĐ-1 to CĐ-4), top downtime reasons, shift losses & key findings (NDA-sanitized simulated data)'
+          }
+        },
+        {
+          src: 'assets/images/projects/prj-04-pbi-downtime.webp',
+          width: 1024,
+          height: 597,
+          wide: true,
+          vi: {
+            alt: 'Dashboard Power BI trang Phân tích Nguyên nhân Dừng máy Xưởng DTM: 4 thẻ KPI tổng dừng và tần suất, biểu đồ Pareto 14 nguyên nhân dừng máy, giờ dừng theo tháng và công đoạn CĐ-1 đến CĐ-4, ma trận Nguyên nhân × Công đoạn và tần suất sự cố theo nguyên nhân (số liệu nhạy cảm đã che mờ)',
+            caption: 'Power BI — Trang 2 (Phân tích Nguyên nhân Dừng máy): Pareto 14 nguyên nhân, phân rã Tháng × Công đoạn (lọc tương tác), ma trận Nguyên nhân × Công đoạn & tần suất sự cố (dữ liệu giả lập đã che mờ NDA)'
+          },
+          en: {
+            alt: 'Power BI Downtime Root-Cause Analysis page for DTM Workshop: 4 downtime and incident-frequency KPI cards, 14-cause Pareto bar chart, clustered Month × Stage breakdown (CĐ-1 to CĐ-4), Cause × Stage matrix, and incident frequency by cause (sensitive numbers blurred)',
+            caption: 'Power BI — Page 2 (Downtime Root-Cause Analysis): 14-cause Pareto, cross-filtered Month × Stage breakdown, Cause × Stage matrix & incident frequency (NDA-sanitized simulated data)'
+          }
+        },
         {
           src: 'assets/images/projects/prj-04-excel-vba-form.webp',
           width: 1280,
@@ -803,11 +835,11 @@
           wide: true,
           vi: {
             alt: 'Dashboard OEE và thời gian dừng máy Xưởng Bút Lông: biểu đồ Pareto 10 nguyên nhân dừng, biểu đồ vòng cơ cấu thời gian kế hoạch, xu hướng OEE, A, P, Q và giờ dừng máy theo tháng',
-            caption: 'Dashboard OEE & thời gian dừng máy theo tháng: Pareto 10 nguyên nhân dừng, cơ cấu thời gian KHSX, xu hướng OEE · A · P · Q'
+            caption: 'Dashboard Excel OEE & thời gian dừng máy theo tháng: Pareto 10 nguyên nhân dừng, cơ cấu thời gian KHSX, xu hướng OEE · A · P · Q'
           },
           en: {
             alt: 'Marker Workshop OEE and downtime dashboard: Pareto of the top 10 stop reasons, donut of planned-time structure, monthly OEE, A, P, Q trend and downtime hours',
-            caption: 'Monthly OEE & downtime dashboard: top-10 stop-reason Pareto, planned-time structure, monthly OEE · A · P · Q trends'
+            caption: 'Monthly Excel OEE & downtime dashboard: top-10 stop-reason Pareto, planned-time structure, monthly OEE · A · P · Q trends'
           }
         },
         {
@@ -826,49 +858,52 @@
         }
       ],
       tools: [
+        'Power BI (Power Query, DAX)',
+        'Microsoft Excel (VBA Macros, openpyxl)',
         'Google Forms',
         'Google Sheets (Dynamic Arrays, Apps Script)',
-        'Microsoft Excel (VBA Macros, openpyxl)',
         'QR Code Tracking'
       ],
       vi: {
-        orgShort: 'Tập đoàn Thiên Long · Xưởng Bút Lông',
-        title: 'Số hóa Báo cáo Đóng gói qua QR & Form Excel VBA – Dashboard OEE',
-        highlightBadge: 'Báo cáo đóng gói cuối ca qua QR → Sheets · Form VBA 19 mã lỗi & Dashboard OEE tháng',
+        orgShort: 'Tập đoàn Thiên Long · Xưởng Bút Lông DTM',
+        title: 'Số hóa Báo cáo Đóng gói qua QR, Form Excel VBA & Dashboard OEE (Excel / Power BI)',
+        highlightBadge: 'Dashboard Power BI 2 trang (NDA-Sanitized) · Form VBA 19 mã lỗi · Báo cáo QR → Sheets',
         summary:
-          'Số hóa báo cáo sản lượng đóng gói cuối ca bằng mã QR → Google Form → Google Sheets thay sổ giấy; đồng thời xây Form nhập liệu Excel VBA (19 mã dừng máy) và dashboard tổng hợp thời gian dừng máy, Pareto nguyên nhân & xu hướng OEE theo tháng.',
+          'Số hóa báo cáo sản lượng đóng gói cuối ca bằng mã QR → Google Form → Google Sheets thay sổ giấy; xây Form nhập liệu Excel VBA (19 mã dừng máy) kết hợp Dashboard Excel OEE và Dashboard Power BI 2 trang phân tích hiệu suất khả dụng & nguyên nhân dừng máy theo tháng, công đoạn, ca làm việc.',
         timeframeContext:
-          '07/2026 & 10/2026 – 11/2026 | Xây dựng phục vụ quản lý vận hành tại Xưởng Bút Lông, Tập đoàn Thiên Long.',
+          '07/2026 & 10/2026 – 11/2026 | Xây dựng phục vụ quản lý vận hành tại Xưởng Bút Lông DTM, Tập đoàn Thiên Long (số liệu minh họa trên portfolio đã ẩn danh theo NDA).',
         objective:
-          'Giảm khâu ghi chép sổ giấy và cộng tay báo cáo cuối ca ở tổ đóng gói; chuẩn hóa nhập liệu 19 nguyên nhân dừng máy và tổng hợp biểu đồ Pareto dừng máy, xu hướng OEE theo tháng trên Excel.',
+          'Giảm khâu ghi chép sổ giấy và cộng tay báo cáo cuối ca ở tổ đóng gói; chuẩn hóa nhập liệu 19 nguyên nhân dừng máy và trực quan hóa đa chiều Availability, Pareto dừng máy, tổn thất theo công đoạn & ca làm việc trên Excel và Power BI.',
         deliverables: [
-          'Luồng báo cáo đóng gói cuối ca: quét mã QR tại chuyền → Google Form → tự động tổng hợp sản lượng theo Set trên Google Sheets.',
-          'Form nhập liệu Excel VBA “Nhập dừng máy – dữ liệu OEE” (19 nguyên nhân dừng máy, bắt buộc nhập lý do khi chọn “Dừng khác”, tự ghi dòng kế tiếp).',
-          'Dashboard Excel tổng hợp Pareto Top 10 nguyên nhân dừng máy, cơ cấu thời gian kế hoạch và xu hướng OEE (A · P · Q) theo tháng.'
+          'Dashboard Power BI 2 trang (lọc tương tác theo Tháng, Công đoạn, Ca làm việc): Trang 1 Tổng quan Hiệu suất Sản xuất (6 KPI, xu hướng tháng/công đoạn/ca, tóm tắt phát hiện) & Trang 2 Phân tích Nguyên nhân Dừng máy (Pareto 14 nguyên nhân, ma trận Nguyên nhân × Công đoạn, tần suất sự cố).',
+          'Form nhập liệu Excel VBA “Nhập dừng máy – dữ liệu OEE” (19 nguyên nhân dừng máy, bắt buộc nhập lý do khi chọn “Dừng khác”, tự ghi dòng kế tiếp) cùng Dashboard Excel tổng hợp Pareto & xu hướng OEE (A · P · Q).',
+          'Luồng báo cáo đóng gói cuối ca: quét mã QR tại chuyền → Google Form → tự động tổng hợp sản lượng theo Set trên Google Sheets.'
         ],
         results: [
-          'Thay thế sổ giấy ở khâu báo cáo sản lượng đóng gói cuối ca bằng biểu mẫu QR tự động đổ về Google Sheets.',
-          'Chuẩn hóa dữ liệu dừng máy vào bảng tổng hợp tập trung bằng Form VBA, giảm sai sót nhập tay và tự động cập nhật biểu đồ Pareto/OEE theo từng tháng.'
+          'Nâng cấp báo cáo dừng máy từ bảng tổng hợp tĩnh lên Dashboard Power BI 2 trang có slicer tương tác đa chiều, hỗ trợ khoanh vùng nhanh công đoạn điểm nghẽn, ca làm việc và top nguyên nhân dừng máy.',
+          'Chuẩn hóa dữ liệu dừng máy vào bảng log tập trung bằng Form VBA, giảm sai sót nhập tay và tự động cập nhật biểu đồ Pareto/OEE theo tháng.',
+          'Thay thế sổ giấy ở khâu báo cáo sản lượng đóng gói cuối ca bằng biểu mẫu QR tự động đổ về Google Sheets.'
         ]
       },
       en: {
-        orgShort: 'Thien Long Group · Marker Workshop',
-        title: 'QR Packaging Output Reporting & Excel VBA OEE Dashboard',
-        highlightBadge: 'QR End-of-Shift Packaging Form → Sheets · 19-Code VBA Form & Monthly OEE Dashboard',
+        orgShort: 'Thien Long Group · DTM Marker Workshop',
+        title: 'QR Packaging Reporting, Excel VBA Form & OEE / Downtime Dashboards (Excel & Power BI)',
+        highlightBadge: '2-Page Power BI Dashboard (NDA-Sanitized) · 19-Code VBA Form · Shift QR → Sheets',
         summary:
-          'Digitized end-of-shift packaging output logs via QR code → Google Forms → Google Sheets to replace paper tallies, and built an Excel VBA entry form (19 downtime codes) with a monthly downtime Pareto and OEE dashboard.',
+          'Digitized end-of-shift packaging output logs via QR → Google Forms → Google Sheets; built an Excel VBA entry form (19 downtime codes) feeding a monthly Excel OEE dashboard and a 2-page interactive Power BI dashboard analyzing Availability and downtime root causes by month, stage, and shift.',
         timeframeContext:
-          '07/2026 & 10/2026 – 11/2026 | Built for shop-floor operations tracking at the Marker Workshop, Thien Long Group.',
+          '07/2026 & 10/2026 – 11/2026 | Built for shop-floor operations tracking at the DTM Marker Workshop, Thien Long Group (portfolio dashboard figures NDA-sanitized).',
         objective:
-          'Replace paper logbooks and manual end-of-shift tallies on packaging lines; standardize logging across 19 machine-downtime reasons and automate monthly downtime Pareto and OEE trend charts in Excel.',
+          'Replace paper logbooks and manual end-of-shift tallies on packaging lines; standardize logging across 19 machine-downtime reasons and enable multi-dimensional Availability, Pareto, stage, and shift downtime analysis across Excel and Power BI.',
         deliverables: [
-          'End-of-shift packaging workflow: line QR code → Google Form → automated set-based output consolidation in Google Sheets.',
-          'Excel VBA downtime entry form (19 stop-reason codes, required explanation validation for "Other stops", auto-appends to the next log row).',
-          'Monthly Excel OEE & downtime dashboard with Top-10 downtime Pareto, planned-time breakdown, and A · P · Q trend charts.'
+          '2-page interactive Power BI dashboard (Month, Stage, and Shift slicers): Page 1 Production Performance Overview (6 KPI cards, monthly/stage/shift loss trends, executive findings) and Page 2 Downtime Root-Cause Analysis (14-cause Pareto, Cause × Stage matrix, incident frequency).',
+          'Excel VBA downtime entry form (19 stop-reason codes, required explanation validation for "Other stops", auto-appends to the next log row) paired with a monthly Excel OEE (A · P · Q) & Pareto dashboard.',
+          'End-of-shift packaging workflow: line QR code → Google Form → automated set-based output consolidation in Google Sheets.'
         ],
         results: [
-          'Replaced paper logbooks for end-of-shift packaging output with a QR-to-Google-Sheets reporting form.',
-          'Standardized shift downtime logging into a structured table via Excel VBA, reducing manual entry errors and automating monthly Pareto and OEE charts.'
+          'Upgraded static shift logs into a 2-page cross-filtered Power BI dashboard to rapidly pinpoint bottleneck process stages, shift gaps, and top downtime drivers.',
+          'Standardized shift downtime logging into a structured table via Excel VBA, reducing manual entry errors and automating monthly Pareto and OEE charts.',
+          'Replaced paper logbooks for end-of-shift packaging output with a QR-to-Google-Sheets reporting form.'
         ]
       }
     }
