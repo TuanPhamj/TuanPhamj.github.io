@@ -5,7 +5,7 @@ Static site for GitHub Pages: `index.html`, `style.css`, `script.js`. No build s
 
 ## Architecture
 
-1. **Section 1 (`#overview`)** — Asymmetric 3-card Bento Grid: Profile & Shop-Floor Experience, Education/Certification/Leadership, and Functionally Grouped Core Tools.
+1. **Section 1 (`#overview`)** — Asymmetric 3-card Bento Grid: Profile & Shop-Floor Experience, Education / Certificates (DataCamp thumbnails linking to Google Drive) / Club Activities, and Functionally Grouped Core Tools.
 2. **Section 2 (`#projects`)** — 2×2 Outcome-First Featured Projects Grid with an accessible 4-part Detail Modal (`Context & Objective`, `Tools & Methodology`, `Deliverables`, `Key Outcomes`).
 
 ## Adding your CV PDF
@@ -26,4 +26,5 @@ All bilingual UI strings (`I18N`) and project data (`PROJECTS`) live in `script.
 - Project images live in `assets/images/projects/` (WebP) and are listed in a project's `gallery` array with bilingual `alt`/`caption`; they appear in the detail modal. Item types: a plain photo (2-column grid), `wide: true` for screenshots shown uncropped at full width, and `kind: 'pair'` with `before`/`after` images for 5S before/after evidence. An optional `galleryNote` adds a one-line context sentence.
 - `demoUrl` on a project adds a "Live demo" button to its card and modal (PRJ-03 → productionscheduler.vercel.app).
 - Motion tokens (`--ease-*`, `--dur-*`) and data-viz colors (`--viz-*`) are defined in `:root` in `style.css`.
-
+- Experience entries are a role line plus a bullet list (`exp1Desc` / `exp2Desc` in `I18N`); each bullet gets a tool/method icon from `TOOL_ICON_RULES` via `decorateExperiencePoints()`.
+- Certificate thumbnails live in `assets/images/certs/`; each item links to its file in the shared Google Drive folder.

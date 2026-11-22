@@ -197,10 +197,10 @@
       expBlockTitle: 'KINH NGHIỆM TẠI NHÀ MÁY',
       exp1Org: 'Tập đoàn Thiên Long – Nhà máy Long Thành',
       exp1Desc:
-        'Thực tập sinh Kế hoạch &amp; Điều độ sản xuất (KHSX) và Tổ trưởng sản xuất tại Xưởng Bút Lông 2 đầu (DTM – 217 mã màu); vận hành <strong>SAP Logon</strong> (MM/PP, MB52, COGI), lập lịch MPS/MRP, đồng bộ BOM/Routing, cải tiến chuyển đổi nhanh SMED và <strong>đi Gemba xưởng, duy trì tiêu chuẩn 5S hằng ngày</strong>.',
+        '<p class="experience-role">Thực tập sinh Kế hoạch &amp; Điều độ sản xuất (KHSX) · Tổ trưởng sản xuất — Xưởng Bút Lông 2 đầu (DTM – 217 mã màu)</p><ul class="experience-points"><li>Vận hành <strong>SAP Logon</strong> (MM/PP, MB52, COGI)</li><li>Lập lịch sản xuất MPS/MRP</li><li>Đồng bộ định mức BOM/Routing</li><li>Cải tiến chuyển đổi nhanh SMED</li><li><strong>Đi Gemba xưởng, duy trì tiêu chuẩn 5S</strong> hằng ngày</li></ul>',
       exp2Org: 'Nhà máy Nhựa Tái chế Duy Tân – DUYTAN Recycling',
       exp2Desc:
-        'Thực tập sinh Bộ phận Sản xuất; đo lường hiệu suất thiết bị toàn phần (OEE), phân tích thời gian chu kỳ (Cycle Time), truy tìm nguyên nhân gốc rễ 5 Whys và kiểm tra 5S cho cụm máy tạo hạt nhựa tái chế HDPE.',
+        '<p class="experience-role">Thực tập sinh Bộ phận Sản xuất — cụm máy tạo hạt nhựa tái chế HDPE</p><ul class="experience-points"><li>Đo lường hiệu suất thiết bị toàn phần (OEE)</li><li>Phân tích thời gian chu kỳ (Cycle Time)</li><li>Truy tìm nguyên nhân gốc rễ bằng 5 Whys</li><li>Kiểm tra 5S</li></ul>',
 
       btnExploreProjects: 'Xem Dự án',
       contactBarAria: 'Thông tin liên hệ trực tiếp',
@@ -211,12 +211,14 @@
       btnCopyPhoneTitle: 'Sao chép số Điện thoại / Zalo',
       btnCopied: 'Đã sao chép!',
 
-      credCardTitle: 'HỌC VẤN, CHỨNG CHỈ & LÃNH ĐẠO',
+      credCardTitle: 'HỌC VẤN, CHỨNG CHỈ & HOẠT ĐỘNG CLB',
       eduLabel: 'Học vấn',
       eduValue:
         '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Cử nhân chuyên ngành <strong>Quản trị Kinh doanh</strong> (2022–2026).',
       certLabel: 'Chứng chỉ',
-      leadLabel: 'Hoạt động Lãnh đạo',
+      leadLabel: 'Hoạt động CLB',
+      certOpenDrive: '(mở chứng chỉ trên Google Drive)',
+      certViewAll: 'Xem tất cả chứng chỉ trên Google Drive',
       leadValue:
         '<strong>Chủ nhiệm CLB E-Marketing Action (EMA HCMUT)</strong> — Điều phối vận hành, chiến lược nội dung và hệ thống quản lý đối tác B2B.',
 
@@ -323,10 +325,10 @@
       expBlockTitle: 'SHOP-FLOOR EXPERIENCE',
       exp1Org: 'Thien Long Group – Long Thanh Plant',
       exp1Desc:
-        'Production Planning &amp; Scheduling Intern and Production Team Leader at the Dual Tip Marker (DTM – 217 color SKUs) workshop; operated <strong>SAP Logon</strong> (MM/PP, MB52, COGI), managed MPS/MRP scheduling, synchronized BOM/Routing, drove SMED changeover improvements, and <strong>conducted daily shop-floor Gemba walks &amp; 5S maintenance</strong>.',
+        '<p class="experience-role">Production Planning &amp; Scheduling Intern · Production Team Leader — Dual Tip Marker workshop (DTM – 217 color SKUs)</p><ul class="experience-points"><li>Operated <strong>SAP Logon</strong> (MM/PP, MB52, COGI)</li><li>Managed MPS/MRP scheduling</li><li>Synchronized BOM/Routing norms</li><li>Drove SMED changeover improvements</li><li><strong>Daily shop-floor Gemba walks &amp; 5S</strong> upkeep</li></ul>',
       exp2Org: 'Duy Tan Recycling Plant – DUYTAN Recycling',
       exp2Desc:
-        'Production Department Intern; measured Overall Equipment Effectiveness (OEE), analyzed Cycle Time, performed 5 Whys root-cause analysis, and conducted 5S audits on HDPE pelletizing lines.',
+        '<p class="experience-role">Production Department Intern — HDPE recycled-plastic pelletizing lines</p><ul class="experience-points"><li>Measured Overall Equipment Effectiveness (OEE)</li><li>Analyzed Cycle Time</li><li>Ran 5 Whys root-cause analysis</li><li>Conducted 5S audits</li></ul>',
 
       btnExploreProjects: 'Explore Projects',
       contactBarAria: 'Direct contact details',
@@ -337,12 +339,14 @@
       btnCopyPhoneTitle: 'Copy Phone / Zalo Number',
       btnCopied: 'Copied!',
 
-      credCardTitle: 'EDUCATION, CERTIFICATION & LEADERSHIP',
+      credCardTitle: 'EDUCATION, CERTIFICATES & CLUB ACTIVITIES',
       eduLabel: 'Education',
       eduValue:
         "<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — Bachelor's in <strong>Business Administration</strong> (2022–2026).",
-      certLabel: 'Certification',
-      leadLabel: 'Leadership',
+      certLabel: 'Certificates',
+      leadLabel: 'Club Activities',
+      certOpenDrive: '(open certificate on Google Drive)',
+      certViewAll: 'View all certificates on Google Drive',
       leadValue:
         '<strong>President, E-Marketing Action Club (EMA HCMUT)</strong> — Led club operations, content strategy, and B2B partnership workflows.',
 
@@ -1230,7 +1234,9 @@
     [/Whys|RCA/, 'search'],
     [/SOP/, 'filecheck'],
     [/Output Norms/, 'calculator'],
-    [/DBR|CONWIP|POLCA/, 'workflow']
+    [/DBR|CONWIP|POLCA/, 'workflow'],
+    [/MPS|MRP/, 'gantt'],
+    [/BOM|Routing/, 'workflow']
   ];
 
   // Each icon's geometry lives once in a hidden <symbol> sprite; chips reference it with <use>.
@@ -1262,6 +1268,15 @@
 
   function toolLabel(label) {
     return `${toolIconSvg(label)}<span>${escapeHtml(label)}</span>`;
+  }
+
+  // Experience bullets: tool/method icon as the bullet marker (re-run after each translation pass)
+  function decorateExperiencePoints() {
+    document.querySelectorAll('.experience-points li').forEach((li) => {
+      if (li.querySelector('.tool-ico, .point-dot')) return;
+      const svg = toolIconSvg(li.textContent.trim());
+      li.insertAdjacentHTML('afterbegin', svg || '<span class="point-dot" aria-hidden="true"></span>');
+    });
   }
 
   function decorateStaticToolChips() {
@@ -1886,6 +1901,7 @@
 
     applyCvState();
     applyStaticTranslations();
+    decorateExperiencePoints();
     renderProjects();
     CoverLoader.observe(dom.projectsGrid);
 
