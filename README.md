@@ -1,25 +1,18 @@
 # TuanPhamj.github.io
 
-Bilingual (EN | VI) portfolio of Phạm Anh Tuấn (Tuan Pham) — Production Planning, Lean & Data Analytics.
+Bilingual (VI | EN) 2-section portfolio of Phạm Anh Tuấn — Production Planning, Lean & Operations Analytics.
 Static site for GitHub Pages: `index.html`, `style.css`, `script.js`. No build step.
 
-## Adding your CV and screenshots
+## Architecture
 
-Both are off by default so visitors never hit a 404.
+1. **Section 1 (`#overview`)** — Asymmetric 3-card Bento Grid: Profile & Shop-Floor Experience, Education/Certification/Leadership, and Functionally Grouped Core Tools.
+2. **Section 2 (`#projects`)** — 2×2 Outcome-First Featured Projects Grid with an accessible 4-part Detail Modal (`Context & Objective`, `Tools & Methodology`, `Deliverables`, `Key Outcomes`).
 
-- **CV** — add `assets/cv/Pham-Anh-Tuan-CV.pdf`, then set `ASSETS.cvAvailable = true` at the top of `script.js`.
-  While it is `false`, every CV button reads **Request CV** and opens an email with a prefilled subject.
-- **Case-study screenshots** — add a PNG to `assets/images/` and set `image: 'assets/images/<file>.png'`
-  on that project in `PROJECTS` (`script.js`). While `image` is `null`, the modal shows the generated,
-  localized SVG blueprint.
+## Adding your CV PDF
 
-## Editing content
+- Add `assets/cv/Pham-Anh-Tuan-CV.pdf`, then set `ASSETS.cvAvailable = true` at the top of `script.js`.
+- While `ASSETS.cvAvailable` is `false`, CV buttons route to a prefilled CV request email so visitors never hit a 404.
 
-All copy lives in `script.js`: `I18N` (UI strings), `PROJECTS`, `SKILLS_MATRIX`, `TIMELINE_ITEMS`.
-Every entry has `en` and `vi` versions — keep both in sync.
+## Editing Content
 
-## Icons
-
-Lucide is loaded from `https://unpkg.com/lucide@latest`. If the CDN is slow or blocked, `script.js`
-renders the same icons from a built-in fallback set after 2.5 s. When adding a new icon name, also add its
-paths to `ICON_FALLBACK`.
+All bilingual UI strings (`I18N`) and project data (`PROJECTS`) live in `script.js` with full `vi` and `en` parity.
