@@ -26,9 +26,20 @@
     cvFileName: 'Pham-Anh-Tuan-CV.pdf'
   };
 
-  const REDUCED_MOTION =
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Live value: follows the OS setting if it changes while the page is open
+  const reducedMotionQuery =
+    typeof window.matchMedia === 'function' ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  let REDUCED_MOTION = !!(reducedMotionQuery && reducedMotionQuery.matches);
+  if (reducedMotionQuery) {
+    const onMotionPrefChange = (event) => {
+      REDUCED_MOTION = event.matches;
+    };
+    if (typeof reducedMotionQuery.addEventListener === 'function') {
+      reducedMotionQuery.addEventListener('change', onMotionPrefChange);
+    } else if (typeof reducedMotionQuery.addListener === 'function') {
+      reducedMotionQuery.addListener(onMotionPrefChange);
+    }
+  }
 
   const STAGGER_MS = 70;
 
@@ -1264,6 +1275,8 @@
   /* ========================================================================
      5d. Project cover — window-framed thumbnail with an animated KPI chip
      ======================================================================== */
+  const BLANK_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
   function renderCover(project, opts) {
     const cv = project.cover;
     if (!cv) return '';
@@ -1275,7 +1288,7 @@
       const srcset = im.small
         ? ` data-srcset="${escapeHtml(im.small)} 640w, ${escapeHtml(im.src)} ${im.width}w" sizes="(max-width: 860px) calc(100vw - 80px), 520px"`
         : '';
-      return `<img class="${cls}" data-src="${escapeHtml(im.small || im.src)}"${srcset} alt="" width="${im.width}" height="${im.height}" decoding="async" />`;
+      return `<img class="${cls}" src="${BLANK_PIXEL}" data-src="${escapeHtml(im.small || im.src)}"${srcset} alt="" width="${im.width}" height="${im.height}" decoding="async" />`;
     };
 
     const media =
@@ -1303,6 +1316,10 @@
          </span>`
       : '';
     const live = cv.live ? '<span class="cover-live"><i aria-hidden="true"></i>LIVE</span>' : '';
+    const kpiText = k
+      ? `${k.prefix || ''}${formatNumber(k.to, k.decimals || 0)}${k.suffix || ''} ${k[currentLang]}`
+      : '';
+    const label = [c.alt, kpiText, cv.live ? 'LIVE' : ''].filter(Boolean).join(' — ');
     const state = opts && opts.played ? ' is-on no-anim' : '';
 
     return `
@@ -1311,7 +1328,7 @@
           <span class="cover-dots" aria-hidden="true"><i></i><i></i><i></i></span>
           <span class="cover-label">${escapeHtml(c.label)}</span>
         </figcaption>
-        <div class="cover-media" role="img" aria-label="${escapeHtml(c.alt)}">
+        <div class="cover-media" role="img" aria-label="${escapeHtml(label)}">
           ${media}${live}${kpi}
         </div>
       </figure>`;
@@ -1350,9 +1367,18 @@
           { rootMargin: '600px 0px' }
         );
       }
-      covers.forEach((c) => this.io.observe(c));
+      covers.forEach((c) => {
+        if (c.closest('.is-visible')) this.load(c); // already revealed (e.g. re-render after a language switch)
+        else this.io.observe(c);
+      });
+    },
+
+    loadAll() {
+      document.querySelectorAll('.project-cover').forEach((c) => this.load(c));
     }
   };
+
+  window.addEventListener('beforeprint', () => CoverLoader.loadAll());
 
   /* Pause decorative looping animations when off-screen or the tab is hidden */
   const LoopGate = {

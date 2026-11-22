@@ -65,7 +65,7 @@
   --viz-ext-alt: #DBEAFE;
   --viz-good: #16A34A;
   --viz-good-ink: #15803D;
-  --viz-indigo: #6366F1;
+  --viz-indigo: #4F46E5;
   --viz-track: rgba(148, 163, 184, 0.14);
 }
 
@@ -2032,6 +2032,21 @@ svg.lucide {
   animation-delay: calc(120ms + var(--seq, 0) * 90ms);
 }
 
+/* Name and tagline are the likely LCP text: move them, but keep them painted from the first frame */
+@keyframes heroRise {
+  from {
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.js .hero-title.hero-seq,
+.js .hero-tagline.hero-seq {
+  animation-name: heroRise;
+}
+
 /* "Available now" live dot */
 .status-dot {
   position: relative;
@@ -3096,7 +3111,7 @@ svg.lucide {
 }
 
 .cover-tag.is-after {
-  background-color: var(--viz-good);
+  background-color: var(--viz-good-ink);
 }
 
 .cover-live {
@@ -3409,7 +3424,7 @@ svg.lucide {
 }
 
 .ba-side.is-after .ba-badge {
-  background-color: var(--viz-good);
+  background-color: var(--viz-good-ink);
 }
 
 @keyframes partIn {
@@ -3472,8 +3487,9 @@ svg.lucide {
     position: absolute;
   }
 
+  /* grow up, down and into the chip's own right padding — never over the email link on the left */
   .btn-micro-copy::after {
-    inset: -9px;
+    inset: -9px -9px -9px 0;
   }
 
   .btn-inline-copy::after,
@@ -3483,6 +3499,10 @@ svg.lucide {
 
   .contact-link::after {
     inset: -12px 0;
+  }
+
+  .footer-links {
+    row-gap: 22px; /* = 2 × 11px vertical hit-area growth, so wrapped rows never overlap */
   }
 
   .footer-links a::after {
@@ -3696,8 +3716,14 @@ svg.lucide {
     display: none !important;
   }
 
-  .js .reveal-item {
+  .js .reveal-item,
+  .project-cover .cover-img,
+  .project-cover .cover-split,
+  .project-cover .cover-mask,
+  .project-cover .cover-mask-inner,
+  .project-cover .cover-kpi {
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
   }
 }
