@@ -220,7 +220,8 @@
       projectsSubtitle:
         'Bốn dự án thực tế tại nhà máy và công cụ điều độ sản xuất — nhấp vào từng thẻ để xem phân tích chi tiết 4 phần.',
       btnViewDetails: 'Xem chi tiết',
-      btnGithubDemo: 'GitHub / Demo',
+      btnGithubDemo: 'GitHub',
+      btnLiveDemo: 'Demo trực tiếp',
 
       modalClose: 'Đóng chi tiết dự án',
       modalOutcomeKicker: 'KẾT QUẢ NỔI BẬT',
@@ -237,7 +238,9 @@
       modalVizKicker: 'TRỰC QUAN HÓA',
       modalGalleryKicker: 'HÌNH ẢNH TRIỂN KHAI',
       modalGalleryOpen: 'Mở ảnh kích thước đầy đủ',
-      cardPhotos: 'ảnh thực tế',
+      cardMedia: 'hình ảnh',
+      galleryBefore: 'TRƯỚC',
+      galleryAfter: 'SAU',
 
       vizSmedNow: 'Hiện trạng',
       vizSmedTarget: 'Mục tiêu SMED',
@@ -343,7 +346,8 @@
       projectsSubtitle:
         'Four real-world plant initiatives and scheduling systems — open any card for the 4-part structured breakdown.',
       btnViewDetails: 'View Details',
-      btnGithubDemo: 'GitHub / Demo',
+      btnGithubDemo: 'GitHub',
+      btnLiveDemo: 'Live demo',
 
       modalClose: 'Close project details',
       modalOutcomeKicker: 'KEY OUTCOME',
@@ -360,7 +364,9 @@
       modalVizKicker: 'AT A GLANCE',
       modalGalleryKicker: 'ON-SITE DELIVERABLES',
       modalGalleryOpen: 'Open full-size image',
-      cardPhotos: 'on-site photos',
+      cardMedia: 'images',
+      galleryBefore: 'BEFORE',
+      galleryAfter: 'AFTER',
 
       vizSmedNow: 'Current',
       vizSmedTarget: 'SMED target',
@@ -413,6 +419,65 @@
       timeframe: '05/2026 – 11/2026',
       repoUrl: null,
       visual: 'smed',
+      galleryNote: {
+        vi: 'Đợt đánh giá 5S Xưởng Bút Lông 18–20/11/2026: 10/10 lỗi phát hiện đã khắc phục và đóng (Closed).',
+        en: 'Marker Workshop 5S audit, 18–20 Nov 2026: 10/10 findings fixed and closed.'
+      },
+      gallery: [
+        {
+          kind: 'pair',
+          before: { src: 'assets/images/projects/prj-01-5s-aisle-before.webp', width: 400, height: 299 },
+          after: { src: 'assets/images/projects/prj-01-5s-aisle-after.webp', width: 800, height: 600 },
+          vi: {
+            alt: 'lối đi trong Xưởng Bút Lông',
+            caption: 'S1 – Sàng lọc · Lối đi xưởng: thùng thành phẩm chắn lối đi được chuyển về kho'
+          },
+          en: {
+            alt: 'Marker Workshop aisle',
+            caption: 'S1 – Sort · Workshop aisle: finished-goods cartons blocking the aisle moved to the warehouse'
+          }
+        },
+        {
+          kind: 'pair',
+          before: { src: 'assets/images/projects/prj-01-5s-stairs-before.webp', width: 400, height: 299 },
+          after: { src: 'assets/images/projects/prj-01-5s-stairs-after.webp', width: 400, height: 300 },
+          vi: {
+            alt: 'khu vực dưới chân cầu thang',
+            caption: 'S1 – Sàng lọc · Chân cầu thang: thùng carton và thùng nhựa tồn đọng được dọn, xếp gọn'
+          },
+          en: {
+            alt: 'area under the staircase',
+            caption: 'S1 – Sort · Under the stairs: idle cartons and plastic crates cleared and stacked'
+          }
+        },
+        {
+          kind: 'pair',
+          before: { src: 'assets/images/projects/prj-01-5s-crates-before.webp', width: 400, height: 300 },
+          after: { src: 'assets/images/projects/prj-01-5s-crates-after.webp', width: 400, height: 300 },
+          vi: {
+            alt: 'khu vực bên hông nhà máy',
+            caption: 'S2 – Sắp xếp · Hông nhà máy: thùng nhựa để lộn xộn được xếp đúng vị trí quy định'
+          },
+          en: {
+            alt: 'area beside the plant building',
+            caption: 'S2 – Set in order · Beside the plant: scattered plastic crates stacked in their marked spot'
+          }
+        },
+        {
+          src: 'assets/images/projects/prj-01-dovetail-wave.webp',
+          width: 1280,
+          height: 502,
+          wide: true,
+          vi: {
+            alt: 'Bảng trình tự đổi màu dove-tail Wave 1: đi từ Colorless Blender qua họ Vàng sang họ Cam, mỗi ô ghi mã màu, tên màu và số thứ tự',
+            caption: 'Bảng trình tự đổi màu dove-tail (Wave 1: trong suốt → Vàng → Cam) — sắp lịch nhạt → đậm để giảm xúc rửa khi SMED'
+          },
+          en: {
+            alt: 'Dove-tail color changeover sequence board, Wave 1: from Colorless Blender through the yellow family into the orange family, each tile showing color code, name and sequence number',
+            caption: 'Dove-tail color sequence board (Wave 1: clear → yellow → orange) — light-to-dark ordering to cut purges during SMED'
+          }
+        }
+      ],
       tools: [
         'SAP Logon (MM/PP, MB52, COGI)',
         'SMED',
@@ -531,6 +596,41 @@
       visual: 'gantt',
       repoUrl: 'https://github.com/TuanPhamJ/Production_Scheduler',
       repoText: 'TuanPhamJ/Production_Scheduler',
+      demoUrl: 'https://productionscheduler.vercel.app/',
+      galleryNote: {
+        vi: 'Ảnh chụp bản deploy productionscheduler.vercel.app với bộ kế hoạch mẫu ẩn danh (mã SAP giả DEMO-xxxx).',
+        en: 'Screenshots of the live productionscheduler.vercel.app build loaded with an anonymized sample plan (dummy SAP codes DEMO-xxxx).'
+      },
+      gallery: [
+        {
+          src: 'assets/images/projects/prj-03-scheduler-overview.webp',
+          width: 1600,
+          height: 717,
+          wide: true,
+          vi: {
+            alt: 'Giao diện ứng dụng điều độ: thẻ KPI mô phỏng, bảng chọn ca và máy M1–M3, biểu đồ Gantt theo ca và giờ với các lô FINE màu xanh ngọc',
+            caption: 'Màn hình chính: KPI mô phỏng, cấu hình ca & máy, Gantt theo ca/giờ với khoảng đổi màu được tính tự động'
+          },
+          en: {
+            alt: 'Scheduler interface: simulated KPI cards, shift and machine M1–M3 setup, Gantt chart by shift and hour with teal FINE lots',
+            caption: 'Main view: simulated KPIs, shift & machine setup, shift/hour Gantt with automatically computed changeovers'
+          }
+        },
+        {
+          src: 'assets/images/projects/prj-03-scheduler-gantt-multiday.webp',
+          width: 1600,
+          height: 344,
+          wide: true,
+          vi: {
+            alt: 'Biểu đồ Gantt chế độ toàn đợt: ba máy chạy song song trong ba ngày, dòng FINE màu xanh ngọc chạy trước, dòng CHISEL màu xanh dương chạy sau',
+            caption: 'Chế độ Toàn đợt: lịch song song 3 máy trong 3 ngày — FINE chạy trước, CHISEL chạy sau, ô sọc là đổi màu/đổi dòng'
+          },
+          en: {
+            alt: 'Multi-day Gantt view: three machines running in parallel over three days, teal FINE line first, blue CHISEL line after',
+            caption: 'Multi-day view: 3-machine parallel schedule over 3 days — FINE first, then CHISEL; hatched cells are changeovers'
+          }
+        }
+      ],
       tools: [
         'HTML5',
         'CSS3',
@@ -578,6 +678,50 @@
       timeframe: '07/2026 & 10/2026 – 11/2026',
       repoUrl: null,
       visual: 'qr',
+      gallery: [
+        {
+          src: 'assets/images/projects/prj-04-excel-vba-form.webp',
+          width: 1280,
+          height: 789,
+          wide: true,
+          vi: {
+            alt: 'Form VBA trong Excel tên Nhập dừng máy – dữ liệu OEE với các ô tháng, ngày, ca, mã máy, sản lượng BTP đạt và lỗi, và 19 ô thời gian dừng theo nguyên nhân',
+            caption: 'Form VBA “Nhập dừng máy – dữ liệu OEE” trong Excel: chọn ca, máy, BTP; nhập 19 nguyên nhân dừng máy; tự ghi vào dòng kế tiếp'
+          },
+          en: {
+            alt: 'Excel VBA form titled Machine stop entry – OEE data with fields for month, day, shift, machine code, good and defective output, and 19 downtime-reason fields',
+            caption: 'Excel VBA “Machine stop entry – OEE data” form: pick shift, machine and part; log 19 downtime reasons; auto-writes the next row'
+          }
+        },
+        {
+          src: 'assets/images/projects/prj-04-oee-dashboard.webp',
+          width: 1139,
+          height: 684,
+          wide: true,
+          vi: {
+            alt: 'Dashboard OEE và thời gian dừng máy Xưởng Bút Lông: biểu đồ Pareto 10 nguyên nhân dừng, biểu đồ vòng cơ cấu thời gian kế hoạch, xu hướng OEE, A, P, Q và giờ dừng máy theo tháng',
+            caption: 'Dashboard OEE & thời gian dừng máy: Pareto 10 nguyên nhân dừng, cơ cấu thời gian KHSX, xu hướng OEE · A · P · Q theo tháng'
+          },
+          en: {
+            alt: 'Marker Workshop OEE and downtime dashboard: Pareto of the top 10 stop reasons, donut of planned-time structure, monthly OEE, A, P, Q trend and downtime hours',
+            caption: 'OEE & downtime dashboard: top-10 stop-reason Pareto, planned-time structure, monthly OEE · A · P · Q trends'
+          }
+        },
+        {
+          src: 'assets/images/projects/prj-04-google-form.webp',
+          width: 850,
+          height: 640,
+          wide: true,
+          vi: {
+            alt: 'Google Form Báo cáo năng suất đóng gói cuối ngày: nhân viên quét mã QR tại chuyền rồi nhập mã nhân viên và sản lượng',
+            caption: 'Google Form “Báo cáo năng suất đóng gói cuối ngày” — điểm nhập liệu khi công nhân quét QR tại chuyền'
+          },
+          en: {
+            alt: 'Google Form End-of-day packaging productivity report: workers scan the line QR code and enter their employee ID and output',
+            caption: 'Google Form “End-of-day packaging productivity report” — the entry point when workers scan the line QR code'
+          }
+        }
+      ],
       tools: [
         'Google Forms',
         'Google Sheets (Dynamic Arrays, Apps Script)',
@@ -664,6 +808,9 @@
     modalExternalRow: $('modal-external-row'),
     modalExternalLink: $('modal-external-link'),
     modalExternalLabel: $('modal-external-label'),
+    modalDemoLink: $('modal-demo-link'),
+    modalDemoLabel: $('modal-demo-label'),
+    modalGalleryNote: $('modal-gallery-note'),
     modalSections: $('modal-sections-grid'),
     modalViz: $('modal-viz'),
     modalVizStage: $('modal-viz-stage'),
@@ -1180,13 +1327,26 @@
            </a>`
         : '';
 
-      const mediaMarkup =
-        project.gallery && project.gallery.length
-          ? `<span class="project-media-chip">
-               <i data-lucide="images" class="icon-xs"></i>
-               <span>${project.gallery.length} ${escapeHtml(t('cardPhotos'))}</span>
-             </span>`
-          : '';
+      const demoMarkup = project.demoUrl
+        ? `<a
+             href="${escapeHtml(project.demoUrl)}"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="project-external-link is-demo"
+             data-stop-card
+           >
+             <span>${escapeHtml(t('btnLiveDemo'))}</span>
+             <i data-lucide="arrow-up-right" class="icon-xs"></i>
+           </a>`
+        : '';
+
+      const mediaCount = galleryCount(project);
+      const mediaMarkup = mediaCount
+        ? `<span class="project-media-chip">
+             <i data-lucide="images" class="icon-xs"></i>
+             <span>${mediaCount} ${escapeHtml(t('cardMedia'))}</span>
+           </span>`
+        : '';
 
       // Charts are built lazily when the card is revealed (keeps the initial DOM light)
       const visualMarkup = project.visual
@@ -1226,7 +1386,7 @@
               <span>${escapeHtml(t('btnViewDetails'))}</span>
               <i data-lucide="arrow-up-right" class="icon-sm"></i>
             </span>
-            ${externalMarkup}${mediaMarkup}
+            <span class="project-card-actions">${mediaMarkup}${externalMarkup}${demoMarkup}</span>
           </div>
         </article>`;
     }).join('');
@@ -1240,6 +1400,44 @@
     return PROJECTS[(idx + step + PROJECTS.length) % PROJECTS.length];
   }
 
+  function galleryCount(project) {
+    return (project.gallery || []).reduce((n, item) => n + (item.kind === 'pair' ? 2 : 1), 0);
+  }
+
+  function galleryLink(img, alt, label) {
+    return `<a class="gallery-link" href="${escapeHtml(img.src)}" target="_blank" rel="noopener noreferrer"
+              aria-label="${escapeHtml(`${t('modalGalleryOpen')}: ${label}`)}">
+              <img src="${escapeHtml(img.src)}" alt="${escapeHtml(alt)}" width="${img.width}" height="${img.height}" loading="lazy" decoding="async" />
+            </a>`;
+  }
+
+  function renderGalleryItem(item) {
+    const g = item[currentLang];
+    if (item.kind === 'pair') {
+      const before = t('galleryBefore');
+      const after = t('galleryAfter');
+      return `
+        <figure class="gallery-item is-pair">
+          <div class="ba-pair">
+            <div class="ba-side is-before">
+              ${galleryLink(item.before, `${before}: ${g.alt}`, `${before} — ${g.caption}`)}
+              <span class="ba-badge" aria-hidden="true">${escapeHtml(before)}</span>
+            </div>
+            <div class="ba-side is-after">
+              ${galleryLink(item.after, `${after}: ${g.alt}`, `${after} — ${g.caption}`)}
+              <span class="ba-badge" aria-hidden="true">${escapeHtml(after)}</span>
+            </div>
+          </div>
+          <figcaption>${escapeHtml(g.caption)}</figcaption>
+        </figure>`;
+    }
+    return `
+      <figure class="gallery-item${item.wide ? ' is-wide' : ''}">
+        ${galleryLink(item, g.alt, g.caption)}
+        <figcaption>${escapeHtml(g.caption)}</figcaption>
+      </figure>`;
+  }
+
   function renderModalMedia(project, animateViz) {
     if (project.visual) {
       dom.modalVizStage.innerHTML = renderViz(project, { large: true, played: !animateViz });
@@ -1251,22 +1449,14 @@
     }
 
     if (project.gallery && project.gallery.length) {
-      dom.modalGalleryGrid.innerHTML = project.gallery
-        .map((item) => {
-          const g = item[currentLang];
-          return `
-            <figure class="gallery-item">
-              <a class="gallery-link" href="${escapeHtml(item.src)}" target="_blank" rel="noopener noreferrer"
-                 aria-label="${escapeHtml(`${t('modalGalleryOpen')}: ${g.caption}`)}">
-                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(g.alt)}" width="${item.width}" height="${item.height}" loading="lazy" decoding="async" />
-              </a>
-              <figcaption>${escapeHtml(g.caption)}</figcaption>
-            </figure>`;
-        })
-        .join('');
+      const note = project.galleryNote ? project.galleryNote[currentLang] : '';
+      dom.modalGalleryNote.textContent = note;
+      dom.modalGalleryNote.hidden = !note;
+      dom.modalGalleryGrid.innerHTML = project.gallery.map(renderGalleryItem).join('');
       dom.modalGallery.hidden = false;
     } else {
       dom.modalGalleryGrid.innerHTML = '';
+      dom.modalGalleryNote.textContent = '';
       dom.modalGallery.hidden = true;
     }
   }
@@ -1294,14 +1484,13 @@
     dom.modalTitle.textContent = c.title;
     dom.modalOutcomeText.textContent = c.highlightBadge;
 
-    if (project.repoUrl) {
-      dom.modalExternalLink.setAttribute('href', project.repoUrl);
-      dom.modalExternalLabel.textContent = `${t('btnGithubDemo')} · ${project.repoText || 'GitHub'}`;
-      dom.modalExternalRow.hidden = false;
-    } else {
-      dom.modalExternalLink.setAttribute('href', '#');
-      dom.modalExternalRow.hidden = true;
-    }
+    dom.modalExternalLink.hidden = !project.repoUrl;
+    dom.modalExternalLink.setAttribute('href', project.repoUrl || '#');
+    dom.modalExternalLabel.textContent = `${t('btnGithubDemo')} · ${project.repoText || 'GitHub'}`;
+    dom.modalDemoLink.hidden = !project.demoUrl;
+    dom.modalDemoLink.setAttribute('href', project.demoUrl || '#');
+    dom.modalDemoLabel.textContent = t('btnLiveDemo');
+    dom.modalExternalRow.hidden = !(project.repoUrl || project.demoUrl);
 
     dom.modalSections.innerHTML = `
       <section class="case-part" aria-labelledby="case-part-context">

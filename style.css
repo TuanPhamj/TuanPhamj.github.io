@@ -2985,6 +2985,27 @@ svg.lucide {
   }
 }
 
+/* Card footer: grouped right-side actions (photos chip, GitHub, live demo) */
+.project-card-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.project-external-link.is-demo {
+  color: #FFFFFF;
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.project-external-link.is-demo:hover {
+  color: #FFFFFF;
+  background-color: var(--accent-primary-hover);
+  border-color: var(--accent-primary-hover);
+}
+
 /* Card footer media chip */
 .project-media-chip {
   display: inline-flex;
@@ -3013,8 +3034,24 @@ svg.lucide {
 }
 
 .modal-viz[hidden],
-.modal-gallery[hidden] {
+.modal-gallery[hidden],
+.modal-gallery-note[hidden],
+.modal-external-row[hidden],
+.modal-external-row .btn[hidden] {
   display: none;
+}
+
+.modal-external-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-gallery-note {
+  margin: -2px 0 12px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-body);
 }
 
 .modal-viz-kicker,
@@ -3078,6 +3115,59 @@ svg.lucide {
   color: var(--text-muted);
 }
 
+/* Wide screenshots keep their natural ratio (no cropping of dashboards/apps) */
+.gallery-item.is-wide,
+.gallery-item.is-pair {
+  grid-column: 1 / -1;
+}
+
+.gallery-item.is-wide .gallery-link {
+  aspect-ratio: auto;
+  background-color: var(--surface);
+}
+
+.gallery-item.is-wide .gallery-link img {
+  height: auto;
+  object-fit: contain;
+}
+
+.gallery-item.is-wide .gallery-link:hover img,
+.gallery-item.is-wide .gallery-link:focus-visible img {
+  transform: scale(1.01);
+}
+
+/* Before / After pairs */
+.ba-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ba-side {
+  position: relative;
+  min-width: 0;
+}
+
+.ba-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(15, 23, 42, 0.74);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+}
+
+.ba-side.is-after .ba-badge {
+  background-color: var(--viz-good);
+}
+
 @keyframes partIn {
   from {
     opacity: 0;
@@ -3102,6 +3192,19 @@ svg.lucide {
 .modal-root.is-open .case-part:nth-child(4) { animation-delay: 360ms; }
 .modal-root.is-open .gallery-item:nth-child(1) { animation-delay: 420ms; }
 .modal-root.is-open .gallery-item:nth-child(2) { animation-delay: 480ms; }
+.modal-root.is-open .gallery-item:nth-child(3) { animation-delay: 540ms; }
+.modal-root.is-open .gallery-item:nth-child(n + 4) { animation-delay: 600ms; }
+
+
+@media (max-width: 720px) {
+  .modal-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ba-pair {
+    gap: 6px;
+  }
+}
 
 /* ==========================================================================
    Touch targets: invisible hit-area expansion (≥ 44px) on coarse pointers
