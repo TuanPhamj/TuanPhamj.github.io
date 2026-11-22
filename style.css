@@ -1237,21 +1237,7 @@ svg.lucide {
 .tool-group-head {
   display: flex;
   align-items: center;
-  gap: 8px;
   margin-bottom: 9px;
-}
-
-.tool-group-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
-  background-color: var(--bg-alt);
-  border: 1px solid var(--border-light);
-  color: var(--accent-primary);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
 }
 
 .tool-group-title {
@@ -1858,6 +1844,33 @@ svg.lucide {
   border-top: 1px dashed var(--border-light);
 }
 
+.case-part-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.case-part-list li {
+  position: relative;
+  padding-left: 15px;
+  font-size: 0.87rem;
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+.case-part-list li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+}
+
 .case-part-chips {
   list-style: none;
   padding: 0;
@@ -2285,7 +2298,7 @@ svg.lucide {
   bottom: 0;
   border-radius: 4px;
   transform-origin: left center;
-  transition: transform 620ms var(--ease-out);
+  transition: transform 360ms var(--ease-out);
 }
 
 .smed-seg.is-ext {
@@ -2297,11 +2310,11 @@ svg.lucide {
 }
 
 .smed-seg.is-before {
-  transition-delay: 220ms;
+  transition-delay: 80ms;
 }
 
 .smed-seg.is-late {
-  transition-delay: 520ms;
+  transition-delay: 160ms;
 }
 
 .smed-value {
@@ -2310,7 +2323,7 @@ svg.lucide {
   font-weight: 800;
   white-space: nowrap;
   color: var(--viz-int-ink);
-  transition: opacity 360ms ease 420ms;
+  transition: opacity 260ms ease 140ms;
 }
 
 .smed-value.is-target {
@@ -2332,9 +2345,9 @@ svg.lucide {
 
 .viz-smed .viz-pill {
   transition:
-    opacity 360ms ease,
-    transform 420ms var(--ease-pop);
-  transition-delay: 2100ms;
+    opacity 260ms ease,
+    transform 320ms var(--ease-pop);
+  transition-delay: 520ms;
 }
 
 .viz-smed:not(.is-on) .smed-seg {
@@ -2352,15 +2365,15 @@ svg.lucide {
 }
 
 .viz-smed.is-on .smed-seg.is-after {
-  animation: smedShrink 1500ms var(--ease-in-out) 700ms both;
+  animation: smedShrink 650ms var(--ease-in-out) 200ms both;
 }
 
 .viz-smed.is-on .smed-value-from {
-  animation: smedFrom 1500ms linear 700ms both;
+  animation: smedFrom 650ms linear 200ms both;
 }
 
 .viz-smed.is-on .smed-value-to {
-  animation: smedTo 1500ms var(--ease-out) 700ms both;
+  animation: smedTo 650ms var(--ease-out) 200ms both;
 }
 
 @keyframes smedShrink {
@@ -3091,7 +3104,7 @@ svg.lucide {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  transition: transform 900ms var(--ease-in-out) 450ms;
+  transition: transform 380ms var(--ease-out) 60ms;
 }
 
 .cover-mask {
@@ -3102,7 +3115,7 @@ svg.lucide {
   position: absolute;
   top: 8px;
   left: 8px;
-  z-index: 1;
+  z-index: 2;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
   background-color: rgba(15, 23, 42, 0.74);
@@ -3115,6 +3128,11 @@ svg.lucide {
 
 .cover-tag.is-after {
   background-color: var(--viz-good-ink);
+  transition: opacity 240ms ease 180ms;
+}
+
+.project-cover:not(.is-on) .cover-tag.is-after {
+  opacity: 0;
 }
 
 .cover-live {
@@ -3843,12 +3861,33 @@ svg.lucide {
 
   .contact-entry {
     width: 100%;
-    padding: 6px 10px;
+    min-height: 40px;
+    padding: 7px 12px;
+  }
+
+  .contact-entry .btn-micro-copy {
+    min-width: 32px;
+    min-height: 32px;
   }
 
   .contact-entry .btn-micro-copy,
   .contact-entry .btn-inline-copy {
     margin-left: auto;
+  }
+
+  .project-card-footer {
+    gap: 10px 8px;
+  }
+
+  .project-card-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .project-external-link {
+    padding: 5px 9px;
+    font-size: 0.72rem;
   }
 
   .status-pill {

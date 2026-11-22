@@ -191,23 +191,23 @@
       btnRequestCvShort: 'Nhận CV',
       cvRequestTitle: 'Gửi email để nhận CV',
       heroValue:
-        '2 kỳ thực tập nhà máy: lập kế hoạch &amp; điều độ trên SAP cho 217 mã bút tại Thiên Long; đo OEE, truy nguyên nhân dừng máy tại Duy Tân. Tự xây hệ thống <strong>QR → dashboard OEE</strong> và <strong>web app xếp lịch sản xuất</strong>.',
+        '2 kỳ thực tập nhà máy: tham gia lập lịch sản xuất &amp; đối soát tồn kho trên SAP (MM/PP) cho 217 mã màu tại Thiên Long; đo OEE, phân tích nguyên nhân dừng máy tại Duy Tân Recycling. Tự xây <strong>Form Excel VBA</strong>, <strong>báo cáo QR → Google Sheets</strong> và <strong>web app xếp lịch Gantt</strong>.',
       quickZaloAria: 'Nhắn Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
 
-      overviewEyebrow: '01 // GIỚI THIỆU & KINH NGHIỆM THỰC TẾ',
+      overviewEyebrow: '01 // SINH VIÊN MỚI TỐT NGHIỆP · ĐH BÁCH KHOA TP.HCM (HCMUT)',
       heroName: 'Phạm Anh Tuấn',
       heroTagline:
-        'Kế hoạch & Điều độ Sản xuất (Production Planning) · Cải tiến Lean & OEE · Phân tích Dữ liệu Vận hành',
+        'Kế hoạch & Điều độ Sản xuất (Production Planning) · Hỗ trợ Cải tiến Lean/OEE & Tự động hóa Báo cáo',
       heroStatus: 'Sẵn sàng nhận việc Full-time ngay · TP.HCM · Đồng Nai · Bình Dương',
       expBlockTitle: 'KINH NGHIỆM TẠI NHÀ MÁY',
       exp1Org: 'Tập đoàn Thiên Long – Nhà máy Long Thành',
       exp1Desc:
-        '<p class="experience-role">Thực tập sinh Kế hoạch &amp; Điều độ sản xuất (KHSX) · Tổ trưởng sản xuất — Xưởng Bút Lông 2 đầu (DTM – 217 mã màu)</p><ul class="experience-points"><li>Xử lý dứt điểm lỗi treo tồn kho <strong>COGI</strong> trên <strong>SAP Logon</strong> (MM/PP, MB52) phát sinh trong kỳ thực tập</li><li>Lập lịch sản xuất MPS/MRP, đồng bộ định mức BOM/Routing cho 217 mã màu</li><li>Đề xuất quy trình SMED đổi màu mực: mục tiêu giảm thời gian dừng máy từ ≈16,5 phút xuống <strong>≤10 phút</strong></li><li>Đi Gemba, duy trì 5S hằng ngày; đợt đánh giá 5S 18–20/11: <strong>10/10 lỗi</strong> đã được khắc phục</li></ul>',
+        '<p class="experience-role">Thực tập sinh Kế hoạch &amp; Điều độ sản xuất (KHSX)</p><ul class="experience-points"><li>Đối soát và xử lý các lỗi treo tồn kho <strong>COGI</strong> (trừ kho tự động) trên <strong>SAP Logon</strong> (MM/PP, MB52) phát sinh trong kỳ thực tập</li><li>Tham gia lập lịch sản xuất <strong>MPS/MRP</strong> và đối soát định mức <strong>BOM/Routing</strong> cho 217 mã màu</li><li>Đề xuất quy trình đổi mã nhanh <strong>SMED</strong> khi đổi màu mực: mục tiêu giảm thời gian dừng máy từ ≈16,5 phút xuống <strong>≤10 phút</strong></li><li>Đi hiện trường (Gemba), duy trì 5S hằng ngày; đợt đánh giá 5S 18–20/11: <strong>10/10 lỗi</strong> đã được khắc phục</li></ul>',
       exp2Org: 'Nhà máy Nhựa Tái chế Duy Tân – DUYTAN Recycling',
       exp2Desc:
-        '<p class="experience-role">Thực tập sinh Bộ phận Sản xuất — cụm máy tạo hạt nhựa tái chế HDPE</p><ul class="experience-points"><li>Đo OEE cụm máy tạo hạt: <strong>≈40,7%</strong> (A 79,8% · P 60% · Q 85%) so với chuẩn thế giới 85%</li><li>Phân tích thời gian chu kỳ (Cycle Time), truy nguyên nhân gốc bằng 5 Whys</li><li>Đề xuất cải tiến bồn trộn và bộ truyền thông 5S nội bộ cho xưởng F2</li></ul>',
+        '<p class="experience-role">Thực tập sinh Bộ phận Sản xuất — cụm máy tạo hạt nhựa tái chế HDPE</p><ul class="experience-points"><li>Đo hiệu suất thiết bị <strong>OEE ≈40,7%</strong> (Sẵn sàng 79,8% · Hiệu suất 60% · Chất lượng 85%) so với chuẩn thế giới 85%</li><li>Phân tích thời gian chu kỳ (Cycle Time), truy nguyên nhân gốc gây dừng máy bằng 5 Whys</li><li>Đề xuất cải tiến bồn trộn và triển khai bộ bảng truyền thông 5S/an toàn cho xưởng F2</li></ul>',
 
       btnExploreProjects: 'Xem Dự án',
       contactBarAria: 'Thông tin liên hệ trực tiếp',
@@ -227,13 +227,13 @@
       certOpenDrive: '(mở chứng chỉ trên Google Drive)',
       certViewAll: 'Xem tất cả chứng chỉ trên Google Drive',
       leadValue:
-        '<p class="club-role"><strong>Chủ nhiệm CLB E-Marketing Action (EMA HCMUT)</strong> — điều phối vận hành, chiến lược nội dung và hệ thống quản lý đối tác B2B.</p><ul class="club-points"><li>Dự án UGC cho <strong>L’Oréal Việt Nam</strong>: cùng thành viên CLB sản xuất <strong>70+ video TikTok</strong>, tiếp cận <strong>2.000+ người dùng</strong>.</li><li>Chiến dịch marketing <strong>“Tết Nguyên Đán”</strong> trên nền tảng BKA dành cho cựu sinh viên HCMUT: <strong>400+ người tham gia</strong>, <strong>2.000+ người dùng mới</strong> và <strong>1.000 người dùng hoạt động hằng ngày</strong>.</li></ul>',
+        '<p class="club-role"><strong>Chủ nhiệm CLB E-Marketing Action (EMA HCMUT)</strong> — điều phối vận hành, chiến lược nội dung và hệ thống quản lý đối tác B2B.</p><ul class="club-points"><li>Dự án UGC cho đối tác <strong>L’Oréal Việt Nam</strong>: điều phối thành viên CLB sản xuất <strong>70+ video TikTok</strong>.</li><li>Chiến dịch marketing <strong>“Tết Nguyên Đán”</strong> trên nền tảng BKA dành cho cựu sinh viên HCMUT: <strong>400+ người tham gia</strong>, <strong>2.000+ người dùng mới</strong> và <strong>1.000 người dùng hoạt động hằng ngày</strong>.</li></ul>',
 
       toolsCardTitle: 'CÔNG CỤ SỬ DỤNG',
-      toolsCardSub: '3 nhóm chức năng',
+      toolsCardSub: '2 nhóm chức năng',
       toolGroup1: 'ERP & Vận hành Tinh gọn',
-      toolGroup2: 'Dữ liệu & Tự động hóa',
-      toolGroup3: 'Trực quan hóa Báo cáo',
+      toolGroup2: 'Dữ liệu, Tự động hóa & Báo cáo',
+      toolBi: 'Power Query & Power BI (Cơ bản)',
 
       projectsEyebrow: '02 // DỰ ÁN THỰC CHIẾN',
       projectsTitle: 'Dự án Vận hành, Tự động hóa & Cải tiến',
@@ -276,7 +276,7 @@
       vizOeeQ: 'Chất lượng (Q)',
       vizOeeWorld: 'Chuẩn thế giới ≥ 85%',
       vizOeeAria:
-        'OEE máy tạo hạt HDPE xưởng F2: Sẵn sàng 79,78%, Hiệu suất 60%, Chất lượng 85%, OEE khoảng 40% so với chuẩn thế giới 85%.',
+        'OEE máy tạo hạt HDPE xưởng F2: Sẵn sàng 79,78%, Hiệu suất 60%, Chất lượng 85%, OEE khoảng 40,7% so với chuẩn thế giới 85%.',
       vizOeeSource: 'Nguồn: Báo cáo thực tập “Đánh giá chỉ số OEE của máy tạo hạt” – DUYTAN Recycling, xưởng F2 (08/2025).',
 
       vizGanttLot: 'Lô sản xuất',
@@ -285,12 +285,12 @@
         'Biểu đồ Gantt mô phỏng lịch chạy song song 3 máy cho 217 SKU: các lô được san đều theo Heijunka, xen giữa là khoảng đổi mã SMED.',
       vizGanttSource: 'Mô phỏng minh họa — tham số nhà máy đã được ẩn danh.',
 
-      vizQrScan: 'Quét QR tại chuyền',
-      vizQrSheet: 'Google Sheets',
-      vizQrDash: 'Dashboard OEE',
+      vizQrScan: 'QR cuối ca / Form VBA',
+      vizQrSheet: 'Sheets / Bảng log Excel',
+      vizQrDash: 'Báo cáo & OEE tháng',
       vizQrAria:
-        'Luồng dữ liệu tự động: quét mã QR tại chuyền đóng gói, ghi vào Google Sheets, tổng hợp lên Dashboard OEE.',
-      vizQrSource: 'Mô phỏng minh họa luồng QR → Google Sheets → Dashboard OEE.',
+        'Luồng số hóa dữ liệu vận hành: quét mã QR báo cáo sản lượng đóng gói cuối ca về Google Sheets, kết hợp Form Excel VBA nhập 19 nguyên nhân dừng máy để tổng hợp báo cáo Pareto và OEE theo tháng.',
+      vizQrSource: 'Sơ đồ minh họa 2 luồng công cụ: QR cuối ca → Google Sheets và Form Excel VBA → Dashboard OEE theo tháng.',
 
       footerCopy: '© 2026 Phạm Anh Tuấn · Kế hoạch Sản xuất · Lean · Phân tích Dữ liệu Vận hành',
       footerNavLabel: 'Liên kết chân trang',
@@ -326,23 +326,23 @@
       btnRequestCvShort: 'Request CV',
       cvRequestTitle: 'Email me to receive my CV',
       heroValue:
-        'Two plant internships: planned and scheduled 217 marker SKUs on SAP at Thien Long; measured OEE and traced downtime causes at Duy Tan. Built a <strong>QR → OEE dashboard</strong> and a <strong>production-scheduling web app</strong>.',
+        'Two plant internships: supported SAP (MM/PP) scheduling and inventory reconciliation across 217 marker SKUs at Thien Long; measured OEE and analyzed downtime causes at Duy Tan Recycling. Built <strong>Excel VBA tools</strong>, a <strong>QR-to-Sheets output tracker</strong>, and a <strong>Gantt scheduling web app</strong>.',
       quickZaloAria: 'Message on Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'CV Request — Pham Anh Tuan',
 
-      overviewEyebrow: '01 // OVERVIEW & SHOP-FLOOR EXPERIENCE',
+      overviewEyebrow: '01 // FRESH GRADUATE · HCMUT (SCHOOL OF INDUSTRIAL MANAGEMENT)',
       heroName: 'Pham Anh Tuan',
       heroTagline:
-        'Production Planning & Scheduling · Lean & OEE Improvement · Operations Data Analytics',
+        'Production Planning & Scheduling · Lean/OEE & Operations Reporting Automation',
       heroStatus: 'Available Immediately for Full-Time Roles · HCMC · Dong Nai · Binh Duong',
       expBlockTitle: 'SHOP-FLOOR EXPERIENCE',
       exp1Org: 'Thien Long Group – Long Thanh Plant',
       exp1Desc:
-        '<p class="experience-role">Production Planning &amp; Scheduling Intern · Production Team Leader — Dual Tip Marker workshop (DTM – 217 color SKUs)</p><ul class="experience-points"><li>Cleared the <strong>COGI</strong> inventory-posting errors raised on <strong>SAP Logon</strong> (MM/PP, MB52) during the internship</li><li>Ran MPS/MRP scheduling and synchronized BOM/Routing norms for 217 color SKUs</li><li>Proposed an SMED ink-color changeover: target downtime cut from ≈16.5 to <strong>≤10 minutes</strong></li><li>Daily Gemba walks &amp; 5S; 5S audit 18–20 Nov: <strong>10/10 findings</strong> fixed</li></ul>',
+        '<p class="experience-role">Production Planning &amp; Scheduling Intern</p><ul class="experience-points"><li>Reconciled and resolved <strong>COGI</strong> backflush inventory errors on <strong>SAP Logon</strong> (MM/PP, MB52) raised during the internship</li><li>Supported <strong>MPS/MRP</strong> production scheduling and <strong>BOM/Routing</strong> alignment for 217 color SKUs</li><li>Proposed an <strong>SMED</strong> ink-color changeover procedure: target downtime cut from ≈16.5 to <strong>≤10 minutes</strong></li><li>Daily Gemba walks &amp; 5S; Nov 18–20 5S audit: <strong>10/10 findings</strong> fixed</li></ul>',
       exp2Org: 'Duy Tan Recycling Plant – DUYTAN Recycling',
       exp2Desc:
-        '<p class="experience-role">Production Department Intern — HDPE recycled-plastic pelletizing lines</p><ul class="experience-points"><li>Measured line OEE: <strong>≈40.7%</strong> (A 79.8% · P 60% · Q 85%) vs. the 85% world-class benchmark</li><li>Analyzed Cycle Time and traced root causes with 5 Whys</li><li>Proposed a mixing-tank improvement and an internal 5S communication kit for workshop F2</li></ul>',
+        '<p class="experience-role">Production Department Intern — HDPE recycled-plastic pelletizing lines</p><ul class="experience-points"><li>Measured line <strong>OEE ≈40.7%</strong> (Availability 79.8% · Performance 60% · Quality 85%) vs. the 85% world-class benchmark</li><li>Analyzed Cycle Time and traced downtime root causes with 5 Whys</li><li>Proposed a mixing-tank improvement and delivered printed 5S/safety boards for workshop F2</li></ul>',
 
       btnExploreProjects: 'Explore Projects',
       contactBarAria: 'Direct contact details',
@@ -362,13 +362,13 @@
       certOpenDrive: '(open certificate on Google Drive)',
       certViewAll: 'View all certificates on Google Drive',
       leadValue:
-        '<p class="club-role"><strong>President, E-Marketing Action Club (EMA HCMUT)</strong> — led club operations, content strategy and B2B partnership workflows.</p><ul class="club-points"><li>UGC project for <strong>L’Oréal Vietnam</strong>: produced <strong>70+ TikTok videos</strong> with club members, reaching <strong>2,000+ users</strong>.</li><li><strong>Lunar New Year (Tết)</strong> marketing campaign on the BKA platform for HCMUT alumni: <strong>400+ participants</strong>, <strong>2,000+ new users</strong> and <strong>1,000 daily active users</strong>.</li></ul>',
+        '<p class="club-role"><strong>President, E-Marketing Action Club (EMA HCMUT)</strong> — led club operations, content strategy and B2B partnership workflows.</p><ul class="club-points"><li>UGC project for partner <strong>L’Oréal Vietnam</strong>: coordinated club members to produce <strong>70+ TikTok videos</strong>.</li><li><strong>Lunar New Year (Tết)</strong> marketing campaign on the BKA platform for HCMUT alumni: <strong>400+ participants</strong>, <strong>2,000+ new users</strong> and <strong>1,000 daily active users</strong>.</li></ul>',
 
       toolsCardTitle: 'CORE TOOLS',
-      toolsCardSub: '3 functional groups',
+      toolsCardSub: '2 functional groups',
       toolGroup1: 'ERP & Lean Operations',
-      toolGroup2: 'Data & Automation',
-      toolGroup3: 'Business Intelligence',
+      toolGroup2: 'Data, Automation & Reporting',
+      toolBi: 'Power Query & Power BI (Basic)',
 
       projectsEyebrow: '02 // FEATURED PROJECTS',
       projectsTitle: 'Operations, Automation & Improvement Projects',
@@ -411,7 +411,7 @@
       vizOeeQ: 'Quality (Q)',
       vizOeeWorld: 'World-class ≥ 85%',
       vizOeeAria:
-        'OEE of the HDPE pelletizing machine in workshop F2: Availability 79.78%, Performance 60%, Quality 85%, OEE about 40% versus the 85% world-class benchmark.',
+        'OEE of the HDPE pelletizing machine in workshop F2: Availability 79.78%, Performance 60%, Quality 85%, OEE about 40.7% versus the 85% world-class benchmark.',
       vizOeeSource: 'Source: internship report “OEE Evaluation of the Pelletizing Machine” – DUYTAN Recycling, workshop F2 (08/2025).',
 
       vizGanttLot: 'Production lot',
@@ -420,12 +420,12 @@
         'Simulated Gantt chart of a 3-machine parallel schedule for 217 SKUs: lots leveled with Heijunka, separated by SMED changeover gaps.',
       vizGanttSource: 'Illustrative simulation — plant parameters anonymized.',
 
-      vizQrScan: 'QR scan on the line',
-      vizQrSheet: 'Google Sheets',
-      vizQrDash: 'OEE Dashboard',
+      vizQrScan: 'Shift QR / VBA Form',
+      vizQrSheet: 'Sheets / Excel Log',
+      vizQrDash: 'Monthly OEE Report',
       vizQrAria:
-        'Automated data flow: QR codes scanned on the packaging line, logged to Google Sheets, and rolled up into an OEE dashboard.',
-      vizQrSource: 'Illustrative simulation of the QR → Google Sheets → OEE Dashboard flow.',
+        'Digitized operations reporting flow: end-of-shift packaging QR forms consolidate into Google Sheets, while an Excel VBA entry form logs 19 downtime reasons into monthly Pareto and OEE dashboards.',
+      vizQrSource: 'Illustrative diagram of the two workflows: shift QR → Google Sheets and Excel VBA form → monthly OEE dashboard.',
 
       footerCopy: '© 2026 Pham Anh Tuan · Production Planning · Lean · Operations Analytics',
       footerNavLabel: 'Footer navigation',
@@ -525,32 +525,46 @@
       vi: {
         orgShort: 'Tập đoàn Thiên Long · Nhà máy Long Thành',
         title: 'Tối ưu hóa Vận hành, Chuẩn hóa SAP ERP & Cải tiến SMED/5S tại Xưởng Bút Lông DTM',
-        highlightBadge: 'Xử lý triệt để lỗi COGI · Đồng bộ BOM/Routing 217 SKU (mục tiêu 4M SP/tháng)',
+        highlightBadge: 'Xử lý lỗi tồn kho COGI trong kỳ · Đồng bộ BOM/Routing 217 SKU (mục tiêu 4M SP/tháng)',
         summary:
-          'Đồng bộ định mức BOM/Routing, xử lý dứt điểm lỗi treo tồn kho backflush (COGI) cho dòng Bút Lông 2 đầu (217 mã màu), đồng thời rút ngắn đổi mã bằng SMED và duy trì 5S.',
+          'Hỗ trợ đồng bộ định mức BOM/Routing và xử lý lỗi treo tồn kho backflush (COGI) trên SAP cho 217 mã Bút Lông 2 đầu. Khắc phục 10/10 điểm chưa đạt đợt đánh giá 5S (18–20/11) và xây dựng đề xuất SMED đổi màu với mục tiêu giảm dừng máy từ ≈16,5 phút xuống ≤10 phút.',
         timeframeContext:
-          '05/2026 – 11/2026 | Thực tập sinh Kế hoạch & Điều độ sản xuất (KHSX) và Tổ trưởng sản xuất tại Nhà máy Long Thành, Tập đoàn Thiên Long (KCN Long Thành, Đồng Nai).',
+          '05/2026 – 11/2026 | Thực tập sinh Kế hoạch & Điều độ sản xuất (KHSX) tại Nhà máy Long Thành, Tập đoàn Thiên Long (KCN Long Thành, Đồng Nai).',
         objective:
-          'Đồng bộ định mức BOM/Routing, xử lý dứt điểm lỗi treo tồn kho khi backflush (COGI), kiểm soát luồng bán thành phẩm (BTP) từ ép nhựa đến thành phẩm cho dòng Bút Lông 2 đầu (Dual Tip Marker – 217 mã màu, mục tiêu 4.000.000 sản phẩm/tháng), đồng thời rút ngắn thời gian chuyển đổi mã hàng.',
-        deliverables:
-          'Bộ quy trình chuẩn SOP cho máy in tẩy và vận hành chuyền Bút Lông; hệ thống đối soát tồn kho cut-off SAP MB52/COGI; bảng tính mục tiêu sản lượng theo Set đóng gói trên chuyền.',
-        results:
-          'Xử lý triệt để các lỗi tồn kho COGI phát sinh trong kỳ thực tập, chuẩn hóa đồng bộ dữ liệu BOM/Routing từ phôi nhựa đến thành phẩm, rút ngắn thời gian đổi mã bằng SMED và duy trì tiêu chuẩn 5S tại xưởng.'
+          'Hỗ trợ đồng bộ định mức BOM/Routing, đối soát và xử lý lỗi treo tồn kho khi trừ kho tự động (COGI), kiểm soát luồng bán thành phẩm (BTP) từ ép nhựa đến thành phẩm cho dòng Bút Lông 2 đầu (217 mã màu, mục tiêu sản lượng 4.000.000 sản phẩm/tháng), đồng thời nghiên cứu giảm thời gian đổi màu mực bằng SMED.',
+        deliverables: [
+          'Bộ quy trình chuẩn SOP cho máy in tẩy và vận hành chuyền Bút Lông.',
+          'Quy trình đối soát tồn kho cuối kỳ (cut-off) trên SAP MB52/COGI.',
+          'Bảng tính mục tiêu sản lượng theo Set đóng gói trên chuyền và bộ đề xuất SMED đổi màu (kèm bảng trình tự màu dove-tail).'
+        ],
+        results: [
+          'Đối soát và xử lý các lỗi treo tồn kho COGI phát sinh trong kỳ thực tập tại Xưởng Bút Lông.',
+          'Chuẩn hóa đồng bộ dữ liệu định mức BOM/Routing từ phôi nhựa đến thành phẩm cho 217 mã màu.',
+          'Hoàn thành khắc phục 10/10 điểm chưa đạt trong đợt đánh giá 5S ngày 18–20/11/2026.',
+          'Hoàn thiện đề xuất quy trình đổi màu SMED: mục tiêu giảm thời gian dừng máy từ ≈16,5 phút xuống ≤10 phút (giảm từ 11 còn 9 thao tác dừng máy).'
+        ]
       },
       en: {
         orgShort: 'Thien Long Group · Long Thanh Plant',
         title: 'Operations Optimization, SAP ERP Standardization & SMED/5S Improvement at DTM Marker Workshop',
-        highlightBadge: 'Eliminated COGI Errors · Standardized 217-SKU BOM/Routing (4M units/mo target)',
+        highlightBadge: 'Resolved COGI Errors · Aligned 217-SKU BOM/Routing (4M units/mo target)',
         summary:
-          'Synchronized BOM/Routing norms and eliminated backflush inventory errors (COGI) across 217 Dual Tip Marker SKUs while reducing changeover times via SMED and daily 5S.',
+          'Supported BOM/Routing alignment and resolved SAP backflush posting errors (COGI) across 217 Dual Tip Marker SKUs. Closed 10/10 findings in the Nov 18–20 5S audit and drafted an SMED color-changeover proposal targeting a downtime cut from ≈16.5 to ≤10 minutes.',
         timeframeContext:
-          '05/2026 – 11/2026 | Production Planning & Scheduling Intern and Production Team Leader at Long Thanh Plant, Thien Long Group (Long Thanh IP, Dong Nai).',
+          '05/2026 – 11/2026 | Production Planning & Scheduling Intern at Long Thanh Plant, Thien Long Group (Long Thanh IP, Dong Nai).',
         objective:
-          'Synchronize BOM/Routing norms, resolve backflush inventory posting errors (COGI), control semi-finished goods (WIP) flow from injection molding to finished goods for Dual Tip Markers (217 color SKUs, 4,000,000 units/month target), and reduce changeover times.',
-        deliverables:
-          'Standard Operating Procedures (SOPs) for pad/barrel printing and marker assembly lines; SAP MB52/COGI cut-off inventory reconciliation system; line output target calculator by packaging set.',
-        results:
-          'Eliminated recurring COGI inventory errors during the internship, standardized end-to-end BOM/Routing data from molded blanks to finished goods, reduced SKU changeover times via SMED, and sustained daily shop-floor 5S standards.'
+          'Support BOM/Routing master-data alignment, reconcile backflush inventory posting errors (COGI), monitor semi-finished goods (WIP) flow from injection molding to finished goods for Dual Tip Markers (217 color SKUs, 4,000,000 units/month target), and study ink-color changeover reduction via SMED.',
+        deliverables: [
+          'Standard Operating Procedures (SOPs) for pad/barrel printing and marker assembly lines.',
+          'SAP MB52/COGI cut-off inventory reconciliation workflow.',
+          'Set-based line output target sheet and SMED color-changeover proposal (with dove-tail color sequence board).'
+        ],
+        results: [
+          'Reconciled and resolved COGI backflush inventory errors raised during the internship at the Marker Workshop.',
+          'Standardized end-to-end BOM/Routing data from molded blanks to finished goods across 217 color SKUs.',
+          'Fixed and closed 10/10 findings from the Nov 18–20, 2026 shop-floor 5S audit.',
+          'Delivered an SMED ink-color changeover proposal targeting downtime reduction from ≈16.5 to ≤10 minutes (cutting stopped-machine steps from 11 to 9).'
+        ]
       }
     },
 
@@ -608,32 +622,44 @@
       vi: {
         orgShort: 'DUYTAN Recycling · Bộ phận Sản xuất',
         title: 'Đánh giá Hiệu suất Thiết bị Toàn phần (OEE) & Phân tích Nguyên nhân Gốc rễ Máy tạo hạt nhựa HDPE',
-        highlightBadge: 'Lượng hóa 3 cấu phần tổn thất OEE · Đề xuất cải tiến bồn trộn HDPE',
+        highlightBadge: 'Đo hiện trạng OEE ≈40,7% (A 79,8% · P 60% · Q 85%) · Đề xuất cải tiến bồn trộn HDPE',
         summary:
-          'Đo lường OEE và thời gian chu kỳ trên cụm máy tạo hạt nhựa tái chế HDPE, truy tìm nguyên nhân gốc bằng 5 Whys để tháo gỡ điểm nghẽn nguyên liệu đầu vào và chuẩn hóa 5S.',
+          'Đo hiện trạng OEE cụm máy tạo hạt nhựa tái chế HDPE tại xưởng F2 đạt ≈40,7% (A 79,8% · P 60% · Q 85%), dùng 5 Whys truy tìm nguyên nhân gốc khiến hiệu suất (P) thấp. Từ đó đề xuất cải tiến bồn trộn và triển khai bộ bảng truyền thông 5S/an toàn tại xưởng.',
         timeframeContext:
           '06/2025 – 08/2025 | Thực tập sinh Bộ phận Sản xuất tại Nhà máy Nhựa Tái chế Duy Tân (DUYTAN Recycling).',
         objective:
-          'Đo lường hiệu suất vận hành thực tế và truy tìm nguyên nhân gây dừng máy, thất thoát năng suất trên cụm máy tạo hạt nhựa tái chế HDPE (nhằm giải quyết điểm nghẽn nguyên liệu đầu vào).',
-        deliverables:
-          'Báo cáo nghiên cứu khoa học đánh giá OEE và phân tích 5 Whys cho máy tạo hạt HDPE; bộ slide đề xuất cải tiến kỹ thuật cho bồn trộn (mixing tanks) và tài liệu truyền thông 5S nội bộ.',
-        results:
-          'Lượng hóa 3 cấu phần tổn thất OEE của cụm máy tạo hạt HDPE, xác định nguyên nhân gốc rễ gây nghẽn nguyên liệu và hoàn thiện bộ giải pháp cải tiến bồn trộn trình ban quản lý.'
+          'Đo lường hiệu suất vận hành thực tế và truy tìm nguyên nhân gây dừng máy, thất thoát năng suất trên cụm máy tạo hạt nhựa tái chế HDPE nhằm tháo gỡ điểm nghẽn nguyên liệu đầu vào.',
+        deliverables: [
+          'Báo cáo thực tập đánh giá chỉ số OEE và phân tích nguyên nhân gốc 5 Whys cho cụm máy tạo hạt HDPE.',
+          'Bộ slide đề xuất cải tiến kỹ thuật cho bồn trộn nguyên liệu (mixing tanks) trình ban quản lý.',
+          'Bộ bảng truyền thông trực quan về phân loại nhựa, 5S và an toàn lao động đã in đặt tại xưởng F2.'
+        ],
+        results: [
+          'Lượng hóa rõ 3 cấu phần tổn thất OEE: Sẵn sàng 79,78%, Hiệu suất 60%, Chất lượng 85% (OEE ≈40,7% so với chuẩn thế giới 85%).',
+          'Xác định nguyên nhân gốc rễ gây nghẽn nguyên liệu đầu vào và hoàn thiện bộ giải pháp đề xuất cải tiến bồn trộn trình ban quản lý.',
+          'In và bố trí các bảng truyền thông phân loại nhựa & sản xuất an toàn trực tiếp tại khu vực xưởng.'
+        ]
       },
       en: {
         orgShort: 'DUYTAN Recycling · Production Dept.',
         title: 'Overall Equipment Effectiveness (OEE) Evaluation & Root-Cause Analysis for HDPE Pelletizing Line',
-        highlightBadge: 'Quantified 3 OEE Loss Pillars · Actionable Mixing-Tank Proposal',
+        highlightBadge: 'Measured Baseline OEE ≈40.7% (A 79.8% · P 60% · Q 85%) · Mixing-Tank Improvement Proposal',
         summary:
-          'Measured OEE and cycle times on HDPE recycled plastic pelletizing lines, isolating raw material bottlenecks through 5 Whys RCA and delivering mixing-tank and 5S improvements.',
+          'Measured baseline OEE on HDPE recycled-plastic pelletizing lines in workshop F2 at ≈40.7% (A 79.8% · P 60% · Q 85%), using 5 Whys to trace Performance (60%) as the main loss pillar. Delivered a mixing-tank improvement proposal and printed on-site 5S/safety boards.',
         timeframeContext:
           '06/2025 – 08/2025 | Production Department Intern at Duy Tan Recycling Plant (DUYTAN Recycling).',
         objective:
-          'Measure actual operating efficiency and identify root causes of machine downtime and yield loss on HDPE recycled plastic pelletizing units to resolve raw material input bottlenecks.',
-        deliverables:
-          'Technical OEE evaluation and 5 Whys root-cause analysis report for HDPE pelletizing machinery; engineering improvement proposal deck for mixing tanks and internal 5S visual communication materials.',
-        results:
-          'Quantified all 3 OEE loss components on the HDPE pelletizing cluster, pinpointed root causes of raw material bottlenecks, and delivered an actionable mixing-tank improvement proposal to plant management.'
+          'Measure actual operating efficiency and identify root causes of machine downtime and yield loss on HDPE recycled plastic pelletizing units to resolve raw-material input bottlenecks.',
+        deliverables: [
+          'Internship report evaluating OEE and 5 Whys root-cause analysis for the HDPE pelletizing lines.',
+          'Engineering improvement proposal deck for raw-material mixing tanks presented to plant management.',
+          'Printed visual communication boards for plastic sorting, 5S, and workplace safety placed in workshop F2.'
+        ],
+        results: [
+          'Quantified all 3 OEE loss pillars: Availability 79.78%, Performance 60%, Quality 85% (OEE ≈40.7% vs. the 85% world-class benchmark).',
+          'Pinpointed root causes of raw-material input bottlenecks and delivered an actionable mixing-tank proposal to plant management.',
+          'Printed and placed plastic-sorting and workplace-safety boards directly on the shop floor.'
+        ]
       }
     },
 
@@ -695,38 +721,48 @@
         'Vanilla JavaScript (ui.js, engine.js, data.js)',
         'Heijunka Algorithm',
         'SMED Logic',
-        'DBR / CONWIP / POLCA',
+        'WIP / BTP Availability Control',
         'GitHub & Vercel'
       ],
       vi: {
         orgShort: 'Dự án Cá nhân · NDA-Sanitized',
         title: 'Ứng dụng Web Điều độ Sản xuất Song song Gantt & Heijunka (Production_Scheduler)',
-        highlightBadge: 'Deploy ổn định trên Vercel · Tự động xếp lịch song song 217 SKU',
+        highlightBadge: 'Web App triển khai trên Vercel · Xếp lịch song song 3 máy cho 217 SKU',
         summary:
-          'Xây dựng Web App lập lịch chạy máy song song có ràng buộc SMED & Heijunka cho 217 SKU với biểu đồ Gantt tương tác, thay thế phương pháp xếp lịch thủ công dễ xung đột.',
+          'Tự xây dựng ứng dụng web xếp lịch chạy song song 3 máy cho danh mục 217 SKU có tính thời gian đổi màu/đổi dòng (SMED) và kiểm tra đủ bán thành phẩm, kèm biểu đồ Gantt theo ca và xuất Excel/in lệnh sản xuất (dữ liệu đã ẩn danh).',
         timeframeContext:
           '11/2026 | Dự án phần mềm điều độ sản xuất cá nhân (đã ẩn danh dữ liệu bảo mật nhà máy).',
         objective:
-          'Tự động hóa việc lập lịch chạy máy song song cho danh mục 217 SKU có ràng buộc thời gian đổi mã (SMED) và cân bằng nhịp sản xuất (Heijunka), thay thế phương pháp xếp lịch thủ công dễ xung đột tài nguyên.',
-        deliverables:
-          'Web App điều độ sản xuất triển khai trực tuyến trên Vercel (mã nguồn: TuanPhamJ/Production_Scheduler), tích hợp biểu đồ Gantt tương tác, bộ lọc đồng bộ và tính năng nhập/xuất dữ liệu kế hoạch.',
-        results:
-          'Hoàn thiện và deploy thành công ứng dụng web chạy ổn định trên Vercel, tự động hóa tính toán lịch chạy máy song song và thời gian đổi mã cho dây chuyền đa SKU.'
+          'Tự động hóa việc lập lịch chạy máy song song cho danh mục 217 SKU có ràng buộc thời gian đổi mã (SMED), cân bằng tải (Heijunka) và kiểm tra trạng thái bán thành phẩm (BTP), thay thế phương pháp xếp lịch thủ công dễ xung đột tài nguyên.',
+        deliverables: [
+          'Ứng dụng web điều độ sản xuất triển khai trực tuyến trên Vercel (mã nguồn: TuanPhamJ/Production_Scheduler).',
+          'Biểu đồ Gantt tương tác theo ca/giờ và đa ngày cho cụm 3 máy (M1–M3, máy M4 dự phòng).',
+          'Tính năng nhập kế hoạch Excel/CSV, lọc trạng thái BTP, cảnh báo trễ PO và xuất file .xlsx / in lệnh sản xuất.'
+        ],
+        results: [
+          'Hoàn thiện và triển khai ứng dụng web chạy trực tuyến trên Vercel với bộ dữ liệu kế hoạch mẫu đã ẩn danh.',
+          'Tự động hóa việc tính lịch chạy máy song song, thời gian đổi màu/đổi dòng và cảnh báo thiếu bán thành phẩm thay cho việc xếp tay trên bảng tính.'
+        ]
       },
       en: {
         orgShort: 'Independent Project · NDA-Sanitized',
         title: 'Parallel Gantt & Heijunka Production Scheduling Web App (Production_Scheduler)',
-        highlightBadge: 'Deployed Live on Vercel · Automated 217-SKU Parallel Scheduling',
+        highlightBadge: 'Live Web App on Vercel · Parallel 3-Machine Scheduling for 217 SKUs',
         summary:
-          'Built a web scheduler with interactive Gantt charts, SMED changeover logic, and Heijunka leveling across 217 SKUs to replace error-prone manual machine scheduling.',
+          'Built an interactive web app to schedule 217 SKUs across 3 parallel machines with SMED changeover times and WIP availability checks, featuring shift-level Gantt views and Excel/work-order export (NDA-sanitized sample data).',
         timeframeContext:
           '11/2026 | Independent production scheduling web application (NDA-sanitized factory parameters).',
         objective:
-          'Automate parallel machine scheduling across a 217-SKU catalog constrained by SMED changeover times and Heijunka production leveling, replacing error-prone manual scheduling.',
-        deliverables:
-          'Production scheduling web app deployed live on Vercel (repo: TuanPhamJ/Production_Scheduler), featuring an interactive Gantt chart, synchronized filters, and schedule import/export.',
-        results:
-          'Built and deployed a production-ready web application on Vercel that automates parallel machine scheduling and changeover time calculations for multi-SKU lines.'
+          'Automate parallel machine scheduling across a 217-SKU catalog constrained by SMED changeover times, Heijunka leveling, and semi-finished material (WIP) availability, replacing error-prone manual scheduling.',
+        deliverables: [
+          'Production scheduling web app deployed on Vercel (repo: TuanPhamJ/Production_Scheduler).',
+          'Interactive shift/hour and multi-day Gantt views for 3 parallel machines (M1–M3, M4 backup).',
+          'Excel/CSV plan import, WIP availability filters, late-PO alerts, and .xlsx schedule / work-order export.'
+        ],
+        results: [
+          'Built and deployed a functional web application on Vercel using NDA-sanitized sample plans.',
+          'Automated parallel machine scheduling, changeover time calculations, and WIP shortage alerts to replace manual spreadsheet scheduling.'
+        ]
       }
     },
 
@@ -741,9 +777,9 @@
         small: 'assets/images/projects/prj-04-cover-640.webp',
         width: 1200,
         height: 675,
-        kpi: { to: 100, suffix: '%', vi: 'tự động QR → Sheets → Dashboard', en: 'automated QR → Sheets → Dashboard' },
-        vi: { label: 'TỔNG TGDM + OEE – BL 2026.xlsm', alt: 'Dashboard OEE và thời gian dừng máy Xưởng Bút Lông trong Excel' },
-        en: { label: 'TỔNG TGDM + OEE – BL 2026.xlsm', alt: 'Marker Workshop OEE and downtime dashboard in Excel' }
+        kpi: { to: 19, suffix: '', vi: 'mã dừng máy · Form VBA & QR cuối ca', en: 'downtime codes · VBA & shift QR form' },
+        vi: { label: 'Form VBA & Dashboard OEE · Báo cáo QR', alt: 'Dashboard OEE và thời gian dừng máy Xưởng Bút Lông trong Excel' },
+        en: { label: 'OEE VBA Form & Dashboard · QR Report', alt: 'Marker Workshop OEE and downtime dashboard in Excel' }
       },
       gallery: [
         {
@@ -767,11 +803,11 @@
           wide: true,
           vi: {
             alt: 'Dashboard OEE và thời gian dừng máy Xưởng Bút Lông: biểu đồ Pareto 10 nguyên nhân dừng, biểu đồ vòng cơ cấu thời gian kế hoạch, xu hướng OEE, A, P, Q và giờ dừng máy theo tháng',
-            caption: 'Dashboard OEE & thời gian dừng máy: Pareto 10 nguyên nhân dừng, cơ cấu thời gian KHSX, xu hướng OEE · A · P · Q theo tháng'
+            caption: 'Dashboard OEE & thời gian dừng máy theo tháng: Pareto 10 nguyên nhân dừng, cơ cấu thời gian KHSX, xu hướng OEE · A · P · Q'
           },
           en: {
             alt: 'Marker Workshop OEE and downtime dashboard: Pareto of the top 10 stop reasons, donut of planned-time structure, monthly OEE, A, P, Q trend and downtime hours',
-            caption: 'OEE & downtime dashboard: top-10 stop-reason Pareto, planned-time structure, monthly OEE · A · P · Q trends'
+            caption: 'Monthly OEE & downtime dashboard: top-10 stop-reason Pareto, planned-time structure, monthly OEE · A · P · Q trends'
           }
         },
         {
@@ -781,11 +817,11 @@
           wide: true,
           vi: {
             alt: 'Google Form Báo cáo năng suất đóng gói cuối ngày: nhân viên quét mã QR tại chuyền rồi nhập mã nhân viên và sản lượng',
-            caption: 'Google Form “Báo cáo năng suất đóng gói cuối ngày” — điểm nhập liệu khi công nhân quét QR tại chuyền'
+            caption: 'Google Form “Báo cáo năng suất đóng gói cuối ngày” — điểm nhập liệu khi công nhân quét QR cuối ca tại chuyền'
           },
           en: {
             alt: 'Google Form End-of-day packaging productivity report: workers scan the line QR code and enter their employee ID and output',
-            caption: 'Google Form “End-of-day packaging productivity report” — the entry point when workers scan the line QR code'
+            caption: 'Google Form “End-of-day packaging productivity report” — the entry point when workers scan the line QR code at shift end'
           }
         }
       ],
@@ -797,33 +833,43 @@
       ],
       vi: {
         orgShort: 'Tập đoàn Thiên Long · Xưởng Bút Lông',
-        title: 'Hệ thống Theo dõi Năng suất Đóng gói qua QR & Dashboard OEE',
-        highlightBadge: 'Tự động hóa 100% luồng QR → Sheets → Dashboard OEE thời gian thực',
+        title: 'Số hóa Báo cáo Đóng gói qua QR & Form Excel VBA – Dashboard OEE',
+        highlightBadge: 'Báo cáo đóng gói cuối ca qua QR → Sheets · Form VBA 19 mã lỗi & Dashboard OEE tháng',
         summary:
-          'Loại bỏ sổ giấy và tổng hợp tay cuối ca bằng quy trình quét mã QR nhập liệu liên kết Google Sheets, Excel VBA và Dashboard OEE theo dõi sản lượng theo Set.',
+          'Số hóa báo cáo sản lượng đóng gói cuối ca bằng mã QR → Google Form → Google Sheets thay sổ giấy; đồng thời xây Form nhập liệu Excel VBA (19 mã dừng máy) và dashboard tổng hợp thời gian dừng máy, Pareto nguyên nhân & xu hướng OEE theo tháng.',
         timeframeContext:
-          '07/2026 & 10/2026 – 11/2026 | Triển khai phục vụ quản lý vận hành tại Xưởng Bút Lông, Tập đoàn Thiên Long.',
+          '07/2026 & 10/2026 – 11/2026 | Xây dựng phục vụ quản lý vận hành tại Xưởng Bút Lông, Tập đoàn Thiên Long.',
         objective:
-          'Loại bỏ khâu ghi chép giấy và tổng hợp tay cuối ca; theo dõi sản lượng thực tế theo Set đóng gói và cập nhật thời gian dừng máy (TGDM), chỉ số OEE trực quan.',
-        deliverables:
-          'Hệ thống quét mã QR nhập liệu sản lượng liên kết Google Sheets (QR OEE Xưởng Bút Lông, NHẬP OEE Xưởng Bút Lông); hệ thống tổng hợp và Dashboard OEE (TỔNG TGDM + OEE - BL 2026).',
-        results:
-          'Tự động hóa hoàn toàn luồng dữ liệu từ chuyền đóng gói lên dashboard quản trị, giúp theo dõi sản lượng theo Set và chỉ số OEE theo thời gian thực.'
+          'Giảm khâu ghi chép sổ giấy và cộng tay báo cáo cuối ca ở tổ đóng gói; chuẩn hóa nhập liệu 19 nguyên nhân dừng máy và tổng hợp biểu đồ Pareto dừng máy, xu hướng OEE theo tháng trên Excel.',
+        deliverables: [
+          'Luồng báo cáo đóng gói cuối ca: quét mã QR tại chuyền → Google Form → tự động tổng hợp sản lượng theo Set trên Google Sheets.',
+          'Form nhập liệu Excel VBA “Nhập dừng máy – dữ liệu OEE” (19 nguyên nhân dừng máy, bắt buộc nhập lý do khi chọn “Dừng khác”, tự ghi dòng kế tiếp).',
+          'Dashboard Excel tổng hợp Pareto Top 10 nguyên nhân dừng máy, cơ cấu thời gian kế hoạch và xu hướng OEE (A · P · Q) theo tháng.'
+        ],
+        results: [
+          'Thay thế sổ giấy ở khâu báo cáo sản lượng đóng gói cuối ca bằng biểu mẫu QR tự động đổ về Google Sheets.',
+          'Chuẩn hóa dữ liệu dừng máy vào bảng tổng hợp tập trung bằng Form VBA, giảm sai sót nhập tay và tự động cập nhật biểu đồ Pareto/OEE theo từng tháng.'
+        ]
       },
       en: {
         orgShort: 'Thien Long Group · Marker Workshop',
-        title: 'QR-Based Packaging Productivity Tracking System & OEE Dashboard',
-        highlightBadge: '100% Automated QR → Sheets → Real-Time OEE Dashboard',
+        title: 'QR Packaging Output Reporting & Excel VBA OEE Dashboard',
+        highlightBadge: 'QR End-of-Shift Packaging Form → Sheets · 19-Code VBA Form & Monthly OEE Dashboard',
         summary:
-          'Eliminated paper logbooks and manual shift consolidation via QR-code production entry linked to Google Sheets, Excel VBA/openpyxl, and an OEE Dashboard.',
+          'Digitized end-of-shift packaging output logs via QR code → Google Forms → Google Sheets to replace paper tallies, and built an Excel VBA entry form (19 downtime codes) with a monthly downtime Pareto and OEE dashboard.',
         timeframeContext:
-          '07/2026 & 10/2026 – 11/2026 | Deployed for shop-floor operations management at the Marker Workshop, Thien Long Group.',
+          '07/2026 & 10/2026 – 11/2026 | Built for shop-floor operations tracking at the Marker Workshop, Thien Long Group.',
         objective:
-          'Eliminate paper logbooks and manual end-of-shift consolidation; track real-time output by packaging set alongside machine downtime and OEE metrics.',
-        deliverables:
-          'QR-code production entry workflow linked to Google Sheets (QR OEE Xưởng Bút Lông, NHẬP OEE Xưởng Bút Lông); automated consolidation engine and OEE Dashboard (TỔNG TGDM + OEE - BL 2026).',
-        results:
-          'Fully automated the data pipeline from packaging lines to management dashboards, enabling real-time visibility into set-based output and OEE performance.'
+          'Replace paper logbooks and manual end-of-shift tallies on packaging lines; standardize logging across 19 machine-downtime reasons and automate monthly downtime Pareto and OEE trend charts in Excel.',
+        deliverables: [
+          'End-of-shift packaging workflow: line QR code → Google Form → automated set-based output consolidation in Google Sheets.',
+          'Excel VBA downtime entry form (19 stop-reason codes, required explanation validation for "Other stops", auto-appends to the next log row).',
+          'Monthly Excel OEE & downtime dashboard with Top-10 downtime Pareto, planned-time breakdown, and A · P · Q trend charts.'
+        ],
+        results: [
+          'Replaced paper logbooks for end-of-shift packaging output with a QR-to-Google-Sheets reporting form.',
+          'Standardized shift downtime logging into a structured table via Excel VBA, reducing manual entry errors and automating monthly Pareto and OEE charts.'
+        ]
       }
     }
   ];
@@ -1059,7 +1105,7 @@
           <line class="oee-ring-tick" x1="42" y1="0.5" x2="42" y2="15" transform="rotate(${0.85 * 360} 42 42)"></line>
         </svg>
         <span class="oee-ring-value">
-          ${countSpan(oee * 100, { decimals: 1, suffix: '%', delay: 200, dur: 1200 })}
+          ${countSpan(oee * 100, { decimals: 1, suffix: '%', delay: 40, dur: 420 })}
           <span class="oee-ring-label">OEE</span>
         </span>
       </div>
@@ -1070,7 +1116,7 @@
           <div class="oee-bar" style="--i:${i}">
             <span class="oee-bar-label">${escapeHtml(t(key))}</span>
             <span class="oee-bar-track"><span class="oee-bar-fill" style="width:${value}%"></span></span>
-            <span class="oee-bar-value">${countSpan(value, { decimals, suffix: '%', delay: 140 + i * 150 })}</span>
+            <span class="oee-bar-value">${countSpan(value, { decimals, suffix: '%', delay: 40 + i * 50, dur: 380 })}</span>
           </div>`
           )
           .join('')}
@@ -1093,7 +1139,7 @@
           parts.push(`<span class="gantt-gap" style="left:${pct(cursor)};width:${pct(GAP)}"></span>`);
           cursor += GAP;
         }
-        const delay = row * 90 + idx * 110;
+        const delay = row * 60 + idx * 70;
         parts.push(
           `<span class="gantt-lot fam-${fam.toLowerCase()}" style="left:${pct(cursor)};width:${pct(LEN[fam])};--d:${delay}ms">${fam}</span>`
         );
@@ -1104,7 +1150,7 @@
 
     return `
       <div class="gantt-head">
-        <span class="gantt-sku">${countSpan(217, { dur: 1100 })} SKU</span>
+        <span class="gantt-sku">${countSpan(217, { dur: 400 })} SKU</span>
         <span class="viz-legend">
           <span class="legend-item"><i class="legend-swatch is-lot"></i>${escapeHtml(t('vizGanttLot'))}</span>
           <span class="legend-item"><i class="legend-swatch is-change"></i>${escapeHtml(t('vizGanttChange'))}</span>
@@ -1232,8 +1278,8 @@
     [/Google Forms/, 'googleforms'],
     [/Apps Script/, 'googleappsscript'],
     [/Excel|VBA/, 'excel'],
-    [/Power Query/, 'powerquery'],
     [/Power BI/, 'powerbi'],
+    [/Power Query/, 'powerquery'],
     [/Python|openpyxl/, 'python'],
     [/HTML/, 'html5'],
     [/CSS/, 'css'],
@@ -1248,7 +1294,7 @@
     [/Whys|RCA/, 'search'],
     [/SOP/, 'filecheck'],
     [/Output Norms/, 'calculator'],
-    [/DBR|CONWIP|POLCA/, 'workflow']
+    [/WIP|BTP|DBR|CONWIP|POLCA/, 'workflow']
   ];
 
   // Each icon's geometry lives once in a hidden <symbol> sprite; chips reference it with <use>.
@@ -1291,7 +1337,7 @@
   }
 
   /* ========================================================================
-     5d. Project cover — window-framed thumbnail with an animated KPI chip
+     5d. Project cover — window-framed thumbnail with a KPI chip
      ======================================================================== */
   const BLANK_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
@@ -1320,16 +1366,17 @@
                <span class="cover-mask">
                  <span class="cover-mask-inner">
                    ${img(cv.after, 'cover-img')}
-                   <span class="cover-tag is-after">${escapeHtml(t('galleryAfter'))}</span>
                  </span>
                </span>
+               <span class="cover-tag is-after">${escapeHtml(t('galleryAfter'))}</span>
              </span>
            </span>`
         : img(cv, 'cover-img');
 
+    const kpiValue = k ? `${k.prefix || ''}${formatNumber(k.to, k.decimals || 0)}${k.suffix || ''}` : '';
     const kpi = k
       ? `<span class="cover-kpi">
-           <b>${countSpan(k.to, { decimals: k.decimals || 0, prefix: k.prefix || '', suffix: k.suffix || '', delay: 350, dur: 1000 })}</b>
+           <b>${escapeHtml(kpiValue)}</b>
            <span>${escapeHtml(k[currentLang])}</span>
          </span>`
       : '';
@@ -1735,6 +1782,11 @@
     dom.modalDemoLabel.textContent = t('btnLiveDemo');
     dom.modalExternalRow.hidden = !(project.repoUrl || project.demoUrl);
 
+    const renderCaseField = (value) =>
+      Array.isArray(value)
+        ? `<ul class="case-part-list">${value.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
+        : `<p class="case-part-body">${escapeHtml(value)}</p>`;
+
     dom.modalSections.innerHTML = `
       <section class="case-part" aria-labelledby="case-part-context">
         <div class="case-part-head">
@@ -1763,7 +1815,7 @@
           <h3 class="case-part-title" id="case-part-deliverables">${escapeHtml(titles.deliverables)}</h3>
           <i data-lucide="package-check" class="icon-sm"></i>
         </div>
-        <p class="case-part-body">${escapeHtml(c.deliverables)}</p>
+        ${renderCaseField(c.deliverables)}
       </section>
 
       <section class="case-part" aria-labelledby="case-part-results">
@@ -1772,7 +1824,7 @@
           <h3 class="case-part-title" id="case-part-results">${escapeHtml(titles.results)}</h3>
           <i data-lucide="circle-check" class="icon-sm"></i>
         </div>
-        <p class="case-part-body">${escapeHtml(c.results)}</p>
+        ${renderCaseField(c.results)}
       </section>
     `;
 
@@ -1825,7 +1877,7 @@
     void dom.modalRoot.offsetWidth;
     dom.modalRoot.classList.add('is-open');
     dom.modalDialog.focus({ preventScroll: true });
-    playModalViz(alreadyOpen ? 80 : 300);
+    playModalViz(80);
   }
 
   function closeModal() {
