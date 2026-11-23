@@ -191,7 +191,7 @@
       btnRequestCvShort: 'Nhận CV',
       cvRequestTitle: 'Gửi email để nhận CV',
       heroValue:
-        '2 kỳ thực tập nhà máy: tham gia lập lịch sản xuất &amp; đối soát tồn kho trên SAP (MM/PP) cho 217 mã màu tại Thiên Long; đo OEE, phân tích nguyên nhân dừng máy tại Duy Tân Recycling. Tự xây <strong>Form Excel VBA</strong>, <strong>Dashboard Power BI</strong>, <strong>báo cáo QR → Google Sheets</strong> và <strong>công cụ Excel điều độ sản xuất</strong>.',
+        'Sinh viên năm cuối ngành Quản trị Kinh doanh (Khoa Quản lý Công nghiệp – ĐH Bách khoa TP.HCM) với kinh nghiệm qua 2 kỳ thực tập nhà máy tại Tập đoàn Thiên Long và Duy Tân Recycling. Có kỹ năng thực tế trong việc lập lịch sản xuất, đối soát tồn kho trên <strong>SAP (MM/PP)</strong> cho 217 mã màu và phân tích nguyên nhân dừng máy. Có khả năng dựng các công cụ số hóa dữ liệu tại xưởng bằng <strong>Excel VBA</strong>, <strong>Power BI</strong> và <strong>hệ thống báo cáo QR qua Google Sheets</strong> để theo dõi tiến độ lệnh và hiệu suất thiết bị theo thời gian thực.',
       quickZaloAria: 'Nhắn Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
@@ -326,7 +326,7 @@
       btnRequestCvShort: 'Request CV',
       cvRequestTitle: 'Email me to receive my CV',
       heroValue:
-        'Two plant internships: supported SAP (MM/PP) scheduling and inventory reconciliation across 217 marker SKUs at Thien Long; measured OEE and analyzed downtime causes at Duy Tan Recycling. Built <strong>Excel VBA tools</strong>, <strong>Power BI dashboards</strong>, a <strong>QR-to-Sheets output tracker</strong>, and an <strong>Excel production scheduling tool</strong>.',
+        'Final-year Business Administration student (School of Industrial Management – HCMUT) with hands-on experience from two plant internships at Thien Long Group and Duy Tan Recycling. Practical skills in production scheduling, inventory reconciliation on <strong>SAP (MM/PP)</strong> for 217 color SKUs, and machine downtime root-cause analysis. Able to build shop-floor data digitization tools using <strong>Excel VBA</strong>, <strong>Power BI</strong>, and <strong>QR-to-Google-Sheets reporting</strong> to track work-order progress and equipment efficiency in real time.',
       quickZaloAria: 'Message on Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'CV Request — Pham Anh Tuan',
