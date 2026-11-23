@@ -191,7 +191,7 @@
       btnRequestCvShort: 'Nhận CV',
       cvRequestTitle: 'Gửi email để nhận CV',
       heroValue:
-        '2 kỳ thực tập nhà máy: tham gia lập lịch sản xuất &amp; đối soát tồn kho trên SAP (MM/PP) cho 217 mã màu tại Thiên Long; đo OEE, phân tích nguyên nhân dừng máy tại Duy Tân Recycling. Tự xây <strong>Form Excel VBA</strong>, <strong>Dashboard Power BI</strong>, <strong>báo cáo QR → Google Sheets</strong> và <strong>công cụ Excel VBA xếp lịch Gantt &amp; Heijunka</strong>.',
+        '2 kỳ thực tập nhà máy: tham gia lập lịch sản xuất &amp; đối soát tồn kho trên SAP (MM/PP) cho 217 mã màu tại Thiên Long; đo OEE, phân tích nguyên nhân dừng máy tại Duy Tân Recycling. Tự xây <strong>Form Excel VBA</strong>, <strong>Dashboard Power BI</strong>, <strong>báo cáo QR → Google Sheets</strong> và <strong>công cụ Excel điều độ sản xuất</strong>.',
       quickZaloAria: 'Nhắn Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'Yêu cầu CV — Phạm Anh Tuấn',
@@ -326,7 +326,7 @@
       btnRequestCvShort: 'Request CV',
       cvRequestTitle: 'Email me to receive my CV',
       heroValue:
-        'Two plant internships: supported SAP (MM/PP) scheduling and inventory reconciliation across 217 marker SKUs at Thien Long; measured OEE and analyzed downtime causes at Duy Tan Recycling. Built <strong>Excel VBA tools</strong>, <strong>Power BI dashboards</strong>, a <strong>QR-to-Sheets output tracker</strong>, and an <strong>offline Excel VBA Gantt &amp; Heijunka scheduler</strong>.',
+        'Two plant internships: supported SAP (MM/PP) scheduling and inventory reconciliation across 217 marker SKUs at Thien Long; measured OEE and analyzed downtime causes at Duy Tan Recycling. Built <strong>Excel VBA tools</strong>, <strong>Power BI dashboards</strong>, a <strong>QR-to-Sheets output tracker</strong>, and an <strong>Excel production scheduling tool</strong>.',
       quickZaloAria: 'Message on Zalo (+84) 972 693 749',
       quickZaloTitle: 'Zalo: (+84) 972 693 749',
       cvRequestSubject: 'CV Request — Pham Anh Tuan',
@@ -671,17 +671,17 @@
       repoUrl: null,
       visual: 'gantt',
       cover: {
-        src: 'assets/images/projects/prj-03-cover.webp',
-        small: 'assets/images/projects/prj-03-cover-640.webp',
+        src: 'assets/images/projects/prj-03-cover.webp?v=20261123',
+        small: 'assets/images/projects/prj-03-cover-640.webp?v=20261123',
         width: 1200,
         height: 675,
-        kpi: { to: 217, suffix: ' SKU', vi: 'Excel VBA Offline · 3 máy song song', en: 'Offline Excel VBA · 3 parallel machines' },
-        vi: { label: 'Excel VBA Offline (.xlsm) · Gantt & Heijunka', alt: 'Công cụ Excel VBA điều độ sản xuất offline: biểu đồ Gantt theo ca 3 máy song song đã ẩn danh 100% theo NDA' },
-        en: { label: 'Offline Excel VBA (.xlsm) · Gantt & Heijunka', alt: 'Offline Excel VBA production scheduler: 100% NDA-sanitized 3-machine shift Gantt chart' }
+        kpi: { to: 217, suffix: ' SKU', vi: 'Excel điều độ · 3 máy song song', en: 'Excel scheduling · 3 parallel machines' },
+        vi: { label: 'Công cụ Excel điều độ sản xuất', alt: 'Công cụ Excel điều độ sản xuất: biểu đồ Gantt theo ca 3 máy song song đã ẩn danh 100% theo NDA' },
+        en: { label: 'Excel Production Scheduling Tool', alt: 'Excel production scheduling tool: 100% NDA-sanitized 3-machine shift Gantt chart' }
       },
       galleryNote: {
-        vi: 'Lưu ý bảo mật (NDA): Ảnh chụp giao diện công cụ Excel VBA chạy cục bộ (.xlsm) đã được ẩn danh 100% (mã SKU giả lập SKU-01 → SKU-12, dòng sản phẩm A/B, ngày và sản lượng mẫu); không đăng link tải file gốc công khai nhằm đảm bảo bảo mật dữ liệu doanh nghiệp.',
-        en: 'NDA Note: Screenshot of the offline Excel VBA workbook (.xlsm) is 100% anonymized (dummy codes SKU-01 to SKU-12, generic lines A/B, sample date and volumes); no public download link is hosted to protect company data.'
+        vi: 'Lưu ý bảo mật (NDA): Ảnh chụp giao diện công cụ Excel điều độ sản xuất chạy cục bộ (.xlsm) đã được ẩn danh 100% (mã SKU giả lập SKU-01 → SKU-12, dòng sản phẩm A/B, ngày và sản lượng mẫu); không đăng link tải file gốc công khai nhằm đảm bảo bảo mật dữ liệu doanh nghiệp.',
+        en: 'NDA Note: Screenshot of the offline Excel production scheduling workbook (.xlsm) is 100% anonymized (dummy codes SKU-01 to SKU-12, generic lines A/B, sample date and volumes); no public download link is hosted to protect company data.'
       },
       gallery: [
         {
@@ -690,12 +690,12 @@
           height: 338,
           wide: true,
           vi: {
-            alt: 'Giao diện Excel VBA Biểu đồ Gantt theo ca cho cụm 3 máy song song M1–M3 với lưới thời gian 15 phút/ô, khối đổi mã SMED (CD), nút điều hướng ngày Trước/Sau và nút Xem Phiếu LSX (dữ liệu đã ẩn danh 100% theo NDA)',
-            caption: 'Giao diện Excel VBA Offline — Biểu đồ Gantt theo ca (lưới 15p/ô): lịch chạy song song 3 máy M1–M3, tự động chèn khối đổi mã SMED (CD), điều hướng ngày Trước/Sau, nút Xem Phiếu LSX và chú giải cảnh báo chờ BTP / trễ PO (100% dữ liệu mẫu ẩn danh NDA)'
+            alt: 'Giao diện Công cụ Excel điều độ sản xuất: Biểu đồ Gantt theo ca cho cụm 3 máy song song M1–M3 với lưới thời gian 15 phút/ô, khối đổi mã SMED (CD), nút điều hướng ngày Trước/Sau và nút Xem Phiếu LSX (dữ liệu đã ẩn danh 100% theo NDA)',
+            caption: 'Biểu đồ Gantt theo ca trên Excel (lưới 15p/ô): lịch chạy song song 3 máy M1–M3, tự động chèn khối đổi mã SMED (CD), điều hướng ngày Trước/Sau, nút Xem Phiếu LSX và chú giải cảnh báo chờ BTP / trễ PO (100% dữ liệu mẫu ẩn danh NDA)'
           },
           en: {
-            alt: 'Offline Excel VBA Shift Gantt Chart interface for 3 parallel machines M1–M3 on a 15-minute grid with SMED changeover blocks (CD), Previous/Next day navigation buttons, and a Work Order trigger (100% NDA-anonymized sample data)',
-            caption: 'Offline Excel VBA — Shift Gantt Chart (15-min grid): parallel 3-machine schedule (M1–M3), automatic SMED changeover blocks (CD), Previous/Next day navigation, Work Order view button, and WIP-wait / late-PO alerts (100% NDA-sanitized sample data)'
+            alt: 'Excel Production Scheduling Tool interface: Shift Gantt Chart for 3 parallel machines M1–M3 on a 15-minute grid with SMED changeover blocks (CD), Previous/Next day navigation buttons, and a Work Order trigger (100% NDA-anonymized sample data)',
+            caption: 'Shift Gantt Chart in Excel (15-min grid): parallel 3-machine schedule (M1–M3), automatic SMED changeover blocks (CD), Previous/Next day navigation, Work Order view button, and WIP-wait / late-PO alerts (100% NDA-sanitized sample data)'
           }
         }
       ],
@@ -708,12 +708,12 @@
       ],
       vi: {
         orgShort: 'Dự án Cá nhân · Excel Offline (NDA)',
-        title: 'Công cụ Excel VBA Điều độ Sản xuất Song song Gantt & Heijunka (Offline)',
-        highlightBadge: 'Excel VBA Offline (.xlsm) · Xếp lịch song song 3 máy · 100% bảo mật cục bộ',
+        title: 'Công cụ Excel Điều độ Sản xuất',
+        highlightBadge: 'Excel VBA (.xlsm) · Xếp lịch song song 3 máy theo Gantt & Heijunka',
         summary:
-          'Tự xây dựng công cụ Excel VBA chạy hoàn toàn offline (.xlsm) hỗ trợ xếp lịch chạy song song 3 máy theo nguyên lý Heijunka, tự động chèn khoảng đổi mã SMED, kiểm soát trạng thái bán thành phẩm (BTP), trực quan hóa biểu đồ Gantt theo ca (lưới 15 phút/ô) và tra cứu Phiếu lệnh sản xuất.',
+          'Tự xây dựng công cụ Excel chạy cục bộ (.xlsm) hỗ trợ xếp lịch chạy song song 3 máy theo nguyên lý Heijunka, tự động chèn khoảng đổi mã SMED, kiểm soát trạng thái bán thành phẩm (BTP), trực quan hóa biểu đồ Gantt theo ca (lưới 15 phút/ô) và tra cứu Phiếu lệnh sản xuất.',
         timeframeContext:
-          '11/2026 | Công cụ điều độ sản xuất chạy cục bộ trên Microsoft Excel VBA — thiết kế ưu tiên vận hành offline để bảo mật dữ liệu kế hoạch nội bộ (không triển khai web hay chia sẻ file gốc công khai).',
+          '11/2026 | Công cụ điều độ sản xuất chạy cục bộ trên Microsoft Excel — thiết kế vận hành offline để bảo mật dữ liệu kế hoạch nội bộ (không đưa lên web hay chia sẻ file gốc công khai).',
         objective:
           'Tự động hóa việc lập lịch chạy máy song song có ràng buộc thời gian đổi mã (SMED), cân bằng tải (Heijunka) và kiểm tra trạng thái bán thành phẩm (BTP) ngay trong môi trường Excel quen thuộc của bộ phận KHSX, thay thế việc xếp tay rời rạc mà vẫn giữ an toàn tuyệt đối dữ liệu sản xuất nội bộ.',
         deliverables: [
@@ -722,18 +722,18 @@
           'Thanh điều khiển macro trực quan: chọn ngày xem, nút chuyển ngày Trước/Sau, tổng hợp nhanh sản lượng kế hoạch – số lần đổi mã – giờ máy rảnh và nút Xem Phiếu LSX.'
         ],
         results: [
-          'Hoàn thiện công cụ điều độ Gantt & Heijunka chạy cục bộ ngay trên Microsoft Excel, đáp ứng yêu cầu không đưa dữ liệu sản xuất lên môi trường web công khai.',
+          'Hoàn thiện công cụ điều độ sản xuất chạy cục bộ ngay trên Microsoft Excel, đáp ứng yêu cầu không đưa dữ liệu sản xuất lên môi trường web công khai.',
           'Tự động hóa tính toán lịch chạy song song 3 máy, khoảng đổi mã SMED và cảnh báo thiếu BTP / trễ PO thay cho việc tô màu và cộng tay thủ công trên bảng tính.'
         ]
       },
       en: {
         orgShort: 'Independent Project · Offline Excel (NDA)',
-        title: 'Offline Excel VBA Parallel Gantt & Heijunka Production Scheduler (.xlsm)',
-        highlightBadge: 'Offline Excel VBA (.xlsm) · Parallel 3-Machine Scheduling · Local Data Security',
+        title: 'Excel Production Scheduling Tool',
+        highlightBadge: 'Excel VBA (.xlsm) · Parallel 3-Machine Gantt & Heijunka Scheduling',
         summary:
-          'Built a fully offline Excel VBA workbook (.xlsm) to schedule multi-SKU orders across 3 parallel machines using Heijunka leveling, automatic SMED changeover insertion, WIP availability checks, a 15-minute shift Gantt chart, and an integrated Work Order view.',
+          'Built a local Excel workbook (.xlsm) to schedule multi-SKU orders across 3 parallel machines using Heijunka leveling, automatic SMED changeover insertion, WIP availability checks, a 15-minute shift Gantt chart, and an integrated Work Order view.',
         timeframeContext:
-          '11/2026 | Local Microsoft Excel VBA scheduling tool — designed to run 100% offline so factory production plans stay strictly confidential (no public web deployment or file sharing).',
+          '11/2026 | Local Microsoft Excel scheduling tool — designed to run 100% offline so factory production plans stay strictly confidential (no public web deployment or file sharing).',
         objective:
           'Automate parallel machine scheduling constrained by SMED changeovers, Heijunka leveling, and WIP availability directly inside Microsoft Excel, replacing manual spreadsheet plotting while keeping all plant planning data securely on-premise.',
         deliverables: [
@@ -742,7 +742,7 @@
           'Macro control bar with date selector, Previous/Next day navigation, instant shift KPI summary (planned output, changeovers, idle hours), and a one-click Work Order (LSX) view.'
         ],
         results: [
-          'Delivered a self-contained offline Gantt & Heijunka scheduler running natively in Microsoft Excel, eliminating public web/cloud data-exposure risks.',
+          'Delivered a self-contained production scheduling tool running natively in Microsoft Excel, eliminating public web/cloud data-exposure risks.',
           'Automated parallel 3-machine loading, SMED changeover spacing, and WIP/PO risk alerts in place of error-prone manual spreadsheet scheduling.'
         ]
       }
