@@ -200,7 +200,7 @@
       heroName: 'Phạm Anh Tuấn',
       heroTagline:
         'Kế hoạch & Điều độ Sản xuất (Production Planning) · Hỗ trợ Cải tiến Lean/OEE & Tự động hóa Báo cáo',
-      heroStatus: 'Sẵn sàng làm việc Full-time ngay · TP.HCM · Đồng Nai · Bình Dương',
+      heroStatus: 'Sẵn sàng làm việc Full-time · TP.HCM · Đồng Nai · Bình Dương',
       expBlockTitle: 'KINH NGHIỆM TẠI NHÀ MÁY',
       exp1Org: 'Tập đoàn Thiên Long – Nhà máy Long Thành',
       exp1Desc:
@@ -221,7 +221,7 @@
       credCardTitle: 'HỌC VẤN, CHỨNG CHỈ & HOẠT ĐỘNG CLB',
       eduLabel: 'Học vấn',
       eduValue:
-        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Khoa Quản lý Công nghiệp, sinh viên năm cuối chuyên ngành <strong>Quản trị Kinh doanh</strong>. Đã hoàn thành toàn bộ tín chỉ môn học (chỉ còn đồ án tốt nghiệp, dự kiến nhận bằng 11/2027). Sẵn sàng làm việc <strong>full-time ngay</strong>.',
+        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Khoa Quản lý Công nghiệp, sinh viên năm cuối chuyên ngành <strong>Quản trị Kinh doanh</strong>. Đã hoàn thành toàn bộ tín chỉ môn học (chỉ còn đồ án tốt nghiệp, dự kiến nhận bằng 11/2027). Sẵn sàng làm việc <strong>full-time</strong>.',
       certLabel: 'Chứng chỉ',
       leadLabel: 'Hoạt động CLB',
       certOpenDrive: '(mở chứng chỉ trên Google Drive)',
@@ -335,7 +335,7 @@
       heroName: 'Pham Anh Tuan',
       heroTagline:
         'Production Planning & Scheduling · Lean/OEE & Operations Reporting Automation',
-      heroStatus: 'Available Immediately for Full-Time Roles · HCMC · Dong Nai · Binh Duong',
+      heroStatus: 'Available for Full-Time Roles · HCMC · Dong Nai · Binh Duong',
       expBlockTitle: 'SHOP-FLOOR EXPERIENCE',
       exp1Org: 'Thien Long Group – Long Thanh Plant',
       exp1Desc:
@@ -356,7 +356,7 @@
       credCardTitle: 'EDUCATION, CERTIFICATES & CLUB ACTIVITIES',
       eduLabel: 'Education',
       eduValue:
-        '<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — School of Industrial Management, final-year student majoring in <strong>Business Administration</strong>. Completed all coursework credits (only graduation thesis remaining, expected graduation 11/2027). Ready to work <strong>full-time immediately</strong>.',
+        '<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — School of Industrial Management, final-year student majoring in <strong>Business Administration</strong>. Completed all coursework credits (only graduation thesis remaining, expected graduation 11/2027). Ready to work <strong>full-time</strong>.',
       certLabel: 'Certificates',
       leadLabel: 'Club Activities',
       certOpenDrive: '(open certificate on Google Drive)',
