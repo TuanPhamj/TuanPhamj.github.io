@@ -200,7 +200,7 @@
       heroName: 'Phạm Anh Tuấn',
       heroTagline:
         'Kế hoạch & Điều độ Sản xuất (Production Planning) · Hỗ trợ Cải tiến Lean/OEE & Tự động hóa Báo cáo',
-      heroStatus: 'Sẵn sàng nhận việc Full-time ngay · TP.HCM · Đồng Nai · Bình Dương',
+      heroStatus: 'Sẵn sàng làm việc Full-time ngay · TP.HCM · Đồng Nai · Bình Dương',
       expBlockTitle: 'KINH NGHIỆM TẠI NHÀ MÁY',
       exp1Org: 'Tập đoàn Thiên Long – Nhà máy Long Thành',
       exp1Desc:
@@ -221,7 +221,7 @@
       credCardTitle: 'HỌC VẤN, CHỨNG CHỈ & HOẠT ĐỘNG CLB',
       eduLabel: 'Học vấn',
       eduValue:
-        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Khoa Quản lý Công nghiệp, sinh viên năm cuối chuyên ngành <strong>Quản trị Kinh doanh</strong> (2022–2026). Đã hoàn thành chương trình học, có thể làm việc <strong>Full-time</strong>.',
+        '<strong>Đại học Bách khoa – ĐHQG TP.HCM (HCMUT)</strong> — Khoa Quản lý Công nghiệp, sinh viên năm cuối chuyên ngành <strong>Quản trị Kinh doanh</strong>. Đã hoàn thành toàn bộ tín chỉ môn học (chỉ còn đồ án tốt nghiệp, dự kiến nhận bằng 11/2027). Sẵn sàng làm việc <strong>full-time ngay</strong>.',
       certLabel: 'Chứng chỉ',
       leadLabel: 'Hoạt động CLB',
       certOpenDrive: '(mở chứng chỉ trên Google Drive)',
@@ -356,7 +356,7 @@
       credCardTitle: 'EDUCATION, CERTIFICATES & CLUB ACTIVITIES',
       eduLabel: 'Education',
       eduValue:
-        '<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — School of Industrial Management, final-year student majoring in <strong>Business Administration</strong> (2022–2026). Completed all coursework and available to work <strong>full-time</strong>.',
+        '<strong>Ho Chi Minh City University of Technology – VNU-HCM (HCMUT)</strong> — School of Industrial Management, final-year student majoring in <strong>Business Administration</strong>. Completed all coursework credits (only graduation thesis remaining, expected graduation 11/2027). Ready to work <strong>full-time immediately</strong>.',
       certLabel: 'Certificates',
       leadLabel: 'Club Activities',
       certOpenDrive: '(open certificate on Google Drive)',
